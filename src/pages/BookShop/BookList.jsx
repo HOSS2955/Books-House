@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBooks } from "../store/reducers/bookSlice";
+import { getBooks } from "../../store/reducers/bookSlice";
 import BookCard from "./BookCard";
 
 export default function BookList() {

@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import "./MyNav.css";
+import "../assets/css/MyNav.css";
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getTotals } from "../store/reducers/cartSlice";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 export default function MyNav() {
   const { cartTotalQuantity } = useSelector((state) => state.cart);
   const cart = useSelector((state) => state.cart);
@@ -13,14 +14,17 @@ export default function MyNav() {
     dispatch(getTotals());
   }, [cart, dispatch]);
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="lg" className="sticky-top">
       <Container>
-        <Navbar.Brand href="#home">Books Shop</Navbar.Brand>
+        <Navbar.Brand as={Link} to="home">
+          <FontAwesomeIcon icon={faCoffee} />
+          BooksHouse
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <NavLink className="nav-link" to="/">
-              BookShop
+            <NavLink className="nav-link" to="/books">
+              Shop
             </NavLink>
             <NavLink to="cart" className="nav-link">
               Shop Cart

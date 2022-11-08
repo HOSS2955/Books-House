@@ -1,0 +1,4 @@
+.customHeight img {
+  height: 95vh;
+  object-fit: cover;
+}
