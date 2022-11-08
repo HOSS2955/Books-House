@@ -9,8 +9,6 @@ import PasswordPage from "./authPages/passwordPage/PasswordPage"
 import BooksShop from "./components/BooksShop";
 import Cart from "./components/Cart";
 import BookDetails from "./components/BookDetails";
-import Login from "./components/login/Login";
-import PasswordPage from "./components/passwordPage/PasswordPage"
 
 
 function App() {
