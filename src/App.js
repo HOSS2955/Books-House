@@ -1,25 +1,34 @@
 import { Route, Routes } from "react-router-dom";
 
 import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
+import AuthRoutes from "./routes/AuthRoutes";
+import ComponentsRoutes from "./routes/ComponentsRoutes";
+import Login from "./authPages/login/Login"
+import PasswordPage from "./authPages/passwordPage/PasswordPage"
 import BooksShop from "./components/BooksShop";
 import Cart from "./components/Cart";
-import MyNav from "./components/MyNav";
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer } from "react-toastify";
 import BookDetails from "./components/BookDetails";
+
+
 
 function App() {
    return (
-      <div>
-         <MyNav />
-         <ToastContainer />
+      <>
          <Routes>
-            <Route path="/" element={<BooksShop />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/bookdetails/:id" element={<BookDetails />} />
+            <Route path="auth" element={<AuthRoutes />}>
+               <Route path="login" element={<Login />} />
+               <Route path="password" element={<PasswordPage />} />
+            </Route>
+            <Route path="components" element={<ComponentsRoutes />}>
+               <Route path="booksShop" element={<BooksShop />} />
+               <Route path="cart" element={<Cart />} />
+               <Route path="bookdetails/:id" element={<BookDetails />} />
+            </Route>
+
+
          </Routes>
-         {/* <Counter /> */}
-      </div>
+      </>
    );
 }
 
