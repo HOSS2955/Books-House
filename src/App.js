@@ -12,36 +12,40 @@ import Cart from "./components/Cart";
 import BookDetails from "./components/BookDetails";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useNavigate } from "react-router-dom";
+import Register from "./pages/Register/Register";
+import HomeQuery from "./services/homeQuery";
 function App() {
-  const navigate = useNavigate();
-  // const user ={
-  //    id: '1',
-  //    name: 'robin',
-  // }
-  // const user = null
-  const [userData, setUserData] = useState(null);
-  const handleLogin = () => {
-    setUserData({
-      id: "1",
-      name: "robin",
-    });
-    console.log("logged in");
-    navigate("/auth");
-  };
-  console.log(userData);
-  const handleLogout = () => {
-    setUserData({});
-    navigate("/login");
-  };
+  // const navigate = useNavigate();
+  // // const user ={
+  // //    id: '1',
+  // //    name: 'robin',
+  // // }
+  // // const user = null
+  // const [userData, setUserData] = useState(null);
+  // const handleLogin = () => {
+  //   setUserData({
+  //     id: "1",
+  //     name: "robin",
+  //   });
+  //   console.log("logged in");
+  //   navigate("/auth");
+  // };
+  // const handleLogout = () => {
+  //   setUserData({});
+  //   navigate("/login");
+  // };
   return (
     <>
-      {userData ? <p>{userData.name}</p> : <p>Hello</p>}
-      {userData ? (
+      {/* {userData ? <p>{userData.name}</p> : <p>Hello</p>} */}
+      {/* {userData ? (
         <button onClick={handleLogout}>Sign Out</button>
       ) : (
         <button onClick={handleLogin}>Sign In</button>
-      )}
+      )} */}
       <Routes>
+        {/* <Route path="register" element={<Register />} /> */}
+        <Route path="query" element={<HomeQuery />} />
+
         <Route path="auth" element={<AuthRoutes />}>
           <Route path="login" element={<Login />} />
           <Route path="password" element={<PasswordPage />} />
@@ -50,7 +54,7 @@ function App() {
           path="components"
           element={
             <ProtectedRoute
-              userData={userData}
+              // userData={userData}
               //       user={{
               //          id: '1',
               // name: 'robin'
