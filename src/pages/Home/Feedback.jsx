@@ -1,4 +1,5 @@
 import React from "react";
+import FeedBackQuery from "../../services/feedBackQuery"
 // import Swiper from "swiper";
 
 export default function Feedback() {
@@ -24,132 +25,7 @@ export default function Feedback() {
         >
           <div className="col-10">
             <div className="carousel-inner">
-              <div className="carousel-item active">
-                <div className="perant row p-2 d-flex">
-                  <div className="feed1 m-3 p-4  col d-flex   ">
-                    <div className="myImg col-2 d-flex justify-content-center p-1">
-                      <img
-                        src="./alexi-romano-CCx6Fz_CmOI-unsplash.jpg"
-                        className=""
-                        alt=""
-                      />
-                    </div>
-                    <div className="myFeed col-10">
-                      <p className="">
-                        Do you want to be even more successful? Learn to love
-                        learning and growth. The more effort you put into
-                        improving your skills, the bigger the payoff you.
-                      </p>
-                      <h5>Harriet Maxwell</h5>
-                      <p>CEO at Google</p>
-                    </div>
-                  </div>
-                  <div className="feed2 d-sm-none d-lg-flex d-md-flex d-none col m-3 p-4 d-flex">
-                    <div className="myImg col-2 d-flex justify-content-center p-1">
-                      <img
-                        src="./alexi-romano-CCx6Fz_CmOI-unsplash.jpg"
-                        className=""
-                        alt=""
-                      />
-                    </div>
-                    <div className="myFeed col-10">
-                      <p className="">
-                        Do you want to be even more successful? Learn to love
-                        learning and growth. The more effort you put into
-                        improving your skills, the bigger the payoff you.
-                      </p>
-                      <h5>Harriet Maxwell</h5>
-                      <p>CEO at Google</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="carousel-item">
-                <div className="perant row p-2 d-flex ">
-                  <div className="feed1 col m-3 p-4  d-flex ">
-                    <div className="myImg col-2 d-flex justify-content-center p-1">
-                      <img
-                        src="/assets/imgs/projects/xb1.jpg.pagespeed.ic.kt2tbOEfuO.webp"
-                        className=""
-                        alt=""
-                      />
-                    </div>
-                    <div className="myFeed col-10">
-                      <p className="">
-                        Do you want to be even more successful? Learn to love
-                        learning and growth. The more effort you put into
-                        improving your skills, the bigger the payoff you.
-                      </p>
-                      <h5>Harriet Maxwell</h5>
-                      <p>CEO at Google</p>
-                    </div>
-                  </div>
-                  <div className="feed2 d-sm-none d-lg-flex d-md-flex d-none col m-3 p-4 d-flex">
-                    <div className="myImg col-2 d-flex justify-content-center p-1">
-                      <img
-                        src="./alexi-romano-CCx6Fz_CmOI-unsplash.jpg"
-                        className=""
-                        alt=""
-                      />
-                    </div>
-                    <div className="myFeed col-10">
-                      <p className="">
-                        Do you want to be even more successful? Learn to love
-                        learning and growth. The more effort you put into
-                        improving your skills, the bigger the payoff you.
-                      </p>
-                      <h5>Harriet Maxwell</h5>
-                      <p>CEO at Google</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="carousel-item">
-                <div className="perant row p-2 d-flex ">
-                  <div className="feed1  col m-3 p-4  d-flex ">
-                    <div className="myImg col-2 d-flex justify-content-center p-1">
-                      <img
-                        src="./alexi-romano-CCx6Fz_CmOI-unsplash.jpg"
-                        className=""
-                        alt=""
-                      />
-                    </div>
-                    <div className="myFeed col-10">
-                      <p className="">
-                        Do you want to be even more successful? Learn to love
-                        learning and growth. The more effort you put into
-                        improving your skills, the bigger the payoff you.
-                      </p>
-                      <h5>Harriet Maxwell</h5>
-                      <p>CEO at Google</p>
-                    </div>
-                  </div>
-                  <div className="feed2 d-sm-none d-lg-flex d-md-flex d-none col m-3 p-4 d-flex ">
-                    <div className="myImg col-2 d-flex justify-content-center p-1">
-                      <img
-                        src="./alexi-romano-CCx6Fz_CmOI-unsplash.jpg"
-                        className=""
-                        alt=""
-                      />
-                    </div>
-                    <div className="myFeed col-10">
-                      <p className="">
-                        Do you want to be even more successful? Learn to love
-                        learning and growth. The more effort you put into
-                        improving your skills, the bigger the payoff you.
-                      </p>
-                      <h5>Harriet Maxwell</h5>
-                      <p>CEO at Google</p>
-                    </div>
-                  </div>
-                </div>
-                <img
-                  src="marissa-grootes-D4jRahaUaIc-unsplash.jpg"
-                  className="d-block w-50"
-                  alt="..."
-                />
-              </div>
+            <FeedBackQuery/>
             </div>
           </div>
 

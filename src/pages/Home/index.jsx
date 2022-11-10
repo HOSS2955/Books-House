@@ -15,8 +15,8 @@ export default function Home() {
       <MySwiper></MySwiper>
     <Pricing/>
       {/* <MyButton>Hello</MyButton> */}
-
-      <Button variant="outline-success">Hello</Button>
+{/* 
+      <Button variant="outline-success">Hello</Button> */}
     </div>
   );
 }

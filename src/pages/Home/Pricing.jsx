@@ -6,7 +6,6 @@ import ResponseQuery from '../../services/responseQuery';
 const Pricing = () => {
 
   const {packages} = useSelector((state) =>state.res)
-  console.log(packages)
   return (
     <div>
            

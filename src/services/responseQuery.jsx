@@ -1,9 +1,9 @@
-import React , {useEffect} from "react";
+import React  from "react";
 import axios from "axios";
 
 import { useQuery } from "react-query";
-import { resAction } from "../store/reducers/resSlice";
-import { useDispatch } from "react-redux";
+// import { resAction } from "../store/reducers/resSlice";
+// import { useDispatch } from "react-redux";
 
 const ResponseQuery = () => {
 
@@ -76,9 +76,9 @@ const ResponseQuery = () => {
       
         return (
           <div className="d-flex">
-      {data.map((service) =>{
+      {data.map((service , index) =>{
         return(
-        <div
+        <div  key={index}
         className = "col-lg-3 col-md-6 single-price d-flex flex-column justify-content-center"
       >
         <div className = "top-part transition-colors">

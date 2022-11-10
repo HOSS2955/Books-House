@@ -7,7 +7,7 @@ import "swiper/css/bundle";
 import "../../assets/css/swiper.css";
 
 export default function MySwiper(Data) {
-  const feedbacksList = "s";
+  // const feedbacksList = "s";
   return (
     <div>
       <Swiper

@@ -59,20 +59,20 @@
 }
 
 .badge{
-    position:absolute;
-    top:25%;
+    position: absolute;
+    top: 25%;
     right: -8%;
     width: 15px;
     height: 15px;
     content: "";
     background: #212529;
-    color:#fff;
-    border-radius: 50px;
-    display: flex;
+    color: #fff !important;
+    border-radius: 50px!important;
+    display: flex !important;
     align-items: center;
     justify-content: center;
-    font-size: 0.7rem;
-    font-weight: 600;
+    font-size: 0.7rem !important;
+    font-weight: 600 !important;
     z-index: 10;
 }
 
@@ -96,6 +96,7 @@
     height: 70px;
 line-height: 70px;
 position:sticky;
+background-color: white;
 top:0;
 left:0;
 z-index:999;
