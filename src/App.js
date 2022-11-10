@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Cart from "./components/ui/Cart";
 import MyNav from "./components/MyNav";
+import Header from "./components/ui/Header";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import BookDetails from "./pages/BookShop/BookDetails";
@@ -12,7 +13,8 @@ import BooksShop from "./pages/BookShop";
 function App() {
   return (
     <div>
-      <MyNav />
+      {/* <MyNav /> */}
+      <Header/>
       <ToastContainer />
       <Routes>
         <Route path="/books" element={<BooksShop />} />

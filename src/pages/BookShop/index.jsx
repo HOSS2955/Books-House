@@ -1,6 +1,6 @@
 import React from "react";
 import Aside from "../../components/ui/Aside";
-import BookList from "./BookList";
+// import BookList from "./BookList";
 import "../../assets/css/BookShop.css";
 import BooksQuery from "../../services/bookQuery";
 export default function BooksShop() {

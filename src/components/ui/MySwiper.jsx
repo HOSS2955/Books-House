@@ -23,6 +23,7 @@ export default function MySwiper(Data) {
         onSwiper={(swiper) => console.log(swiper)}
         onSlideChange={(e) => console.log("slide change")}
       >
+        {/* Map for data from backend */}
         <SwiperSlide>
           <SwiperData
             feedTitle="Kareem Fahmy"
