@@ -9,7 +9,7 @@ export const FetchHome = () => {
   const [myData, setMyData] = useState([""]);
   const baseUrl = " http://localhost:3005/sliders";
   // const dispatch = useDispatch();
-
+  //useCallback -- > Saving reference value
   const { setDataInLocalState } = homepageActions;
   useEffect(() => {
     const fetchData = async () => {
@@ -24,13 +24,6 @@ export const FetchHome = () => {
     };
     fetchData();
   }, []);
-  return (
-    <div>
-      {myData.map((item, index) => (
-        <span key={index}>{item.title}</span>
-      ))}
-    </div>
-  );
 };
 // .get(baseUrl)
 // (response) => {
