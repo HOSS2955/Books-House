@@ -40,8 +40,8 @@ export default function SliderQuery() {
                   alt="First slide"
                 />
                 <Carousel.Caption>
-                  <h3>{imgDetail.title}</h3>
-                  <p>{imgDetail.desc}</p>
+                  <h3 className="dark">{imgDetail.title}</h3>
+                  <p className="dark">{imgDetail.desc}</p>
                 </Carousel.Caption>
               </Carousel.Item>)
         })}

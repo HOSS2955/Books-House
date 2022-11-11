@@ -10,6 +10,7 @@ import BookDetails from "./pages/BookShop/BookDetails";
 import Home from "./pages/Home";
 import BooksShop from "./pages/BookShop";
 import Footer from "./components/ui/Footer";
+import About from "./pages/About";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/bookdetails/:id" element={<BookDetails />} />
+        <Route path="/about" element={<About/>}/>
       </Routes>
       {/* <Counter /> */}
       <Footer/>

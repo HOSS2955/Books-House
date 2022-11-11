@@ -14,9 +14,9 @@ const Footer = () => {
         <Row>
           <Col lg='4'>
             <div className="logo">
-            <img src="./images/eco-logo.png" alt="logo"/>
+            <img src="./images/hero_1.jpg" alt="logo"/>
               <div>
-                <h1 className="text-white">Furniture</h1>
+                <h1>Furniture</h1>
               </div>
 
              
@@ -29,19 +29,19 @@ const Footer = () => {
             <div className="footer__quick-links">
               <h4 className="quick__links-title">Top Categories</h4>
               <ListGroup className="mb-3">
-                <ListGroupItem className="ps-0 border-0">
+                <ListGroupItem className="ps-0 border-0 bg-transparent">
                   <Link to="#">Mobile Phones</Link>
                 </ListGroupItem>
 
-                <ListGroupItem className="ps-0 border-0">
+                <ListGroupItem className="ps-0 border-0  bg-transparent">
                   <Link to="#">Modern Sofa</Link>
                 </ListGroupItem>
 
-                <ListGroupItem className="ps-0 border-0">
+                <ListGroupItem className="ps-0 border-0  bg-transparent">
                   <Link to="#">Arm Chair</Link>
                 </ListGroupItem>
 
-                <ListGroupItem className="ps-0 border-0">
+                <ListGroupItem className="ps-0 border-0  bg-transparent">
                   <Link to="#">Smart watches</Link>
                 </ListGroupItem>
               </ListGroup>
@@ -51,19 +51,19 @@ const Footer = () => {
           <div className="footer__quick-links">
               <h4 className="quick__links-title">Useful Links</h4>
               <ListGroup className="mb-3">
-                <ListGroupItem className="ps-0 border-0">
+                <ListGroupItem className="ps-0 border-0  bg-transparent">
                   <Link to="shop">Shop</Link>
                 </ListGroupItem>
 
-                <ListGroupItem className="ps-0 border-0">
+                <ListGroupItem className="ps-0 border-0  bg-transparent">
                   <Link to="cart">Cart</Link>
                 </ListGroupItem>
 
-                <ListGroupItem className="ps-0 border-0">
+                <ListGroupItem className="ps-0 border-0  bg-transparent">
                   <Link to="login">ALogin</Link>
                 </ListGroupItem>
 
-                <ListGroupItem className="ps-0 border-0">
+                <ListGroupItem className="ps-0 border-0  bg-transparent">
                   <Link to="#">Privacy Policy</Link>
                 </ListGroupItem>
               </ListGroup>
@@ -73,17 +73,17 @@ const Footer = () => {
           <div className="footer__quick-links">
               <h4 className="quick__links-title">Contact</h4>
               <ListGroup className="footer__contact">
-                <ListGroupItem className="ps-0 border-0 d-flex align-item-center gap-2">
+                <ListGroupItem className="ps-0 border-0 d-flex align-item-center gap-2  bg-transparent">
                   <span><i className="ri-map-pin-line"></i></span>
                   <p>123 AbasElakad st , Nasr City-Cairo</p>
                 </ListGroupItem>
 
-                <ListGroupItem className="ps-0 border-0 d-flex align-item-center gap-2">
+                <ListGroupItem className="ps-0 border-0 d-flex align-item-center gap-2  bg-transparent">
                 <span><i className="ri-phone-line"></i></span>
                   <p>+20 01013898149</p>
                 </ListGroupItem>
 
-                <ListGroupItem className="ps-0 border-0 d-flex align-item-center gap-2">
+                <ListGroupItem className="ps-0 border-0 d-flex align-item-center gap-2  bg-transparent">
                 <span><i className="ri-mail-line"></i></span>
                   <p>mirnamilad0101@gmail.com</p>
                 </ListGroupItem>

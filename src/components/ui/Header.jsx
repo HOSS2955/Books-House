@@ -4,7 +4,8 @@ import '../../assets/css/Header.css';
 // import logo from '../../assets/images/eco-logo.png'
 
 import {motion} from 'framer-motion';
-import { FaHeart , FaShoppingBag} from 'react-icons/fa';
+import { FiHeart} from 'react-icons/fi';
+import {BsBag} from 'react-icons/bs'
 
 // import { Container , Row} from 'reactstrap';
 
@@ -63,11 +64,11 @@ const Header = () => {
                 <div className="nav__icons">
 
                   <span className="fav__icon">
-                    <FaHeart/>
-                  <span className="badge">1</span>
+                    <FiHeart/>
+                  <span className="__badge">1</span>
                   </span>
-                  <span className ="cart__icon"><FaShoppingBag/>
-                  <span className="badge">1</span>
+                  <span className ="cart__icon"><BsBag/>
+                  <span className="__badge">1</span>
                   </span>
                   <span>
                     <motion.img whileTap={{scale:1.2}} src="./images/user-icon.png" alt="user icon"/>
