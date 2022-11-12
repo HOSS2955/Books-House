@@ -1,7 +1,9 @@
 import React from "react";
 import axios from "axios";
+import { SwiperSlide } from "swiper/react";
 
 import { useQuery } from "react-query";
+import SwiperData from "../components/ui/swiper/SwiperData";
 
 const FeedBackQuery = () => {
 
@@ -27,46 +29,19 @@ const FeedBackQuery = () => {
 
 
     return (
-      <div>
+      <>
         {data.map((feedback, index) => {
-          return <div key={index} className={index === 0? "carousel-item active": "carousel-item" }>
-          <div className="perant row p-2 d-flex ">
-            <div className="feed1 col m-3 p-4  d-flex ">
-              <div className="myImg col-2 d-flex justify-content-center p-1">
-                <img
-                  src={feedback.img}
-                  className=""
-                  alt=""
-                />
-              </div>
-              <div className="myFeed col-10">
-                <p className="">
-                  {feedback.paragraph}
-                </p>
-                <h5>{feedback.title}</h5>
-                <p>{feedback.desc}</p>
-              </div>
-            </div>
-            <div className="feed2 d-sm-none d-lg-flex d-md-flex d-none col m-3 p-4 d-flex">
-              <div className="myImg col-2 d-flex justify-content-center p-1">
-                <img
-                  src={feedback.img}
-                  className=""
-                  alt=""
-                />
-              </div>
-              <div className="myFeed col-10">
-                <p className="">
-                {feedback.paragraph}
-                </p>
-                <h5>{feedback.title}</h5>
-                <p>{feedback.desc}</p>
-              </div>
-            </div>
-          </div>
-        </div>
+          return <SwiperSlide  className="bg-light"  key={index}>
+          <SwiperData
+            feedTitle={feedback.title}
+            feedPosition={feedback.desc}
+            imgSrc={feedback.img}
+          >
+            {feedback.paragraph}
+          </SwiperData>
+          </SwiperSlide>
         })}
-      </div>
+      </>
     );
   }
       

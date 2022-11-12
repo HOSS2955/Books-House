@@ -9,24 +9,10 @@ line-height: 30px;
 color:black;
 }
 
-/* .footer__quick-links ul li{
-    background: transparent !important;
-} */
-
-/* .footer__quick-links ul li a{
-    color:rgb(232, 232, 232);
-    text-decoration:none;
-} */
-
 .quick__links-title{
     margin-bottom: 30px;
     /* color:#fff; */
     font-size: 1.1rem;
-}
-
-.footer__contact li span ,
-.footer__contact li p {
-    /* color:rgb(232, 232, 232) */
 }
 
 .footer__contact li span{

@@ -5,15 +5,16 @@ import "../../assets/css/Home.css";
 import HomeCarousel from "./HomeCarousel";
 import Feedback from "./Feedback";
 // import MyButton from "../../components/ui/MyButton";
-import MySwiper from "../../components/ui/MySwiper";
 import Pricing from "./Pricing";
+import WallOfFames from "./WallOfFames";
 export default function Home() {
   return (
     <div>
       <HomeCarousel></HomeCarousel>
-      <Feedback></Feedback>
-      <MySwiper></MySwiper>
+      
+      <WallOfFames></WallOfFames>
     <Pricing/>
+    <Feedback></Feedback>
       {/* <MyButton>Hello</MyButton> */}
 {/* 
       <Button variant="outline-success">Hello</Button> */}

@@ -2,7 +2,3 @@
     height:200px;
     background-color: var(--primary);
 }
-img{
-    object-fit: cover;
-    animation: fadeIn
-}

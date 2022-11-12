@@ -32,11 +32,6 @@ div.row.pricing__cards{
       .single-price:hover .bottom-part a{
       display:block;
       }
-      /* .single-price:hover{ */
-        /* transition: all .3s ease 0s;
-        z-index: 2;
-        transform: scale(1.05); */
-      /* } */
       .single-price:hover h1{
         color:black;
         background:transparent;

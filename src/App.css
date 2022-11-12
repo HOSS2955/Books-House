@@ -3,6 +3,7 @@
 :root {
   --primary: rgb(241,241,241);
   --secondary: rgb(220,177,74);
+  --dark:gray;
   /* --bs-secondary-rgb: 98, 189, 252;
   --bs-light: #f9f9ff;
   --bs-dark: #04091e;
@@ -24,6 +25,14 @@ a:hover{
 }
 .dark{
   color:black;
+}
+.swiper-button-next,
+.swiper-button-prev {
+    color: var(--dark) !important;
+}
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    color: var(--secondary) !important;
 }
 
 

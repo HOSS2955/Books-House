@@ -1,5 +1,5 @@
 import React from "react";
-import FeedBackQuery from "../../services/feedBackQuery"
+import FeedBackSwiper from "../../components/ui/swiper/FeedBackSwiper";
 // import Swiper from "swiper";
 
 export default function Feedback() {
@@ -7,29 +7,43 @@ export default function Feedback() {
 
   
   return (
-    <section className="feedback d-flex flex-column align-items-center">
-      <div className="feedbackHeader d-flex flex-column  ">
-        <h1 className="fw-semibold d-flex justify-content-center mt-5">
-          Client’s Testmonials
-        </h1>
-        <p className="mb-4 d-flex justify-content-center">
-          It is very easy to start smoking but it is an uphill task to quit it.
+    <div class="container">
+      <section class="section bg-white">
+        <div class="row d-flex justify-content-center">
+          <div class="menu-content pb-70 col-lg-8 mb-4">
+            <div class="title text-center">
+              <h1 className='fw-semibold'>Client’s Testmonials</h1>
+              <p class="text-muted text-sm">
+              It is very easy to start smoking but it is an uphill task to quit it.
           Ask any chain smoker or even a person.
         </p>
       </div>
-      <div className="myslider d-lg-flex flex-md-column justify-content-center ms-auto ps-5 pt-4 pb-4 pe-auto">
+      </div>
+      </div>
+          <FeedBackSwiper/>
+      </section>
+      </div>
+      
+  );
+}
+
+
+
+
+
+{/* <div className="myslider d-lg-flex flex-md-column justify-content-center ms-auto ps-5 pt-4 pb-4 pe-auto">
         <div
           id="carouselExampleControls"
           className="carousel slide  d-flex flex-lg-row flex-md-column flex-sm-column flex-column"
           data-bs-ride="carousel"
         >
           <div className="col-10">
-            <div className="carousel-inner">
+            <div className="carousel-inner bg-white">
             <FeedBackQuery/>
             </div>
-          </div>
+          </div> */}
 
-          <div className="col-1 myControls d-flex justify-content-center align-items-center flex-lg-column flex-md-row flex-sm-row  ">
+          {/* <div className="col-1 myControls d-flex justify-content-center align-items-center flex-lg-column flex-md-row flex-sm-row  ">
             <button
               className="carousel-control-prev  hover-shadow pt-2 pb-2 pl-4 pr-4  bg-body "
               type="button"
@@ -48,9 +62,7 @@ export default function Feedback() {
               <i className="fa-solid fa-arrow-down-long  "></i>
               <span className="visually-hidden">Next</span>
             </button>
-          </div>
-        </div>
+          </div> */}
+        {/* </div>
       </div>
-    </section>
-  );
-}
+    </section> */}
