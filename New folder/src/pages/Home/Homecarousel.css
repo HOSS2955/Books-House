@@ -1,0 +1,30 @@
+.customHeight img {
+  height: 95vh;
+  object-fit: cover;
+}
+.carousel-caption{
+  margin-bottom: 10%;
+}
+.buy__btn{
+  border: none;
+  outline: none;
+  padding: 21px 75px !important;
+  border-radius: 5px;
+  background:var(--secondary);
+  cursor: pointer !important;
+  font-size: 1rem;
+  margin-top: 40px !important;
+  top: 73%;
+  left: 42%;
+  font-weight: 600;
+}
+.buy__btn a:hover{
+  color:#fff
+}
+
+.store__btn a{
+  text-decoration:none;
+  color:black;
+}
+
+
