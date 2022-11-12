@@ -9,6 +9,7 @@ import {
 } from "../store/reducers/cartSlice";
 
 import { Link } from "react-router-dom";
+import PayButton from "./PayButton";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
@@ -30,6 +31,7 @@ const Cart = () => {
   const handleClearCart = () => {
     dispatch(clearCart());
   };
+
   return (
     <div className="cart-container">
       <h2>Shopping Cart</h2>
@@ -101,7 +103,9 @@ const Cart = () => {
                 <span className="amount">${cart.cartTotalAmount}</span>
               </div>
               <p>Taxes and shipping calculated at checkout</p>
-              <button>Check out</button>
+
+              <PayButton cartItems={cart.cartItems} />
+
               <div className="continue-shopping">
                 <Link to="/">
                   <svg
