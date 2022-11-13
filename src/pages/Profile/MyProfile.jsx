@@ -1,7 +1,7 @@
 import React from "react";
 import "./Profile.css";
 
-export default function Profile() {
+export default function MyProfile() {
   return (
     <div className="profile">
       <div className="container-xl px-4 mt-4 rounded">
