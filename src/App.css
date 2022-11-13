@@ -35,8 +35,12 @@ a:hover{
     color: var(--secondary) !important;
 }
 
-
-
+img{
+  width:100%;
+}
+section{
+  padding : 60px 0px;
+}
 
 
 

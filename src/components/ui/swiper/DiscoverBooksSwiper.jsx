@@ -24,7 +24,7 @@ const WhatWillWeDiscoverSwiper = () => {
             spaceBetween={100}
             centeredSlides={false}
             loop={true}
-            slidesPerView={3}
+            slidesPerView={4}
             autoplay={{
                 delay: 2500,
                 disableOnInteraction: false,

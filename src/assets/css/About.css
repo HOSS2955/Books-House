@@ -2,3 +2,12 @@
     height:200px;
     background-color: var(--primary);
 }
+.about__img{
+    height: 593px;
+}
+ul li{
+    list-style-type: circle;
+    list-style-position: inside;
+    margin: 0;
+  padding: 0;
+}

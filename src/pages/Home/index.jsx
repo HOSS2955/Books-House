@@ -12,8 +12,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { homepageActions } from "../../store/reducers/homepageSlice";
 import { useUpdateHomepageDataQuery } from "../../features/apiSlice";
 import { useCallback } from "react";
-import AboutUs from "./AboutUs";
-import WhatWillWeDiscover from "./WhatWillWeDiscover";
+import AboutUs from "../About/AboutUs";
+import DiscoverBooks from "./DiscoverBooks";
+import Header from "./Header";
 
 export default function Home() {
 
@@ -37,16 +38,19 @@ const updateHandler=useCallback((slider)=>
 
   return (
     <div>
-      <HomeCarousel></HomeCarousel>
+      {/* <HomeCarousel></HomeCarousel> */}
       {/* <div >
     {sliderData.map((slider , index) => (<div key={index}><p>{slider.title}</p> <button onClick={()=>updateHandler(slider)}>click here</button></div>) )}
     
         </div> */}
+        <Header/>
+        <section className="section">
         <AboutUs/>
+        </section>
       <WallOfFames></WallOfFames>
     <Pricing/>
     <Feedback></Feedback>
-    <WhatWillWeDiscover/>
+    <DiscoverBooks/>
       {/* <MyButton>Hello</MyButton> */}
 {/* 
       <Button variant="outline-success">Hello</Button> */}

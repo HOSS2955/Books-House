@@ -10,7 +10,8 @@ import { IoBagHandleOutline } from "react-icons/io5";
 export default function ItemCard({ book }) {
    const [showbtns, setShowbtns] = useState(false);
    return (
-      <div className=" col-sm-12 col-md-4 mb-3">
+      // <div className=" col-sm-12 col-md-4 mb-3">
+      <div>
          <motion.div
             onHoverStart={() => {
                setShowbtns(true);

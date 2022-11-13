@@ -1,21 +1,25 @@
-import React from 'react'
+import React from 'react';
+
+import AboutUs from './AboutUs';
 
 const OurGoals = () => {
   return (
     <section className="section">
-    <div class="container">
+      
+      <AboutUs/>
+    <div className="container">
         <div className="row">
-          <div className="col-4">
-          <h6 className="fw-bold">ABOUT US</h6>
-          <p>Established in 2016, CyShield is a leading digital services company with specializations in Artificial Intelligence, Cyber Security, Data Science, IoT and Software Engineering. CyShield works with large companies including financial, media, healthcare and governmental organizations.</p>
+          <div className="col-4 p-5">
+          <h6 className="fw-bold mb-4">ABOUT US</h6>
+          <p className='text-muted'>Established in 2016, BooksHouse is a leading digital services company with specializations in Artificial Intelligence, Cyber Security, Data Science, IoT and Software Engineering. BooksHouse works with large companies including financial, media, healthcare and governmental organizations.</p>
         </div>
-        <div className="col-4">
-          <h6 className="fw-bold">OUR GOALS</h6>
-          <p>The fundamental purpose of CYSHIELD core values and behaviors is to drive better work and working lives. Our main aim is to maintain an environment of innovation and collaboration for our top-notch talents, act as reliable business partners, and empower our customers with secure-by-design digital services; in turn shield their digital assets and defend themselves against technological threats.</p>
+        <div className="col-4 p-5">
+          <h6 className="fw-bold mb-4">OUR GOALS</h6>
+          <p className='text-muted'>The fundamental purpose of BooksHouse core values and behaviors is to drive better work and working lives. Our main aim is to maintain an environment of innovation and collaboration for our top-notch talents, act as reliable business partners, and empower our customers with secure-by-design digital services; in turn shield their digital assets and defend themselves against technological threats.</p>
         </div>
-        <div className="col-4">
-          <h6 className="fw-bold">CYSHIELD WAY</h6>
-          <ul>
+        <div className="col-4 p-5">
+          <h6 className="fw-bold mb-4">BooksHouse WAY</h6>
+          <ul className='text-muted'>
             <li>Valuing people.</li>
             <li>Equity over Equality.</li>
             <li>Act with Integrity.</li>

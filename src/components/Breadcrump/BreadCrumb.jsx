@@ -9,8 +9,8 @@ export default function BreadCrumb({ title, breadCrumb }) {
                <div>
                   <h1 className="text-capitalize">{title}</h1>
                </div>
-               <ol class="breadcrumb">
-                  <li class="breadcrumb-item">
+               <ol className="breadcrumb">
+                  <li className="breadcrumb-item">
                      <a
                         className="link-bread fw-bold text-capitalize"
                         href="home"
@@ -19,7 +19,7 @@ export default function BreadCrumb({ title, breadCrumb }) {
                      </a>
                   </li>
                   <li
-                     class="breadcrumb-item active fw-semi-bold text-capitalize"
+                     className="breadcrumb-item active fw-semi-bold text-capitalize"
                      aria-current="page"
                   >
                      {breadCrumb}
