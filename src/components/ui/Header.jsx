@@ -28,7 +28,7 @@ const nav__links = [
       display: "Authors House",
    },
 ];
-const Header = () => {
+const Header = ({ showModal }) => {
    const headerRef = useRef(null);
 
    const stickyHeaderFunc = () => {
@@ -71,7 +71,7 @@ const Header = () => {
                      </ul>
                   </div>
                   <div className="nav__icons">
-                     <span className="fav__icon">
+                     <span onClick={showModal} className="fav__icon">
                         <FiHeart />
                         <span className="__badge">1</span>
                      </span>
