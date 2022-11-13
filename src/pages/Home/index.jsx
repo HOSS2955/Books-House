@@ -1,4 +1,4 @@
-import React , {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Button } from "react-bootstrap";
 import "../../assets/css/Home.css";
 // import { Carousel } from "react-bootstrap";
@@ -7,15 +7,19 @@ import Feedback from "./Feedback";
 // import MyButton from "../../components/ui/MyButton";
 import Pricing from "./Pricing";
 import WallOfFames from "./WallOfFames";
-import { useGetHomepageDataQuery, useUpdateHomepageDataMutation } from "../../features/apiSlice";
+import {
+  useGetHomepageDataQuery,
+  useUpdateHomepageDataMutation,
+} from "../../features/apiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { homepageActions } from "../../store/reducers/homepageSlice";
 import { useUpdateHomepageDataQuery } from "../../features/apiSlice";
 import { useCallback } from "react";
+import AboutUs from "../About/AboutUs";
+import DiscoverBooks from "./DiscoverBooks";
+import Header from "./Header";
 
 export default function Home() {
-
-
   const { data, isError, isLoading } = useGetHomepageDataQuery();
   const dispatch = useDispatch();
   const { setDataInLocalState } = homepageActions;
@@ -23,28 +27,33 @@ export default function Home() {
   useEffect(() => {
     if (data) {
       dispatch(setDataInLocalState(data));
-      console.log(data)
+      console.log(data);
     }
   }, [dispatch, data]);
 
-
-  const [updateHomepageData]=useUpdateHomepageDataMutation();
-const updateHandler=useCallback((slider)=>
-  updateHomepageData({...slider , title:"Mirna Milad"}),[updateHomepageData]
-)
+  const [updateHomepageData] = useUpdateHomepageDataMutation();
+  const updateHandler = useCallback(
+    (slider) => updateHomepageData({ ...slider, title: "Mirna Milad" }),
+    [updateHomepageData]
+  );
 
   return (
     <div>
-      <HomeCarousel></HomeCarousel>
+      {/* <HomeCarousel></HomeCarousel> */}
       {/* <div >
     {sliderData.map((slider , index) => (<div key={index}><p>{slider.title}</p> <button onClick={()=>updateHandler(slider)}>click here</button></div>) )}
     
         </div> */}
+      <Header />
+      <section className="section">
+        <AboutUs />
+      </section>
       <WallOfFames></WallOfFames>
-    <Pricing/>
-    <Feedback></Feedback>
+      <Pricing />
+      <Feedback></Feedback>
+      <DiscoverBooks />
       {/* <MyButton>Hello</MyButton> */}
-{/* 
+      {/* 
       <Button variant="outline-success">Hello</Button> */}
     </div>
   );

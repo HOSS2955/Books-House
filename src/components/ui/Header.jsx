@@ -1,10 +1,13 @@
 import React, { useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "../../assets/css/Header.css";
+// import logo from '../../assets/images/eco-logo.png'
 
 import { motion } from "framer-motion";
 import { FiHeart } from "react-icons/fi";
 import { BsBag } from "react-icons/bs";
+
+// import { Container , Row} from 'reactstrap';
 
 const nav__links = [
    {

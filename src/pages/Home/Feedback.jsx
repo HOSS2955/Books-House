@@ -7,13 +7,13 @@ export default function Feedback() {
 
   
   return (
-    <div class="container">
-      <section class="section bg-white">
-        <div class="row d-flex justify-content-center">
-          <div class="menu-content pb-70 col-lg-8 mb-4">
-            <div class="title text-center">
+    <div className="container">
+      <section className="section bg-white">
+        <div className="row d-flex justify-content-center">
+          <div className="menu-content pb-70 col-lg-8 mb-4">
+            <div className="title text-center">
               <h1 className='fw-semibold'>Client’s Testmonials</h1>
-              <p class="text-muted text-sm">
+              <p className="text-muted text-sm">
               It is very easy to start smoking but it is an uphill task to quit it.
           Ask any chain smoker or even a person.
         </p>

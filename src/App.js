@@ -1,13 +1,18 @@
 import { Route, Routes } from "react-router-dom";
 
 import "./App.css";
-import Cart from "./components/ui/Cart";
+import Cart from "./components/Cart/Cart";
 // import MyNav from "./components/MyNav";
 import Header from "./components/ui/Header";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Home from "./pages/Home";
 import BooksShop from "./pages/BookShop/index";
+import Footer from "./components/ui/Footer";
+import About from "./pages/About";
+import Service from "./pages/Service/Service";
+import Contactus from "./pages/Contactus/Contactus";
+import Profile from "./pages/Profile/Profile/index";
 import Footer from "./components/ui/Footer";
 import About from "./pages/About";
 import AuthorsHouse from "./pages/AuthorsHouse";
