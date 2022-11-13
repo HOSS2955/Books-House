@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import validator from "validator";
 import "./Login.css";
 
-export default function Login() {
+export default function FargotPass() {
   //The state of the error message
   const [passErrMsg, setPassErrMessage] = useState("");
   const [emailErrMsg, setEmailErrMsg] = useState("");
@@ -57,9 +57,9 @@ export default function Login() {
   // function changes the state of displaying the error message
   const onDisplayErrorMsg = (e) => {
     console.log(e.target.value);
-    if (e.target.name === "password") {
+    if (e.target.name == "password") {
       setDisplayPassErrorMsg(true);
-    } else if (e.target.name === "email") {
+    } else if (e.target.name == "password2") {
       setDisplayEmailErrorMsg(true);
     }
   };
@@ -76,49 +76,12 @@ export default function Login() {
         <div className="centeredElement">
           <div className="auth">
             <h5 className="my-5">Log in to Bookshouse</h5>
-            <div className="mb-5">
-              {/* if the user clicked outside the input the status of the error message will appear */}
-              <InputGroup className="userInput">
-                {/* user icon */}
-                <InputGroup.Text id="basic-addon1" className="invalid">
-                  <FaUserAlt />
-                </InputGroup.Text>
-                {/* username or email input */}
-                <Form.Control
-                  name="email"
-                  onBlur={onDisplayErrorMsg}
-                  onChange={(e) => validateEmail(e.target.value)}
-                  aria-label="Email Input"
-                  placeholder="Email"
-                  style={{
-                    borderLeft:
-                      emailErrMsg === "Accepted Email ✔"
-                        ? "4px solid green"
-                        : emailErrMsg === ""
-                        ? "none"
-                        : "5px solid red",
-                    boxShadow: "none",
-                  }}
-                />
-              </InputGroup>
-              {/* for displaying the status of the input */}
-              {displayEmailErrorMsg && (
-                <Form.Text
-                  className="errorMsg text-small float-start fw-semibold"
-                  style={{
-                    color:
-                      emailErrMsg === "Accepted Email ✔" ? "green" : "#d21313",
-                  }}
-                >
-                  {emailErrMsg}
-                </Form.Text>
-              )}
-            </div>
+
             <div className="mb-5">
               {/* if the user clicked outside the input the status of the error message will appear */}
               <InputGroup className="userInput mb-2" onBlur={onDisplayErrorMsg}>
                 {/* password icon */}
-                <InputGroup.Text id="basic-addon2">
+                <InputGroup.Text id="basic-addon">
                   <FaLock />
                 </InputGroup.Text>
                 {/* Password input */}
@@ -152,45 +115,51 @@ export default function Login() {
                 </Form.Text>
               )}
             </div>
-            {/*For loging in the website using email*/}
+            <div className="mb-5">
+              {/* if the user clicked outside the input the status of the error message will appear */}
+              <InputGroup className="userInput mb-2" onBlur={onDisplayErrorMsg}>
+                {/* password icon */}
+                <InputGroup.Text id="basic-addon2">
+                  <FaLock />
+                </InputGroup.Text>
+                {/* Password input */}
+                <Form.Control
+                  type="password"
+                  name="password2"
+                  onChange={(e) => validatePass(e.target.value)}
+                  aria-label="Re-enter your password"
+                  placeholder="Re-enter your password"
+                  style={{
+                    borderLeft:
+                      passErrMsg === "Strong Password ✔"
+                        ? "4px solid green"
+                        : passErrMsg === ""
+                        ? "none"
+                        : "5px solid red",
+                    boxShadow: "none",
+                  }}
+                />
+              </InputGroup>
+              {/* for displaying the status of the input */}
+              {displayPassErrorMsg && (
+                <Form.Text
+                  className="errorMsg text-small float-start fw-semibold"
+                  style={{
+                    color:
+                      passErrMsg === "Strong Password ✔" ? "green" : "#d21313",
+                  }}
+                >
+                  {passErrMsg}
+                </Form.Text>
+              )}
+            </div>
 
             <button
               className="btn btn-dark w-100 mb-4 mt-2 fw-semibold text-small"
               disabled={isDisabled}
               type="submit"
             >
-              Log In
-            </button>
-            <div className="divider or mb-4">
-              <hr className="hrLeft" />
-              or
-              <hr className="hrRight" />
-            </div>
-            {/*For loging in the website using google account*/}
-            <button className="btn btn-primary w-100 mb-4 fw-semibold google text-small">
-              <FcGoogle className="googleSvg" />
-              Continue with Google
-            </button>
-            <br></br>
-            {/*For loging in the website using apple account*/}
-            <button className="btn btn-outline-dark w-100 fw-semibold d-flex justify-content-center align-items-center text-small">
-              <FaApple className="me-1" />
-              Continue with Apple
-            </button>
-            <div className="divider acc mt-5">
-              {/* If the user doesn`t have an account` */}
-              <hr className="hrLeft text-small" />
-              <Link to="/auth/signup">
-                <a>Don`t have a Bookshouse account?</a>
-              </Link>
-              <hr className="hrRight" />
-            </div>
-            {/* SignUp button that will be disabled if the form is not valid */}
-            <button
-              className="btn btn-outline-dark mt-4 mb-4 fw-semibold text-small signUp "
-              onClick={signupHandler}
-            >
-              Sign Up
+              Reset Password
             </button>
           </div>
         </div>
@@ -198,3 +167,30 @@ export default function Login() {
     </Form>
   );
 }
+
+// <div className="divider or mb-4">
+//           <hr className="hrLeft" />
+//           or
+//           <hr className="hrRight" />
+//         </div>
+//         <button className="btn btn-primary w-100 mb-4 fw-semibold google text-small">
+//           <FcGoogle className="googleSvg" />
+//           Continue with Google
+//         </button>
+//         <br></br>
+//         <button className="btn btn-outline-dark w-100 fw-semibold d-flex justify-content-center align-items-center text-small">
+//           <FaApple className="me-1" />
+//           Continue with Apple
+//         </button>
+//         <div className="divider acc mt-5">
+//           <Link to="/auth/signup">
+//             <a>Don`t have a Bookshouse account?</a>
+//           </Link>
+//           <hr className="hrRight" />
+//         </div>
+//         <button
+//           className="btn btn-outline-dark mt-4 mb-4 fw-semibold text-small signUp "
+//           onClick={signupHandler}
+//         >
+//           Sign Up
+//         </button>

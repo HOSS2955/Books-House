@@ -1,51 +1,134 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { FaLock } from "react-icons/fa";
+import { GoEye } from "react-icons/go";
+import { BsEyeSlash } from "react-icons/bs";
 import "./PasswordPage.css";
 import validator from "validator";
 import AuthFooter from "../AuthFooter/AuthFooter";
 
+import { useNavigate } from "react-router-dom";
 export default function PasswordPage() {
   //The state of the error message
-  const [errorMessage, setErrorMessage] = useState("");
-  // The state of the button to be abled or disapled according to the validation
+  const [equalPass, setEqualPass] = useState(false);
+  const [showPass, setShowPass] = useState(false);
   const [isDisabled, setDisabled] = useState(true);
-  // for displaying the error message if the input is invalid
-  const [displayErrorMsg, setDisplayErrorMsg] = useState(true);
+  const [displayPassErrMsg, setDisplayPassErrMsg] = useState("");
+  const [displayRePassErrMsg, setDisplayRePassErrMsg] = useState("");
   // npm validator to validate the password
-  const validate = (value) => {
-    if (
-      validator.isStrongPassword(value, {
-        minLength: 8,
-        minLowercase: 1,
-        minUppercase: 1,
-        minNumbers: 1,
-        minSymbols: 1,
-      })
-    ) {
-      // if the password is valid
-      setErrorMessage("Accepted password enjoy reading :)");
+  const navigate = useNavigate();
+  const passRef = useRef(null);
+  const repassRef = useRef(null);
+  const equalValues = passRef?.current?.value === repassRef?.current?.value;
+  const checkEqual = () => {
+    if (repassRef && equalValues) {
+      setEqualPass(true);
       setDisabled(false);
     } else {
-      // if the password is invalid
-      setErrorMessage("Week password");
+      setEqualPass(false);
+      setDisabled(true);
     }
   };
-  // function changes the state of displaying the error message
-  const onDisplayErrorMsg = () => {
-    setDisplayErrorMsg(false);
+  const validatePass = (event) => {
+    const value = event.target.value;
+
+    if (validator.isStrongPassword(value)) {
+      // if the email or username is valid
+      setDisplayPassErrMsg("Strong Password ✔");
+      checkEqual();
+    } else {
+      // if the email or username is invalid
+      setDisplayPassErrMsg(
+        "Password should contain at least 8 characters with 1 special 1 uppercase 1 lowercase and 1 numeric!"
+      );
+      checkEqual();
+    }
   };
+  const validateRePass = (event) => {
+    if (equalValues) {
+      setDisplayRePassErrMsg("Matched Password ✔");
+      checkEqual();
+    } else {
+      checkEqual();
+
+      setDisplayRePassErrMsg("Unmatched Passwords!");
+    }
+  };
+  const showPassword = () => {
+    setShowPass((prevState) => !prevState);
+    if (passRef.current.type === "password") {
+      passRef.current.type = "text";
+      repassRef.current.type = "text";
+    } else {
+      passRef.current.type = "password";
+      repassRef.current.type = "password";
+    }
+  };
+
+  // const onDisplayErrorMsg = (e) => {
+  //   console.log(e.target.value);
+  //   if (e.target.name == "password") {
+  //     setDisplayPassErrorMsg(true);
+  //   } else if (e.target.name == "repass") {
+  //     setDisplayEmailErrorMsg(true);
+  //   }
+  // };
+
   return (
     <>
       <div className="main">
         <div className="centeredElement">
           <div className="auth">
-            <h4 className="my-4">Welcome</h4>
+            <h4 className="my-4">Forget Password</h4>
             <p className="text-small">placeholder@gmail.com</p>
             <div className="mb-5">
+              <InputGroup className="userInput mb-2">
+                <InputGroup.Text id="basic-addon2">
+                  <FaLock />
+                </InputGroup.Text>
+                <Form.Control
+                  ref={passRef}
+                  type="password"
+                  name="password"
+                  // onBlur={(e) => onDisplayErrorMsg(e)}
+                  onChange={(e) => validatePass(e)}
+                  aria-label="Password Input"
+                  placeholder="Password"
+                  style={{
+                    borderLeft:
+                      displayPassErrMsg === "Strong Password ✔"
+                        ? "4px solid green"
+                        : displayPassErrMsg === ""
+                        ? "none"
+                        : "5px solid red",
+                    boxShadow: "none",
+                  }}
+                />
+                <InputGroup.Text
+                  onClick={showPassword}
+                  style={{ cursor: "pointer" }}
+                >
+                  {showPass ? <GoEye /> : <BsEyeSlash />}
+                </InputGroup.Text>
+              </InputGroup>
+              {displayPassErrMsg && (
+                <Form.Text
+                  className="errorMsg text-small float-start fw-semibold"
+                  style={{
+                    color:
+                      displayPassErrMsg === "Strong Password ✔"
+                        ? "green"
+                        : "#d21313",
+                  }}
+                >
+                  {displayPassErrMsg}
+                </Form.Text>
+              )}
+            </div>
+            <div className="mb-5">
               {/* if the user clicked outside the input the status of the error message will appear */}
-              <InputGroup className="userInput mb-2" onBlur={onDisplayErrorMsg}>
+              <InputGroup className="userInput mb-2">
                 {/* password icon */}
                 <InputGroup.Text id="basic-addon1">
                   <FaLock />
@@ -53,28 +136,31 @@ export default function PasswordPage() {
                 {/* Password input */}
                 <Form.Control
                   type="password"
-                  name="password"
-                  onChange={(e) => validate(e.target.value)}
+                  ref={repassRef}
+                  name="repass"
+                  onChange={(e) => validateRePass(e)}
+                  onBlur={checkEqual}
                   aria-label="Text input with checkbox"
-                  placeholder="Password"
+                  placeholder="Re-enter Password"
                   style={{ borderLeft: "none", boxShadow: "none" }}
                 />
               </InputGroup>
               {/* for displaying the status of the input */}
-              {displayErrorMsg || (
+              {displayRePassErrMsg && (
                 <Form.Text
                   className="errorMsg text-small float-start fw-semibold"
                   style={{
                     color:
-                      errorMessage === "Accepted password enjoy reading :)"
+                      displayRePassErrMsg === "Matched Password ✔"
                         ? "green"
                         : "#d21313",
                   }}
                 >
-                  {errorMessage}
+                  {displayRePassErrMsg}
                 </Form.Text>
               )}
             </div>
+
             {/* for checking if the user want the website keep him loggedin or not */}
             <Form className=" form fw-semibold text-small ">
               <div key="inline-checkbox " className="checkbox mb-3 d-inline">
@@ -96,7 +182,7 @@ export default function PasswordPage() {
               className="btn btn-dark mt-4 mb-2 fw-semibold logIn text-small"
               disabled={isDisabled}
             >
-              Log in
+              Reset Password
             </button>
             <br></br>
 
@@ -106,7 +192,6 @@ export default function PasswordPage() {
           </div>
         </div>
       </div>
-      <AuthFooter />
     </>
   );
 }

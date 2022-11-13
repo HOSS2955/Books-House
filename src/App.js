@@ -11,9 +11,10 @@ import BooksShop from "./components/BooksShop";
 import Cart from "./components/Cart";
 import BookDetails from "./components/BookDetails";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Register from "./pages/Register/Register";
 import HomeQuery from "./services/homeQuery";
+import Verification from "./authPages/verification/Verification";
 function App() {
   // const navigate = useNavigate();
   // // const user ={
@@ -47,6 +48,8 @@ function App() {
         <Route path="query" element={<HomeQuery />} />
 
         <Route path="auth" element={<AuthRoutes />}>
+          <Route path="verification" element={<Verification />} />
+
           <Route path="login" element={<Login />} />
           <Route path="password" element={<PasswordPage />} />
         </Route>
