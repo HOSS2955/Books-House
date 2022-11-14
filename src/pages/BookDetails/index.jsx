@@ -1,5 +1,5 @@
 import React from "react";
-import BreadCrumb from "../../components/ui/Breadcrump/BreadCrumb";
+import BreadCrumb from "../../components/client/ui/Breadcrump/BreadCrumb";
 
 export default function BookDetails() {
    return (

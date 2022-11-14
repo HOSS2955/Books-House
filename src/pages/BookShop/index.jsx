@@ -1,8 +1,8 @@
 import React from "react";
 import BookList from "./BookList";
 import "../../assets/css/BookShop.css";
-import BreadCrumb from "../../components/Breadcrump/BreadCrumb";
-import Aside from "../../components/Aside/Aside";
+import BreadCrumb from "../../components/client/Breadcrump/BreadCrumb";
+import Aside from "../../components/client/Aside/Aside";
 export default function BooksShop() {
    return (
       <div className="mb-5">
@@ -16,7 +16,7 @@ export default function BooksShop() {
                <Aside />
             </div>
             <div className="col-8">
-               <BookList/>
+               <BookList />
             </div>
          </div>
       </div>

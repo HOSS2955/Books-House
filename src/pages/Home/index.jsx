@@ -4,10 +4,13 @@ import "../../assets/css/Home.css";
 // import { Carousel } from "react-bootstrap";
 import HomeCarousel from "./HomeCarousel";
 import Feedback from "./Feedback";
-// import MyButton from "../../components/ui/MyButton";
+// import MyButton from "../../components/client/ui/MyButton";
 import Pricing from "./Pricing";
 import WallOfFames from "./WallOfFames";
-import { useGetHomepageDataQuery, useUpdateHomepageDataMutation } from "../../features/homeApiSlice";
+import {
+   useGetHomepageDataQuery,
+   useUpdateHomepageDataMutation,
+} from "../../features/homeApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { homepageActions } from "../../store/client/reducers/homepageSlice";
 import { useUpdateHomepageDataQuery } from "../../features/apiSlice";
@@ -18,53 +21,42 @@ import Header from "./Header";
 // import useHomePageData from "../../services/useHomePageData";
 
 export default function Home() {
-  const { data, isError, isLoading } = useGetHomepageDataQuery();
-  const dispatch = useDispatch();
-  const { setDataInLocalState } = homepageActions;
-  const { wallOfFamesData , feedbackData , packagesData } = useSelector((state) => state.homepage);
-  useEffect(() => {
-    console.log(data);
-    if (data) {
-      dispatch(setDataInLocalState(data));
+   const { data, isError, isLoading } = useGetHomepageDataQuery();
+   const dispatch = useDispatch();
+   const { setDataInLocalState } = homepageActions;
+   const { wallOfFamesData, feedbackData, packagesData } = useSelector(
+      (state) => state.homepage
+   );
+   useEffect(() => {
       console.log(data);
-    }
-  }, [dispatch, data]);
+      if (data) {
+         dispatch(setDataInLocalState(data));
+         console.log(data);
+      }
+   }, [dispatch, data]);
 
+   // const {wallOfFamesData , aboutData} = useHomePageData();
 
+   //   const [updateHomepageData]=useUpdateHomepageDataMutation();
+   // const updateHandler=useCallback((slider)=>
+   //   updateHomepageData({...slider , title:"Mirna Milad"}),[updateHomepageData]
+   // )
 
-
-
-
-
-
-
-
-// const {wallOfFamesData , aboutData} = useHomePageData();
-
-
-
-//   const [updateHomepageData]=useUpdateHomepageDataMutation();
-// const updateHandler=useCallback((slider)=>
-//   updateHomepageData({...slider , title:"Mirna Milad"}),[updateHomepageData]
-// )
-
-
-
-  return (
-    <div>
-       {/* <HomeCarousel></HomeCarousel> */}
-    {/* //    <div > */}
-    {/* // {sliderData.map((slider , index) => (<div key={index}><p>{slider.title}</p> <button onClick={()=>updateHandler(slider)}>click here</button></div>) )}
+   return (
+      <div>
+         {/* <HomeCarousel></HomeCarousel> */}
+         {/* //    <div > */}
+         {/* // {sliderData.map((slider , index) => (<div key={index}><p>{slider.title}</p> <button onClick={()=>updateHandler(slider)}>click here</button></div>) )}
     
     //      <p>{wallOfFamesData.feedTilte}</p>  */}
-        <Header/>
-        <section className="section">
-        <AboutUs/>
-        </section>
-      <WallOfFames wallOfFamesArray={wallOfFamesData}></WallOfFames>
-    <Pricing pricingArray = {packagesData}/>
-    <Feedback feedBackArray = {feedbackData}></Feedback>
-    <DiscoverBooks/>
-    </div>
-  );
+         <Header />
+         <section className="section">
+            <AboutUs />
+         </section>
+         <WallOfFames wallOfFamesArray={wallOfFamesData}></WallOfFames>
+         <Pricing pricingArray={packagesData} />
+         <Feedback feedBackArray={feedbackData}></Feedback>
+         <DiscoverBooks />
+      </div>
+   );
 }

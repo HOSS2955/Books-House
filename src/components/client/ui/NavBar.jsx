@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import "../../assets/css/NavBar.css";
+import "../../../assets/css/NavBar.css";
 // import logo from '../../assets/images/eco-logo.png'
 
 import { motion } from "framer-motion";
