@@ -16,6 +16,8 @@ import WishlistSideBar from "./pages/WishlistSideBar";
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import MyProfile from "./pages/Profile/MyProfile";
+import Footer from "./components/ui/Footer";
+import About from "./pages/About";
 
 function App() {
   const [showWishlist, setShowWishlist] = useState(false);
