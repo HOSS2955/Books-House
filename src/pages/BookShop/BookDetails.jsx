@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import "../../assets/css/BookDetails.css";
-import { addToCart, decreaseCart } from "../../store/reducers/cartSlice";
+import { addToCart, decreaseCart } from "../../store/client/reducers/cartSlice";
 
 export default function BookDetails() {
    const { id } = useParams();

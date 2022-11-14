@@ -9,7 +9,7 @@ import Pricing from "./Pricing";
 import WallOfFames from "./WallOfFames";
 import { useGetHomepageDataQuery, useUpdateHomepageDataMutation } from "../../features/homeApiSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { homepageActions } from "../../store/reducers/homepageSlice";
+import { homepageActions } from "../../store/client/reducers/homepageSlice";
 import { useUpdateHomepageDataQuery } from "../../features/apiSlice";
 import { useCallback } from "react";
 import AboutUs from "../About/AboutUs";
@@ -23,6 +23,7 @@ export default function Home() {
   const { setDataInLocalState } = homepageActions;
   const { wallOfFamesData , feedbackData , packagesData } = useSelector((state) => state.homepage);
   useEffect(() => {
+    console.log(data);
     if (data) {
       dispatch(setDataInLocalState(data));
       console.log(data);
@@ -42,7 +43,6 @@ export default function Home() {
 
 
 
-
 //   const [updateHomepageData]=useUpdateHomepageDataMutation();
 // const updateHandler=useCallback((slider)=>
 //   updateHomepageData({...slider , title:"Mirna Milad"}),[updateHomepageData]
@@ -51,11 +51,12 @@ export default function Home() {
 
 
   return (
-      {/* <HomeCarousel></HomeCarousel> */}
-      {/* <div >
-    {sliderData.map((slider , index) => (<div key={index}><p>{slider.title}</p> <button onClick={()=>updateHandler(slider)}>click here</button></div>) )}
+    <div>
+       {/* <HomeCarousel></HomeCarousel> */}
+    {/* //    <div > */}
+    {/* // {sliderData.map((slider , index) => (<div key={index}><p>{slider.title}</p> <button onClick={()=>updateHandler(slider)}>click here</button></div>) )}
     
-        {/* <p>{wallOfFamesData.feedTilte}</p> */}
+    //      <p>{wallOfFamesData.feedTilte}</p>  */}
         <Header/>
         <section className="section">
         <AboutUs/>
@@ -63,11 +64,7 @@ export default function Home() {
       <WallOfFames wallOfFamesArray={wallOfFamesData}></WallOfFames>
     <Pricing pricingArray = {packagesData}/>
     <Feedback feedBackArray = {feedbackData}></Feedback>
-    <Feedback></Feedback>
     <DiscoverBooks/>
-      {/* 
-{/* 
-      <Button variant="outline-success">Hello</Button> */}
     </div>
   );
 }

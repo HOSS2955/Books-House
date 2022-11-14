@@ -7,23 +7,7 @@ export const homepageApi = createApi({
     getHomepageData: build.query({
       query: () => "home",
       providesTags:[{title:"Home",id:"LIST"}]
-    }),
-    
-
-    // updateHomepageData:build.mutation({
-    //   query(slide){
-
-    //     return {url:`slider/${slide.id}` , method:"PUT" , body:slide}
-    //   },
-    //   invalidatesTags:[{title:"Slider",id:"LIST"}]
-    // }),
-    // addNewSliderHomepageData:build.mutation({
-    //     query(user){
-    
-    //       return {url:`slider` , method:"POST" , body:user}
-    //     },
-    //     invalidatesTags:[{title:"Slider",id:"LIST"}]
-    //   })
+    })
   })
 });
 

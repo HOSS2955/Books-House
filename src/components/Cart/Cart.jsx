@@ -15,7 +15,7 @@ import {
   decreaseCart,
   getTotals,
   removeFromCart,
-} from "../../store/reducers/cartSlice";
+} from "../../store/client/reducers/cartSlice";
 import "../../assets/css/Cart.css";
 import { Link } from "react-router-dom";
 

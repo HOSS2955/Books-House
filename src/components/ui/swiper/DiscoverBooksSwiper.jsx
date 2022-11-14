@@ -7,7 +7,7 @@ import 'swiper'
 import "swiper/css/bundle";
 import ItemCard from "../../ItemCard/ItemCard";
 import BookList from "../../../pages/BookShop/BookList";
-import { getBooks } from "../../../store/reducers/bookSlice";
+import { getBooks } from "../../../store/client/reducers/bookSlice";
 
 const WhatWillWeDiscoverSwiper = () => {
 

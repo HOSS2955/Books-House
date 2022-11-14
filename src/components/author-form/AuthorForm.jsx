@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Form, Row, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { authorActions } from "../../store/reducers/authorSlice";
+import { authorActions } from "../../store/client/reducers/authorSlice";
 
 export default function AuthorForm({ active, handlePay }) {
   const dispatch = useDispatch();

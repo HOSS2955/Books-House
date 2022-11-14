@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
-import { addToCart } from "../../store/reducers/cartSlice";
+import { addToCart } from "../../store/client/reducers/cartSlice";
 import "../../assets/css/BookCard.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
