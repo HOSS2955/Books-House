@@ -15,8 +15,8 @@ const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
    <React.StrictMode>
-         <Provider store={adminStore}>
       <Provider store={clientStore}>
+         <Provider store={adminStore}>
             <BrowserRouter>
                <QueryClientProvider client={queryClient}>
                   {/* <ApiProvider api={homepageApi}>  */}
