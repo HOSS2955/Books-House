@@ -16,7 +16,7 @@ export default function BooksShop() {
                <Aside />
             </div>
             <div className="col-8 ">
-               <BookList/>
+               <BookList />
             </div>
          </div>
       </div>
