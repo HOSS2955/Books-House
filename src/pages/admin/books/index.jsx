@@ -1,13 +1,13 @@
 import React from "react";
 import { Typography, Box, useTheme } from "@mui/material";
-import { tokens } from "../../theme";
+import { tokens } from "../../../theme";
 import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useEffect } from "react";
-import { booksActions } from "../../store/reducers/bookSlice";
-import { deleteBook, getBooks } from "../../store/reducers/bookSlice";
+import { booksActions } from "../../../store/admin/reducers/bookSlice";
+import { deleteBook, getBooks } from "../../../store/admin/reducers/bookSlice";
 
 export default function Books() {
    const dispatch = useDispatch();

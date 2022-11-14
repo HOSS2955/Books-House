@@ -1,8 +1,8 @@
 import { Box, Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
-import { mockDataInvoices } from "../../data/mockData";
-import Header from "../../components/Header";
+import { tokens } from "../../../theme";
+import { mockDataInvoices } from "../../../data/mockData";
+import Header from "../../../components/admin/Header";
 import { useTheme } from "@mui/material";
 
 export default function ReaderHouse() {

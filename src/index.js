@@ -8,9 +8,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
 import "./index.css";
 import App from "./App";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
 import { QueryClient, QueryClientProvider } from "react-query";
+import Admin from "./Admin";
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -21,7 +22,10 @@ root.render(
             <BrowserRouter>
                <QueryClientProvider client={queryClient}>
                   {/* <ApiProvider api={homepageApi}>  */}
-                  <App />
+                  <Routes>
+                     <Route path="/*" element={<App />} />
+                     <Route path="/admin/*" element={<Admin />} />
+                  </Routes>
                </QueryClientProvider>
             </BrowserRouter>
          </Provider>

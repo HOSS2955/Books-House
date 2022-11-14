@@ -3,9 +3,9 @@ import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { tokens } from "../../theme";
+import { tokens } from "../../../theme";
 import { Box, Button, useTheme } from "@mui/material";
-import Header from "../../components/Header";
+import Header from "../../../components/admin/Header";
 
 const SliderControl = () => {
    const theme = useTheme();

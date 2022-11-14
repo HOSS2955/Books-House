@@ -3,7 +3,7 @@ import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
-import { tokens } from "../../theme";
+import { tokens } from "../../../theme";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CreateIcon from "@mui/icons-material/Create";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
@@ -19,11 +19,13 @@ import GroupIcon from "@mui/icons-material/Group";
 const Item = ({ title, to, icon, selected, setSelected }) => {
    const theme = useTheme();
    const colors = tokens(theme.palette.mode);
+
    return (
       <MenuItem
          active={selected === title}
          style={{
             color: colors.grey[100],
+            listStyle: "none",
          }}
          onClick={() => setSelected(title)}
          icon={icon}
@@ -69,6 +71,7 @@ export default function Sidebar() {
                      icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
                      style={{
                         margin: "10px 0 20px 0",
+                        listStyle: "none",
                         color: colors.grey[100],
                      }}
                   >
@@ -99,18 +102,17 @@ export default function Sidebar() {
                            justifyContent="center"
                            alignItems="center"
                         >
-                           <img
+                           {/* <img
                               alt="porfile-user"
                               width="100px"
                               height="100px"
-                              // src="https://raw.githubusercontent.com/ed-roh/react-admin-dashboard/master/public/assets/user.png"
+                              src="https://raw.githubusercontent.com/ed-roh/react-admin-dashboard/master/public/assets/user.png"
                               src="./logo.jpg"
                               style={{
                                  objectFit: "cover",
                                  cursor: "pointer",
                                  borderRadius: "10%",
-                              }}
-                           />
+                              } */}
                         </Box>
                      </Box>
                   )}
@@ -125,21 +127,21 @@ export default function Sidebar() {
                      </Typography>
                      <Item
                         title="Authors House"
-                        to="/authorshouse"
+                        to="/admin/authorshouse"
                         icon={<CreateIcon />}
                         selected={selected}
                         setSelected={setSelected}
                      />
                      <Item
                         title="Books House"
-                        to="/bookshouse"
+                        to="/admin/bookshouse"
                         icon={<BookIcon />}
                         selected={selected}
                         setSelected={setSelected}
                      />
                      <Item
                         title="Readers House"
-                        to="/readershouse"
+                        to="/admin/readershouse"
                         icon={<LocalLibraryIcon />}
                         selected={selected}
                         setSelected={setSelected}
@@ -154,14 +156,14 @@ export default function Sidebar() {
                      </Typography>
                      <Item
                         title="Slider Control"
-                        to="/slidercontrol"
+                        to="/admin/slidercontrol"
                         icon={<FilterIcon />}
                         selected={selected}
                         setSelected={setSelected}
                      />
                      <Item
                         title="Packages Control"
-                        to="/packagescontrol"
+                        to="/admin/packagescontrol"
                         icon={<LocalOfferIcon />}
                         selected={selected}
                         setSelected={setSelected}
@@ -176,14 +178,14 @@ export default function Sidebar() {
                      </Typography>
                      <Item
                         title="Books"
-                        to="/books"
+                        to="/admin/books"
                         icon={<StyleIcon />}
                         selected={selected}
                         setSelected={setSelected}
                      />
                      <Item
                         title="Users"
-                        to="/users"
+                        to="/admin/users"
                         icon={<GroupIcon />}
                         selected={selected}
                         setSelected={setSelected}
@@ -199,21 +201,21 @@ export default function Sidebar() {
                      </Typography>
                      <Item
                         title="Profile Form"
-                        to="/form"
+                        to="/admin/form"
                         icon={<PersonOutlinedIcon />}
                         selected={selected}
                         setSelected={setSelected}
                      />
                      <Item
                         title="Calendar"
-                        to="/calendar"
+                        to="/admin/calendar"
                         icon={<CalendarTodayOutlinedIcon />}
                         selected={selected}
                         setSelected={setSelected}
                      />
                      <Item
                         title="FAQ Page"
-                        to="/faq"
+                        to="/admin/faq"
                         icon={<HelpOutlineOutlinedIcon />}
                         selected={selected}
                         setSelected={setSelected}

@@ -1,6 +1,6 @@
 import { Box } from "@mui/system";
 import React from "react";
-import Header from "../../components/Header";
+import Header from "../../../components/admin/Header";
 
 export default function Dashboard() {
    return (
