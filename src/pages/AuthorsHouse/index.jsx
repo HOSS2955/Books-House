@@ -1,8 +1,27 @@
 import React from "react";
 import "./authorshouse.css";
 import Pricing from "../Home/Pricing";
+import { useEffect } from "react";
+import "../../assets/css/Home.css";
+import { useGetHomepageDataQuery } from "../../features/homeApiSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { homepageActions } from "../../store/client/reducers/homepageSlice";
 
 export default function AuthorsHouse() {
+   const { data, isError, isLoading } = useGetHomepageDataQuery();
+   const dispatch = useDispatch();
+   const { setDataInLocalState } = homepageActions;
+   const { wallOfFamesData, feedbackData, packagesData } = useSelector(
+      (state) => state.homepage
+   );
+   useEffect(() => {
+      console.log(data);
+      if (data) {
+         dispatch(setDataInLocalState(data));
+         console.log(data);
+      }
+   }, [dispatch, data]);
+
    return (
       <div>
          {/* SERVICE NAME AND DESCRIPTION */}
@@ -64,7 +83,7 @@ export default function AuthorsHouse() {
          </div>
 
          {/* PACKAGES */}
-         <Pricing />
+         <Pricing pricingArray={packagesData} />
       </div>
    );
 }
