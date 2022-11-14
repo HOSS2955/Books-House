@@ -8,8 +8,8 @@ export default function BookList() {
    const { books } = useSelector((state) => state.books);
    useEffect(() => {
       dispatch(getBooks());
+      
    }, [dispatch]);
-
    return (
       <div>
          <h2 className="text-center mb-5">Book List</h2>

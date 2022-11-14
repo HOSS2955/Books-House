@@ -92,7 +92,7 @@ const Footer = () => {
           </Col>
 
           <Col lg="12">
-            <p className="footer__copyright">Copyright {year} developed by Mirna Milad . All rights reserved.</p>
+            <p className="footer__copyright">Copyright {year} developed by DevTeam . All rights reserved.</p>
           </Col>
         </Row>
       </Container>

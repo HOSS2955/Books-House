@@ -4,7 +4,7 @@ import PackageQuery from '../../services/PackageQuery';
 import "../../assets/css/Package.css"
 
 
-const Pricing = () => {
+const Pricing = ({pricingArray}) => {
 
   const {packages} = useSelector((state) =>state.res)
   return (
@@ -23,7 +23,7 @@ const Pricing = () => {
         </div>
         <div className="container text-sm">
           <div className="row">
-          <PackageQuery ></PackageQuery>
+          <PackageQuery pricingArray={pricingArray}></PackageQuery>
           </div>
         </div>
       </section>

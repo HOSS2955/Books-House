@@ -4,7 +4,7 @@ import { cartReducer } from "./reducers/cartSlice";
 import { resReducer } from "./reducers/resSlice";
 
 import { homepageReducer } from "./reducers/homepageSlice";
-import { homepageApi } from "../features/apiSlice";
+import { homepageApi } from "../features/homeApiSlice";
 
 export const store = configureStore({
   reducer: {

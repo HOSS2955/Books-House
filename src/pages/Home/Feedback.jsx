@@ -2,7 +2,7 @@ import React from "react";
 import FeedBackSwiper from "../../components/ui/swiper/FeedBackSwiper";
 // import Swiper from "swiper";
 
-export default function Feedback() {
+export default function Feedback({feedBackArray}) {
 
 
   
@@ -20,7 +20,7 @@ export default function Feedback() {
       </div>
       </div>
       </div>
-          <FeedBackSwiper/>
+          <FeedBackSwiper feedBackArray={feedBackArray}/>
       </section>
       </div>
       

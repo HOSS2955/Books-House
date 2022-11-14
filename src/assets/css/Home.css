@@ -21,3 +21,18 @@
     .hero__section img{
         height: 531px;
     }
+
+    .hero__content{
+        /* position:static; */
+        width:100%;
+        background: transparent;
+
+    }
+    /* .hero__section .swiper-initialized{
+        margin:0px
+    } */
+
+    .hero__section .swiper-button-next,
+    .hero__section .swiper-button-prev {
+        color: transparent !important
+    }

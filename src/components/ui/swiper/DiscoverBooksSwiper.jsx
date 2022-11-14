@@ -20,7 +20,7 @@ const WhatWillWeDiscoverSwiper = () => {
         <div>
           <Swiper
             // install Swiper modules
-            modules={[Navigation, Pagination, A11y , FreeMode , Autoplay]}
+            modules={[A11y , FreeMode , Autoplay , Navigation]}
             spaceBetween={100}
             centeredSlides={false}
             loop={true}
@@ -30,9 +30,31 @@ const WhatWillWeDiscoverSwiper = () => {
                 disableOnInteraction: false,
               }}
             className="container"
-            navigation
             freeMode
             a11y
+            navigation
+            breakpoints= {{
+              // when window width is >= 200px
+              200:{
+                slidesPerView: 1
+              },
+              // when window width is >= 600px
+              600: {
+                slidesPerView: 2 ,
+                spaceBetween: 30
+              },
+              // when window width is >= 900px
+              900: {
+                slidesPerView: 3,
+                spaceBetween: 30
+              },
+              // when window width is >= 1000px
+              1000: {
+                slidesPerView: 4,
+                spaceBetween: 40
+              }
+            }
+          }
             // onSwiper={(swiper) => console.log(swiper)}
             // onSlideChange={(e) => console.log("slide change")}
           >
@@ -50,23 +72,3 @@ const WhatWillWeDiscoverSwiper = () => {
     }
 
 export default WhatWillWeDiscoverSwiper
-
-
-
-
-
-// import React from "react";
-// import { Navigation, Pagination, A11y , FreeMode , Autoplay } from "swiper";
-
-// import { Swiper, SwiperSlide } from "swiper/react";
-// import SwiperData from "./SwiperData";
-// import "swiper/css/effect-fade"
-// import 'swiper'
-// import "swiper/css/bundle";
-// // import FeedBackQuery from "../../../services/feedBackQuery";
-
-
-// export default function FeedBackSwiper(Data) {
-  
-//   // const feedbacksList = "s";
-  

@@ -7,79 +7,11 @@ import {TbBook2} from "react-icons/tb"
 // import { resAction } from "../store/reducers/resSlice";
 // import { useDispatch } from "react-redux";
 
-const PackageQuery = () => {
-
-
-    const baseUrl ="http://localhost:3005/services";
-    // const {getResponse} = resAction;
-    async function fetchSlider() {
-      const { data } = await axios.get(baseUrl);
-      console.log(data)
-      return data;
-      
-    }
-  
-    const { data, error, isError, isLoading } = useQuery("packages", fetchSlider);
-    if (isLoading) {
-      return <div>Loading...</div>;
-    }
-    if (isError) {
-      return <div>Error! {error.message}</div>;
-    }
-  
-
-
-
-
-
-
-// useEffect(() => {
-// const dispatch = useDispatch();
-
-//   await axios.get(baseUrl).then(
-//  (res)=>res.json()
-// ).then(
-//  (slider)=> dispatch(getResponse(slider))
-// )
-// . catch(
-//  (error)=>{
-//    console.log(error)
-//  }
-// )
-
-// }, [input])
-
-
-    // async function FetchResponse() {
-
-       
-        
-    //   }
-
-
-
-
-
-      
-
-
-      // const { data, error, isError, isLoading } = useQuery("services", FetchResponse);
-  
-    //   if (isLoading) {
-    //     return <div>Loading...</div>;
-    //   }
-    //   if (isError) {
-    //     return <div>Error! {error.message}</div>;
-    //   }
-
-    //   const dispatch = useDispatch()
-
-    
-      
+const PackageQuery = ({pricingArray}) => {
         return (
 
 <div className="pricing__cards row">
-{data.map((service , index) =>{
+{pricingArray.map((service , index) =>{
         return <motion.div whileHover={{scale:1.05}} className="single-price col-lg-3 col-md-6 d-flex flex-column justify-content-center p-4" key={index}
             >
               <div>

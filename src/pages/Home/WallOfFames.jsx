@@ -1,7 +1,7 @@
 import React from 'react'
 import WallOfFamesSwiper from '../../components/ui/swiper/WallOfFamesSwiper'
 
-const WallOfFames = () => {
+const WallOfFames = ({wallOfFamesArray}) => {
     return(
 <div className="container">
       <section id="pricing" className="section bg-white">
@@ -15,7 +15,7 @@ const WallOfFames = () => {
             </div>
           </div>
         </div>
-<WallOfFamesSwiper/>
+<WallOfFamesSwiper wallOfFamesArray={wallOfFamesArray}/>
         </section>
         </div>
     )
