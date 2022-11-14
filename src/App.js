@@ -20,42 +20,42 @@ import Footer from "./components/ui/Footer";
 import About from "./pages/About";
 
 function App() {
-  const [showWishlist, setShowWishlist] = useState(false);
-  const hideModal = () => {
-    setShowWishlist(false);
-  };
-  const showModal = () => {
-    setShowWishlist(true);
-  };
-  return (
-    <>
-      {/* <MyNav /> */}
-      <Header showModal={showModal} />
-      {showWishlist && (
-        <WishlistSideBar hideModal={hideModal} showModal={showModal} />
-      )}
-      <AnimatePresence
-        exitBeforeEnter
-        onExitComplete={() => setShowWishlist(false)}
-      >
-        <ToastContainer />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/sidebar" element={<WishlistSideBar />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/bookdetails/:id" element={<BookDetails />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/service" element={<Service />} />
-          <Route path="/contactus" element={<Contactus />} />
-          <Route path="/profile" element={<MyProfile />} />
-          <Route path="/booksshop" element={<BooksShop />} />
-          <Route path="/authorshouse" element={<AuthorsHouse />} />
-        </Routes>
-        <Footer />
-      </AnimatePresence>
-    </>
-  );
+   const [showWishlist, setShowWishlist] = useState(false);
+   const hideModal = () => {
+      setShowWishlist(false);
+   };
+   const showModal = () => {
+      setShowWishlist(true);
+   };
+   return (
+      <>
+         {/* <MyNav /> */}
+         <Header showModal={showModal} />
+         {showWishlist && (
+            <WishlistSideBar hideModal={hideModal} showModal={showModal} />
+         )}
+         <AnimatePresence
+            exitBeforeEnter
+            onExitComplete={() => setShowWishlist(false)}
+         >
+            <ToastContainer />
+            <Routes>
+               <Route path="/" element={<Home />} />
+               <Route path="/sidebar" element={<WishlistSideBar />} />
+               <Route path="/home" element={<Home />} />
+               <Route path="/cart" element={<Cart />} />
+               <Route path="/bookdetails/:id" element={<BookDetails />} />
+               <Route path="/about" element={<About />} />
+               <Route path="/service" element={<Service />} />
+               <Route path="/contactus" element={<Contactus />} />
+               <Route path="/profile" element={<MyProfile />} />
+               <Route path="/booksshop" element={<BooksShop />} />
+               <Route path="/authorshouse" element={<AuthorsHouse />} />
+            </Routes>
+            <Footer />
+         </AnimatePresence>
+      </>
+   );
 }
 
 export default App;
