@@ -6,18 +6,18 @@ import Cart from "./components/client/Cart/Cart";
 import NavBar from "./components/client/ui/NavBar";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import Home from "./pages/Home";
-import BooksShop from "./pages/BookShop/index";
-import Service from "./pages/Service/Service";
-import Contactus from "./pages/Contactus/Contactus";
-import AuthorsHouse from "./pages/AuthorsHouse/index.jsx";
-import BookDetails from "./pages/BookDetails";
-import WishlistSideBar from "./pages/WishlistSideBar";
+import Home from "./pages/client/Home";
+import BooksShop from "./pages/client/BookShop/index";
+import Service from "./pages/client/Service/Service";
+import AuthorsHouse from "./pages/client/AuthorsHouse";
+import BookDetails from "./pages/client/BookDetails";
+import WishlistSideBar from "./pages/client/WishlistSideBar";
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import MyProfile from "./pages/Profile/MyProfile";
+import MyProfile from "./pages/client/Profile/MyProfile";
 import Footer from "./components/client/ui/Footer";
-import About from "./pages/About";
+import Contactus from "./pages/client/Contactus/Contactus";
+import About from "./pages/client/About";
 
 function App() {
    const [showWishlist, setShowWishlist] = useState(false);

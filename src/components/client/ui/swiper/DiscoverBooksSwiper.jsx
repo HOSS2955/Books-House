@@ -6,7 +6,7 @@ import "swiper/css/effect-fade";
 import "swiper";
 import "swiper/css/bundle";
 import ItemCard from "../../ItemCard/ItemCard";
-import BookList from "../../../../pages/BookShop/BookList";
+import BookList from "../../../../pages/client/BookShop/BookList";
 import { getBooks } from "../../../../store/client/reducers/bookSlice";
 
 const WhatWillWeDiscoverSwiper = () => {
