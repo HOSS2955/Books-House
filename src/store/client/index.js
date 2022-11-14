@@ -7,14 +7,14 @@ import { homepageReducer } from "./reducers/homepageSlice";
 import { homepageApi } from "../../features/homeApiSlice";
 import { authorReducer } from "./reducers/authorSlice";
 
-export const store = configureStore({
-  reducer: {
-    books: booksReducer,
-    cart: cartReducer,
-    res: resReducer,
-    author: authorReducer,
-    homepage: homepageReducer,
-    [homepageApi.reducerPath]: homepageApi.reducer,
-  },
-  middleware: (gDM) => gDM().concat(homepageApi.middleware),
+export const clientStore = configureStore({
+   reducer: {
+      books: booksReducer,
+      cart: cartReducer,
+      res: resReducer,
+      author: authorReducer,
+      homepage: homepageReducer,
+      [homepageApi.reducerPath]: homepageApi.reducer,
+   },
+   middleware: (gDM) => gDM().concat(homepageApi.middleware),
 });

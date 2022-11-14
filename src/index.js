@@ -2,7 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import { store } from "./store/client/index";
+import { clientStore } from "./store/client/index";
+import { adminStore } from "./store/admin/index";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
 import "./index.css";
@@ -13,16 +14,18 @@ import { QueryClient, QueryClientProvider } from "react-query";
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <QueryClientProvider client={queryClient}>
-          {/* <ApiProvider api={homepageApi}>  */}
-          <App />
-        </QueryClientProvider>
-      </BrowserRouter>
-    </Provider>
-  </React.StrictMode>
+   <React.StrictMode>
+      <Provider store={clientStore}>
+         <Provider store={adminStore}>
+            <BrowserRouter>
+               <QueryClientProvider client={queryClient}>
+                  {/* <ApiProvider api={homepageApi}>  */}
+                  <App />
+               </QueryClientProvider>
+            </BrowserRouter>
+         </Provider>
+      </Provider>
+   </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
