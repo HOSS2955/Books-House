@@ -13,8 +13,8 @@ import {
    Typography,
    useTheme,
 } from "@mui/material";
-import Header from "../../components/Header";
-import { tokens } from "../../theme";
+import Header from "../../../components/admin/Header";
+import { tokens } from "../../../theme";
 
 export default function Calender() {
    const theme = useTheme();

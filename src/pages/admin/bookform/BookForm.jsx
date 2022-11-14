@@ -3,11 +3,11 @@ import { Box, Button, TextField } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import Header from "../../components/Header";
+import Header from "../../../components/admin/Header";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addBook, updateBook } from "../../store/reducers/bookSlice";
+import { addBook, updateBook } from "../../../store/admin/reducers/bookSlice";
 import { useEffect } from "react";
 
 const initialValues = {

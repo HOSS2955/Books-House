@@ -3,11 +3,11 @@ import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { tokens } from "../../theme";
+import { tokens } from "../../../theme";
 import { Box, Button, TextField, Typography, useTheme } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
-import Header from "../../components/Header";
+import Header from "../../../components/admin/Header";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const initialValues = {

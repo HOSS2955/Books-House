@@ -1,7 +1,7 @@
 import React from "react";
 // IconButton
 import { Box, Typography, useTheme } from "@mui/material";
-import { tokens } from "../theme";
+import { tokens } from "../../theme";
 
 export default function Header({ title, subTitle }) {
    const theme = useTheme();
