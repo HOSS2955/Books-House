@@ -3,7 +3,7 @@ import "./wishlistSideBar.css";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { AiOutlineClose } from "react-icons/ai";
-import WishlistItem from "../../components/ui/WishlistItem";
+import WishlistItem from "../../components/client/ui/WishlistItem";
 
 const backdrop = {
    visible: { opacity: 1 },
