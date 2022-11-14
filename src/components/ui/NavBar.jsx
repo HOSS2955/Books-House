@@ -35,8 +35,12 @@ const nav__links = [
       path: "booksshop",
       display: "Shop",
    },
+   {
+      path: "authorshouse",
+      display: "Authors House",
+   },
 ];
-const NavBar = () => {
+const NavBar = ({ showModal }) => {
    const headerRef = useRef(null);
 
    const stickyHeaderFunc = () => {
@@ -81,7 +85,7 @@ const NavBar = () => {
                      </ul>
                   </div>
                   <div className="nav__icons">
-                     <span className="fav__icon">
+                     <span onClick={showModal} className="fav__icon">
                         <FiHeart />
                         <span className="__badge">1</span>
                      </span>

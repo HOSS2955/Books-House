@@ -1,4 +1,4 @@
-import React , {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Button } from "react-bootstrap";
 import "../../assets/css/Home.css";
 // import { Carousel } from "react-bootstrap";
@@ -25,7 +25,7 @@ export default function Home() {
   useEffect(() => {
     if (data) {
       dispatch(setDataInLocalState(data));
-      console.log(data)
+      console.log(data);
     }
   }, [dispatch, data]);
 
@@ -49,12 +49,12 @@ export default function Home() {
 // )
 
 
+
   return (
-    <div>
+      {/* <HomeCarousel></HomeCarousel> */}
       {/* <div >
     {sliderData.map((slider , index) => (<div key={index}><p>{slider.title}</p> <button onClick={()=>updateHandler(slider)}>click here</button></div>) )}
     
-        </div> */}
         {/* <p>{wallOfFamesData.feedTilte}</p> */}
         <Header/>
         <section className="section">
@@ -63,8 +63,9 @@ export default function Home() {
       <WallOfFames wallOfFamesArray={wallOfFamesData}></WallOfFames>
     <Pricing pricingArray = {packagesData}/>
     <Feedback feedBackArray = {feedbackData}></Feedback>
+    <Feedback></Feedback>
     <DiscoverBooks/>
-      {/* <MyButton>Hello</MyButton> */}
+      {/* 
 {/* 
       <Button variant="outline-success">Hello</Button> */}
     </div>
