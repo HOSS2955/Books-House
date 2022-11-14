@@ -78,7 +78,7 @@ export default function PasswordPage() {
   return (
     <>
       <div className="main">
-        <div className="centeredElement">
+        <div className="centeredElement shadow-lg p-3 mb-2 bg-body">
           <div className="auth">
             <h4 className="my-4">Forget Password</h4>
             <p className="text-small">placeholder@gmail.com</p>

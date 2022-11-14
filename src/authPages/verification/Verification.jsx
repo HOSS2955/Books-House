@@ -117,7 +117,7 @@ export default function Verification() {
                     className="btn btn-secondary w-50 m-1"
                     onClick={(e) => setOtp([...otp.map((v) => "")])}
                   >
-                    Reset
+                    Clear
                   </button>
                   <button className="btn btn-primary w-50" type="submit">
                     Verify

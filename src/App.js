@@ -12,7 +12,7 @@ import Cart from "./components/Cart";
 import BookDetails from "./components/BookDetails";
 import ProtectedRoute from "./components/ProtectedRoute";
 // import { useNavigate } from "react-router-dom";
-import Register from "./pages/Register/Register";
+import Register from './authPages/register/Register'
 import HomeQuery from "./services/homeQuery";
 import Verification from "./authPages/verification/Verification";
 function App() {
@@ -49,6 +49,7 @@ function App() {
 
         <Route path="auth" element={<AuthRoutes />}>
           <Route path="verification" element={<Verification />} />
+          <Route path="register" element={<Register />} />
 
           <Route path="login" element={<Login />} />
           <Route path="password" element={<PasswordPage />} />

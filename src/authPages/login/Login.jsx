@@ -73,7 +73,7 @@ export default function Login() {
   return (
     <Form onSubmit={handleSubmit}>
       <div className="main">
-        <div className="centeredElement">
+        <div className="centeredElement shadow-lg  bg-body">
           <div className="auth">
             <h5 className="my-5">Log in to Bookshouse</h5>
             <div className="mb-5">
