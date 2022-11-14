@@ -10,7 +10,7 @@ import Home from "./pages/Home";
 import BooksShop from "./pages/BookShop/index";
 import Service from "./pages/Service/Service";
 import Contactus from "./pages/Contactus/Contactus";
-import AuthorsHouse from "./pages/AuthorsHouse";
+import AuthorsHouse from "./pages/AuthorsHouse/index.jsx";
 import BookDetails from "./pages/BookDetails";
 import WishlistSideBar from "./pages/WishlistSideBar";
 import { useState } from "react";
