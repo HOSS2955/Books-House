@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "reactstrap";
 
 import HeaderSwiper from "../../../components/client/ui/swiper/HeaderSwiper";
+// import hero_2 from "./images/hero_2.jpg"
 
 const Header = ({ headerArray }) => {
   return (
@@ -9,7 +10,7 @@ const Header = ({ headerArray }) => {
       <section className="hero__section">
         <Container fluid>
           <Row>
-            <div className="d-flex align-items-center col-6 p-5">
+            {/* <div className="d-flex align-items-center col-6 p-5">
               <div className="hero__content">
                 <HeaderSwiper headerArray={headerArray} />
               </div>
@@ -21,7 +22,8 @@ const Header = ({ headerArray }) => {
                   alt=""
                 />
               </div>
-            </div>
+            </div> */}
+            <img className="p-0" src = "https://images.pexels.com/photos/1809340/pexels-photo-1809340.jpeg?auto=compress&cs=tinysrgb&w=600"/>
           </Row>
         </Container>
       </section>

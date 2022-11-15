@@ -19,7 +19,7 @@ const HeaderSwiper = ({ headerArray }) => {
         loop={true}
         slidesPerView={1}
         autoplay={{
-          delay: 3000,
+          delay: 3500,
           disableOnInteraction: false,
         }}
         className="container"

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect ,useState } from "react";
 import { NavLink } from "react-router-dom";
 import "../../../assets/css/NavBar.css";
 
@@ -32,6 +32,18 @@ const nav__links = [
   },
 ];
 const NavBar = ({ showModal }) => {
+
+  // change nav color when scrolling
+  const [color , setColor] = useState(false)
+  const changeColor = ()=>{
+    if(window.scrollY>=700){
+      setColor(true)
+      console.log(window.scrollY)
+    }else{
+      setColor(false)
+    }
+  }
+  window.addEventListener("scroll" , changeColor)
   const headerRef = useRef(null);
 
   const stickyHeaderFunc = () => {
@@ -48,7 +60,7 @@ const NavBar = ({ showModal }) => {
   return (
     <div ref={headerRef}>
       {/* Large screen */}
-      <header className="header large__screen">
+      <header className= {color ? "header-bg header large__screen" : "header large__screen"}>
         <div className="container">
           <div className="row">
             <div className="nav__wrapper">
@@ -123,6 +135,7 @@ const NavBar = ({ showModal }) => {
             id="offcanvasNavbar-expand-lg"
             aria-labelledby="offcanvasNavbarLabel-expand-lg"
             placement="end"
+            className="w-50"
           >
             <Offcanvas.Header closeButton>
               <span>
