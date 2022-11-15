@@ -12,9 +12,10 @@ import Cart from "./components/Cart";
 import BookDetails from "./components/BookDetails";
 import ProtectedRoute from "./components/ProtectedRoute";
 // import { useNavigate } from "react-router-dom";
-import Register from './authPages/register/Register'
+import Register from "./authPages/register/Register";
 import HomeQuery from "./services/homeQuery";
 import Verification from "./authPages/verification/Verification";
+import { PrivateOutlet } from "./utils/privateRoutes";
 function App() {
   // const navigate = useNavigate();
   // // const user ={
@@ -43,6 +44,9 @@ function App() {
       ) : (
         <button onClick={handleLogin}>Sign In</button>
       )} */}
+      {/* <PrivateOutlet>
+        
+      </PrivateOutlet> */}
       <Routes>
         {/* <Route path="register" element={<Register />} /> */}
         <Route path="query" element={<HomeQuery />} />

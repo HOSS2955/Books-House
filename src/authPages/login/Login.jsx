@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { FaApple, FaLock, FaUserAlt } from "react-icons/fa";
@@ -15,57 +15,65 @@ export default function Login() {
   // The state of the button to be abled or disapled according to the validation
   const [isDisabled, setDisabled] = useState(true);
   // for displaying the error message if the input is invalid
-  const [displayEmailErrorMsg, setDisplayEmailErrorMsg] = useState(false);
-  const [displayPassErrorMsg, setDisplayPassErrorMsg] = useState(false);
+  const [emailValue, setEmailValue] = useState("");
+  const [passValue, setPassValue] = useState("");
   // npm validator to validate the password
   const navigate = useNavigate();
 
   const validateEmail = (value) => {
-    if (validator.isEmpty(value)) {
-      // if the email or username is empty
-      setEmailErrMsg("Email is required");
-      setDisabled(true);
-    }
+    // if (validator.isEmpty(value)) {
+    //   // if the email or username is empty
+    //   setEmailErrMsg("Email is required");
+    //   setDisabled(true);
+    // }
     if (validator.isEmail(value)) {
       // if the email or username is valid
       setEmailErrMsg("Accepted Email ✔");
-      setDisabled(false);
+      setEmailValue(value);
     } else {
       // if the email or username is invalid
       setEmailErrMsg("Please enter a valid Email!");
-      setDisabled(true);
     }
   };
   const validatePass = (value) => {
-    if (validator.isEmpty(value)) {
-      // if the email or username is empty
-      setPassErrMessage("Password is required");
-      setDisabled(true);
-    }
+    // if (validator.isEmpty(value)) {
+    //   // if the email or username is empty
+    //   setPassErrMessage("Password is required");
+    //   setDisabled(true);
+    // }
     if (validator.isStrongPassword(value)) {
       // if the email or username is valid
       setPassErrMessage("Strong Password ✔");
-      setDisabled(false);
+      setPassValue(value);
     } else {
       // if the email or username is invalid
       setPassErrMessage(
         "Password should contain at least 8 characters with 1 special 1 uppercase 1 lowercase and 1 numeric!"
       );
+    }
+  };
+  useEffect(() => {
+    if (
+      validator.isStrongPassword(passValue) &&
+      validator.isEmail(emailValue)
+    ) {
+      setDisabled(false);
+    } else {
       setDisabled(true);
     }
-  };
+  }, [emailValue, passValue]);
+
   // function changes the state of displaying the error message
-  const onDisplayErrorMsg = (e) => {
-    console.log(e.target.value);
-    if (e.target.name === "password") {
-      setDisplayPassErrorMsg(true);
-    } else if (e.target.name === "email") {
-      setDisplayEmailErrorMsg(true);
-    }
-  };
+  // const onDisplayErrorMsg = (e) => {
+  //   console.log(e.target.value);
+  //   if (e.target.name === "password") {
+  //     setDisplayPassErrorMsg(true);
+  //   } else if (e.target.name === "email") {
+  //     setDisplayEmailErrorMsg(true);
+  //   }
+  // };
   const handleSubmit = async (e) => {
     e.prevent.default();
-    navigate("/home");
   };
   const signupHandler = () => {
     navigate("/auth/signup");
@@ -86,7 +94,7 @@ export default function Login() {
                 {/* username or email input */}
                 <Form.Control
                   name="email"
-                  onBlur={onDisplayErrorMsg}
+                  // onBlur={onDisplayErrorMsg}
                   onChange={(e) => validateEmail(e.target.value)}
                   aria-label="Email Input"
                   placeholder="Email"
@@ -102,7 +110,7 @@ export default function Login() {
                 />
               </InputGroup>
               {/* for displaying the status of the input */}
-              {displayEmailErrorMsg && (
+              {emailErrMsg && (
                 <Form.Text
                   className="errorMsg text-small float-start fw-semibold"
                   style={{
@@ -116,7 +124,7 @@ export default function Login() {
             </div>
             <div className="mb-5">
               {/* if the user clicked outside the input the status of the error message will appear */}
-              <InputGroup className="userInput mb-2" onBlur={onDisplayErrorMsg}>
+              <InputGroup className="userInput mb-2">
                 {/* password icon */}
                 <InputGroup.Text id="basic-addon2">
                   <FaLock />
@@ -140,7 +148,7 @@ export default function Login() {
                 />
               </InputGroup>
               {/* for displaying the status of the input */}
-              {displayPassErrorMsg && (
+              {passErrMsg && (
                 <Form.Text
                   className="errorMsg text-small float-start fw-semibold"
                   style={{

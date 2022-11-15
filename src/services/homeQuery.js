@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useGetHomepageDataQuery } from "../features/apiSlice";
+import { useGetHomepageDataQuery } from "../features/homeApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { homepageActions } from "../store/reducers/homepageSlice";
 
