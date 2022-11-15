@@ -55,7 +55,7 @@ const NavBar = ({ showModal }) => {
               <div className="logo">
                 <img src="./images/hero_1.jpg" alt="logo" />
                 <div>
-                  <h1>Books House</h1>
+                  <h1 className="mb-0">Books House</h1>
                 </div>
               </div>
 
@@ -98,14 +98,26 @@ const NavBar = ({ showModal }) => {
         </div>
       </header>
       {/* Small screen */}
-      <Navbar bg="light" expand="lg" className="mb-3 small__screen">
-        <Container fluid>
+      <Navbar bg="light" expand="lg" className="small__screen">
+        <Container fluid className="pb-3 pt-3">
           <div className="logo">
             <img src="./images/hero_1.jpg" alt="logo" />
             <div>
-              <h1>Books House</h1>
+              <h1 className="mb-0">Books House</h1>
             </div>
           </div>
+          <div className="w-50 d-flex align-items-baseline justify-content-end">
+          <div className="nav__icons ">
+                <span onClick={showModal} className="fav__icon me-3">
+                  <FiHeart />
+                  <span className="__badge">1</span>
+                </span>
+                <span className="cart__icon me-3">
+                  <BsBag />
+                  <span className="__badge">1</span>
+                </span>
+              </div>
+          
           <Navbar.Toggle aria-controls="offcanvasNavbar-expand-lg" />
           <Navbar.Offcanvas
             id="offcanvasNavbar-expand-lg"
@@ -120,18 +132,10 @@ const NavBar = ({ showModal }) => {
                   alt="user icon"
                 />
               </span>
+              
+             
             </Offcanvas.Header>
             <Offcanvas.Body>
-              <div className="nav__icons">
-                <span className="fav__icon me-3 mt-4">
-                  <FiHeart />
-                  <span className="__badge">1</span>
-                </span>
-                <span className="cart__icon me-3 mt-4">
-                  <BsBag />
-                  <span className="__badge">1</span>
-                </span>
-              </div>
               <Nav className="justify-content-end flex-grow-1 pe-3">
                 {nav__links.map((item, index) => (
                   <li className="nav__item mt-4" key={index}>
@@ -148,6 +152,7 @@ const NavBar = ({ showModal }) => {
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
+          </div>
         </Container>
       </Navbar>
     </div>

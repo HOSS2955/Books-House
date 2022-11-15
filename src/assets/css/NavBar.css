@@ -1,5 +1,6 @@
 .small__screen {
    display: none;
+   padding:0px;
 }
 
 .large__screen {
