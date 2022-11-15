@@ -20,43 +20,43 @@ import Contactus from "./pages/client/Contactus/Contactus";
 import About from "./pages/client/About";
 
 function App() {
-   const [showWishlist, setShowWishlist] = useState(false);
-   const hideModal = () => {
-      setShowWishlist(false);
-   };
-   const showModal = () => {
-      setShowWishlist(true);
-   };
-   return (
-      <div>
-         {/* <MyNav /> */}
-         <NavBar showModal={showModal} />
-         {showWishlist && (
-            <WishlistSideBar hideModal={hideModal} showModal={showModal} />
-         )}
-         <AnimatePresence
-            exitBeforeEnter
-            onExitComplete={() => setShowWishlist(false)}
-         >
-            <ToastContainer />
-            <Routes>
-               <Route path="/" element={<Home />} />
-               <Route path="/sidebar" element={<WishlistSideBar />} />
-               <Route path="/home" element={<Home />} />
-               <Route path="/cart" element={<Cart />} />
-               <Route path="/bookdetails/:id" element={<BookDetails />} />
-               <Route path="/about" element={<About />} />
-               <Route path="/service" element={<Service />} />
-               <Route path="/contactus" element={<Contactus />} />
-               <Route path="/profile" element={<MyProfile />} />
-               <Route path="/booksshop" element={<BooksShop />} />
-               <Route path="/authorshouse" element={<AuthorsHouse />} />
-            </Routes>
-            {/* <Counter /> */}
-            <Footer />
-         </AnimatePresence>
-      </div>
-   );
+  const [showWishlist, setShowWishlist] = useState(false);
+  const hideModal = () => {
+    setShowWishlist(false);
+  };
+  const showModal = () => {
+    setShowWishlist(true);
+  };
+  return (
+    <div>
+      {/* <MyNav /> */}
+      <NavBar showModal={showModal} />
+      {showWishlist && (
+        <WishlistSideBar hideModal={hideModal} showModal={showModal} />
+      )}
+      <AnimatePresence
+        exitBeforeEnter
+        onExitComplete={() => setShowWishlist(false)}
+      >
+        <ToastContainer />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/sidebar" element={<WishlistSideBar />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/bookdetails/:id" element={<BookDetails />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/service" element={<Service />} />
+          <Route path="/contactus" element={<Contactus />} />
+          <Route path="/profile" element={<MyProfile />} />
+          <Route path="/booksshop" element={<BooksShop />} />
+          <Route path="/authorshouse" element={<AuthorsHouse />} />
+        </Routes>
+        {/* <Counter /> */}
+        <Footer />
+      </AnimatePresence>
+    </div>
+  );
 }
 
 export default App;
