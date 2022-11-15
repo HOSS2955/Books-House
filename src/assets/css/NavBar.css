@@ -1,9 +1,11 @@
 .small__screen {
    display: none;
 }
+
 .large__screen {
    display: block;
 }
+
 .header {
    width: 100%;
    height: 70px;
@@ -15,6 +17,7 @@
    align-items: center;
    justify-content: space-between;
 }
+
 .logo {
    display: flex;
    align-items: center;
@@ -46,9 +49,11 @@
    text-decoration: none;
    font-size: 18px;
 }
+
 .nav__item {
    list-style-type: none;
 }
+
 .nav__icons {
    display: flex;
    align-items: center;
@@ -64,6 +69,7 @@
 .cart__icon,
 .fav__icon {
    position: relative;
+   cursor: pointer;
 }
 
 .__badge {
@@ -89,6 +95,7 @@
    height: 30px;
    cursor: pointer;
 }
+
 .mobile__menu {
    font-size: 1.3rem;
    color: var (--primary-color);
@@ -116,6 +123,7 @@
       display: block;
       /* position:sticky; */
    }
+
    .large__screen {
       display: none;
    }

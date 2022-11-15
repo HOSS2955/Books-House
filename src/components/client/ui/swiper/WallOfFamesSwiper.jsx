@@ -25,10 +25,10 @@ export default function WallOfFamesSwiper({wallOfFamesArray}) {
         freeMode
         a11y
       >
-         {/* Map for data from backend */}
+         {/* Mapping wall of fames */}
        
     {wallOfFamesArray.map((item , index)=>{
-      return <SwiperSlide className="bg-light text-dark" key={index}>
+      return <SwiperSlide className="bg-light text-dark swiper__card" key={index}>
      <SwiperData
             feedTitle={item.feedTitle}
             feedPosition={item.feedPosition}

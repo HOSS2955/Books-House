@@ -5,15 +5,15 @@ import AboutImg from "./AboutImg";
 import OurGoals from "./OurGoals";
 
 const index = () => {
-   return (
-      <div>
-         <AboutHeader />
-         <div className="container">
-            <AboutImg />
-            <OurGoals />
-         </div>
+  return (
+    <div>
+      <AboutHeader />
+      <div className="container">
+        <AboutImg />
+        <OurGoals />
       </div>
-   );
+    </div>
+  );
 };
 
 export default index;

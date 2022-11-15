@@ -8,7 +8,7 @@ import 'swiper'
 import "swiper/css/bundle";
 
 
-export default function FeedBackSwiper({feedBackArray}) {
+export default function ClientsTestmonialsSwiper({clientsTestimonialsArray}) {
 
   
   
@@ -42,13 +42,11 @@ export default function FeedBackSwiper({feedBackArray}) {
           }
         }
       }
-        // onSwiper={(swiper) => console.log(swiper)}
-        // onSlideChange={(e) => console.log("slide change")}
       >
 
-{/* <FeedBackQuery/> */}
-{feedBackArray.map((item , index)=>
-  <SwiperSlide key={index}  className="bg-light">
+{/* <Mapping Clients testmonials/> */}
+{clientsTestimonialsArray.map((item , index)=>
+  <SwiperSlide key={index}  className="bg-light swiper__card">
     <SwiperData
             feedTitle={item.title}
             feedPosition={item.feedPosition}
