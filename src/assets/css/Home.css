@@ -1,60 +1,101 @@
-    .hero__section {
-        background: #F2F4F5
-    }
+.hero__section {
+   background: #f2f4f5;
+   position: relative;
+}
 
-    .hero__content h2 {
-        color: var(--primary-color);
-        font-size: 2.5rem;
-        font-weight: 600;
-        margin: 20px 0px;
-    }
+.hero__content h2 {
+   color: var(--primary-color);
+   font-size: 2.5rem;
+   font-weight: 600;
+   margin: 20px 0px;
+}
 
-    .hero__content p {
-        color: var(--primary-color);
-        line-height: 28px;
+.hero__content p {
+   color: var(--primary-color);
+   line-height: 28px;
+}
 
-    }
+.hero__section p:nth-child(1) {
+   font-weight: 500;
+}
 
-    .hero__section p:nth-child(1) {
-        font-weight: 500;
-    }
+.hero__section img {
+   height: 99vh;
+}
 
-    .hero__section img {
-        height: 104vh;
-    }
+.hero__content {
+   width: 100%;
+   background: transparent;
+}
 
-    .hero__content {
-        width: 100%;
-        background: transparent;
+.hero__section .swiper-button-next,
+.hero__section .swiper-button-prev {
+   color: transparent !important;
+}
 
-    }
+.hero__img img {
+   width: 100%;
+   object-fit: cover;
+}
 
-    .hero__section .swiper-button-next,
-    .hero__section .swiper-button-prev {
-        color: transparent !important
-    }
+.swiper__card {
+   border-radius: 12px;
+}
+.buy__btn {
+   border: none;
+   outline: none;
+   padding: 15px 28px;
+   border-radius: 5px;
+   background: var(--secondary);
+   font-size: 1rem;
+   margin-top: 40px;
+   top: 73%;
+   left: 42%;
+   font-weight: 600;
+}
+.buy__btn a:hover {
+   color: black;
+   border-radius: 5px;
+}
 
-    .hero__img img {
-        width: 100%;
-        object-fit: cover;
-    }
+/* SVG CSS*/
+.custom-shape-divider-top-1668530886 {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   overflow: hidden;
+   line-height: 0;
+   transform: rotate(180deg);
+}
 
-    .swiper__card {
-        border-radius: 12px
-    }
-    .buy__btn{
-        border: none;
-        outline: none;
-        padding: 15px 28px;
-        border-radius: 5px;
-        background:var(--secondary);
-        font-size: 1rem;
-        margin-top: 40px;
-        top: 73%;
-        left: 42%;
-        font-weight: 600;
-      }
-      .buy__btn a:hover{
-        color:black;
-        border-radius: 5px;
-      }
+.custom-shape-divider-top-1668530886 svg {
+   position: relative;
+   display: block;
+   width: calc(100% + 1.3px);
+   height: 48px;
+}
+
+.custom-shape-divider-top-1668530886 .shape-fill {
+   fill: #fff;
+}
+.custom-shape-divider-bottom-1668531089 {
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   width: 100%;
+   overflow: hidden;
+   line-height: 0;
+   transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1668531089 svg {
+   position: relative;
+   display: block;
+   width: calc(100% + 1.3px);
+   height: 48px;
+}
+
+.custom-shape-divider-bottom-1668531089 .shape-fill {
+   fill: #fff;
+}
