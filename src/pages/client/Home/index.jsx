@@ -6,7 +6,7 @@ import WallOfFames from "./WallOfFames";
 import { useGetHomepageDataQuery } from "../../../features/homeApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { homepageActions } from "../../../store/client/reducers/homepageSlice";
-import AboutUs from "../About/AboutUs";
+import AboutUs from "./AboutUs";
 import DiscoverBooks from "./DiscoverBooks";
 import Header from "./Header";
 
@@ -25,7 +25,7 @@ export default function Home() {
   }, [dispatch, data]);
 
   return (
-    <div>
+    <div className="home__style">
       <Header headerArray={headerData} />
       <section className="section">
         <AboutUs />

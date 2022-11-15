@@ -25,14 +25,7 @@ const Header = ({ headerArray }) => {
                <Row>
                   <div className="d-flex align-items-center col-6 p-5">
                      <div className="hero__content">
-                        {/* <HeaderSwiper headerArray={headerArray} /> */}
-                        <h1>Books House</h1>
-                        <p>
-                           Lorem ipsum dolor sit amet, consectetur adipisicing
-                           elit. Quos itaque eos culpa, ducimus optio iusto
-                           laboriosam ratione maxime repudiandae minus soluta
-                           saepe, porro ipsam dolorum ea vel modi eaque sit?
-                        </p>
+                        <HeaderSwiper headerArray={headerArray} />
                      </div>
                   </div>
                   <div lg="6" md="6" className="col-6 p-0">
