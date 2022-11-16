@@ -23,7 +23,7 @@ export default function AuthorsHouse() {
    }, [dispatch, data]);
 
    return (
-      <div>
+      <div className="mt-5">
          {/* SERVICE NAME AND DESCRIPTION */}
          <div className="mb-5">
             <div className="container">

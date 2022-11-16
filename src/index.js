@@ -17,8 +17,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
    <React.StrictMode>
       <Provider store={adminStore}>
-      <Provider store={clientStore}>
-         
+         <Provider store={clientStore}>
             <BrowserRouter>
                <QueryClientProvider client={queryClient}>
                   {/* <ApiProvider api={homepageApi}>  */}

@@ -1,7 +1,7 @@
 import React from "react";
 import BookList from "./BookList";
 import "../../../assets/css/BookShop.css";
-import BreadCrumb from "../../../components/client/Breadcrump/BreadCrumb";
+import BreadCrumb from "../../../components/client/ui/Breadcrump/BreadCrumb";
 import Aside from "../../../components/client/Aside/Aside";
 export default function BooksShop() {
    return (

@@ -10,8 +10,13 @@ import { IoBagHandleOutline } from "react-icons/io5";
 export default function ItemCard({ book }) {
    const [showbtns, setShowbtns] = useState(false);
    return (
-      // <div className=" col-sm-12 col-md-4 mb-3">
-      <div>
+      <motion.div
+         layout
+         animate={{ opacity: 1 }}
+         initial={{ opacity: 0 }}
+         exit={{ opacity: 0, delay: 0.9 }}
+         transition={{ duration: 0.9, type: "spring" }}
+      >
          <motion.div
             onHoverStart={() => {
                setShowbtns(true);
@@ -31,21 +36,21 @@ export default function ItemCard({ book }) {
                   transition={{ duration: 0.6 }}
                >
                   <motion.button
-                     className="btn btn-light mx-1 rounded-5"
+                     className="itemBtns btn btn-light mx-1 rounded-5"
                      type="submit"
                      transition={{ duration: 0.6 }}
                   >
                      <AiOutlinePlus />
                   </motion.button>
                   <motion.button
-                     className="btn btn-light mx-1 text-bold rounded-5"
+                     className="itemBtns btn btn-light mx-1 text-bold rounded-5"
                      type="submit"
                      transition={{ duration: 0.4 }}
                   >
                      <IoBagHandleOutline />
                   </motion.button>
                   <motion.button
-                     className=" btn btn-light mx-1 rounded-5"
+                     className="itemBtns btn btn-light mx-1 rounded-5"
                      type="submit"
                      transition={{ duration: 0.3 }}
                   >
@@ -67,6 +72,6 @@ export default function ItemCard({ book }) {
             </div>
             <p className="textitem text-center fw-semibold">${book.price}.00</p>
          </div>
-      </div>
+      </motion.div>
    );
 }
