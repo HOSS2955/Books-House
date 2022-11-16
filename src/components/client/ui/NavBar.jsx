@@ -38,7 +38,6 @@ const nav__links = [
 const NavBar = ({ showModal }) => {
   // Check if the user is Authorized
   const {checkAuth} = useSelector((state) => state.checkAuth);
-console.log("checkAuth : " , checkAuth)
   // change nav color when scrolling
   const [color , setColor] = useState(false)
   const changeColor = ()=>{
