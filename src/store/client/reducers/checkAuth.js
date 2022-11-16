@@ -7,12 +7,7 @@ const checkAuthSlice = createSlice({
   name: "checkAuth",
   initialState,
   reducers: {
-    increase: (state, action) => {
-      state.count += 1;
-    },
-    decrease: (state, action) => {
-      state.count -= 1;
-    },
+   
   },
 });
 

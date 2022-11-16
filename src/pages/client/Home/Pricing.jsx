@@ -12,10 +12,10 @@ const Pricing = ({ pricingArray }) => {
   const { packageData} =
     useSelector((state) => state.package);
   useEffect(() => {
-    console.log(data);
+    console.log("data from pricing" , data);
     if (data) {
       dispatch(setDataInLocalState(data));
-      console.log(data);
+      console.log("data from pricing" , data);
     }
   }, [dispatch, data]);
   console.log(packageData)

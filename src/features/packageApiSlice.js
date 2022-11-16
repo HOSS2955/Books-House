@@ -1,11 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const packageApi = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3005/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "/package" }),
   reducerPath: "packageApi",
   endpoints: (build) => ({
     getPackageData: build.query({
-      query: () => "services",
+      query: () => "/getall",
       providesTags:[{title:"Package",id:"LIST"}]
     })
   })
