@@ -1,10 +1,12 @@
 import React, { useRef, useEffect ,useState } from "react";
+import { useSelector , useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import "../../../assets/css/NavBar.css";
 
 import { motion } from "framer-motion";
 import { FiHeart } from "react-icons/fi";
 import { BsBag } from "react-icons/bs";
+import { BiUserCircle } from "react-icons/bi";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -12,6 +14,8 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import { checkAuthActions } from "../../../store/client/reducers/checkAuth";
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const nav__links = [
   {
@@ -32,13 +36,14 @@ const nav__links = [
   },
 ];
 const NavBar = ({ showModal }) => {
-
+  // Check if the user is Authorized
+  const {checkAuth} = useSelector((state) => state.checkAuth);
+console.log("checkAuth : " , checkAuth)
   // change nav color when scrolling
   const [color , setColor] = useState(false)
   const changeColor = ()=>{
     if(window.scrollY>=700){
       setColor(true)
-      console.log(window.scrollY)
     }else{
       setColor(false)
     }
@@ -87,7 +92,18 @@ const NavBar = ({ showModal }) => {
                   ))}
                 </ul>
               </div>
-              <div className="nav__icons">
+              {!checkAuth && 
+              <Dropdown>
+      <Dropdown.Toggle variant="warning" id="dropdown-basic">
+      <BiUserCircle/>
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu>
+        <Dropdown.Item href="#/action-1">Log-in</Dropdown.Item>
+        <Dropdown.Item href="#/action-2">Sign-up</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>}
+               {checkAuth && <div className="nav__icons">
                 <span onClick={showModal} className="fav__icon">
                   <FiHeart />
                   <span className="__badge">1</span>
@@ -103,7 +119,7 @@ const NavBar = ({ showModal }) => {
                     alt="user icon"
                   />
                 </span>
-              </div>
+              </div>}
             </div>
             <div></div>
           </div>

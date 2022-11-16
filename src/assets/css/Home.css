@@ -52,10 +52,12 @@
    top: 73%;
    left: 42%;
    font-weight: 600;
+   margin: 0px 0px 3px 5px;
 }
 .buy__btn a:hover {
    color: black;
    border-radius: 5px;
+   
 }
 
 /* SVG CSS*/

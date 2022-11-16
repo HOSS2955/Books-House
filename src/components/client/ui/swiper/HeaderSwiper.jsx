@@ -19,7 +19,7 @@ const HeaderSwiper = ({ headerArray }) => {
         loop={true}
         slidesPerView={1}
         autoplay={{
-          delay: 3500,
+          delay: 350000,
           disableOnInteraction: false,
         }}
         className="container"
@@ -30,7 +30,7 @@ const HeaderSwiper = ({ headerArray }) => {
         {/* <Mapping header data/> */}
         {headerArray.map((item, index) => {
           return (
-            <SwiperSlide className="bg-transparent text-dark">
+            <SwiperSlide className="bg-transparent text-dark" key={index}>
               <div className="hero__content">
                 <p className="hero__subtitle">Our Services</p>
                 <h2>{item.title}</h2>

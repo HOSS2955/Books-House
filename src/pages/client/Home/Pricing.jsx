@@ -1,10 +1,24 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React , {useEffect} from "react";
+import { useSelector , useDispatch } from "react-redux";
 import PackageQuery from "../../../services/PackageQuery";
 import "../../../assets/css/Package.css";
+import { useGetPackageDataQuery } from "../../../features/packageApiSlice";
+import { packageActions } from "../../../store/client/reducers/packageSlice";
 
 const Pricing = ({ pricingArray }) => {
-  const { packages } = useSelector((state) => state.res);
+  const { data, isError, isLoading } = useGetPackageDataQuery();
+  const dispatch = useDispatch();
+  const { setDataInLocalState } = packageActions;
+  const { packageData} =
+    useSelector((state) => state.package);
+  useEffect(() => {
+    console.log(data);
+    if (data) {
+      dispatch(setDataInLocalState(data));
+      console.log(data);
+    }
+  }, [dispatch, data]);
+  console.log(packageData)
   return (
     <div className="container">
       <section id="pricing" className="section bg-white">
@@ -21,7 +35,7 @@ const Pricing = ({ pricingArray }) => {
         </div>
         <div className="container text-sm">
           <div className="row">
-            <PackageQuery pricingArray={pricingArray}></PackageQuery>
+            <PackageQuery pricingArray={packageData}></PackageQuery>
           </div>
         </div>
       </section>

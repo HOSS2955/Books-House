@@ -14,7 +14,7 @@ export default function Home() {
   const { data, isError, isLoading } = useGetHomepageDataQuery();
   const dispatch = useDispatch();
   const { setDataInLocalState } = homepageActions;
-  const { wallOfFamesData, clientsTestimonialsData, packagesData, headerData } =
+  const { wallOfFamesData, clientsTestimonialsData, headerData } =
     useSelector((state) => state.homepage);
   useEffect(() => {
     console.log(data);
@@ -23,7 +23,6 @@ export default function Home() {
       console.log(data);
     }
   }, [dispatch, data]);
-
   return (
     <div className="home__style">
       <Header headerArray={headerData} />
@@ -31,11 +30,11 @@ export default function Home() {
         <AboutUs />
       </section>
       <WallOfFames wallOfFamesArray={wallOfFamesData}></WallOfFames>
-      <Pricing pricingArray={packagesData} />
+      <Pricing/>
+      <DiscoverBooks />
       <ClientsTestimonials
         clientsTestimonialsArray={clientsTestimonialsData}
       ></ClientsTestimonials>
-      <DiscoverBooks />
     </div>
   );
 }
