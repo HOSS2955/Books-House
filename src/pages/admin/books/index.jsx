@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useEffect } from "react";
-import { booksActions } from "../../../store/admin/reducers/bookSlice";
-import { deleteBook, getBooks } from "../../../store/admin/reducers/bookSlice";
+import { booksActions } from "../../../store/client/reducers/bookSlice";
+import { deleteBook, getBooks } from "../../../store/client/reducers/bookSlice";
 
 export default function Books() {
    const dispatch = useDispatch();
@@ -83,10 +83,10 @@ export default function Books() {
                      (c) =>
                         (thisRow[c.field] = params.getValue(params.id, c.field))
                   );
-               if (e.target.innerText == "DELETE") {
+               if (e.target.innerText === "DELETE") {
                   dispatch(deleteBook(thisRow));
                }
-               if (e.target.innerText == "EDIT") {
+               if (e.target.innerText === "EDIT") {
                   dispatch(changeBookData(thisRow));
                   navigate(`/bookform/${thisRow.id}`);
                }
