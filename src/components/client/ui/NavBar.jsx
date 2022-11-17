@@ -41,7 +41,7 @@ const NavBar = ({ showModal }) => {
    // change nav color when scrolling
    const [color, setColor] = useState(false);
    const changeColor = () => {
-      if (window.scrollY >= 10) {
+      if (window.scrollY >= 20) {
          setColor(true);
       } else {
          setColor(false);
@@ -70,6 +70,7 @@ const NavBar = ({ showModal }) => {
             duration: 1,
             delay: 0.2,
          }}
+         className="nav-Container fixed-top"
          ref={headerRef}
       >
          {/* Large screen */}
