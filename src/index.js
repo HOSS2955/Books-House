@@ -16,19 +16,19 @@ const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
    <React.StrictMode>
-      <Provider store={adminStore}>
-         <Provider store={clientStore}>
-            <BrowserRouter>
-               <QueryClientProvider client={queryClient}>
-                  {/* <ApiProvider api={homepageApi}>  */}
-                  <Routes>
-                     <Route path="/*" element={<App />} />
-                     <Route path="/admin/*" element={<Admin />} />
-                  </Routes>
-               </QueryClientProvider>
-            </BrowserRouter>
-         </Provider>
+      {/* <Provider store={adminStore}> */}
+      <Provider store={clientStore}>
+         <BrowserRouter>
+            <QueryClientProvider client={queryClient}>
+               {/* <ApiProvider api={homepageApi}>  */}
+               <Routes>
+                  <Route path="/*" element={<App />} />
+                  <Route path="/admin/*" element={<Admin />} />
+               </Routes>
+            </QueryClientProvider>
+         </BrowserRouter>
       </Provider>
+      {/* </Provider> */}
    </React.StrictMode>
 );
 

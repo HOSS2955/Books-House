@@ -34,6 +34,10 @@ const nav__links = [
       path: "authorshouse",
       display: "Authors House",
    },
+   {
+      path: "reviews",
+      display: "Reviews",
+   },
 ];
 const NavBar = ({ showModal }) => {
    // Check if the user is Authorized
