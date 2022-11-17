@@ -7,6 +7,7 @@ import AuthorForm from "../../../components/client/author-form/AuthorForm";
 import CheckoutForm from "../../../components/client/ChecoutForm/CheckoutForm";
 import Modalnew from "../../../components/client/form-modal/Modal";
 import ConfettiModal from "../../../components/client/ui/ConfettiModel";
+import ReviewHeader from "../../../components/client/ui/ReviewHeader/ReviewHeader";
 
 export default function Service() {
   const [show, setShow] = useState(false);
@@ -24,6 +25,11 @@ export default function Service() {
   });
   const [confetti, setConfetti] = useState(false);
   // const { authorData } = useSelector((state) => state.author);
+  const data = {
+    src: "https://images.pexels.com/photos/3586966/pexels-photo-3586966.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    header: "Test Title",
+    desc: "The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element",
+  };
 
   const handlePay = () => setActive("pay");
   const handleClose = () => setShow(false);
@@ -65,6 +71,7 @@ export default function Service() {
           </Elements>
         )}
       </Modalnew>
+      <ReviewHeader data={data} className="mt-5 pt-5" />
     </div>
   );
 }

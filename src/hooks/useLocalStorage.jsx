@@ -1,3 +1,5 @@
+const { useState } = require("react");
+
 // Hook
 function useLocalStorage(key, initialValue) {
   // State to store our value
