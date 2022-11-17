@@ -8,7 +8,7 @@ const Header = ({ headerArray }) => {
    return (
       <div>
          <section className="hero__section">
-            <div class="custom-shape-divider-top-1668530886">
+            <div className="custom-shape-divider-top-1668530886">
                <svg
                   data-name="Layer 1"
                   xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +17,7 @@ const Header = ({ headerArray }) => {
                >
                   <path
                      d="M602.45,3.86h0S572.9,116.24,281.94,120H923C632,116.24,602.45,3.86,602.45,3.86Z"
-                     class="shape-fill"
+                     className="shape-fill"
                   ></path>
                </svg>
             </div>
@@ -43,7 +43,7 @@ const Header = ({ headerArray }) => {
                   /> */}
                </Row>
             </Container>
-            <div class="custom-shape-divider-bottom-1668531089">
+            <div className="custom-shape-divider-bottom-1668531089">
                <svg
                   data-name="Layer 1"
                   xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +52,7 @@ const Header = ({ headerArray }) => {
                >
                   <path
                      d="M1200,0H0V120H281.94C572.9,116.24,602.45,3.86,602.45,3.86h0S632,116.24,923,120h277Z"
-                     class="shape-fill"
+                     className="shape-fill"
                   ></path>
                </svg>
             </div>

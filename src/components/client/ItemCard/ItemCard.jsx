@@ -59,10 +59,6 @@ export default function ItemCard({ book }) {
                </motion.div>
             )}
             <div className="blackBG"></div>
-
-            {/* <div className="absDiv ">
-               <div className="absDiv"></div>
-            </div> */}
          </motion.div>
          <div className="textitem mt-3">
             <div className="text-center mb-1">

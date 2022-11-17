@@ -8,7 +8,7 @@ const Footer = () => {
    const year = new Date().getFullYear();
    return (
       <footer className="footer book-footer">
-         <div class="book__wave">
+         <div className="book__wave">
             <svg
                data-name="Layer 1"
                xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +17,7 @@ const Footer = () => {
             >
                <path
                   d="M602.45,3.86h0S572.9,116.24,281.94,120H923C632,116.24,602.45,3.86,602.45,3.86Z"
-                  class="shape-fill"
+                  className="shape-fill"
                ></path>
             </svg>
          </div>
