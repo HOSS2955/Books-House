@@ -12,6 +12,8 @@
    height: 70px;
    line-height: 70px;
 }
+.nav-Container {
+}
 
 .nav__wrapper {
    display: flex;
@@ -112,7 +114,6 @@
    height: 70px;
    line-height: 70px;
    position: fixed;
-   /* background-color: green; */
    top: 0;
    left: 0;
    z-index: 9;
