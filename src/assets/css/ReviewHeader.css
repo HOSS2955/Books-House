@@ -6,6 +6,6 @@ img {
 .bottom-left {
   position: absolute;
   width: 100%;
-  bottom: 80px;
+  bottom: 10px;
   left: 80px;
 }
