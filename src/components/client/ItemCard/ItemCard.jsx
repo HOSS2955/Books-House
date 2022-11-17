@@ -7,6 +7,32 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { AiOutlineHeart } from "react-icons/ai";
 import { IoBagHandleOutline } from "react-icons/io5";
 
+const container = {
+   hidden: { opacity: 0 },
+   show: {
+      y: -150,
+      opacity: 1,
+      transition: {
+         ease: [0.6, 0.01, -0.05, 0.95],
+         duration: 0.6,
+         delay: 0.1,
+         staggerChildren: 0.2,
+      },
+   },
+};
+
+const item = {
+   hidden: { opacity: 0, y: 200 },
+   show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+         ease: [0.6, 0.01, -0.05, 0.95],
+         duration: 1.3,
+      },
+   },
+};
+
 export default function ItemCard({ book }) {
    const [showbtns, setShowbtns] = useState(false);
    return (
@@ -31,38 +57,36 @@ export default function ItemCard({ book }) {
 
             {showbtns && (
                <motion.div
+                  variants={container}
+                  initial="hidden"
+                  animate="show"
+                  exit="exit"
                   className="btnsCont d-flex justify-content-center align-items-center"
-                  animate={{ y: -150 }}
-                  transition={{ duration: 0.6 }}
                >
                   <motion.button
                      className="itemBtns btn btn-light mx-1 rounded-5"
                      type="submit"
-                     transition={{ duration: 0.6 }}
+                     variants={item}
                   >
                      <AiOutlinePlus />
                   </motion.button>
                   <motion.button
                      className="itemBtns btn btn-light mx-1 text-bold rounded-5"
                      type="submit"
-                     transition={{ duration: 0.4 }}
+                     variants={item}
                   >
                      <IoBagHandleOutline />
                   </motion.button>
                   <motion.button
                      className="itemBtns btn btn-light mx-1 rounded-5"
                      type="submit"
-                     transition={{ duration: 0.3 }}
+                     variants={item}
                   >
                      <AiOutlineHeart />
                   </motion.button>
                </motion.div>
             )}
             <div className="blackBG"></div>
-
-            {/* <div className="absDiv ">
-               <div className="absDiv"></div>
-            </div> */}
          </motion.div>
          <div className="textitem mt-3">
             <div className="text-center mb-1">
