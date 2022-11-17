@@ -8,8 +8,9 @@ import { Link } from "react-router-dom";
 import validator from "validator";
 import { useDispatch } from "react-redux";
 import "./Login.css";
-import ProtectedComponent from "../../../features/ProtectedComponent";
-import { useLoginMutation } from "../../../services/authApiSlice";
+import ProtectedComponent from "../../../../features/ProtectedComponent";
+
+import { useLoginMutation } from "../../../../services/authApiSlice";
 import { toast } from "react-toastify";
 
 export default function Login() {

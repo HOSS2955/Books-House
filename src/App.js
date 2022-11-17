@@ -16,14 +16,15 @@ import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import MyProfile from "./pages/client/Profile/MyProfile";
 import Footer from "./components/client/ui/Footer";
+
 import Contactus from "./pages/client/Contactus/Contactus";
 import About from "./pages/client/About";
-import Register from "./pages/authPages/register/Register";
+import Register from "./pages/client/authPages/register/Register";
 import ComponentsRoutes from "./routes/ComponentsRoutes";
 import AuthRoutes from "./routes/AuthRoutes";
-import PasswordPage from "./pages/authPages/passwordPage/PasswordPage";
-import Login from "./pages/authPages/login/Login";
-import Verification from "./pages/authPages/verification/Verification";
+import PasswordPage from "./pages/client/authPages/passwordPage/PasswordPage";
+import Login from "./pages/client/authPages/login/Login";
+import Verification from "./pages/client/authPages/verification/Verification";
 import { PrivateOutlet } from "./utils/privateRoutes";
 
 function App() {

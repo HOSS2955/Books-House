@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 
 import "react-toastify/dist/ReactToastify.css";
-import AuthFooter from "../pages/authPages/AuthFooter/AuthFooter";
+import AuthFooter from "../pages/client/authPages/AuthFooter/AuthFooter";
 
 function AuthRoutes() {
   return (
