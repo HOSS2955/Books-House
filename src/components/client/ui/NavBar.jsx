@@ -62,7 +62,16 @@ const NavBar = ({ showModal }) => {
       return () => window.removeEventListener("scroll", stickyHeaderFunc);
    });
    return (
-      <div ref={headerRef}>
+      <motion.div
+         initial={{ opacity: 0, y: -180 }}
+         animate={{ opacity: 1, y: 0 }}
+         transition={{
+            ease: "easeInOut",
+            duration: 1,
+            delay: 0.2,
+         }}
+         ref={headerRef}
+      >
          {/* Large screen */}
          <header
             className={
@@ -195,7 +204,7 @@ const NavBar = ({ showModal }) => {
                </div>
             </Container>
          </Navbar>
-      </div>
+      </motion.div>
    );
 };
 
