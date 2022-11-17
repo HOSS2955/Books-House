@@ -5,7 +5,7 @@ import { homepageReducer } from "./reducers/homepageSlice";
 import { userReducer } from "./reducers/userSlice";
 import { homepageApi } from "../features/homeApiSlice";
 import { authReducer } from "./reducers/authSlice";
-import { authApi } from "../features/authApiSlice";
+import { authApi } from "../services/authApiSlice";
 export const store = configureStore({
   reducer: {
     books: booksReducer,

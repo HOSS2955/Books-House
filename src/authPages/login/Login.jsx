@@ -6,14 +6,17 @@ import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import validator from "validator";
+import { useDispatch } from "react-redux";
 import "./Login.css";
+import ProtectedComponent from "../../features/ProtectedComponent";
+import { useLoginMutation } from "../../services/authApiSlice";
 
 export default function Login() {
   //The state of the error message
   const [passErrMsg, setPassErrMessage] = useState("");
   const [emailErrMsg, setEmailErrMsg] = useState("");
   // The state of the button to be abled or disapled according to the validation
-  const [isDisabled, setDisabled] = useState(true);
+  const [isDisabled, setDisabled] = useState(false);
   // for displaying the error message if the input is invalid
   const [emailValue, setEmailValue] = useState("");
   const [passValue, setPassValue] = useState("");
@@ -41,7 +44,7 @@ export default function Login() {
     //   setPassErrMessage("Password is required");
     //   setDisabled(true);
     // }
-    if (validator.isStrongPassword(value)) {
+    if (validator.isAlphanumeric(value)) {
       // if the email or username is valid
       setPassErrMessage("Strong Password ✔");
       setPassValue(value);
@@ -52,16 +55,16 @@ export default function Login() {
       );
     }
   };
-  useEffect(() => {
-    if (
-      validator.isStrongPassword(passValue) &&
-      validator.isEmail(emailValue)
-    ) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-    }
-  }, [emailValue, passValue]);
+  // useEffect(() => {
+  //   if (
+  //     validator.isStrongPassword(passValue) &&
+  //     validator.isEmail(emailValue)
+  //   ) {
+  //     setDisabled(false);
+  //   } else {
+  //     setDisabled(true);
+  //   }
+  // }, [emailValue, passValue]);
 
   // function changes the state of displaying the error message
   // const onDisplayErrorMsg = (e) => {
@@ -72,8 +75,9 @@ export default function Login() {
   //     setDisplayEmailErrorMsg(true);
   //   }
   // };
+  const [login, { isLoading }] = useLoginMutation();
   const handleSubmit = async (e) => {
-    e.prevent.default();
+    e.preventDefault();
   };
   const signupHandler = () => {
     navigate("/auth/signup");
@@ -161,11 +165,32 @@ export default function Login() {
               )}
             </div>
             {/*For loging in the website using email*/}
-
+            {isLoading ? <h2>Esbor shwya!</h2> : ""}
             <button
               className="btn btn-dark w-100 mb-4 mt-2 fw-semibold text-small"
               disabled={isDisabled}
-              type="submit"
+              onClick={async () => {
+                try {
+                  await login({
+                    email: emailValue,
+                    password: passValue,
+                  })
+                    .unwrap()
+                    .then((payload) =>
+                      console.log("success", payload.authorisation.token)
+                    )
+                    .catch((err) => {
+                      console.log("reject", err);
+                    });
+                  // Being that the result is handled in extraReducers in authSlice,
+                  // we know that we're authenticated after this, so the user
+                  // and token will be present in the store
+                  navigate("/");
+                } catch (err) {
+                  console.log(err.status);
+                }
+              }}
+              // type="submit"
             >
               Log In
             </button>
