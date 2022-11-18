@@ -1,7 +1,0 @@
-.bg-button {
-  background-color: var(--secondary); /* Green */
-}
-.bg-button:hover {
-  background-color: var(--dark);
-  color: var(--primary);
-}
