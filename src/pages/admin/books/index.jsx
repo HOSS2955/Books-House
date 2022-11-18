@@ -18,6 +18,7 @@ export default function Books() {
    useEffect(() => {
       dispatch(getBooks());
    }, []);
+
    const theme = useTheme();
    const colors = tokens(theme.palette.mode);
    const columns = [
@@ -88,7 +89,7 @@ export default function Books() {
                }
                if (e.target.innerText === "EDIT") {
                   dispatch(changeBookData(thisRow));
-                  navigate(`/bookform/${thisRow.id}`);
+                  navigate(`/admin/bookform/${thisRow.id}`);
                }
             };
             return (
@@ -121,7 +122,7 @@ export default function Books() {
    ];
 
    const addNewBook = () => {
-      navigate("/bookform");
+      navigate("/admin/booksform");
    };
    return (
       <Box m="20px">

@@ -29,51 +29,51 @@ import { PrivateOutlet } from "./utils/privateRoutes";
 import Reviews from "./pages/client/Review";
 
 function App() {
-  const [showWishlist, setShowWishlist] = useState(false);
-  const hideModal = () => {
-    setShowWishlist(false);
-  };
-  const showModal = () => {
-    setShowWishlist(true);
-  };
-  return (
-    <div>
-      {/* <MyNav /> */}
-      <NavBar showModal={showModal} />
-      {showWishlist && (
-        <WishlistSideBar hideModal={hideModal} showModal={showModal} />
-      )}
-      <AnimatePresence
-        exitBeforeEnter
-        onExitComplete={() => setShowWishlist(false)}
-      >
-        <ToastContainer />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/sidebar" element={<WishlistSideBar />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/bookdetails/:id" element={<BookDetails />} />
-          <Route path="auth" element={<AuthRoutes />}>
-            <Route path="verification" element={<Verification />} />
-            <Route path="register" element={<Register />} />
+   const [showWishlist, setShowWishlist] = useState(false);
+   const hideModal = () => {
+      setShowWishlist(false);
+   };
+   const showModal = () => {
+      setShowWishlist(true);
+   };
+   return (
+      <div>
+         {/* <MyNav /> */}
+         <NavBar showModal={showModal} />
+         {showWishlist && (
+            <WishlistSideBar hideModal={hideModal} showModal={showModal} />
+         )}
+         <AnimatePresence
+            exitBeforeEnter
+            onExitComplete={() => setShowWishlist(false)}
+         >
+            <ToastContainer />
+            <Routes>
+               <Route path="/" element={<Home />} />
+               <Route path="/sidebar" element={<WishlistSideBar />} />
+               <Route path="/home" element={<Home />} />
+               <Route path="/cart" element={<Cart />} />
+               <Route path="/bookdetails/:id" element={<BookDetails />} />
+               <Route path="auth" element={<AuthRoutes />}>
+                  <Route path="verification" element={<Verification />} />
+                  <Route path="register" element={<Register />} />
 
-            <Route path="login" element={<Login />} />
-            <Route path="password" element={<PasswordPage />} />
-          </Route>
-          <Route path="/about" element={<About />} />
-          <Route path="/service" element={<Service />} />
-          <Route path="/contactus" element={<Contactus />} />
-          <Route path="/profile" element={<MyProfile />} />
-          <Route path="/booksshop" element={<BooksShop />} />
-          <Route path="/authorshouse" element={<AuthorsHouse />} />
-          <Route path="/reviews" element={<Reviews />} />
-        </Routes>
-        {/* <Counter /> */}
-        {/* <Footer /> */}
-      </AnimatePresence>
-    </div>
-  );
+                  <Route path="login" element={<Login />} />
+                  <Route path="password" element={<PasswordPage />} />
+               </Route>
+               <Route path="/about" element={<About />} />
+               <Route path="/service" element={<Service />} />
+               <Route path="/contactus" element={<Contactus />} />
+               <Route path="/profile" element={<MyProfile />} />
+               <Route path="/booksshop" element={<BooksShop />} />
+               <Route path="/authorshouse" element={<AuthorsHouse />} />
+               <Route path="/reviews" element={<Reviews />} />
+            </Routes>
+            {/* <Counter /> */}
+            {/* <Footer /> */}
+         </AnimatePresence>
+      </div>
+   );
 }
 
 export default App;

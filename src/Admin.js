@@ -10,11 +10,11 @@ import Calender from "./pages/admin/calender";
 import FAQ from "./pages/admin/faq";
 import BooksHouse from "./pages/admin/bookshouse";
 import Books from "./pages/admin/books";
-import BookForm from "./pages/admin/bookform/BookForm";
 import SliderControl from "./pages/admin/sliderControl";
 import PackagesControl from "./pages/admin/packagesControl";
 import UsersStore from "./pages/admin/usersStore";
 import "./admin.css";
+import BookForm from "./pages/admin/bookform/BookForm";
 
 function Admin() {
    const [theme, colorMode] = useMode();
@@ -40,7 +40,8 @@ function Admin() {
                      />
                      <Route path="/books" element={<Books />} />
                      <Route path="/users" element={<UsersStore />} />
-                     <Route path="/bookform" element={<BookForm />} />
+                     <Route path="/booksform" element={<BookForm />} />
+                     {/* <Route path="/booksform" element={<BookForm />} /> */}
                      <Route path="/bookform/:id" element={<BookForm />} />
                      <Route path="/form" element={<Form />} />
                      <Route path="/calendar" element={<Calender />} />
