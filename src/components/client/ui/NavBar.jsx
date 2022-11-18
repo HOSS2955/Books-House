@@ -19,22 +19,26 @@ import { checkAuthActions } from "../../../store/client/reducers/checkAuth";
 import Dropdown from "react-bootstrap/Dropdown";
 
 const nav__links = [
-  {
-    path: "home",
-    display: "Home",
-  },
-  {
-    path: "about",
-    display: "About",
-  },
-  {
-    path: "booksshop",
-    display: "Shop",
-  },
-  {
-    path: "authorshouse",
-    display: "Authors House",
-  },
+   {
+      path: "home",
+      display: "Home",
+   },
+   {
+      path: "about",
+      display: "About",
+   },
+   {
+      path: "booksshop",
+      display: "Shop",
+   },
+   {
+      path: "authorshouse",
+      display: "Authors House",
+   },
+   {
+      path: "reviews",
+      display: "Reviews",
+   },
 ];
 const NavBar = ({ showModal }) => {
   // Check if the user is Authorized

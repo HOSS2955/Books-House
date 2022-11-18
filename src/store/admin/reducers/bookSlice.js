@@ -1,12 +1,12 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+// import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+// import axios from "axios";
 
-const initialState = {
-  books: [],
-  bookDetails: null,
-  editBook: false,
-  dataEditBook: {},
-};
+// const initialState = {
+//   books: [],
+//   bookDetails: null,
+//   editBook: false,
+//   dataEditBook: {},
+// };
 
 export const getBooks = createAsyncThunk(
   "books/getBooks",
@@ -74,23 +74,23 @@ export const updateBook = createAsyncThunk(
   }
 );
 
-const booksSlice = createSlice({
-  name: "books",
-  initialState,
-  reducers: {
-    changeBookData: (state, action) => {
-      state.dataEditBook = action.payload;
-    },
-  },
-  extraReducers: {
-    [getBooks.fulfilled]: (state, action) => {
-      state.books = action.payload;
-    },
-    [deleteBook.fulfilled]: (state, action) => {
-      state.books = action.payload;
-    },
-  },
-});
+// const booksSlice = createSlice({
+//   name: "books",
+//   initialState,
+//   reducers: {
+//     changeBookData: (state, action) => {
+//       state.dataEditBook = action.payload;
+//     },
+//   },
+//   extraReducers: {
+//     [getBooks.fulfilled]: (state, action) => {
+//       state.books = action.payload;
+//     },
+//     [deleteBook.fulfilled]: (state, action) => {
+//       state.books = action.payload;
+//     },
+//   },
+// });
 
-export const booksReducer = booksSlice.reducer;
-export const booksActions = booksSlice.actions;
+// export const booksReducer = booksSlice.reducer;
+// export const booksActions = booksSlice.actions;
