@@ -3,7 +3,7 @@ import { FaComments } from "react-icons/fa";
 
 export default function BookReview() {
    return (
-      <div className=" mx-4 border-top">
+      <div className=" mx-4 border-top border-dark">
          <div className="my-4 row">
             {/* Date */}
             <div className="col-lg-2 col-sm-12 mt-4 d-flex flex-column ">

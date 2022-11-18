@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -7,8 +7,10 @@ import Header from "../../../components/admin/Header";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addBook, updateBook } from "../../../store/admin/reducers/bookSlice";
+import { addBook, updateBook } from "../../../store/client/reducers/bookSlice";
 import { useEffect } from "react";
+import { tokens } from "../../../theme";
+import { useTheme } from "@mui/material";
 
 const initialValues = {
    title: "",
@@ -16,7 +18,7 @@ const initialValues = {
    author: "",
    desc: "",
    category: "",
-   imageSrc: "",
+   // imageSrc: "",
 };
 
 const userSchema = yup.object().shape({
@@ -25,32 +27,41 @@ const userSchema = yup.object().shape({
    author: yup.string(),
    desc: yup.string(),
    category: yup.string(),
-   imageSrc: yup.string(),
+   // imageSrc: yup.string(),
 });
 
 export default function BookForm() {
-   const [formValue, setFormValue] = useState({});
-   const { id } = useParams();
-
-   const { dataEditBook } = useSelector((state) => state.books);
+   const theme = useTheme();
+   const colors = tokens(theme.palette.mode);
    const dispatch = useDispatch();
    const navigate = useNavigate();
-
-   const isNonMobile = useMediaQuery("(min-width:600px)");
-   const handleFormSubmit = (book) => {
-      if (id) {
-         dispatch(updateBook({ id, formValue }));
-      } else {
-         dispatch(addBook(book));
-      }
-      navigate("/books");
-   };
+   const [formValue, setFormValue] = useState({});
+   const { id } = useParams();
+   const { dataEditBook } = useSelector((state) => state.books);
 
    useEffect(() => {
+      console.log(dataEditBook);
       if (id) {
          setFormValue(dataEditBook);
       }
    }, []);
+
+   const isNonMobile = useMediaQuery("(min-width:600px)");
+   // SUBMIT
+   const handleFormSubmit = (book) => {
+      if (id) {
+         dispatch(updateBook({ id, formValue }));
+      } else {
+         setFormValue({
+            ...book,
+            imageSrc: url,
+         });
+         dispatch(addBook(formValue));
+      }
+      console.log(url);
+      navigate("/admin/books");
+   };
+
    const operationHandler = (e) => {
       setFormValue({
          ...formValue,
@@ -58,8 +69,31 @@ export default function BookForm() {
       });
    };
 
+   //upload logic
+   const [image, setImage] = useState("");
+   const [url, setUrl] = useState("");
+   const uploadImage = async () => {
+      const data = new FormData();
+      data.append("file", image);
+      data.append("upload_preset", "booksImages");
+      data.append("cloud_name", "dzm6mwpui");
+      fetch("https://api.cloudinary.com/v1_1/dzm6mwpui/image/upload", {
+         method: "post",
+         body: data,
+      })
+         .then((resp) => resp.json())
+         .then((data) => {
+            console.log(data.url);
+            setUrl(data.url);
+            setFormValue({
+               ...formValue,
+               imageSrc: data.url,
+            });
+         })
+         .catch((err) => console.log(err));
+   };
    return (
-      <Box m="20px">
+      <Box m="20px 20px 0">
          <Header title="BOOK FORM" subTitle="" />
          <Formik
             onSubmit={handleFormSubmit}
@@ -85,6 +119,7 @@ export default function BookForm() {
                         },
                      }}
                   >
+                     {/* TITLE */}
                      <TextField
                         fullWidth
                         variant="filled"
@@ -99,6 +134,7 @@ export default function BookForm() {
                         helperText={touched.title && errors.title}
                         sx={{ gridColumn: "span 2" }}
                      />
+                     {/* PRICE */}
                      <TextField
                         fullWidth
                         variant="filled"
@@ -113,6 +149,7 @@ export default function BookForm() {
                         helperText={touched.price && errors.price}
                         sx={{ gridColumn: "span 2" }}
                      />
+                     {/* AUTHOR */}
                      <TextField
                         fullWidth
                         variant="filled"
@@ -127,6 +164,7 @@ export default function BookForm() {
                         helperText={touched.author && errors.author}
                         sx={{ gridColumn: "span 4" }}
                      />
+                     {/* DECRIPTOIN */}
                      <TextField
                         fullWidth
                         variant="filled"
@@ -141,6 +179,7 @@ export default function BookForm() {
                         helperText={touched.desc && errors.desc}
                         sx={{ gridColumn: "span 4" }}
                      />
+                     {/* CATEGORY */}
                      <TextField
                         fullWidth
                         variant="filled"
@@ -155,7 +194,37 @@ export default function BookForm() {
                         helperText={touched.category && errors.category}
                         sx={{ gridColumn: "span 4" }}
                      />
-                     <TextField
+                     {/* IMGAE */}
+                     <Box
+                        sx={{
+                           m: 2,
+                           display: "flex",
+                        }}
+                     >
+                        <Typography sx={{ color: colors.grey[200], mr: 2 }}>
+                           Image
+                        </Typography>
+                        <input
+                           type="file"
+                           onChange={(e) => {
+                              setImage(e.target.files[0]);
+                           }}
+                        ></input>
+                        <Button
+                           disabled={image ? false : true}
+                           variant="contained"
+                           component="label"
+                           onClick={uploadImage}
+                           sx={{
+                              backgroundColor: colors.greenAccent[600],
+                              ml: 3,
+                           }}
+                        >
+                           Upload
+                        </Button>
+                     </Box>
+
+                     {/* <TextField
                         fullWidth
                         variant="filled"
                         type="text"
@@ -167,30 +236,23 @@ export default function BookForm() {
                         error={!!touched.imageSrc && !!errors.imageSrc}
                         helperText={touched.imageSrc && errors.imageSrc}
                         sx={{ gridColumn: "span 4" }}
-                     />
+                     /> */}
                   </Box>
                   <Box display="flex" justifyContent="end" mt="20px">
-                     {id ? (
-                        <Button
-                           type="submit"
-                           color="secondary"
-                           variant="contained"
-                        >
-                           Edit User
-                        </Button>
-                     ) : (
-                        <Button
-                           type="submit"
-                           color="secondary"
-                           variant="contained"
-                        >
-                           Add New Book
-                        </Button>
-                     )}
+                     <Button
+                        type="submit"
+                        color="secondary"
+                        variant="contained"
+                     >
+                        {id ? "Edit User" : "Add New Book"}
+                     </Button>
                   </Box>
                </form>
             )}
          </Formik>
+         <div className="d-flex">
+            {url && <p className="fs-5 text-success">Uploaded Successfully</p>}
+         </div>
       </Box>
    );
 }
