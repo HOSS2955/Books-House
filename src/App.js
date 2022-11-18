@@ -72,7 +72,7 @@ function App() {
           <Route path="/reviewdetails" element={<ReviewDetails />} />
         </Routes>
         {/* <Counter /> */}
-        {/* <Footer /> */}
+        <Footer />
       </AnimatePresence>
     </div>
   );

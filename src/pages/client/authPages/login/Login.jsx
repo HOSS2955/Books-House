@@ -88,7 +88,7 @@ export default function Login() {
   useEffect(() => {
     if (isSuccess) {
       toast.success("User registered successfully");
-      navigate(fromLocation);
+      navigate("/admin");
     }
 
     if (isError) {
