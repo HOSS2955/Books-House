@@ -27,6 +27,8 @@ app.use(book);
 app.use(admin);
 app.use(home);
 app.use(user);
+app.use(package);
+app.use(author);
 
 app.use(bookReviewRoute);
 app.use(stripeRouter);
