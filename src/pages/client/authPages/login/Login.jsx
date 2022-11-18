@@ -3,14 +3,13 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { FaApple, FaLock, FaUserAlt } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import validator from "validator";
 import { useDispatch } from "react-redux";
 import "./Login.css";
 import ProtectedComponent from "../../../../features/ProtectedComponent";
-
-import { useLoginMutation } from "../../../../services/authApiSlice";
+import { useLoginUserMutation } from "../../../../services/authApi";
 import { toast } from "react-toastify";
 
 export default function Login() {
@@ -46,7 +45,7 @@ export default function Login() {
     //   setPassErrMessage("Password is required");
     //   setDisabled(true);
     // }
-    if (validator.isAlphanumeric(value)) {
+    if (validator.isStrongPassword(value)) {
       // if the email or username is valid
       setPassErrMessage("Strong Password ✔");
       setPassValue(value);
@@ -57,16 +56,16 @@ export default function Login() {
       );
     }
   };
-  // useEffect(() => {
-  //   if (
-  //     validator.isStrongPassword(passValue) &&
-  //     validator.isEmail(emailValue)
-  //   ) {
-  //     setDisabled(false);
-  //   } else {
-  //     setDisabled(true);
-  //   }
-  // }, [emailValue, passValue]);
+  useEffect(() => {
+    if (
+      validator.isStrongPassword(passValue) &&
+      validator.isEmail(emailValue)
+    ) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [emailValue, passValue]);
 
   // function changes the state of displaying the error message
   // const onDisplayErrorMsg = (e) => {
@@ -77,34 +76,51 @@ export default function Login() {
   //     setDisplayEmailErrorMsg(true);
   //   }
   // };
-  const [login, { isLoading, isError, error }] = useLoginMutation();
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const location = useLocation();
+  const fromLocation = location.store?.from.pathname || "/profile";
 
-    try {
-      await login({
+  const [loginUser, { isLoading, isError, error, isSuccess }] =
+    useLoginUserMutation();
+  // const resetForm = () => {
+  //   setPassValue("");
+  //   setEmailValue("");
+  // };
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("User registered successfully");
+      navigate(fromLocation);
+    }
+
+    if (isError) {
+      console.log(error);
+      if (Array.isArray(error.data)) {
+        error.data.error.forEach((el) =>
+          toast.error(el.message, {
+            position: "top-right",
+          })
+        );
+      } else {
+        toast.error(error, {
+          position: "top-right",
+        });
+      }
+    }
+  }, [isLoading]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (
+      validator.isStrongPassword(passValue) &&
+      validator.isEmail(emailValue)
+    ) {
+      loginUser({
         email: emailValue,
         password: passValue,
-      })
-        .unwrap()
-        .then((payload) => console.log("success", payload.authorisation.token))
-        .catch((err) => {
-          console.log("reject", err);
-          toast.warn(err.error, {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-          });
-        });
-
-      navigate("/");
-    } catch (err) {
-      console.log(err.status);
+      });
+    } else {
+      toast.error("Please, Provide Data as required first!", {
+        position: "top-right",
+      });
     }
   };
   const signupHandler = () => {

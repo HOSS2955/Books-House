@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { FaApple, FaLock, FaUserAlt } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import validator from "validator";
+import { useVerifyEmailMutation } from "../../../../services/authApi";
 import { OTPBox } from "../otp/OtpPage";
-import "./Verification.css";
+import { toast } from "react-toastify";
 
+import "./Verification.css";
 export default function Verification() {
   //The state of the error message
   // const [passErrMsg, setPassErrMessage] = useState("");
@@ -70,6 +72,11 @@ export default function Verification() {
   // const signupHandler = () => {
   //   navigate("/auth/signup");
   // };
+  const navigate = useNavigate();
+  const [disabled, setDisabled] = useState(true);
+  // const verificationCode = useParams();
+  const [verifyEmail, { isLoading, isError, error, isSuccess, data }] =
+    useVerifyEmailMutation();
   const myArr = [new Array(6).fill("")];
   const [otp, setOtp] = useState(...myArr);
   const handleChange = (element, index) => {
@@ -79,9 +86,49 @@ export default function Verification() {
       element.nextSibling.focus();
     }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success(data?.message, {
+        position: "top-right",
+      });
+      navigate("/login");
+    }
+    if (isError) {
+      if (Array.isArray(error.data)) {
+        error.data.error.forEach((el) =>
+          toast.error(el.message, {
+            position: "top-right",
+          })
+        );
+      } else {
+        toast.error(error.data.message, {
+          position: "top-right",
+        });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
+  const validOTPLength = otp.join("").length == 6;
+  useEffect(() => {
+    if (validOTPLength) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [validOTPLength]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(otp.join(""));
+    if (validOTPLength) {
+      verifyEmail(otp.join(""));
+    } else {
+      toast.error("Enter a valid OTP", {
+        position: "top-right",
+      });
+    }
+    // console.log(otp.join(""));
+
+    // verifyEmail({ verificationCode });
   };
   // const handleVerification = (e) => {
   //   // e.preventDefault();
@@ -115,11 +162,16 @@ export default function Verification() {
                 <div className="d-flex flex-row ">
                   <button
                     className="btn btn-secondary w-50 m-1"
+                    type="button"
                     onClick={(e) => setOtp([...otp.map((v) => "")])}
                   >
                     Clear
                   </button>
-                  <button className="btn btn-primary w-50" type="submit">
+                  <button
+                    className="btn btn-primary w-50"
+                    type="submit"
+                    disabled={disabled}
+                  >
                     Verify
                   </button>
                 </div>
@@ -131,7 +183,7 @@ export default function Verification() {
               <hr className="hrLeft text-small" />
               <Link to="/auth/verification">
                 <a>
-                  Didn't recieve OTP yet?{" "}
+                  Didn't recieve OTP yet?
                   <span className="text-primary">Resend it</span>
                 </a>
               </Link>

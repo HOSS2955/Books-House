@@ -13,7 +13,7 @@ export const getBooks = createAsyncThunk(
   async (_, thunckAPI) => {
     const { rejectWithValue } = thunckAPI;
     try {
-      const response = await axios.get("http://localhost:3005/books");
+      const response = await axios.get("/books");
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
