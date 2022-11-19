@@ -70,7 +70,7 @@ function App() {
           <Route path="/reviews" element={<Reviews />} />
         </Routes>
         {/* <Counter /> */}
-        {/* <Footer /> */}
+        <Footer />
       </AnimatePresence>
     </div>
   );

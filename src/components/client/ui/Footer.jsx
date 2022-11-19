@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   const year = new Date().getFullYear();
   return (
-    <footer className="footer book-footer">
-      <div className="book__wave">
+    <footer className="footer book-footer bg-dark">
+      {/* <div className="book__wave">
         <svg
           data-name="Layer 1"
           xmlns="http://www.w3.org/2000/svg"
@@ -20,89 +20,76 @@ const Footer = () => {
             className="shape-fill"
           ></path>
         </svg>
-      </div>
-      <Container>
+      </div> */}
+      <Container className="text-light">
         <Row>
-          <Col lg="4">
+          <Col md="6" lg="3"  className="pt-md-4 mt-sm-5">
             <div className="logo">
               <img src="./images/hero_1.jpg" alt="logo" />
               <div>
-                <h1>Furniture</h1>
+                <h1 className="text-light">Furniture</h1>
               </div>
             </div>
-            <p className="footer__text mt-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Non
-              nostrum labore cum voluptate inventore voluptatem velit
-              consequatur ad at ipsam.
+            <p className="footer__text mt-4 pe-3 text-white-50">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
             </p>
           </Col>
-          <Col lg="3">
-            <div className="footer__quick-links">
-              <h4 className="quick__links-title">Top Categories</h4>
+          <Col md="6" lg="3" className="pt-md-4 mt-sm-5">
+            <div className="footer__quick-links ">
+              <h6 className="quick__links-title">Top Categories</h6>
               <ListGroup className="mb-3">
                 <ListGroupItem className="ps-0 border-0 bg-transparent">
-                  <Link to="#">Mobile Phones</Link>
+                  <Link to="#"  className="text-white-50">Mobile Phones</Link>
                 </ListGroupItem>
 
                 <ListGroupItem className="ps-0 border-0  bg-transparent">
-                  <Link to="#">Modern Sofa</Link>
+                  <Link to="#" className="text-white-50">Modern Sofa</Link>
                 </ListGroupItem>
 
-                <ListGroupItem className="ps-0 border-0  bg-transparent">
-                  <Link to="#">Arm Chair</Link>
-                </ListGroupItem>
-
-                <ListGroupItem className="ps-0 border-0  bg-transparent">
-                  <Link to="#">Smart watches</Link>
-                </ListGroupItem>
               </ListGroup>
             </div>
           </Col>
-          <Col lg="2">
+          <Col md="6" lg="3" className="pt-md-4 mt-sm-5">
             <div className="footer__quick-links">
-              <h4 className="quick__links-title">Useful Links</h4>
+              <h6 className="quick__links-title">Useful Links</h6>
               <ListGroup className="mb-3">
                 <ListGroupItem className="ps-0 border-0  bg-transparent">
-                  <Link to="shop">Shop</Link>
+                  <Link to="shop" className="text-white-50">Shop</Link>
                 </ListGroupItem>
 
                 <ListGroupItem className="ps-0 border-0  bg-transparent">
-                  <Link to="cart">Cart</Link>
+                  <Link to="cart" className="text-white-50">Cart</Link>
                 </ListGroupItem>
 
                 <ListGroupItem className="ps-0 border-0  bg-transparent">
-                  <Link to="login">ALogin</Link>
-                </ListGroupItem>
-
-                <ListGroupItem className="ps-0 border-0  bg-transparent">
-                  <Link to="#">Privacy Policy</Link>
+                  <Link to="#" className="text-white-50">Privacy Policy</Link>
                 </ListGroupItem>
               </ListGroup>
             </div>
           </Col>
-          <Col lg="3">
+          <Col md="6" lg="3" className="pt-md-4 mt-sm-5">
             <div className="footer__quick-links">
-              <h4 className="quick__links-title">Contact</h4>
+              <h6 className="quick__links-title">Contact</h6>
               <ListGroup className="footer__contact">
-                <ListGroupItem className="ps-0 border-0 d-flex align-item-center gap-2  bg-transparent">
+                <ListGroupItem className="ps-0 border-0  gap-2  bg-transparent">
                   <span>
                     <i className="ri-map-pin-line"></i>
                   </span>
-                  <p>123 AbasElakad st , Nasr City-Cairo</p>
+                  <p className="text-white-50">123 Snan st , Heliopolis-Cairo</p>
                 </ListGroupItem>
 
-                <ListGroupItem className="ps-0 border-0 d-flex align-item-center gap-2  bg-transparent">
+                <ListGroupItem className="ps-0 border-0  gap-2  bg-transparent">
                   <span>
                     <i className="ri-phone-line"></i>
                   </span>
-                  <p>+20 01013898149</p>
+                  <p className="text-white-50">+20 01013898149</p>
                 </ListGroupItem>
 
-                <ListGroupItem className="ps-0 border-0 d-flex align-item-center gap-2  bg-transparent">
+                <ListGroupItem className="ps-0 border-0  gap-2  bg-transparent">
                   <span>
                     <i className="ri-mail-line"></i>
                   </span>
-                  <p>mirnamilad0101@gmail.com</p>
+                  <p className="text-white-50">mirnamilad0101@gmail.com</p>
                 </ListGroupItem>
               </ListGroup>
             </div>

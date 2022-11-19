@@ -1,7 +1,7 @@
 {
    "name": "toolkitdemo",
    "version": "0.1.0",
-   "homepage": "http://localhost:3000/",
+   "homepage": "http://localhost:3001/",
    "private": true,
    "dependencies": {
       "@emotion/react": "^11.10.4",
@@ -34,7 +34,7 @@
       "chart.js": "^3.9.1",
       "font-awesome": "^4.7.0",
       "formik": "^2.2.9",
-      "framer-motion": "^7.6.5",
+      "framer-motion": "^7.6.7",
       "http-proxy-middleware": "^2.0.6",
       "jsconfig.json": "^2.3.3",
       "react": "^18.2.0",

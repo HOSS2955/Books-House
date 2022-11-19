@@ -6,7 +6,7 @@
    height: 593px;
    object-fit: cover;
 }
-ul li {
+ul.about__list li {
    list-style-type: circle;
    list-style-position: inside;
    margin: 0;

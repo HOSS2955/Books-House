@@ -5,7 +5,7 @@ import { FaApple, FaLock, FaUserAlt } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import validator from "validator";
+// import validator from "validator";
 import { OTPBox } from "../otp/OtpPage";
 import "./Verification.css";
 

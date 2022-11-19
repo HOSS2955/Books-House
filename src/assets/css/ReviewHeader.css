@@ -1,5 +1,5 @@
 /* Add class Parent to images */
-img {
+img.img__review {
   height: 78vh;
   object-fit: cover;
   /* filter: brightness(60%); */
