@@ -1,26 +1,29 @@
-const express = require('express')
-const router = express.Router()
-const {signUp,login ,sendCode,forgetPassword,confirmEmail, addProfileAvatar} = require('../controller/user.controller');
+const express = require("express");
+const router = express.Router();
+const {
+  signUp,
+  login,
+  sendCode,
+  forgetPassword,
+  confirmEmail,
+  addProfileAvatar,
+  refreshEmail,
+} = require("../controller/user.controller");
 // const { myMulter, fileValidation, HME } = require('../services/multer.services');
-const multer = require('multer')
-const auth= require('../middelware/auth2')
-const uploads = require('../services/multer.services')
-
-
-
-
-
-
+const multer = require("multer");
+const auth = require("../middelware/auth2");
+const uploads = require("../services/multer.services");
 
 //done
-router.post('/user/signUp',signUp)
-router.post('/user/login',login)
-router.post('/sendCode',sendCode)
-router.post('/forgetPassword',forgetPassword)
-router.get('/user/confirmEmail/:token',confirmEmail)
+router.post("/user/signUp", signUp);
+router.post("/user/login", login);
+router.post("/sendCode", sendCode);
+router.get("/api/v1/user/confirmEmail/:token", confirmEmail);
+router.get("/user/refreshEmail/:token", refreshEmail);
+router.post("/forgetPassword", forgetPassword);
+// router.get("/user/confirmEmail/:token", confirmEmail);
 
 //not done
-
 
 // Add Avatar
 
@@ -36,13 +39,14 @@ router.get('/user/confirmEmail/:token',confirmEmail)
 //     }
 // })
 
-
-router.post('/profile/avatar',auth, uploads.single('avatar'),addProfileAvatar)
+router.post(
+  "/profile/avatar",
+  auth,
+  uploads.single("avatar"),
+  addProfileAvatar
+);
 
 // router.patch('/profile/pic',myMulter('user/profile/pic',fileValidation.image).single('image'),addProfilePic)
-
-
-
 
 // update data -log out - profile pic
 
