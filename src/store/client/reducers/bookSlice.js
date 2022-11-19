@@ -8,6 +8,10 @@ const initialState = {
    isLoadind: false,
    editBook: false,
    dataEditBook: {},
+   bookStoreCategory: "all",
+   bookStoreType: "all",
+   maxPriceFilter: 9999,
+   minPriceFilter: 0,
 };
 
 export const getBooks = createAsyncThunk(
@@ -90,6 +94,26 @@ const booksSlice = createSlice({
    reducers: {
       changeBookData: (state, action) => {
          state.dataEditBook = action.payload;
+      },
+      setBookStoreCategory: (state, action) => {
+         state.bookStoreCategory = action.payload;
+      },
+      setBookStoreType: (state, action) => {
+         state.bookStoreType = action.payload;
+      },
+      setMaxPriceFilter: (state, action) => {
+         if (action.payload) {
+            state.maxPriceFilter = Number(action.payload);
+         } else {
+            state.maxPriceFilter = 9999;
+         }
+      },
+      setMinPriceFilter: (state, action) => {
+         if (action.payload) {
+            state.minPriceFilter = Number(action.payload);
+         } else {
+            state.minPriceFilter = 0;
+         }
       },
    },
    extraReducers: {

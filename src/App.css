@@ -1,6 +1,5 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@500&display=swap"); */
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap");
+/* google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@500&display=swap');
 
 :root {
    --primary: rgb(241, 241, 241);
@@ -16,8 +15,9 @@
 }
 
 body {
-   /* font-family: "Cairo", sans-serif; */
-   font-family: "Source San Pro", sans-serif;
+   font-family: 'Cairo', sans-serif;
+   letter-spacing: 1.35px;
+   word-spacing: 2px;
 }
 a,
 Link {
@@ -39,6 +39,33 @@ a:hover {
 .swiper-button-prev:hover {
    color: var(--secondary) !important;
 }
+p {
+   color: var(--small-text-color);
+   font-size: 15px;
+ }
+ .section {
+   padding-top: 6rem;
+   padding-bottom: 6rem;
+ }
+ ul {
+   padding: 0;
+   margin: 0;
+ }
+li{
+   list-style-type: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 /* Cart */
 .cart-container {
    padding: 2rem 4rem;

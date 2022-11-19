@@ -32,7 +32,7 @@ const OurGoals = () => {
           </div>
           <div className="col-md-4 p-5 col-sm-12">
             <h6 className="fw-bold mb-4">BooksHouse WAY</h6>
-            <ul className="text-muted">
+            <ul className="text-muted about__list">
               <li>Valuing people.</li>
               <li>Equity over Equality.</li>
               <li>Act with Integrity.</li>
