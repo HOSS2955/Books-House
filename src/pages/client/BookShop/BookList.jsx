@@ -4,18 +4,36 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ItemCard from "../../../components/client/ItemCard/ItemCard";
+import NoProducts from "../../../components/client/ui/NoProducts/NoProducts";
+import Pagination from "../../../components/client/ui/Pagination/Pagination";
 import { getBooks } from "../../../store/client/reducers/bookSlice";
 
 export default function BookList() {
-   const [search, setSearch] = useState("");
    const dispatch = useDispatch();
-   const { books } = useSelector((state) => state.books);
+   const {
+      books,
+      bookStoreCategory,
+      maxPriceFilter,
+      minPriceFilter,
+      bookStoreType,
+   } = useSelector((state) => state.books);
+
    useEffect(() => {
       dispatch(getBooks());
    }, [dispatch]);
+
+   const [search, setSearch] = useState("");
+   const [isNoProducts, setIsNoProducts] = useState(false);
+   const [currentPage, setCurrentPage] = useState(1);
+   const [itemsPerPage, setItemsPerPage] = useState(9);
+
+   const lastItemIndex = currentPage * itemsPerPage;
+   const firstItemIndex = lastItemIndex - itemsPerPage;
+   const currentItems = books.slice(firstItemIndex, lastItemIndex);
+
    return (
       <div>
-         {/* <h2 className="text-center mb-5">Book List</h2> */}
+         {/* SEARCH BAR */}
          <div className="ms-3 mb-3">
             <TextField
                id="standard-basic"
@@ -24,24 +42,49 @@ export default function BookList() {
                variant="standard"
             />
          </div>
+         {/* ITEMS OF LIST */}
          <div className="row ms-2">
             <AnimatePresence>
-               {books
+               {currentItems
                   .filter((item) => {
                      return search.toLowerCase() === ""
                         ? item
                         : item.title.toLowerCase().includes(search);
                   })
+                  .filter((item) => {
+                     return bookStoreCategory === "all"
+                        ? item
+                        : item.category === bookStoreCategory;
+                  })
+                  .filter((item) => {
+                     return bookStoreType === "all"
+                        ? item
+                        : item.type === bookStoreType;
+                  })
+                  .filter((item) => {
+                     return (
+                        maxPriceFilter >= Number(item.price) &&
+                        Number(item.price) >= minPriceFilter
+                     );
+                  })
                   .map((book, index) => (
                      <motion.div
                         layout
                         key={index}
-                        className=" col-sm-12 col-md-4 mb-3"
+                        className=" col-md-6 col-lg-4 mb-3"
                      >
                         <ItemCard key={index} book={book} />
                      </motion.div>
                   ))}
             </AnimatePresence>
+            <div>
+               <Pagination
+                  totalItems={books.length}
+                  itemsPerPage={itemsPerPage}
+                  setCurrentPage={setCurrentPage}
+                  currentPage={currentPage}
+               />
+            </div>
          </div>
       </div>
    );

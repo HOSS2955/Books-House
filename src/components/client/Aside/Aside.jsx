@@ -1,79 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 // import { MDBInputGroup, MDBInput, MDBIcon, MDBBtn } from "mdb-react-ui-kit";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { get } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { booksActions } from "../../../store/client/reducers/bookSlice";
 import "./aside.css";
 
 export default function Aside() {
+   const dispatch = useDispatch();
+   const [isError, setIsError] = useState(false);
+   const {
+      setBookStoreCategory,
+      setMaxPriceFilter,
+      setMinPriceFilter,
+      setBookStoreType,
+   } = booksActions;
    const categoriesHandler = (e) => {
-      console.log(e.target.name);
+      dispatch(setBookStoreCategory(e.target.name));
+   };
+   const typeHandler = (e) => {
+      dispatch(setBookStoreType(e.target.name));
    };
 
    return (
       <div>
-         {/* Search */}
          <div className="mb-4">
             <h5 className="mb-3 fw-bold">Categories</h5>
             <div className="categories d-flex flex-column ">
-               <a href = "#"  className="mb-2 text-lead fw-lighter" name="all">
-                  All
-               </a>
-               <a href = "#"  className="mb-2 text-lead fw-lighter" name="clothes">
-                  Fiction
-               </a>
-               <a href = "#" className="mb-2 text-lead fw-lighter" name="watches">
-                  Non-Fiction
-               </a>
-               <a  href = "#" className="mb-2 text-lead fw-lighter" name="footwear">
-                  Natural
-               </a>
+               <CategoryItem title="All" name="all" />
+               <CategoryItem title="Fiction" name="fiction" />
+               <CategoryItem title="Non-Fiction" name="nonfiction" />
+               <CategoryItem title="Natural" name="natural" />
             </div>
          </div>
          <hr></hr>
          <div className="mb-4">
             <h5 className="mb-3 fw-bold">Types</h5>
             <div className="categories d-flex flex-column ">
-               <a href = "#"  className="mb-2 text-lead fw-lighter" name="all">
-                  All
-               </a>
-               <a href = "#"  className="mb-2 text-lead fw-lighter" name="clothes">
-                  Comedy
-               </a>
-               <a href = "#" className="mb-2 text-lead fw-lighter" name="watches">
-                  Drama
-               </a>
-               <a  href = "#" className="mb-2 text-lead fw-lighter" name="footwear">
-                  Action
-               </a>
-               <a  href = "#" className="mb-2 text-lead fw-lighter" name="footwear">
-               Adventure stories
-               </a>
-               <a  href = "#" className="mb-2 text-lead fw-lighter" name="footwear">
-               Crime
-               </a>
+               <TypeItem name="all" title="All" />
+               <TypeItem name="comedy" title="Comedy" />
+               <TypeItem name="drama" title="Drama" />
+               <TypeItem name="action" title="Action" />
+               <TypeItem name="adventure" title="Adventure stories" />
+               <TypeItem name="crime" title="Crime" />
             </div>
          </div>
-         <hr></hr>
-         <div className="mb-4">
-            <h5 className="mb-3 fw-bold">Age</h5>
-            <div className="categories d-flex flex-column ">
-               <a href = "#"  className="mb-2 text-lead fw-lighter" name="all">
-                  from 5 to 10
-               </a>
-               <a href = "#"  className="mb-2 text-lead fw-lighter" name="clothes">
-                  from 10 to 20
-               </a>
-               <a href = "#" className="mb-2 text-lead fw-lighter" name="watches">
-                  from 20 to 30
-               </a>
-               <a  href = "#" className="mb-2 text-lead fw-lighter" name="footwear">
-                  from 30 to 50
-               </a>
-               <a  href = "#" className="mb-2 text-lead fw-lighter" name="footwear">
-               Above 50
-               </a>
-            </div>
-         </div>
+
          <hr></hr>
          <div className="mb-4">
             <h5 className="mb-3 fw-bold">Price</h5>
@@ -85,6 +58,14 @@ export default function Aside() {
                         type="text"
                         className="border border-1 rounded-0"
                         placeholder=""
+                        onChange={(e) => {
+                           if (!isNaN(e.target.value)) {
+                              setIsError(false);
+                              dispatch(setMinPriceFilter(e.target.value));
+                           } else {
+                              setIsError(true);
+                           }
+                        }}
                      />
                   </Form.Group>
 
@@ -94,20 +75,50 @@ export default function Aside() {
                         type="text"
                         className="border border-1 rounded-0"
                         placeholder=""
+                        onChange={(e) => {
+                           if (!isNaN(e.target.value)) {
+                              setIsError(false);
+                              dispatch(setMaxPriceFilter(e.target.value));
+                           } else {
+                              setIsError(true);
+                           }
+                        }}
                      />
                   </Form.Group>
-                  <Button
-                     variant="dark"
-                     className="rounded-0 px-4"
-                     type="submit"
-                  >
-                     Filter
-                  </Button>
+                  {isError && (
+                     <p className="text-danger">Please enter a number</p>
+                  )}
                </Form>
             </div>
          </div>
-         
-         
       </div>
    );
+   function TypeItem({ title, name }) {
+      return (
+         // eslint-disable-next-line jsx-a11y/anchor-is-valid
+         <a
+            onClick={(e) => {
+               typeHandler(e);
+            }}
+            className="mb-2 text-lead fw-lighter"
+            name={name}
+         >
+            {title}
+         </a>
+      );
+   }
+   function CategoryItem({ title, name }) {
+      return (
+         // eslint-disable-next-line jsx-a11y/anchor-is-valid
+         <a
+            className="mb-2 text-lead fw-lighter"
+            onClick={(e) => {
+               categoriesHandler(e);
+            }}
+            name={name}
+         >
+            {title}
+         </a>
+      );
+   }
 }
