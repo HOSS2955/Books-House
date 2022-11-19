@@ -2,17 +2,17 @@
    position: relative;
    padding-top: 60px;
    padding-bottom: 30px;
-   background-color: var(--primary);
+   /* background-color: var(--primary); */
 }
 
 .footer__text {
    line-height: 30px;
-   color: black;
+   /* color: black; */
 }
 
 .quick__links-title {
    margin-bottom: 30px;
-   font-size: 1.1rem;
+   /* font-size: 1.1rem; */
 }
 
 .footer__contact li span {
@@ -29,7 +29,7 @@
    text-align: center;
 }
 
-.book__wave {
+/* .book__wave {
    position: absolute;
    top: 0;
    left: 0;
@@ -48,4 +48,4 @@
 
 .book__wave .shape-fill {
    fill: #ffff;
-}
+} */

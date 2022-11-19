@@ -1,12 +1,9 @@
-div.row.pricing__cards {
+/* div.row.pricing__cards {
   display: flex;
   justify-content: space-evenly;
 }
 
-.section {
-  padding-top: 6rem;
-  padding-bottom: 6rem;
-}
+
 
 .single-price {
   border: 1px solid rgba(255, 255, 255, .21);
@@ -15,11 +12,7 @@ div.row.pricing__cards {
   border-radius: 16px;
 }
 
-ul {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
+
 
 .top-part h1 {
   width: 140px;
@@ -67,4 +60,4 @@ ul {
 .book__icon svg {
   width: 35%;
   height: 35%;
-}
+} */

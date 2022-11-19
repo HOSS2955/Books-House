@@ -6,9 +6,10 @@ const AboutUs = () => {
       <div className="row mb-5">
         <div className="col-md-6 col-sm-12 d-flex align-items-center ">
 
-          <h2 className="fw-bold ">Who We Are ?</h2>
+          
         </div>
-        <div className="col-md-6 col-sm-12">
+        <div className="home__about col-md-6 col-sm-12">
+        <h5 className="fw-bold mb-4 ">Who We Are ?</h5>
           <p className="text-muted">
             BooksHouse employs world-class Digital professionals with cutting
             edge knowledge and experience . Our wide experience in the digital
