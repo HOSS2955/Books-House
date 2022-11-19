@@ -78,12 +78,16 @@ export default function BookList() {
                   ))}
             </AnimatePresence>
             <div>
-               <Pagination
-                  totalItems={books.length}
-                  itemsPerPage={itemsPerPage}
-                  setCurrentPage={setCurrentPage}
-                  currentPage={currentPage}
-               />
+               {bookStoreCategory === "all" && bookStoreType === "all" ? (
+                  <Pagination
+                     totalItems={books.length}
+                     itemsPerPage={itemsPerPage}
+                     setCurrentPage={setCurrentPage}
+                     currentPage={currentPage}
+                  />
+               ) : (
+                  false
+               )}
             </div>
          </div>
       </div>
