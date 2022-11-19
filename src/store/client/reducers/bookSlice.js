@@ -93,6 +93,7 @@ const booksSlice = createSlice({
    initialState,
    reducers: {
       changeBookData: (state, action) => {
+         console.log(action.payload);
          state.dataEditBook = action.payload;
       },
       setBookStoreCategory: (state, action) => {

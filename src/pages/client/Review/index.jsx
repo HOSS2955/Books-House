@@ -7,7 +7,8 @@ export default function Reviews() {
    return (
       <div className="">
          <BreadCrumb title="Reviews" breadCrumb="Reviews" />
-         <div className="container ">
+         {/* <div className="container "> */}
+         <div className="p-5">
             {/* BUTTONS */}
             <div className="px-0 mt-5 col-12 d-flex justify-content-between flex-wrap">
                <a href="" className="mx-0  btn btn-outline-dark rounded-0">
@@ -32,36 +33,41 @@ export default function Reviews() {
                   Poetry
                </a>
             </div>
+         </div>
+
+         <div className="container ">
             {/* REVIEWS */}
-            <div className="row mt-5  px-0">
-               {/* Componants */}
-               <div className="col-lg-8 col-sm-12">
-                  <BookReview />
-                  <BookReview />
-                  <BookReview />
-               </div>
-               {/* ASIDE */}
-               <div className="col-lg-4 col-sm-12 px-0 ">
-                  {/* Aside Section 1 */}
-                  <div className="col-12 mb-5 border-top border-dark">
-                     <img
-                        className="mt-2 w-100 h-100"
-                        alt=""
-                        src="https://i0.wp.com/independentbookreview.com/wp-content/uploads/2022/11/books-of-the-month-1080-%C3%97-1080-px.png?w=1080&ssl=1"
-                     />
+            <div className="container ">
+               <div className="row mt-5  px-0">
+                  {/* Componants */}
+                  <div className="col-lg-8 col-sm-12">
+                     <BookReview />
+                     <BookReview />
+                     <BookReview />
                   </div>
-                  {/* Aside Section 2 */}
-                  <div className=" p-0 col-lg-12 mb-5 border-top border-dark">
-                     <div className="row mt-4">
-                        <AsideBooks src="https://i0.wp.com/independentbookreview.com/wp-content/uploads/2022/11/Braiding-Sweetgrass.jpeg?w=647&ssl=1" />
-                        <AsideBooks src="https://i0.wp.com/independentbookreview.com/wp-content/uploads/2022/11/Braiding-Sweetgrass.jpeg?w=647&ssl=1" />
-                        <AsideBooks src="https://i0.wp.com/independentbookreview.com/wp-content/uploads/2022/11/Braiding-Sweetgrass.jpeg?w=647&ssl=1" />
-                        <AsideBooks src="https://i0.wp.com/independentbookreview.com/wp-content/uploads/2022/11/Braiding-Sweetgrass.jpeg?w=647&ssl=1" />
-                        <AsideBooks src="https://i0.wp.com/independentbookreview.com/wp-content/uploads/2022/11/Braiding-Sweetgrass.jpeg?w=647&ssl=1" />
-                        <AsideBooks src="https://i0.wp.com/independentbookreview.com/wp-content/uploads/2022/11/Braiding-Sweetgrass.jpeg?w=647&ssl=1" />
-                        <AsideBooks src="https://i0.wp.com/independentbookreview.com/wp-content/uploads/2022/11/Braiding-Sweetgrass.jpeg?w=647&ssl=1" />
-                        <AsideBooks src="https://i0.wp.com/independentbookreview.com/wp-content/uploads/2022/11/Braiding-Sweetgrass.jpeg?w=647&ssl=1" />
-                        <AsideBooks src="https://i0.wp.com/independentbookreview.com/wp-content/uploads/2022/11/Braiding-Sweetgrass.jpeg?w=647&ssl=1" />
+                  {/* ASIDE */}
+                  <div className="col-lg-4 col-sm-12 px-0 ">
+                     {/* Aside Section 1 */}
+                     <div className="col-12 mb-5 border-top border-dark">
+                        <img
+                           className="mt-2 w-100 h-100"
+                           alt=""
+                           src="https://i0.wp.com/independentbookreview.com/wp-content/uploads/2022/11/books-of-the-month-1080-%C3%97-1080-px.png?w=1080&ssl=1"
+                        />
+                     </div>
+                     {/* Aside Section 2 */}
+                     <div className=" p-0 col-lg-12 mb-5 border-top border-dark">
+                        <div className="row mt-4">
+                           <AsideBooks src="https://i0.wp.com/independentbookreview.com/wp-content/uploads/2022/11/Braiding-Sweetgrass.jpeg?w=647&ssl=1" />
+                           <AsideBooks src="https://i0.wp.com/independentbookreview.com/wp-content/uploads/2022/11/Braiding-Sweetgrass.jpeg?w=647&ssl=1" />
+                           <AsideBooks src="https://i0.wp.com/independentbookreview.com/wp-content/uploads/2022/11/Braiding-Sweetgrass.jpeg?w=647&ssl=1" />
+                           <AsideBooks src="https://i0.wp.com/independentbookreview.com/wp-content/uploads/2022/11/Braiding-Sweetgrass.jpeg?w=647&ssl=1" />
+                           <AsideBooks src="https://i0.wp.com/independentbookreview.com/wp-content/uploads/2022/11/Braiding-Sweetgrass.jpeg?w=647&ssl=1" />
+                           <AsideBooks src="https://i0.wp.com/independentbookreview.com/wp-content/uploads/2022/11/Braiding-Sweetgrass.jpeg?w=647&ssl=1" />
+                           <AsideBooks src="https://i0.wp.com/independentbookreview.com/wp-content/uploads/2022/11/Braiding-Sweetgrass.jpeg?w=647&ssl=1" />
+                           <AsideBooks src="https://i0.wp.com/independentbookreview.com/wp-content/uploads/2022/11/Braiding-Sweetgrass.jpeg?w=647&ssl=1" />
+                           <AsideBooks src="https://i0.wp.com/independentbookreview.com/wp-content/uploads/2022/11/Braiding-Sweetgrass.jpeg?w=647&ssl=1" />
+                        </div>
                      </div>
                   </div>
                </div>

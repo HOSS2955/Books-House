@@ -67,15 +67,19 @@ export default function BookList() {
                         Number(item.price) >= minPriceFilter
                      );
                   })
-                  .map((book, index) => (
-                     <motion.div
-                        layout
-                        key={index}
-                        className=" col-md-6 col-lg-4 mb-3"
-                     >
-                        <ItemCard key={index} book={book} />
-                     </motion.div>
-                  ))}
+                  .map((book, index) => {
+                     return Object.keys(book).length == 0 ? (
+                        <NoProducts />
+                     ) : (
+                        <motion.div
+                           layout
+                           key={index}
+                           className=" col-md-6 col-lg-4 mb-3"
+                        >
+                           <ItemCard key={index} book={book} />
+                        </motion.div>
+                     );
+                  })}
             </AnimatePresence>
             <div>
                {bookStoreCategory === "all" && bookStoreType === "all" ? (
