@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { Button } from "react-bootstrap";
@@ -8,6 +7,7 @@ import CheckoutForm from "../../../components/client/ChecoutForm/CheckoutForm";
 import Modalnew from "../../../components/client/form-modal/Modal";
 import ConfettiModal from "../../../components/client/ui/ConfettiModel";
 import ReviewHeader from "../../../components/client/ui/ReviewHeader/ReviewHeader";
+import axios from "axios";
 
 export default function Service() {
   const [show, setShow] = useState(false);

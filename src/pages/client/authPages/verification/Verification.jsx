@@ -12,66 +12,6 @@ import { toast } from "react-toastify";
 
 import "./Verification.css";
 export default function Verification() {
-  //The state of the error message
-  // const [passErrMsg, setPassErrMessage] = useState("");
-  // const [emailErrMsg, setEmailErrMsg] = useState("");
-  // // The state of the button to be abled or disapled according to the validation
-  // const [isDisabled, setDisabled] = useState(true);
-  // // for displaying the error message if the input is invalid
-  // const [displayEmailErrorMsg, setDisplayEmailErrorMsg] = useState(false);
-  // const [displayPassErrorMsg, setDisplayPassErrorMsg] = useState(false);
-  // // npm validator to validate the password
-  // const navigate = useNavigate();
-
-  // const validateEmail = (value) => {
-  //   if (validator.isEmpty(value)) {
-  //     // if the email or username is empty
-  //     setEmailErrMsg("Email is required");
-  //     setDisabled(true);
-  //   }
-  //   if (validator.isEmail(value)) {
-  //     // if the email or username is valid
-  //     setEmailErrMsg("Accepted Email ✔");
-  //     setDisabled(false);
-  //   } else {
-  //     // if the email or username is invalid
-  //     setEmailErrMsg("Please enter a valid Email!");
-  //     setDisabled(true);
-  //   }
-  // };
-  // const validatePass = (value) => {
-  //   if (validator.isEmpty(value)) {
-  //     // if the email or username is empty
-  //     setPassErrMessage("Password is required");
-  //     setDisabled(true);
-  //   }
-  //   if (validator.isStrongPassword(value)) {
-  //     // if the email or username is valid
-  //     setPassErrMessage("Strong Password ✔");
-  //     setDisabled(false);
-  //   } else {
-  //     // if the email or username is invalid
-  //     setPassErrMessage(
-  //       "Password should contain at least 8 characters with 1 special 1 uppercase 1 lowercase and 1 numeric!"
-  //     );
-  //     setDisabled(true);
-  //   }
-  // };
-  // function changes the state of displaying the error message
-  // const onDisplayErrorMsg = (e) => {
-  //   console.log(e.target.value);
-  //   if (e.target.name == "password") {
-  //     setDisplayPassErrorMsg(true);
-  //   } else if (e.target.name == "email") {
-  //     setDisplayEmailErrorMsg(true);
-  //   }
-  // };
-  // const handleSubmit = async (e) => {
-  //   e.prevent.default();
-  // };
-  // const signupHandler = () => {
-  //   navigate("/auth/signup");
-  // };
   const navigate = useNavigate();
   const [disabled, setDisabled] = useState(true);
   // const verificationCode = useParams();

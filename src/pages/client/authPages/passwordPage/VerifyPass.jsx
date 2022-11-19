@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { FaLock } from "react-icons/fa";
@@ -6,52 +6,96 @@ import { GoEye } from "react-icons/go";
 import { BsEyeSlash } from "react-icons/bs";
 import "./PasswordPage.css";
 import validator from "validator";
-import AuthFooter from "../AuthFooter/AuthFooter";
-
+// import AuthFooter from "../AuthFooter/AuthFooter";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-export default function PasswordPage() {
+import { useVerifyEmailMutation } from "../../../../services/authApi";
+
+export default function VerifyPass() {
   //The state of the error message
   const [equalPass, setEqualPass] = useState(false);
   const [showPass, setShowPass] = useState(false);
-  const [isDisabled, setDisabled] = useState(true);
   const [displayPassErrMsg, setDisplayPassErrMsg] = useState("");
   const [displayRePassErrMsg, setDisplayRePassErrMsg] = useState("");
-  // npm validator to validate the password
+  const [isDisabled, setIsDisabled] = useState(true);
   const navigate = useNavigate();
+
+  const [verifyEmail, { isLoading, isError, error, isSuccess, data }] =
+    useVerifyEmailMutation();
+  const myArr = [new Array(6).fill("")];
+  const [otp, setOtp] = useState(...myArr);
+  const handleChange = (element, index) => {
+    if (isNaN(element.value)) return false;
+    setOtp([...otp.map((d, i) => (i === index ? element.value : d))]);
+    if (element.nextSibling) {
+      element.nextSibling.focus();
+    }
+  };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success(data?.message, {
+        position: "top-right",
+      });
+      navigate("/auth/login");
+    }
+    if (isError) {
+      if (Array.isArray(error.data)) {
+        error.data.error.forEach((el) =>
+          toast.error(el.message, {
+            position: "top-right",
+          })
+        );
+      } else {
+        toast.error(error.data.message, {
+          position: "top-right",
+        });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
+  const validOTPLength = otp.join("").length == 6;
+  useEffect(() => {
+    if (validOTPLength && repassRef && equalValues) {
+      setEqualPass(true);
+      setIsDisabled(false);
+    } else {
+      setEqualPass(false);
+      setIsDisabled(true);
+    }
+  }, [validOTPLength]);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validOTPLength) {
+      verifyEmail(otp.join(""));
+    } else {
+      toast.error("Enter a valid OTP", {
+        position: "top-right",
+      });
+    }
+  };
   const passRef = useRef(null);
   const repassRef = useRef(null);
   const equalValues = passRef?.current?.value === repassRef?.current?.value;
-  const checkEqual = () => {
-    if (repassRef && equalValues) {
-      setEqualPass(true);
-      setDisabled(false);
-    } else {
-      setEqualPass(false);
-      setDisabled(true);
-    }
-  };
+
   const validatePass = (event) => {
     const value = event.target.value;
 
     if (validator.isStrongPassword(value)) {
       // if the email or username is valid
       setDisplayPassErrMsg("Strong Password ✔");
-      checkEqual();
     } else {
       // if the email or username is invalid
       setDisplayPassErrMsg(
         "Password should contain at least 8 characters with 1 special 1 uppercase 1 lowercase and 1 numeric!"
       );
-      checkEqual();
     }
   };
   const validateRePass = (event) => {
     if (equalValues) {
       setDisplayRePassErrMsg("Matched Password ✔");
-      checkEqual();
     } else {
-      checkEqual();
-
       setDisplayRePassErrMsg("Unmatched Passwords!");
     }
   };
@@ -80,6 +124,56 @@ export default function PasswordPage() {
       <div className="main">
         <div className="centeredElement shadow-lg p-3 mb-2 bg-body">
           <div className="auth">
+            <p className="h4 my-5 text-center">Check Your Email</p>
+            <div className="row">
+              <p className="h4">Enter The OTP sent to your Email.</p>
+              <div className="col d-flex flex-row text-center " method="post">
+                {otp.map((data, index) => (
+                  <input
+                    className="text-center fw-bold m-1 w-25 h-100 p-2 "
+                    key={index}
+                    value={data}
+                    name="otp"
+                    onChange={(e) => handleChange(e.target, index)}
+                    onFocus={(e) => e.target.select()}
+                    type="text"
+                    maxLength="1"
+                  />
+                ))}
+              </div>
+              <div className="mt-4 text-center">
+                <p>OTP Entered: {otp.join("")}</p>
+                <div className="d-flex flex-row ">
+                  <button
+                    className="btn btn-secondary w-50 m-1"
+                    type="button"
+                    onClick={(e) => setOtp([...otp.map((v) => "")])}
+                  >
+                    Clear
+                  </button>
+                  <button
+                    className="btn btn-primary w-50"
+                    type="submit"
+                    disabled={isDisabled}
+                  >
+                    Verify
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="divider acc mt-2">
+              {/* If the user doesn`t have an account` */}
+              <hr className="hrLeft text-small" />
+              <Link to="/auth/verification">
+                <a>
+                  Didn't recieve OTP yet?
+                  <span className="text-primary">Resend it</span>
+                </a>
+              </Link>
+              <hr className="hrRight" />
+            </div>
+
             <h4 className="my-4">Forget Password</h4>
             <p className="text-small">placeholder@gmail.com</p>
             <div className="mb-5">
@@ -139,7 +233,6 @@ export default function PasswordPage() {
                   ref={repassRef}
                   name="repass"
                   onChange={(e) => validateRePass(e)}
-                  onBlur={checkEqual}
                   aria-label="Text input with checkbox"
                   placeholder="Re-enter Password"
                   style={{ borderLeft: "none", boxShadow: "none" }}

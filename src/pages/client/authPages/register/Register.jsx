@@ -90,7 +90,7 @@ export default function Register() {
   useEffect(() => {
     if (isSuccess) {
       toast.success("User registered successfully");
-      navigate("/verification");
+      navigate("/auth/verification");
     }
 
     if (isError) {
@@ -110,6 +110,7 @@ export default function Register() {
   }, [isLoading]);
   const handleSubmit = (e) => {
     e.preventDefault();
+
     registerUser({
       name: nameValue,
       email: emailValue,

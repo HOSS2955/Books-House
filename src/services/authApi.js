@@ -6,7 +6,7 @@ const BASE_URL = process.env.REACT_APP_SERVER_ENDPOINT;
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `/api/auth/`,
+    baseUrl: `/user/`,
     // prepareHeaders: (headers, { getState }) => {
     //   // console.log(getState());
     //   const token = getState().auth.token;
@@ -21,10 +21,19 @@ export const authApi = createApi({
     registerUser: builder.mutation({
       query(credentials) {
         return {
-          url: "register",
+          url: "signUp",
           method: "POST",
           body: credentials,
         };
+      },
+      transformResponse: (result) => result,
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const data = await queryFulfilled;
+          console.log(data);
+        } catch (error) {
+          console.log("failed register request ", error);
+        }
       },
     }),
     loginUser: builder.mutation({
@@ -49,7 +58,7 @@ export const authApi = createApi({
     verifyEmail: builder.mutation({
       query({ verificationCode }) {
         return {
-          url: `verifyemail/${verificationCode}`,
+          url: `confirmEmail/${verificationCode}`,
           method: "GET",
         };
       },

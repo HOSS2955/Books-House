@@ -22,7 +22,7 @@ import About from "./pages/client/About";
 import Register from "./pages/client/authPages/register/Register";
 import ComponentsRoutes from "./routes/ComponentsRoutes";
 import AuthRoutes from "./routes/AuthRoutes";
-import PasswordPage from "./pages/client/authPages/passwordPage/PasswordPage";
+import VerifyPass from "./pages/client/authPages/passwordPage/VerifyPass";
 import Login from "./pages/client/authPages/login/Login";
 import Verification from "./pages/client/authPages/verification/Verification";
 import { PrivateOutlet } from "./utils/privateRoutes";
@@ -59,7 +59,7 @@ function App() {
             <Route path="register" element={<Register />} />
 
             <Route path="login" element={<Login />} />
-            <Route path="password" element={<PasswordPage />} />
+            <Route path="password" element={<VerifyPass />} />
           </Route>
           <Route path="/about" element={<About />} />
           <Route path="/service" element={<Service />} />

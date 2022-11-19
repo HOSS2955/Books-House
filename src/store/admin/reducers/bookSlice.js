@@ -1,12 +1,12 @@
-// import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// import axios from "axios";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
-// const initialState = {
-//   books: [],
-//   bookDetails: null,
-//   editBook: false,
-//   dataEditBook: {},
-// };
+const initialState = {
+  books: [],
+  bookDetails: null,
+  editBook: false,
+  dataEditBook: {},
+};
 
 export const getBooks = createAsyncThunk(
   "books/getBooks",

@@ -67,24 +67,12 @@ export default function Login() {
     }
   }, [emailValue, passValue]);
 
-  // function changes the state of displaying the error message
-  // const onDisplayErrorMsg = (e) => {
-  //   console.log(e.target.value);
-  //   if (e.target.name === "password") {
-  //     setDisplayPassErrorMsg(true);
-  //   } else if (e.target.name === "email") {
-  //     setDisplayEmailErrorMsg(true);
-  //   }
-  // };
   const location = useLocation();
   const fromLocation = location.store?.from.pathname || "/profile";
 
   const [loginUser, { isLoading, isError, error, isSuccess }] =
     useLoginUserMutation();
-  // const resetForm = () => {
-  //   setPassValue("");
-  //   setEmailValue("");
-  // };
+
   useEffect(() => {
     if (isSuccess) {
       toast.success("User registered successfully");
