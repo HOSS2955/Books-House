@@ -54,7 +54,10 @@
 .nav__item {
    list-style-type: none;
 }
-
+.nav__active{
+   color:var(--secondary);
+   font-weight: 700 !important;
+}
 .nav__icons {
    display: flex;
    align-items: center;
@@ -97,10 +100,7 @@
    cursor: pointer;
 }
 
-.nav__active {
-   font-weight: 700 !important;
-   color:var(--secondary)
-}
+
 
 .sticky__header {
    width: 100%;

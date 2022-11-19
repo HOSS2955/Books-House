@@ -55,7 +55,7 @@ export const deleteBook = createAsyncThunk(
 
 export const getBook = createAsyncThunk(
    "books/getBook",
-   async ({ id, formValue }, thunckAPI) => {
+   async ({ id }, thunckAPI) => {
       const { rejectWithValue } = thunckAPI;
       try {
          const { data } = await axios.get(

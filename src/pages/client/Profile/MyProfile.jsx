@@ -6,12 +6,12 @@ export default function MyProfile() {
     <div className="profile">
       <div className="container-xl px-4 mt-4 rounded">
         <div className="row ">
-          <div className="col-xl-4 col-md-4">
+          <div className="col-xl-4 col-md-4 col-sm-12">
             <div className="card mb-4 mb-xl-0 pb-5">
               <div className="card-header">Profile Picture</div>
               <div className="card-body text-center">
                 <img
-                  className="img-account-profile rounded-circle mb-2 pt-4"
+                  className="img-fluid img-account-profile rounded-circle mb-2 pt-4 "
                   src="http://bootdey.com/img/Content/avatar/avatar1.png"
                   alt=""
                 />

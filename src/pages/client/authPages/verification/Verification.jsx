@@ -1,75 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { FaApple, FaLock, FaUserAlt } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-// import validator from "validator";
+import validator from "validator";
+import { useVerifyEmailMutation } from "../../../../services/authApi";
 import { OTPBox } from "../otp/OtpPage";
+import { toast } from "react-toastify";
+
 import "./Verification.css";
-
 export default function Verification() {
-  //The state of the error message
-  // const [passErrMsg, setPassErrMessage] = useState("");
-  // const [emailErrMsg, setEmailErrMsg] = useState("");
-  // // The state of the button to be abled or disapled according to the validation
-  // const [isDisabled, setDisabled] = useState(true);
-  // // for displaying the error message if the input is invalid
-  // const [displayEmailErrorMsg, setDisplayEmailErrorMsg] = useState(false);
-  // const [displayPassErrorMsg, setDisplayPassErrorMsg] = useState(false);
-  // // npm validator to validate the password
-  // const navigate = useNavigate();
-
-  // const validateEmail = (value) => {
-  //   if (validator.isEmpty(value)) {
-  //     // if the email or username is empty
-  //     setEmailErrMsg("Email is required");
-  //     setDisabled(true);
-  //   }
-  //   if (validator.isEmail(value)) {
-  //     // if the email or username is valid
-  //     setEmailErrMsg("Accepted Email ✔");
-  //     setDisabled(false);
-  //   } else {
-  //     // if the email or username is invalid
-  //     setEmailErrMsg("Please enter a valid Email!");
-  //     setDisabled(true);
-  //   }
-  // };
-  // const validatePass = (value) => {
-  //   if (validator.isEmpty(value)) {
-  //     // if the email or username is empty
-  //     setPassErrMessage("Password is required");
-  //     setDisabled(true);
-  //   }
-  //   if (validator.isStrongPassword(value)) {
-  //     // if the email or username is valid
-  //     setPassErrMessage("Strong Password ✔");
-  //     setDisabled(false);
-  //   } else {
-  //     // if the email or username is invalid
-  //     setPassErrMessage(
-  //       "Password should contain at least 8 characters with 1 special 1 uppercase 1 lowercase and 1 numeric!"
-  //     );
-  //     setDisabled(true);
-  //   }
-  // };
-  // function changes the state of displaying the error message
-  // const onDisplayErrorMsg = (e) => {
-  //   console.log(e.target.value);
-  //   if (e.target.name == "password") {
-  //     setDisplayPassErrorMsg(true);
-  //   } else if (e.target.name == "email") {
-  //     setDisplayEmailErrorMsg(true);
-  //   }
-  // };
-  // const handleSubmit = async (e) => {
-  //   e.prevent.default();
-  // };
-  // const signupHandler = () => {
-  //   navigate("/auth/signup");
-  // };
+  const navigate = useNavigate();
+  const [disabled, setDisabled] = useState(true);
+  // const verificationCode = useParams();
+  const [verifyEmail, { isLoading, isError, error, isSuccess, data }] =
+    useVerifyEmailMutation();
   const myArr = [new Array(6).fill("")];
   const [otp, setOtp] = useState(...myArr);
   const handleChange = (element, index) => {
@@ -79,9 +26,49 @@ export default function Verification() {
       element.nextSibling.focus();
     }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success(data?.message, {
+        position: "top-right",
+      });
+      navigate("/login");
+    }
+    if (isError) {
+      if (Array.isArray(error.data)) {
+        error.data.error.forEach((el) =>
+          toast.error(el.message, {
+            position: "top-right",
+          })
+        );
+      } else {
+        toast.error(error.data.message, {
+          position: "top-right",
+        });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
+  const validOTPLength = otp.join("").length == 6;
+  useEffect(() => {
+    if (validOTPLength) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [validOTPLength]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(otp.join(""));
+    if (validOTPLength) {
+      verifyEmail(otp.join(""));
+    } else {
+      toast.error("Enter a valid OTP", {
+        position: "top-right",
+      });
+    }
+    // console.log(otp.join(""));
+
+    // verifyEmail({ verificationCode });
   };
   // const handleVerification = (e) => {
   //   // e.preventDefault();
@@ -115,11 +102,16 @@ export default function Verification() {
                 <div className="d-flex flex-row ">
                   <button
                     className="btn btn-secondary w-50 m-1"
+                    type="button"
                     onClick={(e) => setOtp([...otp.map((v) => "")])}
                   >
                     Clear
                   </button>
-                  <button className="btn btn-primary w-50" type="submit">
+                  <button
+                    className="btn btn-primary w-50"
+                    type="submit"
+                    disabled={disabled}
+                  >
                     Verify
                   </button>
                 </div>
@@ -131,7 +123,7 @@ export default function Verification() {
               <hr className="hrLeft text-small" />
               <Link to="/auth/verification">
                 <a>
-                  Didn't recieve OTP yet?{" "}
+                  Didn't recieve OTP yet?
                   <span className="text-primary">Resend it</span>
                 </a>
               </Link>

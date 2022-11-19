@@ -16,7 +16,10 @@ import Dropdown from "react-bootstrap/Dropdown";
 
 const nav__links = [
    {
-      path: "/",
+      path : ""
+   },
+   {
+      path: "home",
       display: "Home",
    },
    {
@@ -34,6 +37,10 @@ const nav__links = [
    {
       path: "reviews",
       display: "Reviews",
+   },
+   {
+      path: "admin",
+      display: "Dashboard",
    },
 ];
 const NavBar = ({ showModal }) => {
@@ -92,30 +99,28 @@ const NavBar = ({ showModal }) => {
                         </div>
                      </div>
 
-                     <div className="navigation">
-                        <ul className="menu">
-                           {nav__links.map((item, index) => (
-                              <li className="nav__item" key={index}>
-                                 <NavLink
-                                    to={item.path}
-                                    className={(navClass) =>
-                                       navClass.isActive ? "nav__active" : ""
-                                    }
-                                 >
-                                    {item.display}
-                                 </NavLink>
-                              </li>
-                           ))}
-                        </ul>
-                     </div>
-                     {!checkAuth && (
-                        <Dropdown>
-                           <Dropdown.Toggle
-                              variant="warning"
-                              id="dropdown-basic"
-                           >
-                              <BiUserCircle />
-                           </Dropdown.Toggle>
+              <div className="navigation">
+                <ul className="menu">
+
+                  {nav__links.map((item, index) => (
+                    <li className="nav__item" key={index}>
+                      <NavLink
+                        to={item.path}
+                        className={(navClass) =>
+                          !navClass.isActive ? "nav__notActive" : "nav__active"
+                        }
+                      >
+                        {item.display}
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              {!checkAuth && (
+                <Dropdown>
+                  <Dropdown.Toggle variant="warning" id="dropdown-basic">
+                    <BiUserCircle />
+                  </Dropdown.Toggle>
 
                            <Dropdown.Menu>
                               <Dropdown.Item href="#/action-1">

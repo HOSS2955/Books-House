@@ -2,15 +2,16 @@ import { configureStore } from "@reduxjs/toolkit";
 import { booksReducer } from "./reducers/bookSlice";
 import { cartReducer } from "./reducers/cartSlice";
 import { resReducer } from "./reducers/resSlice";
-import { authReducer } from "./reducers/authSlice";
-import { authApi } from "../../services/authApiSlice";
+// import { authReducer } from "./reducers/authSlice";
 import { homepageReducer } from "./reducers/homepageSlice";
 import { homepageApi } from "../../features/homeApiSlice";
 import { authorReducer } from "./reducers/authorSlice";
 import { packageApi } from "../../features/packageApiSlice";
 import { packageReducer } from "./reducers/packageSlice";
 import { checkAuthReducer } from "./reducers/checkAuth";
-
+import userReducer from "./reducers/userSlice";
+import { userApi } from "../../services/userApi";
+import { authApi } from "../../services/authApi";
 export const clientStore = configureStore({
   reducer: {
     books: booksReducer,
@@ -22,13 +23,18 @@ export const clientStore = configureStore({
     [homepageApi.reducerPath]: homepageApi.reducer,
     package: packageReducer,
     [packageApi.reducerPath]: packageApi.reducer,
-    auth: authReducer,
     [authApi.reducerPath]: authApi.reducer,
+    [userApi.reducerPath]: userApi.reducer,
+    userState: userReducer,
+    //  auth: authReducer,
+    //  [authApi.reducerPath]: authApi.reducer,
   },
   middleware: (gDM) =>
     gDM().concat(
       homepageApi.middleware,
       packageApi.middleware,
-      authApi.middleware
+      authApi.middleware,
+      userApi.middleware
+      // authApi.middleware
     ),
 });

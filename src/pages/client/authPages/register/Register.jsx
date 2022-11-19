@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import validator from "validator";
 import "./Register.css";
+import { useRegisterUserMutation } from "../../../../services/authApi";
+import { toast } from "react-toastify";
 
 export default function Register() {
   // The state of the error message
@@ -75,7 +77,8 @@ export default function Register() {
       }
     }
   };
-
+  const [registerUser, { isError, isSuccess, error, isLoading }] =
+    useRegisterUserMutation();
   useEffect(() => {
     const validData = passValue && emailValue && phoneValue && nameValue;
     if (validData) {
@@ -84,16 +87,36 @@ export default function Register() {
       setDisabled(true);
     }
   }, [passValue, emailValue, phoneValue, phoneValue]);
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("User registered successfully");
+      navigate("/auth/verification");
+    }
 
+    if (isError) {
+      console.log(error);
+      if (Array.isArray(error.data)) {
+        error.data.error.forEach((el) =>
+          toast.error(el.message, {
+            position: "top-right",
+          })
+        );
+      } else {
+        toast.error(error, {
+          position: "top-right",
+        });
+      }
+    }
+  }, [isLoading]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    setNameValue("");
-    setEmailValue("");
-    setPassValue("");
-    setPhoneValue("");
-    console.log(e.target[0].value);
-    console.log(e.check);
 
+    registerUser({
+      name: nameValue,
+      email: emailValue,
+      password: passValue,
+      phone: phoneValue,
+    });
     console.log("submit");
   };
   const showPassword = () => {

@@ -22,11 +22,12 @@ import About from "./pages/client/About";
 import Register from "./pages/client/authPages/register/Register";
 import ComponentsRoutes from "./routes/ComponentsRoutes";
 import AuthRoutes from "./routes/AuthRoutes";
-import PasswordPage from "./pages/client/authPages/passwordPage/PasswordPage";
+import VerifyPass from "./pages/client/authPages/passwordPage/VerifyPass";
 import Login from "./pages/client/authPages/login/Login";
 import Verification from "./pages/client/authPages/verification/Verification";
 import { PrivateOutlet } from "./utils/privateRoutes";
 import Reviews from "./pages/client/Review";
+import ReviewDetails from "./pages/client/ReviewDetails/ReviewDetails";
 
 function App() {
   const [showWishlist, setShowWishlist] = useState(false);
@@ -59,15 +60,16 @@ function App() {
             <Route path="register" element={<Register />} />
 
             <Route path="login" element={<Login />} />
-            <Route path="password" element={<PasswordPage />} />
+            <Route path="password" element={<VerifyPass />} />
           </Route>
           <Route path="/about" element={<About />} />
           <Route path="/service" element={<Service />} />
           <Route path="/contactus" element={<Contactus />} />
-          <Route path="/profile" element={<MyProfile />} />
+          <Route path="/profile/settings" element={<MyProfile />} />
           <Route path="/booksshop" element={<BooksShop />} />
           <Route path="/authorshouse" element={<AuthorsHouse />} />
           <Route path="/reviews" element={<Reviews />} />
+          <Route path="/reviewdetails" element={<ReviewDetails />} />
         </Routes>
         {/* <Counter /> */}
         <Footer />
