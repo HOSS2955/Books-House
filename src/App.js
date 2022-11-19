@@ -27,6 +27,7 @@ import Login from "./pages/client/authPages/login/Login";
 import Verification from "./pages/client/authPages/verification/Verification";
 import { PrivateOutlet } from "./utils/privateRoutes";
 import Reviews from "./pages/client/Review";
+import ReviewDetails from "./pages/client/ReviewDetails/ReviewDetails";
 
 function App() {
   const [showWishlist, setShowWishlist] = useState(false);
@@ -64,13 +65,14 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/service" element={<Service />} />
           <Route path="/contactus" element={<Contactus />} />
-          <Route path="/profile" element={<MyProfile />} />
+          <Route path="/profile/settings" element={<MyProfile />} />
           <Route path="/booksshop" element={<BooksShop />} />
           <Route path="/authorshouse" element={<AuthorsHouse />} />
           <Route path="/reviews" element={<Reviews />} />
+          <Route path="/reviewdetails" element={<ReviewDetails />} />
         </Routes>
         {/* <Counter /> */}
-        {/* <Footer /> */}
+        <Footer />
       </AnimatePresence>
     </div>
   );

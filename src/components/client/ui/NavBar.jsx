@@ -39,6 +39,10 @@ const nav__links = [
       path: "reviews",
       display: "Reviews",
    },
+   {
+      path: "admin",
+      display: "Dashboard",
+   },
 ];
 const NavBar = ({ showModal }) => {
   // Check if the user is Authorized
