@@ -1,17 +1,27 @@
-import React from "react";
-import ReviewContent from "../../../components/client/ui/ReviewHeader/ReviewContent";
+import React, { useEffect, useState } from "react";
+import ReviewContent from "./ReviewContent";
 import ReviewHeader from "../../../components/client/ui/ReviewHeader/ReviewHeader";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 export default function ReviewDetails() {
-  const data = {
-    src: "https://images.pexels.com/photos/3586966/pexels-photo-3586966.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    header: "Test Title",
-    desc: "The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element",
-  };
+  const { bookReviews } = useSelector((state) => state.bookReviews);
+  const dispatch = useDispatch();
+  const params = useParams();
+  const [items, setItems] = useState(bookReviews);
+
+  useEffect(() => {
+    const data = items.filter((item) => {
+      return item._id === params.id;
+    });
+    setItems(data);
+  }, []);
+  console.log(items[0]);
+
   return (
-    <div>
-      <ReviewHeader data={data} className="mt-5 pt-5" />
-      <ReviewContent />
+    <div className="mt-5 pt-4">
+      <ReviewHeader data={items[0]} className="mt-5 pt-5" />
+      <ReviewContent data={items[0]} />
     </div>
   );
 }

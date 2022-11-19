@@ -12,6 +12,7 @@ import { checkAuthReducer } from "./reducers/checkAuth";
 import userReducer from "./reducers/userSlice";
 import { userApi } from "../../services/userApi";
 import { authApi } from "../../services/authApi";
+import { bookReviewReducer } from "./reducers/bookReviewSlice";
 export const clientStore = configureStore({
   reducer: {
     books: booksReducer,
@@ -28,6 +29,7 @@ export const clientStore = configureStore({
     userState: userReducer,
     //  auth: authReducer,
     //  [authApi.reducerPath]: authApi.reducer,
+    bookReviews: bookReviewReducer,
   },
   middleware: (gDM) =>
     gDM().concat(
