@@ -213,6 +213,25 @@ const addProfileAvatar = async (req, res) => {
     res.status(500).send(e.message);
   }
 };
+
+//---------------------- delete user
+
+const deleteUser=async (req, res) => {
+
+
+  const {_id}=req.user
+  
+  
+  
+  await User.findOneAndDelete({_id:_id},{new:true})
+  
+  
+  res.json({message:"done"})
+  
+  
+  
+  
+  }
 module.exports = {
   confirmEmail,
   refreshEmail,
@@ -222,4 +241,5 @@ module.exports = {
   signUp,
   updateProfile,
   addProfileAvatar,
+  deleteUser,
 };
