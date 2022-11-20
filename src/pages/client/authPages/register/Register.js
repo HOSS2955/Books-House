@@ -66,22 +66,15 @@ const RegisterPage = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("User registered successfully");
-      navigate("/verifyemail");
+      navigate("/auth/verification");
     }
 
     if (isError) {
       console.log(error);
-      if (Array.isArray(error.data)) {
-        error.data.error.forEach((el) =>
-          toast.error(el.message, {
-            position: "top-right",
-          })
-        );
-      } else {
-        toast.error(error.data.message, {
-          position: "top-right",
-        });
-      }
+
+      toast.error(error.data.message, {
+        position: "top-right",
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);

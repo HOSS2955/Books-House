@@ -35,6 +35,22 @@ const loginSchema = object({
     .min(1, "Email address is required")
     .email("Email Address is invalid"),
   password: string()
+    .regex(
+      new RegExp("(?=.*[0-9])"),
+      "Password must have at least one numeric character!"
+    )
+    .regex(
+      new RegExp("(?=.*[!@#$%^&*])"),
+      "Password must have at least one special character!"
+    )
+    .regex(
+      new RegExp("(?=.*[A-Z])"),
+      "Password must have at least one uppercase character!"
+    )
+    .regex(
+      new RegExp("(?=.*[a-z])"),
+      "Password must have at least one lowercase character!"
+    )
     .min(1, "Password is required")
     .min(8, "Password must be more than 8 characters")
     .max(32, "Password must be less than 32 characters"),
@@ -69,7 +85,7 @@ const LoginAdmin = () => {
       console.log(error.data);
 
       //if (Array.isArray(error.data)) {
-      //         error.data.error.forEach((el) =>
+      //         error.data.forEach((el) =>
       //           toast.error(el.message, {
       //             position: "top-right",
       //           })

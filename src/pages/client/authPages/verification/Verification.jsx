@@ -1,5 +1,3 @@
-
-
 import { Box, Container, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -26,7 +24,9 @@ const LoadingButton = styled(_LoadingButton)`
 `;
 
 const verificationCodeSchema = object({
-  verificationCode: string().min(1, "Verification code is required"),
+  verificationCode: string()
+    .min(1, "Verification code is required")
+    .min(9, "Make sure you get that from your email!"),
 });
 
 const EmailVerificationPage = () => {
@@ -57,21 +57,25 @@ const EmailVerificationPage = () => {
 
   useEffect(() => {
     if (isSuccess) {
+      console.log("data", data);
       toast.success(data?.message);
-      navigate("/login");
+      navigate("/auth/login");
     }
     if (isError) {
-      if (Array.isArray(error.data)) {
-        error.data.error.forEach((el) =>
-          toast.error(el.message, {
-            position: "top-right",
-          })
-        );
-      } else {
-        toast.error(error.data.message, {
-          position: "top-right",
-        });
-      }
+      // if (Array.isArray(error.data)) {
+      //   error.data.error.forEach((el) =>
+      //     toast.error(el.message, {
+      //       position: "top-right",
+      //     })
+      //   );
+      // } else {
+      //   toast.error(error.data.message, {
+      //     position: "top-right",
+      //   });
+      // }
+      toast.error(error.data.message, {
+        position: "top-right",
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
