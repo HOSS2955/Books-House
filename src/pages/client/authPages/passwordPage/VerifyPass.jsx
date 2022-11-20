@@ -121,7 +121,7 @@ export default function VerifyPass() {
 
   return (
     <>
-      <div className="main">
+      <div className="main mt-3">
         <div className="centeredElement shadow-lg p-3 mb-2 bg-body">
           <div className="auth">
             <p className="h4 my-5 text-center">Check Your Email</p>

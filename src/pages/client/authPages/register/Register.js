@@ -10,16 +10,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { LoadingButton as _LoadingButton } from "@mui/lab";
 import { toast } from "react-toastify";
 import { useRegisterUserMutation } from "../../../../services/authApi";
+import { left } from "@popperjs/core";
 
 const LoadingButton = styled(_LoadingButton)`
   padding: 0.6rem 0;
-  background-color: #f9d13e;
-  color: #2363eb;
+  background-color: #212529;
+  color: #fff;
   font-weight: 500;
+  border-radius: 50px;
 
   &:hover {
-    background-color: #ebc22c;
-    transform: translateY(-2px);
+    background-color: #000000;
+    transform: translateY(-1px);
   }
 `;
 
@@ -106,7 +108,6 @@ const RegisterPage = () => {
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
-        backgroundColor: "#2363eb",
       }}
     >
       <Box
@@ -115,13 +116,17 @@ const RegisterPage = () => {
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
+          boxShadow: 8,
+          borderRadius: "10px",
+          px: "20px",
+          mt: "3%",
         }}
       >
         <Typography
           textAlign="center"
           component="h1"
           sx={{
-            color: "#f9d13e",
+            color: "#ffc107",
             fontSize: { xs: "2rem", md: "3rem" },
             fontWeight: 600,
             mb: 2,
@@ -130,7 +135,7 @@ const RegisterPage = () => {
         >
           Welcome to Bookshouse🙌!
         </Typography>
-        <Typography component="h2" sx={{ color: "#e5e7eb", mb: 2 }}>
+        <Typography component="h2" sx={{ color: "#000", mb: 2 }}>
           Sign Up To Get Started!
         </Typography>
 
@@ -143,18 +148,52 @@ const RegisterPage = () => {
             maxWidth="27rem"
             width="100%"
             sx={{
-              backgroundColor: "#e5e7eb",
               p: { xs: "1rem", sm: "2rem" },
               borderRadius: 2,
             }}
           >
-            <FormInput name="name" label="Full Name" />
-            <FormInput name="email" label="Email Address" type="email" />
-            <FormInput name="password" label="Password" type="password" />
+            <FormInput
+              name="name"
+              label="Full Name"
+              sx={{
+                border: 1,
+                borderColor: "primary.main",
+                borderRadius: "10px",
+                boxShadow: 3,
+              }}
+            />
+            <FormInput
+              name="email"
+              label="Email Address"
+              type="email"
+              sx={{
+                border: 1,
+                borderColor: "primary.main",
+                borderRadius: "10px",
+                boxShadow: 3,
+              }}
+            />
+            <FormInput
+              name="password"
+              label="Password"
+              type="password"
+              sx={{
+                border: 1,
+                borderColor: "primary.main",
+                borderRadius: "10px",
+                boxShadow: 3,
+              }}
+            />
             <FormInput
               name="passwordConfirm"
               label="Confirm Password"
               type="password"
+              sx={{
+                border: 1,
+                borderColor: "primary.main",
+                borderRadius: "10px",
+                boxShadow: 3,
+              }}
             />
             <Typography sx={{ fontSize: "0.9rem", mb: "1rem" }}>
               Already have an account?{" "}

@@ -1,5 +1,3 @@
-
-
 import { Box, Container, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -15,13 +13,13 @@ import { useVerifyEmailMutation } from "../../../../services/authApi";
 
 const LoadingButton = styled(_LoadingButton)`
   padding: 0.6rem 0;
-  background-color: #f9d13e;
-  color: #2363eb;
+  background-color: #212529;
+  color: #fff;
   font-weight: 500;
+  border-radius: 50px;
 
   &:hover {
-    background-color: #ebc22c;
-    transform: translateY(-2px);
+    background-color: #000000;
   }
 `;
 
@@ -96,7 +94,6 @@ const EmailVerificationPage = () => {
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
-        backgroundColor: "#2363eb",
       }}
     >
       <Box
@@ -105,17 +102,20 @@ const EmailVerificationPage = () => {
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
+          boxShadow: 8,
+          borderRadius: "10px",
+          padding: "20px",
         }}
       >
         <Typography
           textAlign="center"
           component="h1"
           sx={{
-            color: "#f9d13e",
+            color: "#ffc107",
             fontWeight: 600,
             fontSize: { xs: "2rem", md: "3rem" },
             mb: 2,
-            letterSpacing: 1,
+            letterSpacing: 0.75,
           }}
         >
           Verify Email Address
@@ -130,12 +130,20 @@ const EmailVerificationPage = () => {
             maxWidth="27rem"
             width="100%"
             sx={{
-              backgroundColor: "#e5e7eb",
               p: { xs: "1rem", sm: "2rem" },
               borderRadius: 2,
             }}
           >
-            <FormInput name="verificationCode" label="Verification Code" />
+            <FormInput
+              name="verificationCode"
+              label="Verification Code"
+              sx={{
+                border: 1,
+                borderColor: "primary.main",
+                borderRadius: "10px",
+                boxShadow: 4,
+              }}
+            />
 
             <LoadingButton
               variant="contained"

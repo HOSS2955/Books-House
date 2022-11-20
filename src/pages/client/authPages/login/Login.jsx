@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { object, string, TypeOf } from "zod";
@@ -12,21 +12,30 @@ import { useLoginUserMutation } from "../../../../services/authApi";
 
 const LoadingButton = styled(_LoadingButton)`
   padding: 0.6rem 0;
-  background-color: #f9d13e;
-  color: #2363eb;
+  background-color: #212529;
+  color: #fff;
   font-weight: 500;
+  border-radius: 50px;
 
   &:hover {
-    background-color: #ebc22c;
-    transform: translateY(-2px);
+    background-color: #000000;
+    transform: translateY(-1px);
   }
 `;
 
-const LinkItem = styled(Link)`
-  text-decoration: none;
-  color: #2363eb;
+const LinkItem = styled(Button)`
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-top: 1rem;
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: 500;
+  border: 2px solid #000000;
+  border-radius: 50px;
+
   &:hover {
-    text-decoration: underline;
+    background-color: #000000;
+    color: #fff;
   }
 `;
 
@@ -106,7 +115,6 @@ const LoginAdmin = () => {
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
-        backgroundColor: "#2363eb",
       }}
     >
       <Box
@@ -115,13 +123,15 @@ const LoginAdmin = () => {
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
+          boxShadow: 8,
+          borderRadius: "10px",
         }}
       >
         <Typography
           textAlign="center"
           component="h1"
           sx={{
-            color: "#f9d13e",
+            color: "#ffc107",
             fontWeight: 600,
             fontSize: { xs: "2rem", md: "3rem" },
             mb: 2,
@@ -133,7 +143,7 @@ const LoginAdmin = () => {
         <Typography
           variant="body1"
           component="h2"
-          sx={{ color: "#e5e7eb", mb: 2 }}
+          sx={{ color: "#000000", mb: 2 }}
         >
           Login to have access!
         </Typography>
@@ -147,18 +157,32 @@ const LoginAdmin = () => {
             maxWidth="27rem"
             width="100%"
             sx={{
-              backgroundColor: "#e5e7eb",
               p: { xs: "1rem", sm: "2rem" },
               borderRadius: 2,
             }}
           >
-            <FormInput name="email" label="Email Address" type="email" />
-            <FormInput name="password" label="Password" type="password" />
-
-            <Typography sx={{ fontSize: "0.9rem", mb: "1rem" }}>
-              Need an account?
-              <LinkItem to="/auth/register">Sign Up Here</LinkItem>
-            </Typography>
+            <FormInput
+              name="email"
+              label="Email Address"
+              type="email"
+              sx={{
+                border: 1,
+                borderColor: "primary.main",
+                borderRadius: "10px",
+                boxShadow: 4,
+              }}
+            />
+            <FormInput
+              name="password"
+              label="Password"
+              type="password"
+              sx={{
+                border: 1,
+                borderColor: "primary.main",
+                borderRadius: "10px",
+                boxShadow: 4,
+              }}
+            />
 
             <LoadingButton
               variant="contained"
@@ -170,6 +194,11 @@ const LoginAdmin = () => {
             >
               Login
             </LoadingButton>
+
+            <Typography align="center" sx={{ fontSize: "0.9rem", my: "1rem" }}>
+              Don`t have a Bookshouse account? <br />
+              <LinkItem to="/auth/register">Sign Up Here</LinkItem>
+            </Typography>
           </Box>
         </FormProvider>
       </Box>

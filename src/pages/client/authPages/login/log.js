@@ -12,7 +12,7 @@
 // import { useLoginUserMutation } from "../../../../services/authApi";
 // import { toast } from "react-toastify";
 
-// export default function Login() {
+// export default function Login2() {
 //   //The state of the error message
 //   const [passErrMsg, setPassErrMessage] = useState("");
 //   const [emailErrMsg, setEmailErrMsg] = useState("");
