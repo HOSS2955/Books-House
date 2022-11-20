@@ -87,16 +87,15 @@ export default function Books() {
                         (thisRow[c.field] = params.getValue(params.id, c.field))
                   );
                const filteredBook = books.filter(
-                  (book) => book.id === thisRow.id
+                  (book) => book._id === thisRow._id
                );
 
                if (e.target.innerText === "DELETE") {
                   dispatch(deleteBook(thisRow));
                }
                if (e.target.innerText === "EDIT") {
-                  console.log(filteredBook[0]);
                   dispatch(changeBookData(filteredBook[0]));
-                  navigate(`/admin/bookform/${filteredBook[0].id}`);
+                  navigate(`/admin/bookform/${filteredBook[0]._id}`);
                }
             };
             return (

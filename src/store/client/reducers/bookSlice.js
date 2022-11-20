@@ -46,11 +46,13 @@ export const deleteBook = createAsyncThunk(
    async (book, thunckAPI) => {
       const { rejectWithValue, getState } = thunckAPI;
       const state = getState();
+      console.log(book);
       try {
-         await axios.delete(`http://localhost:3005/books/${book.id}`, book.id);
+         await axios.delete(`/book/remove/${book._id}`, book._id);
          const filterArr = state.books.books.filter(
-            (ele) => ele.id !== book.id
+            (ele) => ele._id !== book._id
          );
+         console.log(filterArr);
          return filterArr;
       } catch (error) {
          rejectWithValue(error.message);
@@ -60,13 +62,10 @@ export const deleteBook = createAsyncThunk(
 
 export const getBook = createAsyncThunk(
    "books/getBook",
-   async ({ id }, thunckAPI) => {
+   async ({ _id }, thunckAPI) => {
       const { rejectWithValue } = thunckAPI;
       try {
-         const { data } = await axios.get(
-            `http://localhost:3005/books/${id}`,
-            id
-         );
+         const { data } = await axios.get(`book/${_id}`, _id);
          return data;
       } catch (error) {
          rejectWithValue(error.message);
@@ -77,11 +76,9 @@ export const updateBook = createAsyncThunk(
    "books/updateBook",
    async ({ id, formValue }, thunckAPI) => {
       const { rejectWithValue } = thunckAPI;
+      console.log(formValue);
       try {
-         const res = await axios.put(
-            `http://localhost:3005/books/${id}`,
-            formValue
-         );
+         const res = await axios.put(`/book/updateBook/${id}`, formValue);
          return res.data;
       } catch (error) {
          rejectWithValue(error.message);

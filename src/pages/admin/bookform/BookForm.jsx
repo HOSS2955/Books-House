@@ -56,7 +56,6 @@ export default function BookForm() {
    const { dataEditBook } = useSelector((state) => state.books);
 
    useEffect(() => {
-      console.log(dataEditBook);
       if (id) {
          setFormValue(dataEditBook);
       }

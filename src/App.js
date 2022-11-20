@@ -28,6 +28,8 @@ import Verification from "./pages/client/authPages/verification/Verification";
 import { PrivateOutlet } from "./utils/privateRoutes";
 import Reviews from "./pages/client/Review";
 import ReviewDetails from "./pages/client/ReviewDetails/ReviewDetails";
+import AdminPage from "./pages/client/authPages/LoginAdmin/adminPage";
+import LoginAdmin from "./pages/client/authPages/login/LoginAdmin";
 
 function App() {
   const [showWishlist, setShowWishlist] = useState(false);
@@ -55,6 +57,8 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/bookdetails/:id" element={<BookDetails />} />
+          <Route path="/@admin" element={<LoginAdmin />} />
+
           <Route path="auth" element={<AuthRoutes />}>
             <Route path="verification" element={<Verification />} />
             <Route path="register" element={<Register />} />
