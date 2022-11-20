@@ -32,7 +32,7 @@ const HeaderSwiper = ({ headerArray }) => {
           return (
             <SwiperSlide className="bg-transparent text-dark" key={index}>
               <div className="hero__content">
-                <p className="hero__subtitle">Our Services</p>
+                <p className="hero__subtitle mb-4">Our Services</p>
                 <h2>{item.title}</h2>
                 <p>{item.desc}</p>
 
@@ -40,7 +40,7 @@ const HeaderSwiper = ({ headerArray }) => {
                   whileHover={{ scale: 1.05 }}
                   className="buy__btn"
                 >
-                  <Link to="/authorshouse">Show details</Link>
+                  <Link to={item.path}>{item.btn}</Link>
                 </motion.button>
               </div>
             </SwiperSlide>

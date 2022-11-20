@@ -8,7 +8,7 @@ const Header = ({ headerArray }) => {
   return (
     <div>
       <section className="hero__section">
-        <div className="custom-shape-divider-top-1668530886">
+        {/* <div className="custom-shape-divider-top-1668530886"> */}
           {/* <svg
             data-name="Layer 1"
             xmlns="http://www.w3.org/2000/svg"
@@ -20,18 +20,18 @@ const Header = ({ headerArray }) => {
               className="shape-fill"
             ></path>
           </svg> */}
-        </div>
+        {/* </div> */}
         <Container fluid>
           <Row>
-            <div className="d-flex align-items-center col-6 p-5">
+            <div className="d-flex align-items-end col-6 pb-5 ps-5">
               <div className="hero__content">
                 <HeaderSwiper headerArray={headerArray} />
               </div>
             </div>
             <div lg="6" md="6" className="col-6 p-0">
-              <div className="hero__img">
+              <div className="hero__img d-flex align-items-end">
                 <img
-                  src="./images/hero_2.jpg"
+                  src="./images/13258.jpg"
                   //  src="https://images.pexels.com/photos/5797908/pexels-photo-5797908.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                   alt=""
                 />
@@ -43,8 +43,8 @@ const Header = ({ headerArray }) => {
                   /> */}
           </Row>
         </Container>
-        <div className="custom-shape-divider-bottom-1668531089">
-          {/* <svg
+        {/* <div className="custom-shape-divider-bottom-1668531089">
+          <svg
             data-name="Layer 1"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 1200 120"
@@ -54,8 +54,8 @@ const Header = ({ headerArray }) => {
               d="M1200,0H0V120H281.94C572.9,116.24,602.45,3.86,602.45,3.86h0S632,116.24,923,120h277Z"
               className="shape-fill"
             ></path>
-          </svg> */}
-        </div>
+          </svg>
+        </div> */}
       </section>
     </div>
   );

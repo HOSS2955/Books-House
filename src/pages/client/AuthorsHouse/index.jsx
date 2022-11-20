@@ -1,6 +1,6 @@
 import React from "react";
 import "./authorshouse.css";
-import Pricing from "../Home/Pricing";
+import Pricing from "../Home/Package";
 import { useEffect } from "react";
 import "../../../assets/css/Home.css";
 import { useGetHomepageDataQuery } from "../../../features/homeApiSlice";
@@ -31,14 +31,7 @@ export default function AuthorsHouse() {
                   <div className="col-6 d-flex flex-column justify-content-center align-items-center">
                      <h1 className="mb-3">Authors House</h1>
                      <p>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Voluptate sed rem saepe, hic facilis qui
-                        reiciendis minima eveniet earum totam architecto? Optio
-                        similique quam odio quasi vel eos obcaecati odit! Lorem,
-                        ipsum dolor sit amet consectetur adipisicing elit.
-                        Voluptate sed rem saepe, hic facilis qui reiciendis
-                        minima eveniet earum totam architecto? Optio similique
-                        quam odio quasi vel eos obcaecati odit!
+                     You’re in the right place.No matter how you publish your book Give us your book and we will provide you with real reviews about your book
                      </p>
                      <div>
                         <button className="px-4 btn btn-outline-dark rounded-0">

@@ -1,5 +1,5 @@
 .hero__section {
-   background: #f2f4f5;
+   background: white;
    position: relative;
 }
 
@@ -19,8 +19,8 @@
    font-weight: 500;
 }
 
-.hero__section img {
-   height: 99vh;
+.hero__section div {
+   
 }
 
 .hero__content {
@@ -32,10 +32,11 @@
 .hero__section .swiper-button-prev {
    color: transparent !important;
 }
-
+.hero__img{
+   height: 81vh;
+}
 .hero__img img {
    width: 100%;
-   object-fit: cover;
 }
 
 .swiper__card {
@@ -103,6 +104,10 @@
 }
 
 
+/* About */
+.homeAbout__img{
+   object-fit: cover;
+}
 /* Packages cards */
 
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
@@ -120,7 +125,6 @@
    border: 0.5px solid #ececec;
    border-radius:20px;
    line-height: 1.8;
-   padding: 0px 40px 40px;
    width: 75%;
 }
 .package__details:hover{
@@ -172,6 +176,5 @@ ul.package__features button{
    padding:15px 30px;
    line-height: 1.2;
 }
-/* h2.price{
-   font-size: 30px;
-} */
+
+

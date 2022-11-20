@@ -5,8 +5,7 @@ const initialState = {
   wallOfFamesData: [],
   aboutData: [],
   clientsTestimonialsData: [],
-  packagesData:[],
-  headerData:[],
+  serviceData:[],
   isLoading: false,
   errorMsg: null,
 };
@@ -17,16 +16,12 @@ const homepageSlice = createSlice({
   reducers: {
     setDataInLocalState: (state, action) => {
       // action.payload.wallOfFamesData =======> in case of home array
-      console.log("wall of famesFrom Reducer", action.payload);
+      console.log("wall of fames From Reducer", action.payload[0].wallOfFames);
+      console.log("clients testimonials" , action.payload[0].clientsTestimonials)
+      console.log("ServiceData" , action.payload[0].services)
       state.wallOfFamesData = action.payload[0].wallOfFames;
-      state.clientsTestimonialsData = action.payload[1].clientsTestimonials;
-      state.packagesData = action.payload[2].services;
-      state.headerData = action.payload[3].header;
-      
-      console.log("wall of famesFrom Reducer", action.payload[0].wallOfFames);
-      console.log("clientsTestimonials From Reducer", action.payload[1].clientsTestimonials);
-      console.log("packages from reducer" , action.payload[2].services);
-      console.log("Header from reducer" , action.payload[3].header);
+      state.clientsTestimonialsData = action.payload[0].clientsTestimonials;
+      state.serviceData = action.payload[0].services;
     },
   },
 });
