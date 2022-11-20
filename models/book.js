@@ -42,6 +42,9 @@ const bookSchema = new mongoose.Schema(
     rate: {
       type: Number,
     },
+    avatar:{
+      type:Buffer,
+    }
   },
 
   time
