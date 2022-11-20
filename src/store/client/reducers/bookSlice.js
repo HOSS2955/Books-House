@@ -19,7 +19,8 @@ export const getBooks = createAsyncThunk(
    async (_, thunckAPI) => {
       const { rejectWithValue } = thunckAPI;
       try {
-         const response = await axios.get("http://localhost:3005/books");
+         const response = await axios.get("/book/getall");
+         console.log(response.data);
          return response.data;
       } catch (error) {
          return rejectWithValue(error.message);
@@ -32,7 +33,7 @@ export const addBook = createAsyncThunk(
    async (book, thunckAPI) => {
       const { rejectWithValue } = thunckAPI;
       try {
-         const res = await axios.post("http://localhost:3005/books", book);
+         const res = await axios.post("/book/addnewbook", book);
          return res.data;
       } catch (error) {
          return rejectWithValue(error.message);

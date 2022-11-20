@@ -53,7 +53,7 @@ export default function ItemCard({ book }) {
             className="imgparentt"
             id="imgOne"
          >
-            <img src={book.imageSrc} alt="" className="col-12" />
+            <img src={book.imageSource} alt="" className="col-12" />
 
             {showbtns && (
                <motion.div

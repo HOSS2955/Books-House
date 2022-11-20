@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import {
+   Box,
+   Button,
+   Checkbox,
+   FormControlLabel,
+   TextField,
+   Typography,
+} from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -16,8 +23,9 @@ const initialValues = {
    title: "",
    price: "",
    author: "",
-   desc: "",
+   BookDesc: "",
    category: "",
+   type: "",
    // imageSrc: "",
 };
 
@@ -25,8 +33,9 @@ const userSchema = yup.object().shape({
    title: yup.string(),
    price: yup.string(),
    author: yup.string(),
-   desc: yup.string(),
+   BookDesc: yup.string(),
    category: yup.string(),
+   type: yup.string(),
    // imageSrc: yup.string(),
 });
 
@@ -40,8 +49,8 @@ export default function BookForm() {
       price: "",
       author: "",
       category: "",
-      desc: "",
-      imageSrc: "",
+      BookDesc: "",
+      imageSource: "",
    });
    const { id } = useParams();
    const { dataEditBook } = useSelector((state) => state.books);
@@ -66,11 +75,11 @@ export default function BookForm() {
       } else {
          setFormValue({
             ...book,
-            imageSrc: url,
+            imageSource: image,
          });
+         console.log(formValue);
          dispatch(addBook(formValue));
       }
-      console.log(url);
       navigate("/admin/books");
    };
 
@@ -97,15 +106,11 @@ export default function BookForm() {
       })
          .then((resp) => resp.json())
          .then((data) => {
-            console.log(data.url);
-            console.log(formValue);
             setUrl(data.url);
             setFormValue({
                ...formValue,
-               imageSrc: data.url,
+               imageSource: data.url,
             });
-
-            console.log(formValue);
          })
          .catch((err) => console.log(err));
    };
@@ -190,8 +195,8 @@ export default function BookForm() {
                         placeholder={id ? dataEditBook.desc : ""}
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        value={values.desc}
-                        name="desc"
+                        value={values.BookDesc}
+                        name="BookDesc"
                         error={!!touched.desc && !!errors.desc}
                         helperText={touched.desc && errors.desc}
                         sx={{ gridColumn: "span 4" }}
@@ -209,6 +214,21 @@ export default function BookForm() {
                         name="category"
                         error={!!touched.category && !!errors.category}
                         helperText={touched.category && errors.category}
+                        sx={{ gridColumn: "span 4" }}
+                     />
+                     {/* TYPE */}
+                     <TextField
+                        fullWidth
+                        variant="filled"
+                        type="text"
+                        label="Type"
+                        placeholder={id ? dataEditBook.type : ""}
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.type}
+                        name="type"
+                        error={!!touched.type && !!errors.type}
+                        helperText={touched.type && errors.type}
                         sx={{ gridColumn: "span 4" }}
                      />
 
@@ -238,6 +258,7 @@ export default function BookForm() {
                </form>
             )}
          </Formik>
+
          {/* IMGAE */}
          <Box
             sx={{
