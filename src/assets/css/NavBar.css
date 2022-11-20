@@ -116,7 +116,7 @@
    box-shadow: 3px 3px 8px -3px #ddd;
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 1000px) {
    .small__screen {
       display: block;
       /* position:sticky; */

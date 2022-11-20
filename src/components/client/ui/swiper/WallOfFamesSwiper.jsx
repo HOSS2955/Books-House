@@ -34,8 +34,7 @@ export default function WallOfFamesSwiper({wallOfFamesArray}) {
             feedPosition={item.feedPosition}
             imgSrc={item.imgSrc}
           >
-            The more effort you put into improving your skills, the bigger the
-            payoff you.
+            {item.paragraph}
           </SwiperData>
       </SwiperSlide>
     })}

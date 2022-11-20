@@ -4,19 +4,20 @@ import PackageQuery from "../../../services/PackageQuery";
 // import "../../../assets/css/Package.css";
 import { useGetPackageDataQuery } from "../../../features/packageApiSlice";
 import { packageActions } from "../../../store/client/reducers/packageSlice";
+import PackageCard from "./PackageCard";
 
-const Pricing = ({ pricingArray }) => {
-//    const { data, isError, isLoading } = useGetPackageDataQuery();
-//    const dispatch = useDispatch();
-//    const { setDataInLocalState } = packageActions;
-//    const { packageData } = useSelector((state) => state.package);
-//    useEffect(() => {
-//       console.log("data before dispatch pricing", data);
-//       if (data) {
-//          dispatch(setDataInLocalState(data));
-//          console.log("data from pricing", data);
-//       }
-//    }, [dispatch, data]);
+const Package = () => {
+   const { data, isError, isLoading } = useGetPackageDataQuery();
+   const dispatch = useDispatch();
+   const { setDataInLocalState } = packageActions;
+   const { packageData } = useSelector((state) => state.package);
+   useEffect(() => {
+      console.log("data before dispatch pricing", data);
+      if (data) {
+         dispatch(setDataInLocalState(data));
+         console.log("data from pricing", data);
+      }
+   }, [dispatch, data]);
    return (
       <div className="container">
          <section id="pricing" className="section bg-white">
@@ -32,14 +33,15 @@ const Pricing = ({ pricingArray }) => {
                </div>
             </div>
             <div className="container text-sm">
-               {/* <div className="row"> */}
-                  {/* <PackageQuery pricingArray={packageData}></PackageQuery> */}
-                  <PackageQuery></PackageQuery>
-               {/* </div> */}
+               <div className="row">
+               {packageData.map((item , index)=>{
+               return (<PackageCard key={index} item = {item}/>)
+               })}
+               </div>
             </div>
          </section>
       </div>
    );
 };
 
-export default Pricing;
+export default Package;

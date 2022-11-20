@@ -67,39 +67,37 @@ const NavBar = ({ showModal }) => {
   // };
   // // }
 
-  // useEffect(() => {
-  //    stickyHeaderFunc();
-  //    return () => window.removeEventListener("scroll", stickyHeaderFunc);
-  // });
-  return (
-    <motion.div
-      // initial={{ opacity: 0, y: -180 }}
-      // animate={{ opacity: 1, y: 0 }}
-      // transition={{
-      //    ease: "easeInOut",
-      //    duration: 1,
-      //    delay: 0.2,
-      // }}
-      className="fixed-top"
-      ref={headerRef}
-    >
-      {/* Large screen */}
-      <header
-        className={
-          color ? "header-bg header large__screen" : "header large__screen"
-        }
+   // useEffect(() => {
+   //    stickyHeaderFunc();
+   //    return () => window.removeEventListener("scroll", stickyHeaderFunc);
+   // });
+   return (
+      <motion.div
+         // initial={{ opacity: 0, y: -180 }}
+         // animate={{ opacity: 1, y: 0 }}
+         // transition={{
+         //    ease: "easeInOut",
+         //    duration: 1,
+         //    delay: 0.2,
+         // }}
+         className="fixed-top"
+         ref={headerRef}
       >
-        <div className="container">
-          <div className="row">
-            <div className="nav__wrapper">
-              <div className="logo">
-                <img src="./images/hero_1.jpg" alt="logo" />
-                <div>
-                  <Link to="/">
-                    <h1 className="mb-0">Books House</h1>
-                  </Link>
-                </div>
-              </div>
+         {/* Large screen */}
+         <header
+            className={
+               color ? "header-bg header large__screen" : "header large__screen"
+            }
+         >
+            <div className="container">
+               <div className="row">
+                  <div className="nav__wrapper">
+                     <div className="logo">
+                        <img src="./images/literature6.jpg" alt="logo" />
+                        <div>
+                           <Link to ="/"><h1 className="mb-0">Books House</h1></Link>
+                        </div>
+                     </div>
 
               <div className="navigation">
                 <ul className="menu">

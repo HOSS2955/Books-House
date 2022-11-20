@@ -11,12 +11,14 @@ export default function BooksShop() {
                <BreadCrumb title="product" breadCrumb="shop" />
             </div>
          </div>
-         <div className="row container my-5 mx-auto">
-            <div className="col-3 my-3   ">
-               <Aside />
-            </div>
-            <div className="col-8">
-               <BookList />
+         <div className="container">
+            <div className="row  my-5 mx-auto">
+               <div className="col-3 mb-3  ">
+                  <Aside />
+               </div>
+               <div className="col-9 ">
+                  <BookList />
+               </div>
             </div>
          </div>
       </div>

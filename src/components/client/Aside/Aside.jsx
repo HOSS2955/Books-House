@@ -25,8 +25,8 @@ export default function Aside() {
 
    return (
       <div>
-         <div className="mb-4">
-            <h5 className="mb-3 fw-bold">Categories</h5>
+         <div className="mb-4 mt-2">
+            <h5 className="mb-3  fw-bold">Categories</h5>
             <div className="categories d-flex flex-column ">
                <CategoryItem title="All" name="all" />
                <CategoryItem title="Fiction" name="fiction" />
