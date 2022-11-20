@@ -1,30 +1,32 @@
 import React from 'react';
-
+import { Link } from "react-router-dom";
 import { BiGlasses } from 'react-icons/bi';
 
 const PackageCard = ({item}) => {
-    // console.log(item["specifications"])
   return (
     <div className="package__item col-lg col-md-12 mb-sm-5">
                       <div className="package__details">
                         <div className="package__header mb-5">
-                          <img className="demo-bg" src="./images/4185.jpg" />
+                          <img className="demo-bg" src="./images/book1.jpg" />
                           <div className="demo-content">
-          <h3 className="fw-bold">Free Plan</h3>
-          <p className="text-muted">For Small teams or office</p>
+          <h3 className="fw-bold">{item.packageName}</h3>
+          {/* <p className="text-muted">For Small teams or office</p> */}
           </div>
           </div>
-          <ul class="package__features">
-          {item["specifications"].map((star , index)=>{
+          <div className="mx-4 mb-5">
+            {/* <p>{item.desc}</p> */}
+          <ul className="package__features">
+          {item["packageDesc"].map((descItem , index)=>{
             return (
-              <li className="text-muted">
-                <button className="btn p-0"><BiGlasses/></button>{star}</li>
+              <li className="text-muted" key={index}>
+                <button className="btn p-0"><BiGlasses/></button>{descItem}</li>
             )
           })}
           </ul>
           <div className="package__control d-flex flex-column align-items-center">
-          <div class="package__price pt-3 d-flex align-items-center"><span className="price fs-5">$0</span><span>/Monthly</span></div>
-          <button className="btn btn-danger mt-4 rounded-pill"> Start free trial</button>
+          <div className="package__price pt-3 d-flex align-items-center"><span className="price fs-5">${item.packagePrice}</span><span>/Monthly</span></div>
+         <button className="btn btn-warning mt-4 rounded-pill"> <Link to = {item.path}></Link>Buy Now</button>
+          </div>
           </div>
           </div>
           </div>

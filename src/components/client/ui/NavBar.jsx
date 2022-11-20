@@ -93,7 +93,7 @@ const NavBar = ({ showModal }) => {
                <div className="row">
                   <div className="nav__wrapper">
                      <div className="logo">
-                        <img src="./images/hero_1.jpg" alt="logo" />
+                        <img src="./images/literature6.jpg" alt="logo" />
                         <div>
                            <Link to ="/"><h1 className="mb-0">Books House</h1></Link>
                         </div>
@@ -157,7 +157,7 @@ const NavBar = ({ showModal }) => {
             </div>
          </header>
          {/* Small screen */}
-         <Navbar bg="light" expand="lg" className="small__screen">
+         <Navbar bg="light" expand="xl" className="small__screen">
             <Container fluid className="pb-3 pt-3">
                <div className="logo">
                   <img src="./images/hero_1.jpg" alt="logo" />

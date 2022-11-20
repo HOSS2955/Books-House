@@ -1,16 +1,16 @@
-import React from "react";
+// import React from "react";
 
-import { motion } from "framer-motion";
-import { TbBook2 } from "react-icons/tb";
-import PackageCard from "../pages/client/Home/PackageCard";
+// import { motion } from "framer-motion";
+// import { TbBook2 } from "react-icons/tb";
+// import PackageCard from "../pages/client/Home/PackageCard";
 
 
-const numbers = [{title:"hello" , specifications:["Drag & Drop Builder" , "1,000's of Templates" , "Blog Support Tools" , "eCommerce Store"]},{title:"welcome" , specifications:["Drag & Drop Builder" , "1,000's of Templates" , "Blog Support Tools" , "eCommerce Store"]}];
-// console.log(numbers.map((item , index)=> {return (item) }))
-const PackageQuery = ({ pricingArray }) => {
+// const numbers = [{title:"hello" , specifications:["Drag & Drop Builder" , "1,000's of Templates" , "Blog Support Tools" , "eCommerce Store"]},{title:"welcome" , specifications:["Drag & Drop Builder" , "1,000's of Templates" , "Blog Support Tools" , "eCommerce Store"]}];
+// // console.log(numbers.map((item , index)=> {return (item) }))
+// const PackageQuery = ({ pricingArray }) => {
 
-  return (
-    <div className = "row packages__list">
+  // return (
+    // <div className = "row packages__list">
       {/* {pricingArray.map((service, index) => {
         return (
           <motion.div
@@ -52,8 +52,7 @@ const PackageQuery = ({ pricingArray }) => {
           </motion.div>
         );
       })} */}
-      {numbers.map((item , index)=>{
-                  return(
+                  // return(
           //           <div className="package__item">
           //             <div className="package__details rounded">
           //               <div className="package__header mb-5">
@@ -74,11 +73,11 @@ const PackageQuery = ({ pricingArray }) => {
           // </div>
           // </div>
           // </div>
-          <PackageCard item = {item}/>
-          )
-      })}
-    </div>
-  );
-};
+//           <PackageCard item = {item}/>
+//           )
+//       })}
+//     </div>
+//   );
+// };
 
-export default PackageQuery;
+// export default PackageQuery;

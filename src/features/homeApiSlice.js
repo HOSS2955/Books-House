@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const homepageApi = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: "/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "homeData" }),
   reducerPath: "homepageApi",
   endpoints: (build) => ({
     getHomepageData: build.query({

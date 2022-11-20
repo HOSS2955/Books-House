@@ -29,6 +29,7 @@ import { PrivateOutlet } from "./utils/privateRoutes";
 import Reviews from "./pages/client/Review";
 import ReviewDetails from "./pages/client/ReviewDetails/ReviewDetails";
 
+
 function App() {
   const [showWishlist, setShowWishlist] = useState(false);
   const hideModal = () => {

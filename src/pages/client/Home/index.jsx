@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../../assets/css/Home.css";
 import ClientsTestimonials from "./ClientsTestimonials";
-import Pricing from "./Pricing";
+import Pricing from "./Package";
 import WallOfFames from "./WallOfFames";
 import { useGetHomepageDataQuery } from "../../../features/homeApiSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,12 +9,13 @@ import { homepageActions } from "../../../store/client/reducers/homepageSlice";
 import AboutUs from "./AboutUs";
 import DiscoverBooks from "./DiscoverBooks";
 import Header from "./Header";
+import Service from "./Service";
 
 export default function Home() {
    const { data, isError, isLoading } = useGetHomepageDataQuery();
    const dispatch = useDispatch();
    const { setDataInLocalState } = homepageActions;
-   const { wallOfFamesData, clientsTestimonialsData, headerData } = useSelector(
+   const { wallOfFamesData, clientsTestimonialsData , serviceData} = useSelector(
       (state) => state.homepage
    );
    useEffect(() => {
@@ -26,12 +27,13 @@ export default function Home() {
    }, [dispatch, data]);
    return (
       <div className="home__style">
-         <Header headerArray={headerData} />
+         <Header headerArray={serviceData} />
          <section className="section">
             <AboutUs />
          </section>
          <WallOfFames wallOfFamesArray={wallOfFamesData}></WallOfFames>
-         <Pricing />
+         <Service serviceArray = {serviceData}></Service>
+         {/* <Pricing/> */}
          <DiscoverBooks />
          <ClientsTestimonials
             clientsTestimonialsArray={clientsTestimonialsData}
