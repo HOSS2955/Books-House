@@ -8,8 +8,8 @@ import { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LoadingButton as _LoadingButton } from "@mui/lab";
 import { toast } from "react-toastify";
-import { useLoginUserMutation } from "../../../../services/authApi";
-
+// import { use } from "../../../../services/authApi";
+import { useLoginAdminMutation } from "../../../../services/adminAuthApi";
 const LoadingButton = styled(_LoadingButton)`
   padding: 0.6rem 0;
   background-color: #f9d13e;
@@ -35,8 +35,25 @@ const loginSchema = object({
     .min(1, "Email address is required")
     .email("Email Address is invalid"),
   password: string()
+    .regex(
+      new RegExp("(?=.*[0-9])"),
+      "Password must have at least one numeric character!"
+    )
+    .regex(
+      new RegExp("(?=.*[!@#$%^&*])"),
+      "Password must have at least one special character!"
+    )
+    .regex(
+      new RegExp("(?=.*[A-Z])"),
+      "Password must have at least one uppercase character!"
+    )
+    .regex(
+      new RegExp("(?=.*[a-z])"),
+      "Password must have at least one lowercase character!"
+    )
     .min(1, "Password is required")
     .min(8, "Password must be more than 8 characters")
+
     .max(32, "Password must be less than 32 characters"),
 });
 
@@ -46,13 +63,13 @@ const LoginAdmin = () => {
   });
 
   // ? API Login Mutation
-  const [loginUser, { isLoading, isError, error, isSuccess }] =
-    useLoginUserMutation();
+  const [LoginAdmin, { isLoading, isError, error, isSuccess }] =
+    useLoginAdminMutation();
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = location.state?.from.pathname || "/profile";
+  // const from = location.state?.from.pathname || "/profile";
 
   const {
     reset,
@@ -60,20 +77,19 @@ const LoginAdmin = () => {
     formState: { isSubmitSuccessful },
   } = methods;
 
-  //   useEffect(() => {
-  //     if (isSuccess) {
-  //       toast.success("You successfully logged in");
-  //       navigate(from);
-  //     }
-  //     if (isError) {
-  //       console.log(error);
-
-  //       toast.error(error.status, {
-  //         position: "top-right",
-  //       });
-  //     }
-  //     // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   }, [isLoading]);
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("You successfully logged in");
+      navigate("/admin");
+    }
+    if (isError) {
+      console.log("inside login admin", error);
+      toast.error(error.message, {
+        position: "top-right",
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
 
   useEffect(() => {
     if (isSubmitSuccessful) {
@@ -84,7 +100,7 @@ const LoginAdmin = () => {
 
   const onSubmitHandler = (values) => {
     // ? Executing the loginUser Mutation
-    loginUser(values);
+    LoginAdmin(values);
   };
 
   return (
