@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import FormInput from "../../../../components/client/MaterialForm/FormInput";
 
-import { object, string, TypeOf } from "zod";
+import { number, object, string, TypeOf } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -32,11 +32,30 @@ const LinkItem = styled(Link)`
 `;
 
 const registerSchema = object({
-  name: string().min(1, "Full name is required").max(100),
+  name: string().min(1, "Full name is required").max(30),
+  phone: string()
+    .min(1, "Phone number is required")
+    .min(8, "Please Enter a valid phone number!"),
   email: string()
     .min(1, "Email address is required")
     .email("Email Address is invalid"),
   password: string()
+    .regex(
+      new RegExp("(?=.*[0-9])"),
+      "Password must have at least one numeric character!"
+    )
+    .regex(
+      new RegExp("(?=.*[!@#$%^&*])"),
+      "Password must have at least one special character!"
+    )
+    .regex(
+      new RegExp("(?=.*[A-Z])"),
+      "Password must have at least one uppercase character!"
+    )
+    .regex(
+      new RegExp("(?=.*[a-z])"),
+      "Password must have at least one lowercase character!"
+    )
     .min(1, "Password is required")
     .min(8, "Password must be more than 8 characters")
     .max(32, "Password must be less than 32 characters"),
@@ -71,7 +90,17 @@ const RegisterPage = () => {
 
     if (isError) {
       console.log(error);
-
+      // if (Array.isArray(error.data.e)) {
+      //   error.data.error.forEach((el) =>
+      //     toast.error(el.message, {
+      //       position: "top-right",
+      //     })
+      //   );
+      // } else {
+      //   toast.error(error.data.e, {
+      //     position: "top-right",
+      //   });
+      // }
       toast.error(error.data.message, {
         position: "top-right",
       });
@@ -143,6 +172,7 @@ const RegisterPage = () => {
           >
             <FormInput name="name" label="Full Name" />
             <FormInput name="email" label="Email Address" type="email" />
+            <FormInput name="phone" label="Phone Number" type="number" />
             <FormInput name="password" label="Password" type="password" />
             <FormInput
               name="passwordConfirm"
