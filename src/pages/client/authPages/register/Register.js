@@ -150,7 +150,7 @@ const RegisterPage = () => {
               label="Full Name"
               sx={{
                 border: 1,
-                borderColor: "primary.main",
+                borderColor: "#000",
                 borderRadius: "10px",
                 boxShadow: 3,
               }}
@@ -161,7 +161,7 @@ const RegisterPage = () => {
               type="email"
               sx={{
                 border: 1,
-                borderColor: "primary.main",
+                borderColor: "#000",
                 borderRadius: "10px",
                 boxShadow: 3,
               }}
@@ -172,7 +172,7 @@ const RegisterPage = () => {
               type="password"
               sx={{
                 border: 1,
-                borderColor: "primary.main",
+                borderColor: "#000",
                 borderRadius: "10px",
                 boxShadow: 3,
               }}
@@ -183,7 +183,7 @@ const RegisterPage = () => {
               type="password"
               sx={{
                 border: 1,
-                borderColor: "primary.main",
+                borderColor: "#000",
                 borderRadius: "10px",
                 boxShadow: 3,
               }}

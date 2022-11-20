@@ -145,7 +145,7 @@ const EmailVerificationPage = () => {
               label="Verification Code"
               sx={{
                 border: 1,
-                borderColor: "primary.main",
+                borderColor: "#000",
                 borderRadius: "10px",
                 boxShadow: 4,
               }}
