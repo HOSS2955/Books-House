@@ -1,152 +1,171 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
-import { FaApple, FaLock, FaUserAlt } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
-import validator from "validator";
-import { useVerifyEmailMutation } from "../../../../services/authApi";
-import { OTPBox } from "../otp/OtpPage";
-import { toast } from "react-toastify";
+import { Box, Container, Typography } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { object, string, TypeOf } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import FormInput from "../../../../components/client/MaterialForm/FormInput";
 
-import "./Verification.css";
-export default function Verification() {
-  const navigate = useNavigate();
-  const [disabled, setDisabled] = useState(true);
-  // const verificationCode = useParams();
-  const [verifyEmail, { isLoading, isError, error, isSuccess, data }] =
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { LoadingButton as _LoadingButton } from "@mui/lab";
+import { toast } from "react-toastify";
+import { useVerifyEmailMutation } from "../../../../services/authApi";
+
+const LoadingButton = styled(_LoadingButton)`
+  padding: 0.6rem 0;
+  background-color: #212529;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 50px;
+
+  &:hover {
+    background-color: #000000;
+  }
+`;
+
+const verificationCodeSchema = object({
+  verificationCode: string()
+    .min(1, "Verification code is required")
+    .min(9, "Make sure you get that from your email!"),
+});
+
+const EmailVerificationPage = () => {
+  const { verificationCode } = useParams();
+
+  const methods = useForm({
+    resolver: zodResolver(verificationCodeSchema),
+  });
+
+  // ? API Login Mutation
+  const [verifyEmail, { isLoading, isSuccess, data, isError, error }] =
     useVerifyEmailMutation();
-  const myArr = [new Array(6).fill("")];
-  const [otp, setOtp] = useState(...myArr);
-  const handleChange = (element, index) => {
-    if (isNaN(element.value)) return false;
-    setOtp([...otp.map((d, i) => (i === index ? element.value : d))]);
-    if (element.nextSibling) {
-      element.nextSibling.focus();
+
+  const navigate = useNavigate();
+
+  const {
+    reset,
+    handleSubmit,
+    formState: { isSubmitSuccessful },
+  } = methods;
+
+  useEffect(() => {
+    if (verificationCode) {
+      reset({ verificationCode });
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success(data?.message, {
-        position: "top-right",
-      });
-      navigate("/login");
+      console.log("data", data);
+      toast.success(data?.message);
+      navigate("/auth/login");
     }
     if (isError) {
-      if (Array.isArray(error.data)) {
-        error.data.error.forEach((el) =>
-          toast.error(el.message, {
-            position: "top-right",
-          })
-        );
-      } else {
-        toast.error(error.data.message, {
-          position: "top-right",
-        });
-      }
+      // if (Array.isArray(error.data)) {
+      //   error.data.error.forEach((el) =>
+      //     toast.error(el.message, {
+      //       position: "top-right",
+      //     })
+      //   );
+      // } else {
+      //   toast.error(error.data.message, {
+      //     position: "top-right",
+      //   });
+      // }
+      toast.error(error.data.message, {
+        position: "top-right",
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
-  const validOTPLength = otp.join("").length == 6;
+
   useEffect(() => {
-    if (validOTPLength) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
+    if (isSubmitSuccessful) {
+      reset();
     }
-  }, [validOTPLength]);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validOTPLength) {
-      verifyEmail(otp.join(""));
-    } else {
-      toast.error("Enter a valid OTP", {
-        position: "top-right",
-      });
-    }
-    // console.log(otp.join(""));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSubmitSuccessful]);
 
-    // verifyEmail({ verificationCode });
+  const onSubmitHandler = ({ verificationCode }) => {
+    // ? Executing the verifyEmail Mutation
+    verifyEmail({ verificationCode });
   };
-  // const handleVerification = (e) => {
-  //   // e.preventDefault();
 
-  //   console.log("Your OTP is ");
-  // };
   return (
-    <Form className="mt-5 " onSubmit={handleSubmit}>
-      <div className="main">
-        <div className="centeredElement shadow-lg p-3 mb-5 bg-body ">
-          <div className="auth ">
-            <p className="h4 my-5 text-center">Check Your Email</p>
-            <div className="row">
-              <p className="h4">Enter The OTP sent to your Email.</p>
-              <div className="col d-flex flex-row text-center " method="post">
-                {otp.map((data, index) => (
-                  <input
-                    className="text-center fw-bold m-1 w-25 h-100 p-2 "
-                    key={index}
-                    value={data}
-                    name="otp"
-                    onChange={(e) => handleChange(e.target, index)}
-                    onFocus={(e) => e.target.select()}
-                    type="text"
-                    maxLength="1"
-                  />
-                ))}
-              </div>
-              <div className="mt-4 text-center">
-                <p>OTP Entered: {otp.join("")}</p>
-                <div className="d-flex flex-row ">
-                  <button
-                    className="btn btn-secondary w-50 m-1"
-                    type="button"
-                    onClick={(e) => setOtp([...otp.map((v) => "")])}
-                  >
-                    Clear
-                  </button>
-                  <button
-                    className="btn btn-primary w-50"
-                    type="submit"
-                    disabled={disabled}
-                  >
-                    Verify
-                  </button>
-                </div>
-              </div>
-            </div>
+    <Container
+      maxWidth={false}
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+          boxShadow: 8,
+          borderRadius: "10px",
+          padding: "20px",
+        }}
+      >
+        <Typography
+          textAlign="center"
+          component="h1"
+          sx={{
+            color: "#ffc107",
+            fontWeight: 600,
+            fontSize: { xs: "2rem", md: "3rem" },
+            mb: 2,
+            letterSpacing: 0.75,
+          }}
+        >
+          Verify Email Address
+        </Typography>
 
-            <div className="divider acc mt-2">
-              {/* If the user doesn`t have an account` */}
-              <hr className="hrLeft text-small" />
-              <Link to="/auth/verification">
-                <a>
-                  Didn't recieve OTP yet?
-                  <span className="text-primary">Resend it</span>
-                </a>
-              </Link>
-              <hr className="hrRight" />
-            </div>
-            {/* if the user clicked outside the input the status of the error message will appear */}
+        <FormProvider {...methods}>
+          <Box
+            component="form"
+            onSubmit={handleSubmit(onSubmitHandler)}
+            noValidate
+            autoComplete="off"
+            maxWidth="27rem"
+            width="100%"
+            sx={{
+              p: { xs: "1rem", sm: "2rem" },
+              borderRadius: 2,
+            }}
+          >
+            <FormInput
+              name="verificationCode"
+              label="Verification Code"
+              sx={{
+                border: 1,
+                borderColor: "primary.main",
+                borderRadius: "10px",
+                boxShadow: 4,
+              }}
+            />
 
-            {/* for displaying the status of the input */}
-            {/* {displayPassErrorMsg && (
-                <Form.Text
-                  className="errorMsg text-small float-start fw-semibold"
-                  style={{
-                    color:
-                      passErrMsg === "Strong Password ✔" ? "green" : "#d21313",
-                  }}
-                >
-                  {passErrMsg}
-                </Form.Text>
-              )} */}
-          </div>
-          {/*For loging in the website using email*/}
-        </div>
-      </div>
-    </Form>
+            <LoadingButton
+              variant="contained"
+              sx={{ mt: 1 }}
+              fullWidth
+              disableElevation
+              type="submit"
+              loading={isLoading}
+            >
+              Verify Email
+            </LoadingButton>
+          </Box>
+        </FormProvider>
+      </Box>
+    </Container>
   );
-}
+};
+
+export default EmailVerificationPage;

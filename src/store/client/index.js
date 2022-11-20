@@ -10,8 +10,11 @@ import { packageApi } from "../../features/packageApiSlice";
 import { packageReducer } from "./reducers/packageSlice";
 import { checkAuthReducer } from "./reducers/checkAuth";
 import userReducer from "./reducers/userSlice";
+import adminReducer from "./reducers/adminSlice";
 import { userApi } from "../../services/userApi";
 import { authApi } from "../../services/authApi";
+import { adminAuthApi } from "../../services/adminAuthApi";
+import { bookReviewReducer } from "./reducers/bookReviewSlice";
 export const clientStore = configureStore({
   reducer: {
     books: booksReducer,
@@ -25,15 +28,19 @@ export const clientStore = configureStore({
     [packageApi.reducerPath]: packageApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
+    [adminAuthApi.reducerPath]: adminAuthApi.reducer,
+    // adminState: adminReducer,
     userState: userReducer,
     //  auth: authReducer,
     //  [authApi.reducerPath]: authApi.reducer,
+    bookReviews: bookReviewReducer,
   },
   middleware: (gDM) =>
     gDM().concat(
       homepageApi.middleware,
       packageApi.middleware,
       authApi.middleware,
+      adminAuthApi.middleware,
       userApi.middleware
       // authApi.middleware
     ),

@@ -1,14 +1,16 @@
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import FormInput from "../../../../components/client/MaterialForm/FormInput";
+
 import { object, string, TypeOf } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import FormInput from "../../../../components/client/MaterialForm/FormInput";
 import { useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LoadingButton as _LoadingButton } from "@mui/lab";
 import { toast } from "react-toastify";
-import { useLoginUserMutation } from "../../../../services/authApi";
+import { useRegisterUserMutation } from "../../../../services/authApi";
+import { left } from "@popperjs/core";
 
 const LoadingButton = styled(_LoadingButton)`
   padding: 0.6rem 0;
@@ -23,61 +25,39 @@ const LoadingButton = styled(_LoadingButton)`
   }
 `;
 
-const LinkItem = styled(Button)`
-  padding-right: 10px;
-  padding-left: 10px;
-  margin-top: 1rem;
-  background-color: #ffffff;
-  color: #000000;
-  font-weight: 500;
-  border: 2px solid #000000;
-  border-radius: 50px;
-
+const LinkItem = styled(Link)`
+  text-decoration: none;
+  color: #2363eb;
   &:hover {
-    background-color: #000000;
-    color: #fff;
+    text-decoration: underline;
   }
 `;
 
-const loginSchema = object({
+const registerSchema = object({
+  name: string().min(1, "Full name is required").max(100),
   email: string()
     .min(1, "Email address is required")
     .email("Email Address is invalid"),
   password: string()
-    .regex(
-      new RegExp("(?=.*[0-9])"),
-      "Password must have at least one numeric character!"
-    )
-    .regex(
-      new RegExp("(?=.*[!@#$%^&*])"),
-      "Password must have at least one special character!"
-    )
-    .regex(
-      new RegExp("(?=.*[A-Z])"),
-      "Password must have at least one uppercase character!"
-    )
-    .regex(
-      new RegExp("(?=.*[a-z])"),
-      "Password must have at least one lowercase character!"
-    )
     .min(1, "Password is required")
     .min(8, "Password must be more than 8 characters")
     .max(32, "Password must be less than 32 characters"),
+  passwordConfirm: string().min(1, "Please confirm your password"),
+}).refine((data) => data.password === data.passwordConfirm, {
+  path: ["passwordConfirm"],
+  message: "Passwords do not match",
 });
 
-const LoginAdmin = () => {
+const RegisterPage = () => {
   const methods = useForm({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(registerSchema),
   });
 
-  // ? API Login Mutation
-  const [loginUser, { isLoading, isError, error, isSuccess }] =
-    useLoginUserMutation();
+  // ? Calling the Register Mutation
+  const [registerUser, { isLoading, isSuccess, error, isError }] =
+    useRegisterUserMutation();
 
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const from = location.state?.from.pathname || "/profile";
 
   const {
     reset,
@@ -87,23 +67,13 @@ const LoginAdmin = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success("You successfully logged in");
-      navigate(from);
+      toast.success("User registered successfully");
+      navigate("/auth/verification");
     }
-    if (isError) {
-      console.log(error.data);
 
-      //if (Array.isArray(error.data)) {
-      //         error.data.forEach((el) =>
-      //           toast.error(el.message, {
-      //             position: "top-right",
-      //           })
-      //         );
-      //       } else {
-      //         toast.error(error, {
-      //           position: "top-right",
-      //         });
-      //       }
+    if (isError) {
+      console.log(error);
+
       toast.error(error.data.message, {
         position: "top-right",
       });
@@ -119,8 +89,8 @@ const LoginAdmin = () => {
   }, [isSubmitSuccessful]);
 
   const onSubmitHandler = (values) => {
-    // ? Executing the loginUser Mutation
-    loginUser(values);
+    // ? Executing the RegisterUser Mutation
+    registerUser(values);
   };
 
   return (
@@ -141,6 +111,8 @@ const LoginAdmin = () => {
           flexDirection: "column",
           boxShadow: 8,
           borderRadius: "10px",
+          px: "20px",
+          mt: "3%",
         }}
       >
         <Typography
@@ -148,20 +120,16 @@ const LoginAdmin = () => {
           component="h1"
           sx={{
             color: "#ffc107",
-            fontWeight: 600,
             fontSize: { xs: "2rem", md: "3rem" },
+            fontWeight: 600,
             mb: 2,
             letterSpacing: 1,
           }}
         >
-          Welcome Back!
+          Welcome to Bookshouse🙌!
         </Typography>
-        <Typography
-          variant="body1"
-          component="h2"
-          sx={{ color: "#000000", mb: 2 }}
-        >
-          Login to have access!
+        <Typography component="h2" sx={{ color: "#000", mb: 2 }}>
+          Sign Up To Get Started!
         </Typography>
 
         <FormProvider {...methods}>
@@ -178,6 +146,16 @@ const LoginAdmin = () => {
             }}
           >
             <FormInput
+              name="name"
+              label="Full Name"
+              sx={{
+                border: 1,
+                borderColor: "primary.main",
+                borderRadius: "10px",
+                boxShadow: 3,
+              }}
+            />
+            <FormInput
               name="email"
               label="Email Address"
               type="email"
@@ -185,7 +163,7 @@ const LoginAdmin = () => {
                 border: 1,
                 borderColor: "primary.main",
                 borderRadius: "10px",
-                boxShadow: 4,
+                boxShadow: 3,
               }}
             />
             <FormInput
@@ -196,9 +174,24 @@ const LoginAdmin = () => {
                 border: 1,
                 borderColor: "primary.main",
                 borderRadius: "10px",
-                boxShadow: 4,
+                boxShadow: 3,
               }}
             />
+            <FormInput
+              name="passwordConfirm"
+              label="Confirm Password"
+              type="password"
+              sx={{
+                border: 1,
+                borderColor: "primary.main",
+                borderRadius: "10px",
+                boxShadow: 3,
+              }}
+            />
+            <Typography sx={{ fontSize: "0.9rem", mb: "1rem" }}>
+              Already have an account?{" "}
+              <LinkItem to="/auth/login">Login Here</LinkItem>
+            </Typography>
 
             <LoadingButton
               variant="contained"
@@ -208,13 +201,8 @@ const LoginAdmin = () => {
               type="submit"
               loading={isLoading}
             >
-              Login
+              Sign Up
             </LoadingButton>
-
-            <Typography align="center" sx={{ fontSize: "0.9rem", my: "1rem" }}>
-              Don`t have a Bookshouse account? <br />
-              <LinkItem to="/auth/register">Sign Up Here</LinkItem>
-            </Typography>
           </Box>
         </FormProvider>
       </Box>
@@ -222,4 +210,4 @@ const LoginAdmin = () => {
   );
 };
 
-export default LoginAdmin;
+export default RegisterPage;

@@ -15,6 +15,8 @@ import PackagesControl from "./pages/admin/packagesControl";
 import UsersStore from "./pages/admin/usersStore";
 import "./admin.css";
 import BookForm from "./pages/admin/bookform/BookForm";
+import Reviews from "./pages/admin/Reviews";
+import ReviewsForm from "./pages/admin/reviewsForm";
 
 function Admin() {
    const [theme, colorMode] = useMode();
@@ -46,6 +48,8 @@ function Admin() {
                      <Route path="/form" element={<Form />} />
                      <Route path="/calendar" element={<Calender />} />
                      <Route path="/faq" element={<FAQ />} />
+                     <Route path="/reviews" element={<Reviews />} />
+                     <Route path="/reviewsform" element={<ReviewsForm />} />
                   </Routes>
                </main>
             </div>
