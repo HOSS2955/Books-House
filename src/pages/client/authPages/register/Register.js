@@ -1,17 +1,15 @@
-
-
 import { Box, Container, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { object, string, TypeOf } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import FormInput from "../../../../components/client/MaterialForm/FormInput";
 
+import { object, string, TypeOf } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LoadingButton as _LoadingButton } from "@mui/lab";
 import { toast } from "react-toastify";
-import { useVerifyEmailMutation } from "../../../../services/authApi";
+import { useRegisterUserMutation } from "../../../../services/authApi";
 
 const LoadingButton = styled(_LoadingButton)`
   padding: 0.6rem 0;
@@ -25,20 +23,37 @@ const LoadingButton = styled(_LoadingButton)`
   }
 `;
 
-const verificationCodeSchema = object({
-  verificationCode: string().min(1, "Verification code is required"),
+const LinkItem = styled(Link)`
+  text-decoration: none;
+  color: #2363eb;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const registerSchema = object({
+  name: string().min(1, "Full name is required").max(100),
+  email: string()
+    .min(1, "Email address is required")
+    .email("Email Address is invalid"),
+  password: string()
+    .min(1, "Password is required")
+    .min(8, "Password must be more than 8 characters")
+    .max(32, "Password must be less than 32 characters"),
+  passwordConfirm: string().min(1, "Please confirm your password"),
+}).refine((data) => data.password === data.passwordConfirm, {
+  path: ["passwordConfirm"],
+  message: "Passwords do not match",
 });
 
-const EmailVerificationPage = () => {
-  const { verificationCode } = useParams();
-
+const RegisterPage = () => {
   const methods = useForm({
-    resolver: zodResolver(verificationCodeSchema),
+    resolver: zodResolver(registerSchema),
   });
 
-  // ? API Login Mutation
-  const [verifyEmail, { isLoading, isSuccess, data, isError, error }] =
-    useVerifyEmailMutation();
+  // ? Calling the Register Mutation
+  const [registerUser, { isLoading, isSuccess, error, isError }] =
+    useRegisterUserMutation();
 
   const navigate = useNavigate();
 
@@ -49,18 +64,13 @@ const EmailVerificationPage = () => {
   } = methods;
 
   useEffect(() => {
-    if (verificationCode) {
-      reset({ verificationCode });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
     if (isSuccess) {
-      toast.success(data?.message);
-      navigate("/login");
+      toast.success("User registered successfully");
+      navigate("/verifyemail");
     }
+
     if (isError) {
+      console.log(error);
       if (Array.isArray(error.data)) {
         error.data.error.forEach((el) =>
           toast.error(el.message, {
@@ -83,9 +93,9 @@ const EmailVerificationPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitSuccessful]);
 
-  const onSubmitHandler = ({ verificationCode }) => {
-    // ? Executing the verifyEmail Mutation
-    verifyEmail({ verificationCode });
+  const onSubmitHandler = (values) => {
+    // ? Executing the RegisterUser Mutation
+    registerUser(values);
   };
 
   return (
@@ -95,7 +105,7 @@ const EmailVerificationPage = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        minHeight: "100vh",
+        height: "100vh",
         backgroundColor: "#2363eb",
       }}
     >
@@ -112,13 +122,16 @@ const EmailVerificationPage = () => {
           component="h1"
           sx={{
             color: "#f9d13e",
-            fontWeight: 600,
             fontSize: { xs: "2rem", md: "3rem" },
+            fontWeight: 600,
             mb: 2,
             letterSpacing: 1,
           }}
         >
-          Verify Email Address
+          Welcome to Bookshouse🙌!
+        </Typography>
+        <Typography component="h2" sx={{ color: "#e5e7eb", mb: 2 }}>
+          Sign Up To Get Started!
         </Typography>
 
         <FormProvider {...methods}>
@@ -135,7 +148,18 @@ const EmailVerificationPage = () => {
               borderRadius: 2,
             }}
           >
-            <FormInput name="verificationCode" label="Verification Code" />
+            <FormInput name="name" label="Full Name" />
+            <FormInput name="email" label="Email Address" type="email" />
+            <FormInput name="password" label="Password" type="password" />
+            <FormInput
+              name="passwordConfirm"
+              label="Confirm Password"
+              type="password"
+            />
+            <Typography sx={{ fontSize: "0.9rem", mb: "1rem" }}>
+              Already have an account?{" "}
+              <LinkItem to="/auth/login">Login Here</LinkItem>
+            </Typography>
 
             <LoadingButton
               variant="contained"
@@ -145,7 +169,7 @@ const EmailVerificationPage = () => {
               type="submit"
               loading={isLoading}
             >
-              Verify Email
+              Sign Up
             </LoadingButton>
           </Box>
         </FormProvider>
@@ -154,4 +178,4 @@ const EmailVerificationPage = () => {
   );
 };
 
-export default EmailVerificationPage;
+export default RegisterPage;
