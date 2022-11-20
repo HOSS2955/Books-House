@@ -73,7 +73,7 @@ function App() {
           <Route path="/booksshop" element={<BooksShop />} />
           <Route path="/authorshouse" element={<AuthorsHouse />} />
           <Route path="/reviews" element={<Reviews />} />
-          <Route path="/reviewdetails" element={<ReviewDetails />} />
+          <Route path="/reviewdetails/:id" element={<ReviewDetails />} />
         </Routes>
         {/* <Counter /> */}
         <Footer />

@@ -15,6 +15,7 @@ import FilterIcon from "@mui/icons-material/Filter";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import StyleIcon from "@mui/icons-material/Style";
 import GroupIcon from "@mui/icons-material/Group";
+import RateReviewIcon from "@mui/icons-material/RateReview";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
    const theme = useTheme();
@@ -184,6 +185,13 @@ export default function Sidebar() {
                         setSelected={setSelected}
                      />
                      <Item
+                        title="Reviews"
+                        to="/admin/reviews"
+                        icon={<RateReviewIcon />}
+                        selected={selected}
+                        setSelected={setSelected}
+                     />
+                     <Item
                         title="Users"
                         to="/admin/users"
                         icon={<GroupIcon />}
@@ -213,13 +221,13 @@ export default function Sidebar() {
                         selected={selected}
                         setSelected={setSelected}
                      />
-                     <Item
+                     {/* <Item
                         title="FAQ Page"
                         to="/admin/faq"
                         icon={<HelpOutlineOutlinedIcon />}
                         selected={selected}
                         setSelected={setSelected}
-                     />
+                     /> */}
                   </Box>
                </Menu>
             </ProSidebar>

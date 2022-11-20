@@ -2,11 +2,16 @@ import React from "react";
 
 import { motion } from "framer-motion";
 import { TbBook2 } from "react-icons/tb";
+import PackageCard from "../pages/client/Home/PackageCard";
 
+
+const numbers = [{title:"hello" , specifications:["Drag & Drop Builder" , "1,000's of Templates" , "Blog Support Tools" , "eCommerce Store"]},{title:"welcome" , specifications:["Drag & Drop Builder" , "1,000's of Templates" , "Blog Support Tools" , "eCommerce Store"]}];
+// console.log(numbers.map((item , index)=> {return (item) }))
 const PackageQuery = ({ pricingArray }) => {
+
   return (
-    <div className="pricing__cards row">
-      {pricingArray.map((service, index) => {
+    <div className = "row packages__list">
+      {/* {pricingArray.map((service, index) => {
         return (
           <motion.div
             whileHover={{ scale: 1.05 }}
@@ -46,6 +51,31 @@ const PackageQuery = ({ pricingArray }) => {
             </div>
           </motion.div>
         );
+      })} */}
+      {numbers.map((item , index)=>{
+                  return(
+          //           <div className="package__item">
+          //             <div className="package__details rounded">
+          //               <div className="package__header mb-5">
+          // <h2 className="fw-bold">Free Plan</h2>
+          // <p>For Small teams or office</p>
+          // </div>
+          // <ul class="package__features">
+          // {item["specifications"].map((star , index)=>{
+          //   return (
+          //     <li>
+          //       <button className="btn p-0"><BiGlasses/></button>{star}</li>
+          //   )
+          // })}
+          // </ul>
+          // <div className="package__control d-flex flex-column align-items-center">
+          // <div class="package__price pt-3 d-flex align-items-center"><span className="price fs-5">$0</span><span>/Monthly</span></div>
+          // <button className="btn btn-danger mt-1 rounded-pill"> Start free trial</button>
+          // </div>
+          // </div>
+          // </div>
+          <PackageCard item = {item}/>
+          )
       })}
     </div>
   );

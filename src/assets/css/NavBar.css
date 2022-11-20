@@ -12,8 +12,6 @@
    height: 70px;
    line-height: 70px;
 }
-.nav-Container {
-}
 
 .nav__wrapper {
    display: flex;
@@ -50,13 +48,16 @@
    font-weight: 500;
    cursor: pointer;
    text-decoration: none;
-   font-size: 18px;
+   font-size: 15px;
 }
 
 .nav__item {
    list-style-type: none;
 }
-
+.nav__active{
+   color:var(--secondary);
+   font-weight: 700 !important;
+}
 .nav__icons {
    display: flex;
    align-items: center;
@@ -99,15 +100,7 @@
    cursor: pointer;
 }
 
-.mobile__menu {
-   font-size: 1.3rem;
-   color: var (--primary-color);
-   display: none;
-}
 
-.nav__active {
-   font-weight: 700 !important;
-}
 
 .sticky__header {
    width: 100%;
