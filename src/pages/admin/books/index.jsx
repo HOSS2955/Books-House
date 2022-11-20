@@ -8,12 +8,14 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useEffect } from "react";
 import { booksActions } from "../../../store/client/reducers/bookSlice";
 import { deleteBook, getBooks } from "../../../store/client/reducers/bookSlice";
+import { useState } from "react";
 
 export default function Books() {
    const dispatch = useDispatch();
    const navigate = useNavigate();
    const { changeBookData } = booksActions;
    const { books } = useSelector((state) => state.books);
+   const [pageSize, setPageSize] = useState(10);
 
    useEffect(() => {
       dispatch(getBooks());
@@ -22,7 +24,7 @@ export default function Books() {
    const theme = useTheme();
    const colors = tokens(theme.palette.mode);
    const columns = [
-      { field: "id", headerName: "ID" },
+      { field: "_id", headerName: "ID" },
       {
          field: "title",
          headerName: "Title",
@@ -36,7 +38,7 @@ export default function Books() {
          align: "left",
       },
       {
-         field: "desc",
+         field: "BookDesc",
          headerName: "Description",
          type: "text",
          flex: 1,
@@ -85,16 +87,15 @@ export default function Books() {
                         (thisRow[c.field] = params.getValue(params.id, c.field))
                   );
                const filteredBook = books.filter(
-                  (book) => book.id === thisRow.id
+                  (book) => book._id === thisRow._id
                );
 
                if (e.target.innerText === "DELETE") {
                   dispatch(deleteBook(thisRow));
                }
                if (e.target.innerText === "EDIT") {
-                  console.log(filteredBook[0]);
                   dispatch(changeBookData(filteredBook[0]));
-                  navigate(`/admin/bookform/${filteredBook[0].id}`);
+                  navigate(`/admin/bookform/${filteredBook[0]._id}`);
                }
             };
             return (
@@ -185,6 +186,10 @@ export default function Books() {
                components={{
                   Toolbar: GridToolbar,
                }}
+               getRowId={(row) => row._id}
+               rowsPerPageOptions={[10, 15, 20]}
+               pageSize={pageSize}
+               onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
             />
          </Box>
       </Box>
