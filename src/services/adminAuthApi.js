@@ -4,10 +4,10 @@ import { setUserInState } from "../store/client/reducers/userSlice";
 // import { useSelector } from "react-redux";
 const BASE_URL = process.env.REACT_APP_SERVER_ENDPOINT;
 
-export const authApi = createApi({
-  reducerPath: "authApi",
+export const adminAuthApi = createApi({
+  reducerPath: "adminAuthApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `/user/`,
+    baseUrl: `/admin/`,
     // prepareHeaders: (headers, { getState }) => {
     //   // console.log(getState());
     //   const token = getState().auth.token;
@@ -19,26 +19,7 @@ export const authApi = createApi({
     // },
   }),
   endpoints: (builder) => ({
-    registerUser: builder.mutation({
-      query(credentials) {
-        return {
-          url: "signUp",
-          method: "POST",
-          body: credentials,
-        };
-      },
-      transformResponse: (result) => result,
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
-        try {
-          const data = await queryFulfilled;
-          console.log(data);
-        } catch (error) {
-          console.log("failed register request ", error);
-        }
-      },
-    }),
-
-    loginUser: builder.mutation({
+    loginAdmin: builder.mutation({
       query: (credentials) => {
         return {
           url: "login",
@@ -54,20 +35,11 @@ export const authApi = createApi({
           dispatch(setUserInState(data.data));
         } catch (error) {
           console.log("failed login request ", error);
-          return error;
         }
       },
     }),
 
-    verifyEmail: builder.mutation({
-      query({ verificationCode }) {
-        return {
-          url: `confirmEmail/${verificationCode}`,
-          method: "GET",
-        };
-      },
-    }),
-    logoutUser: builder.mutation({
+    logoutAdmin: builder.mutation({
       query() {
         return {
           url: "logout",
@@ -75,16 +47,15 @@ export const authApi = createApi({
         };
       },
     }),
-
-    // protected: builder.mutation({
-    //   query: () => "protected",
-    // }),
+    verifyEmailAdmin: builder.mutation({
+      query({ verificationCode }) {
+        return {
+          url: `confirmEmail/${verificationCode}`,
+          method: "GET",
+        };
+      },
+    }),
   }),
 });
 
-export const {
-  useVerifyEmailMutation,
-  useRegisterUserMutation,
-  useLoginUserMutation,
-  useLogoutUserMutation,
-} = authApi;
+export const { useLogoutAdminMutation, useLoginAdminMutation } = adminAuthApi;

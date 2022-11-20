@@ -30,7 +30,9 @@ import Reviews from "./pages/client/Review";
 import ReviewDetails from "./pages/client/ReviewDetails/ReviewDetails";
 import AdminPage from "./pages/client/authPages/LoginAdmin/adminPage";
 import LoginAdmin from "./pages/client/authPages/login/LoginAdmin";
-
+import NoProducts from "./components/client/ui/NoProducts/NoProducts";
+import UnauthorizePage from "./pages/client/Unauthorized/UnauthorizedPage";
+import RequireAuth from "./components/RequireAuth";
 function App() {
   const [showWishlist, setShowWishlist] = useState(false);
   const hideModal = () => {
@@ -52,28 +54,36 @@ function App() {
       >
         <ToastContainer />
         <Routes>
+          {/* Public Routes */}
           <Route path="/" element={<Home />} />
           <Route path="/sidebar" element={<WishlistSideBar />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route element={<RequireAuth allowedRoles={["user", "admin"]} />}>
+            <Route path="/cart" element={<Cart />} />
+          </Route>
           <Route path="/bookdetails/:id" element={<BookDetails />} />
           <Route path="/@admin" element={<LoginAdmin />} />
-
-          <Route path="auth" element={<AuthRoutes />}>
-            <Route path="verification" element={<Verification />} />
-            <Route path="register" element={<Register />} />
-
-            <Route path="login" element={<Login />} />
-            <Route path="password" element={<VerifyPass />} />
-          </Route>
           <Route path="/about" element={<About />} />
           <Route path="/service" element={<Service />} />
           <Route path="/contactus" element={<Contactus />} />
           <Route path="/profile/settings" element={<MyProfile />} />
           <Route path="/booksshop" element={<BooksShop />} />
           <Route path="/authorshouse" element={<AuthorsHouse />} />
+          <Route path="/unauthorized" element={<UnauthorizePage />} />
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/reviewdetails/:id" element={<ReviewDetails />} />
+          {/* Protected Routes */}
+          <Route path="auth" element={<AuthRoutes />}>
+            <Route element={<RequireAuth allowedRoles={["user", "admin"]} />}>
+              <Route path="password" element={<VerifyPass />} />
+            </Route>
+            <Route path="register" element={<Register />} />
+            <Route path="verification" element={<Verification />} />
+            <Route path="login" element={<Login />} />
+          </Route>
+          {/* Catch All */}
+          //** محتاجين صفحة ايرور هنااا */
+          {/* <Route path="*" element={<NoProducts />} /> */}
         </Routes>
         {/* <Counter /> */}
         <Footer />
