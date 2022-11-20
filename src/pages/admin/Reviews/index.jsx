@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import { booksActions } from "../../../store/client/reducers/bookSlice";
 import { deleteBook, getBooks } from "../../../store/client/reducers/bookSlice";
 
-export default function Books() {
+export default function Reviews() {
    const dispatch = useDispatch();
    const navigate = useNavigate();
    const { changeBookData } = booksActions;
@@ -26,13 +26,14 @@ export default function Books() {
       {
          field: "title",
          headerName: "Title",
-         flex: 1,
+         flex: 0.8,
          cellClassName: "name-column--cell",
       },
       {
-         field: "price",
-         headerName: "Price",
+         field: "reviewer",
+         headerName: "Reviewer",
          headerAlign: "left",
+         flex: 1,
          align: "left",
       },
       {
@@ -43,8 +44,8 @@ export default function Books() {
       },
 
       {
-         field: "author",
-         headerName: "Author",
+         field: "publisher",
+         headerName: "Publisher",
          flex: 1,
       },
       {
@@ -84,17 +85,12 @@ export default function Books() {
                      (c) =>
                         (thisRow[c.field] = params.getValue(params.id, c.field))
                   );
-               const filteredBook = books.filter(
-                  (book) => book.id === thisRow.id
-               );
-
                if (e.target.innerText === "DELETE") {
                   dispatch(deleteBook(thisRow));
                }
                if (e.target.innerText === "EDIT") {
-                  console.log(filteredBook[0]);
-                  dispatch(changeBookData(filteredBook[0]));
-                  navigate(`/admin/bookform/${filteredBook[0].id}`);
+                  dispatch(changeBookData(thisRow));
+                  navigate(`/admin/reviews/${thisRow.id}`);
                }
             };
             return (
@@ -126,13 +122,13 @@ export default function Books() {
       },
    ];
 
-   const addNewBook = () => {
-      navigate("/admin/booksform");
+   const addNewReview = () => {
+      navigate("/admin/reviewsform");
    };
    return (
       <Box m="20px">
          <Button
-            onClick={addNewBook}
+            onClick={addNewReview}
             variant="contained"
             sx={{
                m: "20px",
@@ -144,7 +140,7 @@ export default function Books() {
                },
             }}
          >
-            Add New Book
+            Add New Review
          </Button>
          <Box
             m="40px 0 0 0"
@@ -180,7 +176,7 @@ export default function Books() {
             }}
          >
             <DataGrid
-               rows={books}
+               rows={books} //add reviews array
                columns={columns}
                components={{
                   Toolbar: GridToolbar,
