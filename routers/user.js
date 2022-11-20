@@ -18,7 +18,7 @@ const uploads = require("../services/multer.services");
 router.post("/user/signUp", signUp);
 router.post("/user/login", login);
 router.post("/sendCode", sendCode);
-router.get("/api/v1/user/confirmEmail/:token", confirmEmail);
+router.get("/user/confirmEmail/:token", confirmEmail);
 router.get("/user/refreshEmail/:token", refreshEmail);
 router.post("/forgetPassword", forgetPassword);
 // router.get("/user/confirmEmail/:token", confirmEmail);
