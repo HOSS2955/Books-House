@@ -29,12 +29,12 @@ import { PrivateOutlet } from "./utils/privateRoutes";
 import Reviews from "./pages/client/Review";
 import ReviewDetails from "./pages/client/ReviewDetails/ReviewDetails";
 
-
 import AdminPage from "./pages/client/authPages/LoginAdmin/adminPage";
 import LoginAdmin from "./pages/client/authPages/login/LoginAdmin";
 import NoProducts from "./components/client/ui/NoProducts/NoProducts";
 import UnauthorizePage from "./pages/client/Unauthorized/UnauthorizedPage";
 import RequireAuth from "./components/RequireAuth";
+import Completion from "./components/client/ui/Completion/Completion";
 function App() {
   const [showWishlist, setShowWishlist] = useState(false);
   const hideModal = () => {
@@ -74,6 +74,7 @@ function App() {
           <Route path="/unauthorized" element={<UnauthorizePage />} />
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/reviewdetails/:id" element={<ReviewDetails />} />
+          <Route path="/completion" element={<Completion />} />
           {/* Protected Routes */}
           <Route path="auth" element={<AuthRoutes />}>
             <Route element={<RequireAuth allowedRoles={["user", "admin"]} />}>
