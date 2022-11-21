@@ -15,33 +15,35 @@ import { userApi } from "../../services/userApi";
 import { authApi } from "../../services/authApi";
 import { adminAuthApi } from "../../services/adminAuthApi";
 import { bookReviewReducer } from "./reducers/bookReviewSlice";
+import { stripePackagesReducer } from "./reducers/stripePackagesSlice";
 export const clientStore = configureStore({
-  reducer: {
-    books: booksReducer,
-    cart: cartReducer,
-    res: resReducer,
-    author: authorReducer,
-    homepage: homepageReducer,
-    checkAuth: checkAuthReducer,
-    [homepageApi.reducerPath]: homepageApi.reducer,
-    package: packageReducer,
-    [packageApi.reducerPath]: packageApi.reducer,
-    [authApi.reducerPath]: authApi.reducer,
-    [userApi.reducerPath]: userApi.reducer,
-    [adminAuthApi.reducerPath]: adminAuthApi.reducer,
-    // adminState: adminReducer,
-    userState: userReducer,
-    //  auth: authReducer,
-    //  [authApi.reducerPath]: authApi.reducer,
-    bookReviews: bookReviewReducer,
-  },
-  middleware: (gDM) =>
-    gDM().concat(
-      homepageApi.middleware,
-      packageApi.middleware,
-      authApi.middleware,
-      adminAuthApi.middleware,
-      userApi.middleware
-      // authApi.middleware
-    ),
+   reducer: {
+      books: booksReducer,
+      cart: cartReducer,
+      res: resReducer,
+      author: authorReducer,
+      homepage: homepageReducer,
+      checkAuth: checkAuthReducer,
+      stripePackages: stripePackagesReducer,
+      [homepageApi.reducerPath]: homepageApi.reducer,
+      package: packageReducer,
+      [packageApi.reducerPath]: packageApi.reducer,
+      [authApi.reducerPath]: authApi.reducer,
+      [userApi.reducerPath]: userApi.reducer,
+      [adminAuthApi.reducerPath]: adminAuthApi.reducer,
+      // adminState: adminReducer,
+      userState: userReducer,
+      //  auth: authReducer,
+      //  [authApi.reducerPath]: authApi.reducer,
+      bookReviews: bookReviewReducer,
+   },
+   middleware: (gDM) =>
+      gDM().concat(
+         homepageApi.middleware,
+         packageApi.middleware,
+         authApi.middleware,
+         adminAuthApi.middleware,
+         userApi.middleware
+         // authApi.middleware
+      ),
 });

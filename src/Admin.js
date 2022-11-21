@@ -17,6 +17,8 @@ import "./admin.css";
 import BookForm from "./pages/admin/bookform/BookForm";
 import Reviews from "./pages/admin/Reviews";
 import ReviewsForm from "./pages/admin/reviewsForm";
+import StripePackages from "./pages/admin/stripePackages";
+import OrderPayment from "./pages/admin/orderPayment";
 
 function Admin() {
    const [theme, colorMode] = useMode();
@@ -50,6 +52,11 @@ function Admin() {
                      <Route path="/reviews" element={<Reviews />} />
                      <Route path="/reviewsform" element={<ReviewsForm />} />
                      <Route path="/reviewsform/:id" element={<ReviewsForm />} />
+                     <Route
+                        path="/packagespayments"
+                        element={<StripePackages />}
+                     />
+                     <Route path="/orderspayments" element={<OrderPayment />} />
                   </Routes>
                </main>
             </div>

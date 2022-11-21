@@ -197,8 +197,8 @@ export default function ReviewsForm() {
                      <TextField
                         fullWidth
                         multiline
-                        // rows= {5}
-                        // maxRows={10}
+                        rows={5}
+                        maxRows={10}
                         variant="filled"
                         type="text"
                         label="Description"

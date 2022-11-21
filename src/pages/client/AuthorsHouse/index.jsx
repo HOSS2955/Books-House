@@ -36,9 +36,12 @@ export default function AuthorsHouse() {
                         reviews about your book
                      </p>
                      <div>
-                        <button className="px-4 btn btn-outline-dark rounded-0">
+                        <a
+                           href="#packages"
+                           className="packages-btn px-4 btn btn-outline-dark rounded-0"
+                        >
                            Packages
-                        </button>
+                        </a>
                      </div>
                   </div>
                   <div className="col-md-6 p-5">
@@ -78,7 +81,9 @@ export default function AuthorsHouse() {
          </div>
 
          {/* PACKAGES */}
-         <Pricing pricingArray={packagesData} />
+         <div id="packages">
+            <Pricing pricingArray={packagesData} />
+         </div>
       </div>
    );
 }

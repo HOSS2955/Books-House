@@ -186,6 +186,7 @@ export default function Books() {
                components={{
                   Toolbar: GridToolbar,
                }}
+               loading={!books.length}
                getRowId={(row) => row._id}
                rowsPerPageOptions={[10, 15, 20]}
                pageSize={pageSize}

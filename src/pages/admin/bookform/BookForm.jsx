@@ -183,24 +183,6 @@ export default function BookForm() {
                         helperText={touched.author && errors.author}
                         sx={{ gridColumn: "span 4" }}
                      />
-                     {/* DECRIPTOIN */}
-                     <TextField
-                        fullWidth
-                        multiline
-                        rows={5}
-                        maxRows={10}
-                        variant="filled"
-                        type="text"
-                        label="Description"
-                        placeholder={id ? dataEditBook.desc : ""}
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.BookDesc}
-                        name="BookDesc"
-                        error={!!touched.desc && !!errors.desc}
-                        helperText={touched.desc && errors.desc}
-                        sx={{ gridColumn: "span 4" }}
-                     />
                      {/* CATEGORY */}
                      <TextField
                         fullWidth
@@ -229,6 +211,24 @@ export default function BookForm() {
                         name="type"
                         error={!!touched.type && !!errors.type}
                         helperText={touched.type && errors.type}
+                        sx={{ gridColumn: "span 4" }}
+                     />
+                     {/* DECRIPTOIN */}
+                     <TextField
+                        fullWidth
+                        multiline
+                        rows={5}
+                        maxRows={10}
+                        variant="filled"
+                        type="text"
+                        label="Description"
+                        placeholder={id ? dataEditBook.desc : ""}
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.BookDesc}
+                        name="BookDesc"
+                        error={!!touched.desc && !!errors.desc}
+                        helperText={touched.desc && errors.desc}
                         sx={{ gridColumn: "span 4" }}
                      />
 

@@ -70,4 +70,14 @@ module.exports = function (app) {
          changeOrigin: true,
       })
    );
+
+   //----------------------STRIP PACKAGES-------------------
+
+   app.use(
+      "/getallpayments/packages",
+      createProxyMiddleware({
+         target: "http://localhost:3001",
+         changeOrigin: true,
+      })
+   );
 };
