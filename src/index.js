@@ -25,9 +25,9 @@ root.render(
                {/* <ApiProvider api={homepageApi}>  */}
                <Routes>
                   <Route path="/*" element={<App />} />
-                  <Route element={<RequireAuth allowedRoles={["admin"]} />}>
-                     <Route path="/admin/*" element={<Admin />} />
-                  </Route>
+                  {/* <Route element={<RequireAuth allowedRoles={["admin"]} />}> */}
+                  <Route path="/admin/*" element={<Admin />} />
+                  {/* </Route> */}
                </Routes>
             </QueryClientProvider>
          </BrowserRouter>
