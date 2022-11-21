@@ -1,6 +1,6 @@
 const Book = require("../models/book");
 
-//--------------------------add new author
+//--------------------------add new book
 
 const addBookData = async (req, res) => {
    try {
@@ -13,7 +13,7 @@ const addBookData = async (req, res) => {
    }
 };
 
-//----------------------------get author by ID
+//----------------------------get book by ID
 const getbookByID = async (req, res) => {
    try {
       const book = await Book.findOne({ _id: req.params.id });
