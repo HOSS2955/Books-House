@@ -95,7 +95,7 @@ export default function AuthorsHouse() {
                         reviews about your book
                      </p>
                      <div>
-                        <button className="px-4 btn btn-outline-dark rounded-0">
+                        <button className="packages-btn px-4 btn btn-outline-dark rounded-0">
                            Packages
                         </button>
                      </div>

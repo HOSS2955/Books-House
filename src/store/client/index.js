@@ -23,7 +23,7 @@ export const clientStore = configureStore({
       res: resReducer,
       author: authorReducer,
       homepage: homepageReducer,
-      checkAuth: checkAuthReducer,
+      // checkAuth: checkAuthReducer,
       stripePackages: stripePackagesReducer,
       [homepageApi.reducerPath]: homepageApi.reducer,
       package: packageReducer,
