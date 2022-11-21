@@ -21,6 +21,7 @@ import { Link } from "react-router-dom";
 
 export default function Cart() {
   const cart = useSelector((state) => state.cart);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -84,16 +85,16 @@ export default function Cart() {
                                 <div className="row mb-4 d-flex justify-content-between align-items-center">
                                   <div className="col-md-2 col-lg-2 col-xl-2">
                                     <img
-                                      src={cartItem.imageSrc}
+                                      src={cartItem.imageSource}
                                       className="img-fluid rounded-3"
-                                      alt={cartItem.name}
+                                      alt={cartItem.title}
                                     />
                                   </div>
                                   <div className="col-md-3 col-lg-3 col-xl-3">
                                     <h6 className="text-muted">
-                                      {cartItem.name}
+                                      {cartItem.title}
                                     </h6>
-                                    <p>{cartItem.desc}</p>
+                                    <p>{cartItem.type}</p>
                                   </div>
                                   <div className="col-md-3 col-lg-3 col-xl-2 d-flex">
                                     <button
@@ -175,10 +176,9 @@ export default function Cart() {
                     <div className="p-5">
                       <h3 className="fw-bold mb-5 mt-2 pt-1">Summary</h3>
 
-                      {/* <div className="d-flex justify-content-between mb-4">
-                      <h5 className="text-uppercase">items 3</h5>
-                      <h5>€ 132.00</h5>
-                    </div> */}
+                      <div className="d-flex justify-content-between mb-4">
+                        <h5 className="">ITEMS {cart.cartTotalQuantity}</h5>
+                      </div>
 
                       <hr className="my-4" />
 

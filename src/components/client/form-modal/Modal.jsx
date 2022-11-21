@@ -16,10 +16,14 @@ export default function Modalnew({ show, handleClose, children, packages }) {
             <div>
               <span>
                 Your Package:
-                <span className="text-primary mx-1"> {packages.name}</span>
+                <span className="text-primary mx-1">
+                  {" "}
+                  {packages.packageName}
+                </span>
               </span>
               <span className="mx-3">
-                Price: $ <span className="text-success"> {packages.price}</span>
+                Price: ${" "}
+                <span className="text-success"> {packages.packagePrice}</span>
               </span>
             </div>
           )}
