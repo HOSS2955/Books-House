@@ -102,10 +102,10 @@ const refreshEmail = async (req, res) => {
   const user = await User.findOne({ id }).select("confirmEmail email");
 
   if (!user) {
-    res.status(404).json({ message: "invalid account" });
+    res.status(404).json({ message: "Invalid account" });
   } else {
     if (user.confirmEmail) {
-      res.status(400).json({ message: "already confirmed" });
+      res.status(400).json({ message: "Already confirmed" });
     } else {
       const token = jwt.sign({ _id: user._id }, process.env.emailToken, {
         expiresIn: 5 * 60,
