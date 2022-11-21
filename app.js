@@ -1,6 +1,5 @@
 const express = require("express");
-const path = require('path')
-
+const path = require("path");
 
 require("dotenv").config();
 
@@ -24,9 +23,11 @@ const package = require("./routers/package");
 const stripeCart = require("./routers/stripeCart");
 const stripeRouter = require("./routers/stripeRouter");
 const bookReviewRoute = require("./routers/bookreview");
-app.use(author);
+const stripeData = require("./routers/stripeData");
 
+app.use(author);
 app.use(book);
+app.use(stripeData);
 app.use(admin);
 app.use(home);
 app.use(user);
@@ -37,9 +38,8 @@ app.use(author);
 app.use(bookReviewRoute);
 app.use(stripeRouter);
 app.use(stripeCart);
-app.use(express.static(path.join(__dirname,'uploadsImgs')))
-
+app.use(express.static(path.join(__dirname, "uploadsImgs")));
 
 app.listen(port, () => {
-  console.log("Server is running " + port);
+   console.log("Server is running " + port);
 });
