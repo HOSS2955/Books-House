@@ -18,7 +18,6 @@ const signUp = async (req, res) => {
     const link = `${req.protocol}://${req.headers.host}/user/confirmEmail/${token}`;
     const link2 = `${req.protocol}://${req.headers.host}/user/refreshEmail/${savedUser._id}`;
     const message = `
-    Your Token value is : ${token}
     <a href=${link}> please confirm your email </a><br>
                    <a href=${link2}> resend confirmation email </a>`;
 
@@ -38,6 +37,18 @@ const signUp = async (req, res) => {
   }
 };
 
+//-------------------------------------------------------------------refresh token
+let refreshTokens =[] //in chach or DB
+const  tokenRefresher= (req,res)=>{
+  const refreshToken= req.body.token
+  if(refreshToken == null)return res.status(401)
+  if(! refreshTokens.includes(refreshToken))return res.status(403)
+  jwt.verify(refreshToken,process.env.logingtoken,(err,user)=>{
+    if(err) return res.status(403)
+    const accessToken=jwt.sign({_id:user._id},process.env.logingtoken)
+    res.json({token:accessToken})
+  })
+}
 //-------------------------------------login
 
 const login = async (req, res) => {
@@ -55,13 +66,19 @@ const login = async (req, res) => {
       const token = jwt.sign(
         { _id: user._id, isLogged: true },
         process.env.logingtoken,
-        { expiresIn: "3h" }
+        { expiresIn: "60s" }
       );
+      const refreshToken = jwt.sign({_id:user._id},process.env.logingtoken)
+      refreshTokens.push(refreshToken)
 
-      res.status(200).json({ message: "login suceess", token, user });
+      res
+      .status(200)
+      .json({ message: "login suceess", token,refreshToken,user, allowedRole: "user" });
     }
   }
 };
+
+
 
 // --------------------------------------------------------EmailConfirm
 
@@ -110,8 +127,8 @@ const refreshEmail = async (req, res) => {
         expiresIn: 5 * 60,
       });
 
-      const link = `${req.protocol}://${req.headers.host}/api/v1/user/confirmEmail/${token}  `;
-      const link2 = `${req.protocol}://${req.headers.host}/api/v1/user/refreshEmail/${user._id}  `;
+      const link = `${req.protocol}://${req.headers.host}/user/confirmEmail/${token}  `;
+      const link2 = `${req.protocol}://${req.headers.host}/user/refreshEmail/${user._id}  `;
       const message = `<a href=${link}>plz confirm your email </a> <br> <a href=${link2}>resend confirmintion email </a>`;
 
       sendEmail(user.email, message);
@@ -213,6 +230,25 @@ const addProfileAvatar = async (req, res) => {
     res.status(500).send(e.message);
   }
 };
+
+//---------------------- delete user
+
+const deleteUser=async (req, res) => {
+
+
+  const {_id}=req.user
+  
+  
+  
+  await User.findOneAndDelete({_id:_id},{new:true})
+  
+  
+  res.json({message:"done"})
+  
+  
+  
+  
+  }
 module.exports = {
   confirmEmail,
   refreshEmail,
@@ -222,4 +258,6 @@ module.exports = {
   signUp,
   updateProfile,
   addProfileAvatar,
+  deleteUser,
+  tokenRefresher,
 };

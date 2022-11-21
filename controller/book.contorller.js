@@ -1,58 +1,104 @@
-const Book = require("../models/book")
+const Book = require("../models/book");
 
-//--------------------------add new author 
+//--------------------------add new book
 
 const addBookData = async (req, res) => {
+   try {
+      const bookData = req.body;
+      const newBook = new Book(bookData);
+      await newBook.save();
+      res.status(200).send(newBook);
+   } catch (e) {
+      res.status(500).send(e.message);
+   }
+};
 
-    try{
-        const {name,email,phone,twAccount,bookDesc,pagesNum}=req.body
-        const newBook= new Book({email,phone,twAccount,name,bookDesc,pagesNum})
-        await newBook.save()
-        res.status(200).send(newBook)
-    }catch(e){
-        res.status(500).send(e.message)
-    }
-}
+//----------------------------get book by ID
+const getbookByID = async (req, res) => {
+   try {
+      const book = await Book.findOne({ _id: req.params.id });
 
-//----------------------------get author by ID
-const getbookByID = async (req ,res) => {
-    try{
-        const book = await Book.findOne({_id:req.params.id})
+      if (!book) {
+         return res.send(404).send("Cannot find book !");
+      }
+      res.status(200).send(book);
+   } catch (e) {
+      res.status(400).send(e.message);
+   }
+};
 
-        if(!book) {
-            return res.send(404).send('Cannot find book !')}
-        res.status(200).send(book)
-    }
-    catch(e){
-        res.status(400).send(e.message)
-    }
-}
+//----------------------------------get all books data
 
-//----------------------------------get all authors data
+const getAllBook = async (req, res) => {
+   try {
+      const book = await Book.find({});
+      if (!book) {
+         throw Error("there is no book");
+      }
+      res.status(200).send(book);
+   } catch (error) {
+      res.status(500).send(error.message);
+   }
+};
 
-const getAllBook = async (req, res)=>{
-    try {
-        const book = await Book.find({})
-        if(!book){
-            throw Error("there is no book")
-        }
-        res.status(200).send(book)
-    } catch (error) {
-        res.status(500).send(error.message)
-    }
-}
+//----------------------------------delete all books
 
-//----------------------------------delete all authors
+const deleteAllBook = async (req, res) => {
+   try {
+      await Book.deleteMany({});
 
-const deleteAllBook = async  (req , res)=>{
-    try{
-        await Book.deleteMany({})
+      res.status(200).send("deleted sucessfuly");
+   } catch (e) {
+      res.status(500).send(e.message);
+   }
+};
 
-        res.status(200).send("deleted sucessfuly")
-    }
-    catch(e){
-        res.status(500).send(e.message)
-    }
-}
+//----------------------------------delete  book
 
-module.exports = {addBookData,getbookByID,getAllBook,deleteAllBook}
+const deleteBook = async (req, res) => {
+   try {
+      await Book.findOneAndDelete({ _id: req.params.id });
+
+      res.status(200).send("deleted sucessfuly");
+   } catch (e) {
+      res.status(500).send(e.message);
+   }
+};
+
+//----------------------------------update book
+
+// const updateBook = async (req, res) => {
+//    try {
+//       await Book.findByIdAndUpdate({ _id: req.params.id }, req.body);
+
+//       res.status(200).send("updated sucessfuly");
+//    } catch (e) {
+//       res.status(500).send(e.message);
+//    }
+// };
+
+const updateBook = async (req, res) => {
+   try {
+      const _id = req.params.id;
+      const book = await Book.findByIdAndUpdate({ _id }, req.body, {
+         new: true,
+         runvalidators: true,
+      });
+      if (!book) {
+         return res.status(404).send("no book have this id");
+      }
+      res.status(200).send(book);
+   } catch (e) {
+      console.log("error in update");
+      res.status(500).send(e.message);
+   }
+};
+
+module.exports = {
+   addBookData,
+   getbookByID,
+   getAllBook,
+   deleteAllBook,
+   deleteBook,
+   updateBook,
+};

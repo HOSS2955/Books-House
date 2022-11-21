@@ -37,6 +37,9 @@ const userSchema=new mongoose.Schema({
     isDeleted:{
         type:Boolean,
         default: false
+        },
+    code:{
+        type:String
         }
 },
  
