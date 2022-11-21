@@ -23,7 +23,7 @@ const Header = ({ headerArray }) => {
         {/* </div> */}
         <Container fluid>
           <Row>
-            <div className="d-flex align-items-end col-6 pb-5 ps-5">
+            <div className="d-flex align-items-end col-6 ps-5">
               <div className="hero__content">
                 <HeaderSwiper headerArray={headerArray} />
               </div>
