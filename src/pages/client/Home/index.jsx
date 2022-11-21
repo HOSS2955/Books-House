@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "../../../assets/css/Home.css";
 import ClientsTestimonials from "./ClientsTestimonials";
-import Pricing from "./Package";
 import WallOfFames from "./WallOfFames";
 import { useGetHomepageDataQuery } from "../../../features/homeApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { homepageActions } from "../../../store/client/reducers/homepageSlice";
 import AboutUs from "./AboutUs";
 import DiscoverBooks from "./DiscoverBooks";
-import Header from "./Header";
 import Service from "./Service";
+import Banner from "./Banner";
 
 export default function Home() {
    const { data, isError, isLoading } = useGetHomepageDataQuery();
@@ -27,7 +26,7 @@ export default function Home() {
    }, [dispatch, data]);
    return (
       <div className="home__style">
-         <Header headerArray={serviceData} />
+         <Banner headerArray={serviceData} />
          <section className="section">
             <AboutUs />
          </section>

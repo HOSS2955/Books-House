@@ -38,7 +38,7 @@ export default function Books() {
          align: "left",
       },
       {
-         field: "BookDesc",
+         field: "desc",
          headerName: "Description",
          type: "text",
          flex: 1,

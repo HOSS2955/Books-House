@@ -3,52 +3,52 @@ import { FaComments } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 export default function BookReview({ data }) {
-  const navigate = useNavigate();
+   const navigate = useNavigate();
 
-  const toBookDetail = () => {
-    navigate(`/reviewdetails/${data._id}`);
-  };
+   const toBookDetail = () => {
+      navigate(`/reviewdetails/${data._id}`);
+   };
 
-  return (
-    <div className=" mx-4 border-top border-dark">
-      <div className="my-4 row">
-        {/* Date */}
-        <div className="col-lg-2 col-sm-12 mt-4 d-flex flex-column ">
-          <p className="text-uppercase ">novamber 15, 2022</p>
-          <p>
-            0 <FaComments />
-          </p>
-        </div>
-        {/* Title & Review */}
-        <div className="col-lg-6 col-sm-12 d-flex flex-column">
-          <p className="text-uppercase">book review</p>
-          <h2
-            className="text-capitalize fs-3"
-            onClick={() => {
-              toBookDetail();
-            }}
-          >
-            book review: {data.title}
-          </h2>
-          <p className="text-lead">
-            {data.desc.split(",")[0]}Check out what {data.reviwer} has to say in
-            her book review of this indie thriller
-          </p>
-        </div>
-        {/* Img */}
-        <div className="col-lg-4 col-sm-12">
-          <div className=" h-75 w-100 mt-2">
-            <img
-              className="h-100 w-100 "
-              onClick={() => {
-                toBookDetail();
-              }}
-              src={data.imageSrc}
-              alt=""
-            />
-          </div>
-        </div>
+   return (
+      <div className=" mx-4 border-top border-dark">
+         <div className="my-4 row">
+            {/* Date */}
+            <div className="col-lg-2 col-sm-12 mt-4 d-flex flex-column ">
+               <p className="text-uppercase ">novamber 15, 2022</p>
+               <p>
+                  0 <FaComments />
+               </p>
+            </div>
+            {/* Title & Review */}
+            <div className="col-lg-6 col-sm-12 d-flex flex-column">
+               <p className="text-uppercase">book review</p>
+               <h2
+                  className="text-capitalize fs-3"
+                  onClick={() => {
+                     toBookDetail();
+                  }}
+               >
+                  book review: {data.title}
+               </h2>
+               <p className="text-lead">
+                  {data.desc.split(",")[0]}Check out what {data.reviwer} has to
+                  say in her book review of this indie thriller
+               </p>
+            </div>
+            {/* Img */}
+            <div className="col-lg-4 col-sm-12">
+               <div className=" h-75 w-100 mt-2">
+                  <img
+                     className="h-100 w-100 "
+                     onClick={() => {
+                        toBookDetail();
+                     }}
+                     src={data.imageSrc}
+                     alt=""
+                  />
+               </div>
+            </div>
+         </div>
       </div>
-    </div>
-  );
+   );
 }

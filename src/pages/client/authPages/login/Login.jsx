@@ -32,6 +32,7 @@ const LinkItem = styled(Link)`
   font-weight: 500;
   border: 2px solid #000000;
   border-radius: 50px;
+  font-weight: bold;
 
   &:hover {
     background-color: #000000;
@@ -213,7 +214,9 @@ const LoginAdmin = () => {
 
             <Typography align="center" sx={{ fontSize: "0.9rem", my: "1rem" }}>
               Don`t have a Bookshouse account? <br />
-              <LinkItem to="/auth/register">Sign Up Here</LinkItem>
+              <LinkItem>
+                <Link to="/auth/register"> Sign Up Here</Link>{" "}
+              </LinkItem>
             </Typography>
           </Box>
         </FormProvider>
