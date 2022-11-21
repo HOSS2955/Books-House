@@ -11,9 +11,15 @@ const {
   refreshEmail,
   deleteUser,
   tokenRefresher,
+  logoutUser
 } = require("../controller/user.controller");
 const auth = require("../middelware/auth2");
 const uploads = require("../services/multer.services");
+
+
+const authController = require('../controller/auth.controller');
+
+router.post('/user/authLogin', authController.handleLogin);
 
 //done
 router.post("/user/signUp", signUp);
@@ -27,6 +33,7 @@ router.post('/profile/avatar',auth, uploads.single('avatar'),addProfileAvatar)
 router.patch('/user/updateProfile',auth,updateProfile)
 router.delete('/user/deleteUser',auth,deleteUser)
 router.get("/user/refreshToken", tokenRefresher);
+router.delete('/user/logout',auth,logoutUser)
 
 
 module.exports = router;
