@@ -27,16 +27,19 @@ export default function Home() {
    return (
       <div className="home__style">
          <Banner headerArray={serviceData} />
-         <section className="section">
+         
+         <section className="section pb-0">
             <AboutUs />
-         </section>
-         <WallOfFames wallOfFamesArray={wallOfFamesData}></WallOfFames>
-         <Service serviceArray = {serviceData}></Service>
-         {/* <Pricing/> */}
-         <DiscoverBooks />
-         <ClientsTestimonials
+            <DiscoverBooks />
+            <ClientsTestimonials
             clientsTestimonialsArray={clientsTestimonialsData}
          ></ClientsTestimonials>
+         </section>
+         
+         <Service serviceArray = {serviceData}></Service>
+         {/* <Pricing/> */}
+         
+         <WallOfFames wallOfFamesArray={wallOfFamesData}></WallOfFames>
       </div>
    );
 }

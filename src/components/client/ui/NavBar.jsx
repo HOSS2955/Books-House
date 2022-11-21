@@ -37,19 +37,16 @@ const nav__links = [
   {
     path: "reviews",
     display: "Reviews",
-  },
-  {
-    path: "admin",
-    display: "Dashboard",
-  },
+  }
 ];
 const NavBar = ({ showModal }) => {
   // Check if the user is Authorized
-  const { checkAuth } = useSelector((state) => state.checkAuth);
+  const  user  = useSelector((state) => state.userState.user);
+  const role = useSelector((state) => state.userState.role)
   // // change nav color when scrolling
   const [color, setColor] = useState(false);
   const changeColor = () => {
-    if (window.scrollY >= 20) {
+    if (window.scrollY >= 40) {
       setColor(true);
     } else {
       setColor(false);
@@ -58,8 +55,18 @@ const NavBar = ({ showModal }) => {
   window.addEventListener("scroll", changeColor);
   const headerRef = useRef(null);
   // closing the navbar
-  const [showNav, setShowNav] = useState(true);
+  // const [showNav, setShowNav] = useState(false);
+  // const showNavBar =()=>{
+  //  if(showNav){
+  //   setShowNav(false)
+  //  }
+  //   else{
+  //     setShowNav(true)
+  //   }
+  // }
 
+  const [toggle, setToggle] = useState(false)
+  
   // const stickyHeaderFunc = () => {
   //    window.addEventListener("scroll", () => {
   //       headerRef.current.classList.add("sticky__header");
@@ -67,37 +74,39 @@ const NavBar = ({ showModal }) => {
   // };
   // // }
 
-   // useEffect(() => {
-   //    stickyHeaderFunc();
-   //    return () => window.removeEventListener("scroll", stickyHeaderFunc);
-   // });
-   return (
-      <motion.div
-         // initial={{ opacity: 0, y: -180 }}
-         // animate={{ opacity: 1, y: 0 }}
-         // transition={{
-         //    ease: "easeInOut",
-         //    duration: 1,
-         //    delay: 0.2,
-         // }}
-         className="fixed-top"
-         ref={headerRef}
+  // useEffect(() => {
+  //    stickyHeaderFunc();
+  //    return () => window.removeEventListener("scroll", stickyHeaderFunc);
+  // });
+  return (
+    <motion.div
+      // initial={{ opacity: 0, y: -180 }}
+      // animate={{ opacity: 1, y: 0 }}
+      // transition={{
+      //    ease: "easeInOut",
+      //    duration: 1,
+      //    delay: 0.2,
+      // }}
+      className="fixed-top"
+      ref={headerRef}
+    >
+      {/* Large screen */}
+      <header
+        className={
+          color ? "header-bg header large__screen" : "header large__screen"
+        }
       >
-         {/* Large screen */}
-         <header
-            className={
-               color ? "header-bg header large__screen" : "header large__screen"
-            }
-         >
-            <div className="container">
-               <div className="row">
-                  <div className="nav__wrapper">
-                     <div className="logo">
-                        <img src="./images/literature6.jpg" alt="logo" />
-                        <div>
-                           <Link to ="/"><h1 className="mb-0">Books House</h1></Link>
-                        </div>
-                     </div>
+        <div className="container">
+          <div className="row">
+            <div className="nav__wrapper">
+              <div className="logo">
+                <img src="./images/literature6.jpg" alt="logo" />
+                <div>
+                  <Link to="/">
+                    <h1 className="mb-0">Books House</h1>
+                  </Link>
+                </div>
+              </div>
 
               <div className="navigation">
                 <ul className="menu">
@@ -115,7 +124,53 @@ const NavBar = ({ showModal }) => {
                   ))}
                 </ul>
               </div>
-              {!checkAuth && (
+              {user ? (
+                <div className="nav__icons">
+                  <span onClick={showModal} className="fav__icon">
+                    <FiHeart />
+                    <span className="__badge">1</span>
+                  </span>
+                  <span className="cart__icon">
+                    <BsBag />
+                    <span className="__badge">1</span>
+                  </span>
+                  <span>
+                  <Dropdown>
+                  <Dropdown.Toggle variant="transparent" id="dropdown-basic" className="dropDown__Toggle">
+                  <motion.img
+                      whileTap={{ scale: 1.2 }}
+                      src="./images/user-icon.png"
+                      alt="user icon"
+                    />
+                  </Dropdown.Toggle>
+
+                  {role==="admin" ? (<Dropdown.Menu>
+                  
+                  <Link to="/auth/login">
+                    <Dropdown.Item href="#/action-1">Dash board</Dropdown.Item>
+                  </Link>
+                  <Link to="/auth/register">
+                    <Dropdown.Item href="#/action-2">Change password</Dropdown.Item>
+                  </Link>
+                  <Link to="/auth/register">
+                    <Dropdown.Item href="#/action-3">Log out</Dropdown.Item>
+                  </Link>
+                </Dropdown.Menu>) : 
+                (<Dropdown.Menu>
+                  
+                  <Link to="/auth/login">
+                    <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
+                  </Link>
+                  <Link to="/auth/register">
+                    <Dropdown.Item href="#/action-2">Log out</Dropdown.Item>
+                  </Link>
+                </Dropdown.Menu>)}
+                  
+                </Dropdown>
+                    
+                  </span>
+                </div>
+              ) : (
                 <Dropdown>
                   <Dropdown.Toggle variant="warning" id="dropdown-basic">
                     <BiUserCircle />
@@ -131,32 +186,13 @@ const NavBar = ({ showModal }) => {
                   </Dropdown.Menu>
                 </Dropdown>
               )}
-              {checkAuth && (
-                <div className="nav__icons">
-                  <span onClick={showModal} className="fav__icon">
-                    <FiHeart />
-                    <span className="__badge">1</span>
-                  </span>
-                  <span className="cart__icon">
-                    <BsBag />
-                    <span className="__badge">1</span>
-                  </span>
-                  <span>
-                    <motion.img
-                      whileTap={{ scale: 1.2 }}
-                      src="./images/user-icon.png"
-                      alt="user icon"
-                    />
-                  </span>
-                </div>
-              )}
             </div>
             <div></div>
           </div>
         </div>
       </header>
       {/* Small screen */}
-      <Navbar bg="light" expand="lg" className="small__screen">
+      <Navbar bg="light" expand="xl" className="small__screen">
         <Container fluid className="pb-3 pt-3">
           <div className="logo">
             <img src="./images/hero_1.jpg" alt="logo" />
@@ -165,7 +201,7 @@ const NavBar = ({ showModal }) => {
             </div>
           </div>
           <div className="w-50 d-flex align-items-baseline justify-content-end">
-            {checkAuth && (
+            {user && (
               <div className="nav__icons">
                 <span onClick={showModal} className="fav__icon">
                   <FiHeart />
@@ -176,37 +212,57 @@ const NavBar = ({ showModal }) => {
                   <span className="__badge">1</span>
                 </span>
                 <span>
+                <Dropdown>
+                  <Dropdown.Toggle variant="transparent" id="dropdown-basic" className="dropDown__Toggle">
                   <motion.img
-                    whileTap={{ scale: 1.2 }}
-                    src="./images/user-icon.png"
-                    alt="user icon"
-                  />
-                </span>
-              </div>
-            )}
-
-            <Navbar.Toggle aria-controls="offcanvasNavbar-expand-lg" />
-            {showNav && (
-              <Navbar.Offcanvas
-                id="offcanvasNavbar-expand-lg"
-                aria-labelledby="offcanvasNavbarLabel-expand-lg"
-                placement="end"
-                className="w-50"
-                onClick={() => setShowNav(false)}
-              >
-                <Offcanvas.Header closeButton>
-                  <span>
-                    <motion.img
                       whileTap={{ scale: 1.2 }}
                       src="./images/user-icon.png"
                       alt="user icon"
                     />
-                  </span>
+                  </Dropdown.Toggle>
+
+                  {role==="admin" ? (<Dropdown.Menu>
+                  
+                  <Link to="/auth/login">
+                    <Dropdown.Item href="#/action-1">Dash board</Dropdown.Item>
+                  </Link>
+                  <Link to="/auth/register">
+                    <Dropdown.Item href="#/action-2">Change password</Dropdown.Item>
+                  </Link>
+                  <Link to="/auth/register">
+                    <Dropdown.Item href="#/action-3">Log out</Dropdown.Item>
+                  </Link>
+                </Dropdown.Menu>) : 
+                (<Dropdown.Menu>
+                  
+                  <Link to="/auth/login">
+                    <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
+                  </Link>
+                  <Link to="/auth/register">
+                    <Dropdown.Item href="#/action-2">Log out</Dropdown.Item>
+                  </Link>
+                </Dropdown.Menu>)}
+                  
+                </Dropdown>
+                </span>
+              </div>
+            )}
+
+            <Navbar.Toggle aria-controls="offcanvasNavbar-expand-lg"  onClick={() => setToggle(true)}/>
+            
+           {toggle && <Navbar.Offcanvas
+                id="offcanvasNavbar-expand-lg"
+                aria-labelledby="offcanvasNavbarLabel-expand-lg"
+                placement="end"
+                className="w-50"
+                
+              >
+                <Offcanvas.Header closeButton>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                   <Nav className="justify-content-end flex-grow-1 pe-3">
                     {nav__links.map((item, index) => (
-                      <li className="nav__item mt-4" key={index}>
+                      <li className="nav__item mt-4" key={index} onClick={() => setToggle(false)}>
                         <NavLink
                           to={item.path}
                           className={(navClass) =>
@@ -217,7 +273,27 @@ const NavBar = ({ showModal }) => {
                         </NavLink>
                       </li>
                     ))}
-                    {!checkAuth && (
+                    {/* {!checkAuth && (
+                      <Dropdown className="mt-4">
+                        <Dropdown.Toggle variant="warning" id="dropdown-basic">
+                          <BiUserCircle />
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                          <Link to="/auth/login">
+                            <Dropdown.Item href="#/action-1">
+                              Log-in
+                            </Dropdown.Item>
+                          </Link>
+                          <Link to="/auth/register">
+                            <Dropdown.Item href="#/action-2">
+                              Sign-up
+                            </Dropdown.Item>
+                          </Link>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    )} */}
+                    {!user && (
                       <Dropdown className="mt-4">
                         <Dropdown.Toggle variant="warning" id="dropdown-basic">
                           <BiUserCircle />
@@ -239,8 +315,8 @@ const NavBar = ({ showModal }) => {
                     )}
                   </Nav>
                 </Offcanvas.Body>
-              </Navbar.Offcanvas>
-            )}
+              </Navbar.Offcanvas>}
+            
           </div>
         </Container>
       </Navbar>

@@ -19,7 +19,7 @@ const Service = ({ serviceArray }) => {
               <div className="container text-sm">
                  <div className="row">
                   {serviceArray.map((item , index)=>{
-                     return (<ServiceCard item={item}></ServiceCard>)
+                     return (<ServiceCard key={index} item={item}></ServiceCard>)
                   })}
                  </div>
               </div>
