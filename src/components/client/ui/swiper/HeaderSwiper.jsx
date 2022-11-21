@@ -13,7 +13,7 @@ const HeaderSwiper = ({ headerArray }) => {
     <div>
       <Swiper
         // install Swiper modules
-        modules={[Navigation, A11y, FreeMode, Autoplay]}
+        modules={[A11y, FreeMode, Autoplay]}
         spaceBetween={100}
         centeredSlides={true}
         loop={true}
@@ -23,22 +23,21 @@ const HeaderSwiper = ({ headerArray }) => {
           disableOnInteraction: false,
         }}
         className="container"
-        navigation
         freeMode
         a11y
       >
         {/* <Mapping header data/> */}
         {headerArray.map((item, index) => {
           return (
-            <SwiperSlide className="bg-transparent text-dark" key={index}>
+            <SwiperSlide className="bg-transparent" key={index}>
               <div className="hero__content">
-                <p className="hero__subtitle mb-4">Our Services</p>
-                <h2>{item.title}</h2>
-                <p>{item.desc}</p>
+                <h2 className="hero__subtitle mb-5 fw-bold">Our Services</h2>
+                <h4 className="pb-5">{item.title}</h4>
+                <p className="pb-5">{item.desc}</p>
 
                 <motion.button
                   whileHover={{ scale: 1.05 }}
-                  className="buy__btn"
+                  className="buy__btn mb-5 btn btn-warning"
                 >
                   <Link to={item.path}>{item.btn}</Link>
                 </motion.button>

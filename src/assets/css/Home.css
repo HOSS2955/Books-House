@@ -19,10 +19,6 @@
    font-weight: 500;
 }
 
-.hero__section div {
-   
-}
-
 .hero__content {
    width: 100%;
    background: transparent;
@@ -47,7 +43,6 @@
    outline: none;
    padding: 15px 28px;
    border-radius: 5px;
-   background: var(--secondary);
    font-size: 1rem;
    margin-top: 40px;
    top: 73%;
@@ -178,3 +173,29 @@ ul.package__features button{
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Banner */
+
+
+.banner__img{
+   position: absolute;
+}
+.banner__img img{
+   height: 95vh;
+}
+.banner__swiper{
+   position:relative;
+   padding-top:13%;
+}

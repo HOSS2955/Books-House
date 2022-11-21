@@ -2,7 +2,7 @@ import React from "react";
 
 const AboutUs = () => {
   return (
-    <div className="container mb-5">
+    <div className="container">
       <div className="row mb-5">
         <div className="col-md-6 col-sm-12">
 
