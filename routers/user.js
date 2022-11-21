@@ -16,6 +16,11 @@ const {
 const auth = require("../middelware/auth2");
 const uploads = require("../services/multer.services");
 
+
+const authController = require('../controller/auth.controller');
+
+router.post('/user/authLogin', authController.handleLogin);
+
 //done
 router.post("/user/signUp", signUp);
 router.post("/user/login", login);
