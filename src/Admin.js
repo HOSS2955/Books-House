@@ -43,13 +43,13 @@ function Admin() {
                      <Route path="/books" element={<Books />} />
                      <Route path="/users" element={<UsersStore />} />
                      <Route path="/booksform" element={<BookForm />} />
-                     {/* <Route path="/booksform" element={<BookForm />} /> */}
                      <Route path="/bookform/:id" element={<BookForm />} />
                      <Route path="/form" element={<Form />} />
                      <Route path="/calendar" element={<Calender />} />
                      <Route path="/faq" element={<FAQ />} />
                      <Route path="/reviews" element={<Reviews />} />
                      <Route path="/reviewsform" element={<ReviewsForm />} />
+                     <Route path="/reviewsform/:id" element={<ReviewsForm />} />
                   </Routes>
                </main>
             </div>

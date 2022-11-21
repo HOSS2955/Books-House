@@ -20,7 +20,6 @@ export const getBooks = createAsyncThunk(
       const { rejectWithValue } = thunckAPI;
       try {
          const response = await axios.get("/book/getall");
-         console.log(response.data);
          return response.data;
       } catch (error) {
          return rejectWithValue(error.message);
@@ -91,7 +90,6 @@ const booksSlice = createSlice({
    initialState,
    reducers: {
       changeBookData: (state, action) => {
-         console.log(action.payload);
          state.dataEditBook = action.payload;
       },
       setBookStoreCategory: (state, action) => {

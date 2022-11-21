@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Typography, Box, useTheme } from "@mui/material";
 import { tokens } from "../../../theme";
 import Button from "@mui/material/Button";
@@ -6,23 +6,30 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useEffect } from "react";
-import { booksActions } from "../../../store/client/reducers/bookSlice";
-import { deleteBook, getBooks } from "../../../store/client/reducers/bookSlice";
+import {
+   deleteBookReview,
+   getBookReviews,
+} from "../../../store/client/reducers/bookReviewSlice";
+import { bookReviewActions } from "../../../store/client/reducers/bookReviewSlice";
 
 export default function Reviews() {
    const dispatch = useDispatch();
    const navigate = useNavigate();
-   const { changeBookData } = booksActions;
-   const { books } = useSelector((state) => state.books);
+   const { bookReviews } = useSelector((state) => state.bookReviews);
+   const [pageSize, setPageSize] = useState(10);
 
-   useEffect(() => {
-      dispatch(getBooks());
-   }, []);
+   const { setdataEditBookReview } = bookReviewActions;
 
    const theme = useTheme();
    const colors = tokens(theme.palette.mode);
+
+   useEffect(() => {
+      dispatch(getBookReviews());
+      console.log(bookReviews);
+   }, []);
+
    const columns = [
-      { field: "id", headerName: "ID" },
+      { field: "_id", headerName: "ID" },
       {
          field: "title",
          headerName: "Title",
@@ -30,7 +37,7 @@ export default function Reviews() {
          cellClassName: "name-column--cell",
       },
       {
-         field: "reviewer",
+         field: "reviwer",
          headerName: "Reviewer",
          headerAlign: "left",
          flex: 1,
@@ -53,21 +60,6 @@ export default function Reviews() {
          headerName: "Category",
          flex: 1,
       },
-      // {
-      //    field: "accessLevel",
-      //    headerName: "Package",
-      //    headerAlign: "center",
-      //    flex: 1,
-      //    height: 550,
-      //    cellClassName: "img-column--cell",
-      //    renderCell: ({ row: { imageSrc } }) => {
-      //       return (
-      //          <Box height="80%" width="100%" sx={{ height: "100%" }}>
-      //             <img src={imageSrc} alt="" />
-      //          </Box>
-      //       );
-      //    },
-      // },
       {
          field: "test",
          headerName: "Actions",
@@ -85,12 +77,16 @@ export default function Reviews() {
                      (c) =>
                         (thisRow[c.field] = params.getValue(params.id, c.field))
                   );
+               const filteredBookReview = bookReviews.filter(
+                  (book) => book._id === thisRow._id
+               );
                if (e.target.innerText === "DELETE") {
-                  dispatch(deleteBook(thisRow));
+                  console.log("delete");
+                  dispatch(deleteBookReview(thisRow));
                }
                if (e.target.innerText === "EDIT") {
-                  dispatch(changeBookData(thisRow));
-                  navigate(`/admin/reviews/${thisRow.id}`);
+                  dispatch(setdataEditBookReview(filteredBookReview[0]));
+                  navigate(`/admin/reviewsform/${filteredBookReview[0]._id}`);
                }
             };
             return (
@@ -176,11 +172,15 @@ export default function Reviews() {
             }}
          >
             <DataGrid
-               rows={books} //add reviews array
+               rows={bookReviews} //add reviews array
                columns={columns}
                components={{
                   Toolbar: GridToolbar,
                }}
+               getRowId={(row) => row._id}
+               rowsPerPageOptions={[10, 15, 20]}
+               pageSize={pageSize}
+               onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
             />
          </Box>
       </Box>

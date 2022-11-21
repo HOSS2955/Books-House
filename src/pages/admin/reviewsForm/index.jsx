@@ -7,18 +7,20 @@ import Header from "../../../components/admin/Header";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addBook, updateBook } from "../../../store/client/reducers/bookSlice";
 import { useEffect } from "react";
 import { tokens } from "../../../theme";
 import { useTheme } from "@mui/material";
+import {
+   addBookReview,
+   updateBookReview,
+} from "../../../store/client/reducers/bookReviewSlice";
 
 const initialValues = {
    title: "",
-   price: "",
-   author: "",
+   reviwer: "",
+   publisher: "",
    desc: "",
    category: "",
-   // imageSrc: "",
 };
 
 const userSchema = yup.object().shape({
@@ -27,7 +29,6 @@ const userSchema = yup.object().shape({
    publisher: yup.string(),
    desc: yup.string(),
    category: yup.string(),
-   // imageSrc: yup.string(),
 });
 
 export default function ReviewsForm() {
@@ -35,38 +36,52 @@ export default function ReviewsForm() {
    const colors = tokens(theme.palette.mode);
    const dispatch = useDispatch();
    const navigate = useNavigate();
-   const [formValue, setFormValue] = useState({});
+
+   const [formValue, setFormValue] = useState({
+      title: "",
+      reviwer: "",
+      publisher: "",
+      desc: "",
+      category: "",
+      imageSrc: "",
+   });
    const { id } = useParams();
-   const { dataEditBook } = useSelector((state) => state.books);
+   const { dataEditBookReview } = useSelector((state) => state.bookReviews);
 
    useEffect(() => {
       if (id) {
-         setFormValue(dataEditBook);
+         setFormValue(dataEditBookReview);
       }
    }, []);
 
+   const updateImagePath = (e) => {
+      setImage(e.target.files[0]);
+   };
+
    const isNonMobile = useMediaQuery("(min-width:600px)");
+
    // SUBMIT
    const handleFormSubmit = (book) => {
       if (id) {
-         // dispatch(updateBook({ id, formValue }));
+         dispatch(updateBookReview({ id, formValue }));
       } else {
          setFormValue({
             ...book,
-            imageSrc: url,
+            imageSource: image,
          });
-         // dispatch(addBook(formValue));
+         console.log(formValue);
+         dispatch(addBookReview(formValue));
       }
       navigate("/admin/reviews");
    };
 
    const operationHandler = (e) => {
-      setFormValue({
-         ...formValue,
-         [e.target.name]: e.target.value,
-      });
-
-      console.log(formValue);
+      const { name, value } = e.target;
+      console.log(name, value);
+      setFormValue((pervState) => ({
+         ...pervState,
+         [name]: value,
+      }));
    };
 
    //upload logic
@@ -83,7 +98,6 @@ export default function ReviewsForm() {
       })
          .then((resp) => resp.json())
          .then((data) => {
-            console.log(data.url);
             setUrl(data.url);
             setFormValue({
                ...formValue,
@@ -93,7 +107,7 @@ export default function ReviewsForm() {
          .catch((err) => console.log(err));
    };
    return (
-      <Box m="20px 20px 0">
+      <Box m="15px 20px 0">
          <Header title="REVIEWS FORM" subTitle="" />
          <Formik
             onSubmit={handleFormSubmit}
@@ -111,7 +125,7 @@ export default function ReviewsForm() {
                <form onSubmit={handleSubmit} onChange={operationHandler}>
                   <Box
                      display="grid"
-                     gap="30px"
+                     gap="20px"
                      gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                      sx={{
                         "& > div": {
@@ -128,13 +142,13 @@ export default function ReviewsForm() {
                         onBlur={handleBlur}
                         onChange={handleChange}
                         value={values.title}
-                        placeholder={id ? dataEditBook.title : ""}
+                        placeholder={id ? dataEditBookReview.title : ""}
                         name="title"
                         error={!!touched.title && !!errors.title}
                         helperText={touched.title && errors.title}
                         sx={{ gridColumn: "span 4" }}
                      />
-                     {/* PRICE */}
+                     {/* REVIEWER */}
                      <TextField
                         fullWidth
                         variant="filled"
@@ -143,25 +157,25 @@ export default function ReviewsForm() {
                         onBlur={handleBlur}
                         onChange={handleChange}
                         value={values.reviewer}
-                        placeholder={id ? dataEditBook.reviewer : ""}
-                        name="reviewer"
+                        placeholder={id ? dataEditBookReview.reviwer : ""}
+                        name="reviwer"
                         error={!!touched.reviewer && !!errors.reviewer}
                         helperText={touched.reviewer && errors.reviewer}
                         sx={{ gridColumn: "span 4" }}
                      />
-                     {/* AUTHOR */}
+                     {/* PUBLISHER */}
                      <TextField
                         fullWidth
                         variant="filled"
                         type="text"
-                        label="Author"
+                        label="Publisher"
                         onBlur={handleBlur}
-                        placeholder={id ? dataEditBook.author : ""}
+                        placeholder={id ? dataEditBookReview.publisher : ""}
                         onChange={handleChange}
-                        value={values.author}
-                        name="author"
-                        error={!!touched.author && !!errors.author}
-                        helperText={touched.author && errors.author}
+                        value={values.publisher}
+                        name="publisher"
+                        error={!!touched.publisher && !!errors.publisher}
+                        helperText={touched.publisher && errors.publisher}
                         sx={{ gridColumn: "span 4" }}
                      />
                      {/* CATEGORY */}
@@ -170,7 +184,7 @@ export default function ReviewsForm() {
                         variant="filled"
                         type="text"
                         label="Category"
-                        placeholder={id ? dataEditBook.category : ""}
+                        placeholder={id ? dataEditBookReview.category : ""}
                         onBlur={handleBlur}
                         onChange={handleChange}
                         value={values.category}
@@ -179,16 +193,16 @@ export default function ReviewsForm() {
                         helperText={touched.category && errors.category}
                         sx={{ gridColumn: "span 4" }}
                      />
-                     {/* DECRIPTOIN */}
+                     {/* DESCRIPTOIN */}
                      <TextField
                         fullWidth
                         multiline
-                        rows={5}
-                        maxRows={10}
+                        // rows= {5}
+                        // maxRows={10}
                         variant="filled"
                         type="text"
                         label="Description"
-                        placeholder={id ? dataEditBook.desc : ""}
+                        placeholder={id ? dataEditBookReview.desc : ""}
                         onBlur={handleBlur}
                         onChange={handleChange}
                         value={values.desc}
@@ -197,56 +211,6 @@ export default function ReviewsForm() {
                         helperText={touched.desc && errors.desc}
                         sx={{ gridColumn: "span 4" }}
                      />
-
-                     {/* IMGAE */}
-                     <Box
-                        sx={{
-                           m: 2,
-                           display: "flex",
-                        }}
-                     >
-                        <Typography sx={{ color: colors.grey[200], mr: 2 }}>
-                           Image
-                        </Typography>
-                        <div>
-                           <input
-                              type="file"
-                              onChange={(e) => {
-                                 setImage(e.target.files[0]);
-                              }}
-                           ></input>
-                        </div>
-
-                        <Box>
-                           <Button
-                              disabled={image ? false : true}
-                              variant="contained"
-                              component="label"
-                              onClick={uploadImage}
-                              sx={{
-                                 backgroundColor: colors.greenAccent[600],
-                                 ml: 0,
-                                 display: "block",
-                              }}
-                           >
-                              Upload
-                           </Button>
-                        </Box>
-                     </Box>
-
-                     {/* <TextField
-                        fullWidth
-                        variant="filled"
-                        type="text"
-                        label="Image Source"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.imageSrc}
-                        name="imageSrc"
-                        error={!!touched.imageSrc && !!errors.imageSrc}
-                        helperText={touched.imageSrc && errors.imageSrc}
-                        sx={{ gridColumn: "span 4" }}
-                     /> */}
                   </Box>
                   <Box display="flex" justifyContent="end" mt="20px">
                      <Button
@@ -260,6 +224,36 @@ export default function ReviewsForm() {
                </form>
             )}
          </Formik>
+
+         {/* IMGAE */}
+         <Box
+            sx={{
+               m: 2,
+               display: "flex",
+            }}
+         >
+            <Typography sx={{ color: colors.grey[200], mr: 2 }}>
+               Image
+            </Typography>
+            <input
+               type="file"
+               onChange={(e) => {
+                  updateImagePath(e);
+               }}
+            ></input>
+            <Button
+               disabled={image ? false : true}
+               variant="contained"
+               component="label"
+               onClick={uploadImage}
+               sx={{
+                  backgroundColor: colors.greenAccent[600],
+                  ml: 3,
+               }}
+            >
+               Upload
+            </Button>
+         </Box>
          <div className="d-flex">
             {url && <p className="fs-5 text-success">Uploaded Successfully</p>}
          </div>
