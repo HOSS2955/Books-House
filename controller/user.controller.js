@@ -18,7 +18,6 @@ const signUp = async (req, res) => {
     const link = `${req.protocol}://${req.headers.host}/user/confirmEmail/${token}`;
     const link2 = `${req.protocol}://${req.headers.host}/user/refreshEmail/${savedUser._id}`;
     const message = `
-    Your Token value is : ${token}
     <a href=${link}> please confirm your email </a><br>
                    <a href=${link2}> resend confirmation email </a>`;
 
@@ -72,7 +71,9 @@ const login = async (req, res) => {
       const refreshToken = jwt.sign({_id:user._id},process.env.logingtoken)
       refreshTokens.push(refreshToken)
 
-      res.status(200).json({ message: "login suceess", token,refreshToken, user });
+      res
+      .status(200)
+      .json({ message: "login suceess", token,refreshToken,user, allowedRole: "user" });
     }
   }
 };
@@ -126,8 +127,8 @@ const refreshEmail = async (req, res) => {
         expiresIn: 5 * 60,
       });
 
-      const link = `${req.protocol}://${req.headers.host}/api/v1/user/confirmEmail/${token}  `;
-      const link2 = `${req.protocol}://${req.headers.host}/api/v1/user/refreshEmail/${user._id}  `;
+      const link = `${req.protocol}://${req.headers.host}/user/confirmEmail/${token}  `;
+      const link2 = `${req.protocol}://${req.headers.host}/user/refreshEmail/${user._id}  `;
       const message = `<a href=${link}>plz confirm your email </a> <br> <a href=${link2}>resend confirmintion email </a>`;
 
       sendEmail(user.email, message);
