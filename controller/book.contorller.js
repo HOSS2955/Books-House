@@ -55,4 +55,20 @@ const deleteAllBook = async  (req , res)=>{
     }
 }
 
-module.exports = {addBookData,getbookByID,getAllBook,deleteAllBook}
+const updateBook = async (req,res)=>{
+    try{
+        const _id = req.params.id
+        const book = await Book.findByIdAndUpdate({_id},req.body,{
+            new:true,
+            runvalidators:true
+        })
+        if(!book){
+            return res.status(404).send('no book have this id')
+        }
+        res.status(200).send(news)
+    }
+    catch(e){
+        res.status(500).send(e.message)
+    }
+}
+module.exports = {addBookData,getbookByID,getAllBook,deleteAllBook,updateBook}

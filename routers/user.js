@@ -10,6 +10,7 @@ const {
   updateProfile,
   refreshEmail,
   deleteUser,
+  tokenRefresher,
 } = require("../controller/user.controller");
 const auth = require("../middelware/auth2");
 const uploads = require("../services/multer.services");
@@ -25,5 +26,7 @@ router.post("/forgetPassword", forgetPassword);
 router.post('/profile/avatar',auth, uploads.single('avatar'),addProfileAvatar)
 router.patch('/user/updateProfile',auth,updateProfile)
 router.delete('/user/deleteUser',auth,deleteUser)
+router.get("/user/refreshToken", tokenRefresher);
+
 
 module.exports = router;
