@@ -100,7 +100,13 @@
    cursor: pointer;
 }
 
-
+.dropdown button:active{
+   border:none;
+   outline:none
+}
+.dropDown__Toggle:after {
+   content: none;
+}
 
 .sticky__header {
    width: 100%;

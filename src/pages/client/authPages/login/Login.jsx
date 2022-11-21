@@ -23,7 +23,7 @@ const LoadingButton = styled(_LoadingButton)`
   }
 `;
 
-const LinkItem = styled(Button)`
+const LinkItem = styled(Link)`
   padding-right: 10px;
   padding-left: 10px;
   margin-top: 1rem;

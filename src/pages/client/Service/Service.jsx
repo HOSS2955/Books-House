@@ -49,7 +49,7 @@ export default function Service() {
       console.log(clientSecret);
       setClientSecret(clientSecret);
     });
-  }, [packages]);
+  }, []);
 
   return (
     <div>

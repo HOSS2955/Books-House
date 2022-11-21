@@ -4,7 +4,6 @@ import DiscoverBooksSwiper from "../../../components/client/ui/swiper/DiscoverBo
 
 export default function DiscoverBooks() {
   return (
-    <section className="section">
       <div className="container">
         <section className="section bg-white">
           <div className="row d-flex justify-content-center">
@@ -21,6 +20,5 @@ export default function DiscoverBooks() {
           <DiscoverBooksSwiper />
         </section>
       </div>
-    </section>
   );
 }
