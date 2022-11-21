@@ -37,6 +37,18 @@ const signUp = async (req, res) => {
   }
 };
 
+//-------------------------------------------------------------------refresh token
+let refreshTokens =[] //in chach or DB
+const  tokenRefresher= (req,res)=>{
+  const refreshToken= req.body.token
+  if(refreshToken == null)return res.status(401)
+  if(! refreshTokens.includes(refreshToken))return res.status(403)
+  jwt.verify(refreshToken,process.env.logingtoken,(err,user)=>{
+    if(err) return res.status(403)
+    const accessToken=jwt.sign({_id:user._id},process.env.logingtoken)
+    res.json({token:accessToken})
+  })
+}
 //-------------------------------------login
 
 const login = async (req, res) => {
@@ -54,15 +66,19 @@ const login = async (req, res) => {
       const token = jwt.sign(
         { _id: user._id, isLogged: true },
         process.env.logingtoken,
-        { expiresIn: "3h" }
+        { expiresIn: "60s" }
       );
+      const refreshToken = jwt.sign({_id:user._id},process.env.logingtoken)
+      refreshTokens.push(refreshToken)
 
       res
-        .status(200)
-        .json({ message: "login suceess", token, user, allowedRole: "user" });
+      .status(200)
+      .json({ message: "login suceess", token,refreshToken,user, allowedRole: "user" });
     }
   }
 };
+
+
 
 // --------------------------------------------------------EmailConfirm
 
@@ -243,4 +259,5 @@ module.exports = {
   updateProfile,
   addProfileAvatar,
   deleteUser,
+  tokenRefresher,
 };
