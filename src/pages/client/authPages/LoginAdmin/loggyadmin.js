@@ -19,7 +19,7 @@ import { useLoginUserMutation } from "../../../../services/authApi";
 import { toast } from "react-toastify";
 import "./Login.css";
 
-export default function Login2() {
+export default function AdminLogin() {
   const LoadingButton = styled(_LoadingButton)`
     padding: 0.6rem 0;
     background-color: #212529;
@@ -106,26 +106,15 @@ export default function Login2() {
     console.log(values);
     loginUser(values);
   };
-  const onSubmit = (values) => {
-    console.log("Values:::", values);
-    console.log("Values:::", JSON.stringify(values));
-  };
 
-  const onError = (error) => {
-    console.log("ERROR:::", error);
-  };
-
-  // const signupHandler = () => {
-  //   navigate("/auth/signup");
-  // };
   return (
     <div className="main mt-5">
       <div className="centeredElement mt-5 shadow-lg bg-body">
         <div className="auth">
-          <h5 className="my-5">Login to Bookshouse</h5>
+          <h5 className="my-5">Admin Login</h5>
           {/* if the user clicked outside the input the status of the error message will appear */}
           <FormProvider {...methods}>
-            <Form onSubmit={handleSubmit(onSubmitHandler, onError)}>
+            <Form onSubmit={handleSubmit(onSubmitHandler)}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 {/* <Form.Label>Email</Form.Label> */}
                 <InputGroup className="userInput ">
@@ -158,9 +147,7 @@ export default function Login2() {
                     {...register("password", {
                       required: "Password is required!",
                     })}
-                    // {...register("password", {
-                    //   required: "Contraseña es obligatoria",
-                    // })}
+        
                     name="password"
                     aria-label="Password Input"
                     placeholder="Password"
@@ -184,33 +171,7 @@ export default function Login2() {
               </LoadingButton>
             </Form>
           </FormProvider>
-
-          <div className="divider or mb-4">
-            <hr className="hrLeft" />
-            or
-            <hr className="hrRight" />
-          </div>
-          <button className="btn btn-primary w-100 mb-4 fw-semibold google text-small">
-            <FcGoogle className="googleSvg" />
-            Continue with Google
-          </button>
-          <br></br>
-          <button className="btn btn-outline-dark w-100 fw-semibold d-flex justify-content-center align-items-center text-small">
-            <FaApple className="me-1" />
-            Continue with Apple
-          </button>
-          <div className="divider acc mt-5">
-            <hr className="hrLeft text-small" />
-            <Link to="/auth/register">
-              <a>Don`t have an account?</a>
-            </Link>
-            <hr className="hrRight" />
-          </div>
-          <Link to="/auth/register">
-            <button className="btn btn-outline-dark mt-4 mb-4 fw-semibold text-small signUp ">
-              Sign Up
-            </button>
-          </Link>
+          //** هنا هيتحط الكوود اللي تحت علشان متبقاش بتاعت ادمن */
         </div>
       </div>
     </div>

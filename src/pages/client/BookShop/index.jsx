@@ -13,10 +13,10 @@ export default function BooksShop() {
          </div>
          <div className="container">
             <div className="row  my-5 mx-auto">
-               <div className="col-3 mb-3  ">
+               <div className="col-md-3 mb-3  ">
                   <Aside />
                </div>
-               <div className="col-9 ">
+               <div className="col-md-9">
                   <BookList />
                </div>
             </div>

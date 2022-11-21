@@ -1,3 +1,297 @@
+import React, { useState, useEffect } from "react";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import { FaApple, FaLock, FaUserAlt } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { styled } from "@mui/material/styles";
+import { object, string, TypeOf } from "zod";
+
+import validator from "validator";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LoadingButton as _LoadingButton } from "@mui/lab";
+
+import { useDispatch } from "react-redux";
+import ProtectedComponent from "../../../../features/ProtectedComponent";
+import { useRegisterUserMutation } from "../../../../services/authApi";
+import { toast } from "react-toastify";
+import "./Register.css";
+
+const LoadingButton = styled(_LoadingButton)`
+  padding: 0.6rem 0;
+  background-color: #212529;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 50px;
+
+  &:hover {
+    background-color: #000000;
+    transform: translateY(-1px);
+  }
+`;
+
+const LinkItem = styled(Link)`
+  text-decoration: none;
+  color: #2363eb;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const registerSchema = object({
+  fullName: string()
+    .min(4, "Full name is required")
+    .max(30, "Try shorter name!")
+    .regex(
+      new RegExp("([A-ZÀ-ÿ][-,a-z. ']+[ ]*)"),
+      "Please enter a valid name!"
+    ),
+  phone: string()
+    .min(1, "Phone number is required")
+    .min(8, "Please Enter a valid phone number!"),
+  email: string()
+    .min(1, "Email address is required")
+    .email("Email Address is invalid"),
+  password: string()
+    .regex(
+      new RegExp("(?=.*[0-9])"),
+      "Password must have at least one numeric character!"
+    )
+    .regex(
+      new RegExp("(?=.*[!@#$%^&*])"),
+      "Password must have at least one special character!"
+    )
+    .regex(
+      new RegExp("(?=.*[A-Z])"),
+      "Password must have at least one uppercase character!"
+    )
+    .regex(
+      new RegExp("(?=.*[a-z])"),
+      "Password must have at least one lowercase character!"
+    )
+    .min(1, "Password is required")
+    .min(8, "Password must be more than 8 characters")
+    .max(32, "Password must be less than 32 characters"),
+  passwordConfirm: string().min(1, "Please confirm your password"),
+}).refine((data) => data.password === data.passwordConfirm, {
+  path: ["passwordConfirm"],
+  message: "Passwords do not match",
+});
+
+const RegisterPage = () => {
+  const methods = useForm({
+    reValidateMode: "onSubmit",
+    resolver: zodResolver(registerSchema),
+  });
+
+  // ? Calling the Register Mutation
+  const [registerUser, { isLoading, isSuccess, error, isError }] =
+    useRegisterUserMutation();
+
+  const navigate = useNavigate();
+
+  const {
+    reset,
+    handleSubmit,
+    register,
+
+    formState: { isSubmitSuccessful, errors },
+  } = methods;
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("User registered successfully");
+      navigate("/auth/verification");
+    }
+
+    if (isError) {
+      console.log(error);
+      // if (Array.isArray(error.data.e)) {
+      //   error.data.error.forEach((el) =>
+      //     toast.error(el.message, {
+      //       position: "top-right",
+      //     })
+      //   );
+      // } else {
+      //   toast.error(error.data.e, {
+      //     position: "top-right",
+      //   });
+      // }
+      toast.error(error.data.message, {
+        position: "top-right",
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSubmitSuccessful]);
+
+  const onSubmitHandler = (values) => {
+    // ? Executing the RegisterUser Mutation
+    registerUser(values);
+  };
+
+  return (
+    <div className="main mt-5">
+      <div className="centeredElement mt-5 shadow-lg bg-body">
+        <div className="auth">
+          <h5 className="my-5">Welcome to Bookshouse</h5>
+          {/* if the user clicked outside the input the status of the error message will appear */}
+          <FormProvider {...methods}>
+            <Form onSubmit={handleSubmit(onSubmitHandler)}>
+              <Form.Group className="mb-3" controlId="formBasicName">
+                {/* <Form.Label>Email</Form.Label> */}
+                <InputGroup className="userInput ">
+                  {/* user icon */}
+                  <InputGroup.Text id="basic-addon1">
+                    <FaUserAlt />
+                  </InputGroup.Text>
+                  <Form.Control
+                    name="fullName"
+                    {...register("fullName")}
+                    aria-label="Full Name Input"
+                    placeholder="Full Name (first & last)"
+                  />
+                </InputGroup>
+                {errors.fullName && (
+                  <Form.Text className="text-danger">
+                    {errors.fullName.message}
+                  </Form.Text>
+                )}
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                {/* <Form.Label>Email</Form.Label> */}
+                <InputGroup className="userInput ">
+                  {/* user icon */}
+                  <InputGroup.Text id="basic-addon1">
+                    <FaUserAlt />
+                  </InputGroup.Text>
+                  <Form.Control
+                    name="email"
+                    {...register("email")}
+                    aria-label="Email Input"
+                    placeholder="Email"
+                  />
+                </InputGroup>
+                {errors.email && (
+                  <Form.Text className="text-danger">
+                    {errors.email.message}
+                  </Form.Text>
+                )}
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicPhone">
+                {/* <Form.Label>Email</Form.Label> */}
+                <InputGroup className="userInput ">
+                  {/* user icon */}
+                  <InputGroup.Text id="basic-addon1">
+                    <FaUserAlt />
+                  </InputGroup.Text>
+                  <Form.Control
+                    name="phone"
+                    {...register("phone")}
+                    aria-label="Phone Input"
+                    placeholder="Phone"
+                  />
+                </InputGroup>
+                {errors.phone && (
+                  <Form.Text className="text-danger">
+                    {errors.phone.message}
+                  </Form.Text>
+                )}
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
+                <InputGroup className="userInput mb-2">
+                  <InputGroup.Text id="basic-addon2">
+                    <FaLock />
+                  </InputGroup.Text>
+                  <Form.Control
+                    type="password"
+                    {...register("password")}
+                    name="password"
+                    aria-label="Password Input"
+                    placeholder="Password"
+                  />
+                </InputGroup>
+                {errors.password && (
+                  <Form.Text className="text-danger">
+                    {errors.password.message}
+                  </Form.Text>
+                )}
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Confirm Password</Form.Label>
+                <InputGroup className="userInput mb-2">
+                  <InputGroup.Text id="basic-addon2">
+                    <FaLock />
+                  </InputGroup.Text>
+                  <Form.Control
+                    type="password"
+                    {...register("passwordConfirm")}
+                    name="passwordConfirm"
+                    aria-label="Confirm Password"
+                    placeholder="Confirm Password"
+                  />
+                </InputGroup>
+                {errors.passwordConfirm && (
+                  <Form.Text className="text-danger">
+                    {errors.passwordConfirm.message}
+                  </Form.Text>
+                )}
+              </Form.Group>
+              <LoadingButton
+                variant="contained"
+                sx={{ mt: 3, mb: 5 }}
+                fullWidth
+                disableElevation
+                type="submit"
+                loading={isLoading}
+              >
+                Login
+              </LoadingButton>
+            </Form>
+          </FormProvider>
+
+          <div className="divider or mb-4">
+            <hr className="hrLeft" />
+            or
+            <hr className="hrRight" />
+          </div>
+          <button className="btn btn-primary w-100 mb-4 fw-semibold google text-small">
+            <FcGoogle className="googleSvg" />
+            Continue with Google
+          </button>
+          <br></br>
+          <button className="btn btn-outline-dark w-100 fw-semibold d-flex justify-content-center align-items-center text-small">
+            <FaApple className="me-1" />
+            Continue with Apple
+          </button>
+          <div className="divider acc mt-5">
+            <hr className="hrLeft text-small" />
+            <Link to="/auth/login">
+              <a>Already have an account?</a>
+            </Link>
+            <hr className="hrRight" />
+          </div>
+          <Link to="/auth/login">
+            <button className="btn btn-outline-dark mt-4 mb-4 fw-semibold text-small signUp ">
+              Log In
+            </button>
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+};
+export default RegisterPage;
+
 // import React, { useState, useCallback } from "react";
 // import { useEffect } from "react";
 // import { useRef } from "react";

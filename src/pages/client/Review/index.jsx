@@ -4,13 +4,20 @@ import AsideBooks from "./AsideBooks";
 import BookReview from "./BookReview";
 import { useDispatch, useSelector } from "react-redux";
 import { getBookReviews } from "../../../store/client/reducers/bookReviewSlice";
+import Pagination from "../../../components/client/ui/Pagination/Pagination";
 
 export default function Reviews() {
    const dispatch = useDispatch();
 
    const { bookReviews } = useSelector((state) => state.bookReviews);
    const data = bookReviews;
-   const [items, setItems] = useState();
+   const [items, setItems] = useState([]);
+   const [currentPage, setCurrentPage] = useState(1);
+   const [itemsPerPage, setItemsPerPage] = useState(2);
+
+   const lastItemIndex = currentPage * itemsPerPage;
+   const firstItemIndex = lastItemIndex - itemsPerPage;
+   const currentItems = items.slice(firstItemIndex, lastItemIndex);
 
    const filterItem = async (curcat) => {
       const newItem = await bookReviews.filter((item) => {
@@ -83,11 +90,17 @@ export default function Reviews() {
             {/* REVIEWS */}
             <div className="row mt-5  px-0">
                {/* Componants */}
-               <div className="col-lg-8 col-sm-12">
+               <div className="col-lg-8 col-sm-12 mb-5">
                   {items &&
-                     items?.map((item, index) => (
+                     currentItems?.map((item, index) => (
                         <BookReview key={index} data={item} />
                      ))}
+                  <Pagination
+                     totalItems={items.length}
+                     itemsPerPage={itemsPerPage}
+                     setCurrentPage={setCurrentPage}
+                     currentPage={currentPage}
+                  />
                </div>
                {/* ASIDE */}
                <div className="col-lg-4 col-sm-12 px-0 ">
