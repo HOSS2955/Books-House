@@ -11,18 +11,13 @@ const packageSchema = mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    unique: true,
+    // unique: true,
   },
-  packageSubTitle: {
+  packageDesc: [{
     type: String,
     required: true,
     trim: true,
-  },
-  packageDesc: {
-    type: String,
-    required: true,
-    trim: true,
-  },
+  }],
   packagePrice: {
     type: Number,
     required: true,
@@ -33,8 +28,8 @@ const packageSchema = mongoose.Schema({
     type: Number,
     required: true,
     trim: true,
-    unique: true,
-  },
+    // unique: true,
+  }
 });
 
 const Packages = mongoose.model("packages", packageSchema);

@@ -237,13 +237,34 @@ const addProfileAvatar = async (req, res) => {
 
 //---------------------- delete user
 
-const deleteUser = async (req, res) => {
-  const { _id } = req.user;
+const deleteUser=async (req, res) => {
 
-  await User.findOneAndDelete({ _id: _id }, { new: true });
 
-  res.json({ message: "done" });
-};
+  const {_id}=req.user
+  
+  
+  
+  await User.findOneAndDelete({_id:_id},{new:true})
+  
+  
+  res.json({message:"done"})
+  
+  
+  
+  
+  }
+
+
+  const logoutUser = async (req,res)=>{
+      try{
+          req.user.tokens = []
+          await req.user.save()
+          res.status(200).send('you loged out all tokens')
+      }
+      catch(e){
+          res.status(500).send(e)
+      }
+  }
 module.exports = {
   confirmEmail,
   refreshEmail,
@@ -255,4 +276,5 @@ module.exports = {
   addProfileAvatar,
   deleteUser,
   tokenRefresher,
+  logoutUser
 };

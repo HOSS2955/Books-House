@@ -5,38 +5,48 @@ const time = {
     timestamps: {currentTime: () => new Date().setHours(new Date().getHours() + 2)}
 }
 
-const homeSchema=new mongoose.Schema({
-    nav:[{
-        type:String,
-        required:true
-    }]
-    ,
-    logo:{
-        type:String,
-        required:true
-    },
-    slider:{
-            type:String,
-            required:true
 
-    },
-    about:{
-        type:String,
-        required:true
-    },
-    team:{
-        type:String,
-        required:true
-    },
-    teamImgs:{
-        type:String,
-        required:true
-    }
+
+const homeSchema=new mongoose.Schema({
+    wallOfFames : [{
+        feedTitle : {type:String},
+        feedPosition : {type:String},
+        imgSrc : {type:String},
+        paragraph : {type:String}
+    }],
+    clientsTestimonials: [{
+        paragraph : {type:String},
+        title : {type:String},
+        desc : {type:String},
+        img : {type:String}
+    }],
+    services: [{
+
+        title : {type:String},
+        desc : {type:String},
+        btn : {type:String},
+        path : {type:String}
+    }]
 },
  
-    time
-)
+    time)
+
+    const WallOfFames =new mongoose.Schema( {
+        feedTitle : {type:String},
+        feedPosition : {type:String},
+        imgSrc : {type:String},
+        paragraph : {type:String}
+    })
+    
+
 
 
 const Home=mongoose.model('Home',homeSchema)
 module.exports=Home
+
+
+
+
+
+
+

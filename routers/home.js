@@ -5,10 +5,12 @@ const {
   getHomeData,
   updateHomeData,
 } = require("../controller/home.controller");
-const auth = require("../middelware/auth");
+// const auth = require("../middelware/auth");
 
-router.post("/addData", auth, addHomeData);
-router.get("/homeData", getHomeData);
-router.put("/homeData/update", auth, updateHomeData);
+router.post("/addData", addHomeData);
+// router.post("/addData", auth, addHomeData);
+router.get("/homeData/home", getHomeData);
+router.put("/homeData/update", updateHomeData);
+// router.put("/homeData/update", auth, updateHomeData);
 
 module.exports = router;
