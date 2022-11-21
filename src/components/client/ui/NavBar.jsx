@@ -67,37 +67,39 @@ const NavBar = ({ showModal }) => {
   // };
   // // }
 
-   // useEffect(() => {
-   //    stickyHeaderFunc();
-   //    return () => window.removeEventListener("scroll", stickyHeaderFunc);
-   // });
-   return (
-      <motion.div
-         // initial={{ opacity: 0, y: -180 }}
-         // animate={{ opacity: 1, y: 0 }}
-         // transition={{
-         //    ease: "easeInOut",
-         //    duration: 1,
-         //    delay: 0.2,
-         // }}
-         className="fixed-top"
-         ref={headerRef}
+  // useEffect(() => {
+  //    stickyHeaderFunc();
+  //    return () => window.removeEventListener("scroll", stickyHeaderFunc);
+  // });
+  return (
+    <motion.div
+      // initial={{ opacity: 0, y: -180 }}
+      // animate={{ opacity: 1, y: 0 }}
+      // transition={{
+      //    ease: "easeInOut",
+      //    duration: 1,
+      //    delay: 0.2,
+      // }}
+      className="fixed-top"
+      ref={headerRef}
+    >
+      {/* Large screen */}
+      <header
+        className={
+          color ? "header-bg header large__screen" : "header large__screen"
+        }
       >
-         {/* Large screen */}
-         <header
-            className={
-               color ? "header-bg header large__screen" : "header large__screen"
-            }
-         >
-            <div className="container">
-               <div className="row">
-                  <div className="nav__wrapper">
-                     <div className="logo">
-                        <img src="./images/literature6.jpg" alt="logo" />
-                        <div>
-                           <Link to ="/"><h1 className="mb-0">Books House</h1></Link>
-                        </div>
-                     </div>
+        <div className="container">
+          <div className="row">
+            <div className="nav__wrapper">
+              <div className="logo">
+                <img src="./images/literature6.jpg" alt="logo" />
+                <div>
+                  <Link to="/">
+                    <h1 className="mb-0">Books House</h1>
+                  </Link>
+                </div>
+              </div>
 
               <div className="navigation">
                 <ul className="menu">
@@ -156,7 +158,7 @@ const NavBar = ({ showModal }) => {
         </div>
       </header>
       {/* Small screen */}
-      <Navbar bg="light" expand="lg" className="small__screen">
+      <Navbar bg="light" expand="xl" className="small__screen">
         <Container fluid className="pb-3 pt-3">
           <div className="logo">
             <img src="./images/hero_1.jpg" alt="logo" />

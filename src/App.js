@@ -19,11 +19,12 @@ import Footer from "./components/client/ui/Footer";
 
 import Contactus from "./pages/client/Contactus/Contactus";
 import About from "./pages/client/About";
-import Register from "./pages/client/authPages/register/Register";
+import RegisterPage2 from "./pages/client/authPages/register/regist";
 import ComponentsRoutes from "./routes/ComponentsRoutes";
 import AuthRoutes from "./routes/AuthRoutes";
 import VerifyPass from "./pages/client/authPages/passwordPage/VerifyPass";
-import Login from "./pages/client/authPages/login/Login";
+import Login2 from "./pages/client/authPages/login/log";
+
 import Verification from "./pages/client/authPages/verification/Verification";
 // import { PrivateOutlet } from "./utils/privateRoutes";
 import Reviews from "./pages/client/Review";
@@ -83,9 +84,8 @@ function App() {
           </Route>
           <Route element={<AlreadyUser />}>
             <Route path="auth" element={<AuthRoutes />}>
-              <Route path="register" element={<Register />} />
-
-              <Route path="login" element={<Login />} />
+              <Route path="register" element={<RegisterPage2 />} />
+              <Route path="login" element={<Login2 />} />
             </Route>
           </Route>
           {/* Catch All */}
