@@ -5,9 +5,12 @@ const Home = require("../models/home")
 const addHomeData = async (req, res) => {
 
     try{
-        const homedata = new Home(req.body)
-        await homedata.save() 
-        res.status(200).send({homedata})
+        const {wallOfFames , clientsTestimonials , services , header} =req.body.home;
+        const homedata = new Home({wallOfFames, clientsTestimonials , services , header})
+        homedata.save()
+         
+        const data = res.status(200);
+        data.send({homedata})
     }
     catch(e){
         res.status(400).send(e.message)

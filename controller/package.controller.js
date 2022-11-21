@@ -7,8 +7,8 @@ const addPackageData = async (req, res) => {
     try{
         //دي الداتا اللي المفروض نوصلها يا نورهان 
         //const {packName,packPrice,packNumber,packTitle,packSubTitle,packDesc}=req.body
-        const {packageName,packagePrice,reviewsNumber}=req.body
-        const newPackage= new Package({packageName,packagePrice,reviewsNumber})
+        const {packageName, packageDesc , packagePrice,reviewsNumber}=req.body
+        const newPackage= new Package({packageName, packageDesc , packagePrice,reviewsNumber})
         await newPackage.save()
         res.status(200).send(newPackage)
     }catch(e){
