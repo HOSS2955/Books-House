@@ -36,6 +36,7 @@ import RequireAuth from "./components/RequireAuth";
 import AlreadyUser from "./components/AlreadyUser";
 // import FullScreenLoader from "./components/FullScreenLoader";
 import Completion from "./components/client/ui/Completion/Completion";
+import ErrorNotFound from "./pages/client/errorNotFound";
 function App() {
   const [showWishlist, setShowWishlist] = useState(false);
   const hideModal = () => {
@@ -76,6 +77,7 @@ function App() {
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/reviewdetails/:id" element={<ReviewDetails />} />
           <Route path="/completion" element={<Completion />} />
+          <Route path="/cart2" element={<Cart />} />
           {/* Protected Routes */}
           <Route path="user/confirmEmail" element={<Verification />}>
             <Route path=":verificationCode" element={<Verification />} />
@@ -92,7 +94,7 @@ function App() {
           </Route>
           {/* Catch All */}
           //** محتاجين صفحة ايرور هنااا */
-          {/* <Route path="*" element={<NoProducts />} /> */}
+          <Route path="*" element={<ErrorNotFound />} />
         </Routes>
         {/* <Counter /> */}
         <Footer />

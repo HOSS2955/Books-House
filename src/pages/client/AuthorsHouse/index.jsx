@@ -100,41 +100,70 @@ export default function AuthorsHouse() {
                 </button>
               </div>
             </div>
-            <div className="col-6 p-5">
-              <img src="./images/hero_1.jpg" className="col-12" alt="" />
-            </div>
           </div>
-        </div>
-      </div>
 
-      {/* OUR SERVIECS GALLERY */}
-      <div className="gallery mb-5">
-        <h2 className="text-center my-5">Our Services Gallery</h2>
-        <div className="row container mx-auto">
-          <div className="col-8 row">
-            <div className="col-6">
-              <img className="col-12 py-2" src="./images/hero_1.jpg" alt="" />
-            </div>
-            <div className="col-6 py-2">
-              <img className="col-12" src="./images/hero_2.jpg" alt="" />
-            </div>
-            <div className="col-12 py-2">
-              <img className="col-12" src="./images/hero_3.jpg" alt="" />
+          {/* OUR SERVIECS GALLERY */}
+          <div className="gallery mb-5">
+            <h2 className="text-center my-5">Our Services Gallery</h2>
+            <div className="row container mx-auto">
+              <div className="col-md-8 row">
+                <div className="col-md-6">
+                  <img
+                    className="col-12 py-2"
+                    src="./images/hero_1.jpg"
+                    alt=""
+                  />
+                </div>
+                <div className="col-md-6 py-2">
+                  <img className="col-12" src="./images/hero_2.jpg" alt="" />
+                </div>
+                <div className="col-12 py-2">
+                  <img className="col-12" src="./images/hero_3.jpg" alt="" />
+                </div>
+              </div>
+              <div className="col-md-4 py-2">
+                <img
+                  className="w-100 h-100  "
+                  src="./images/hero_2.jpg"
+                  alt=""
+                />
+              </div>
             </div>
           </div>
-          <div className="col-4 py-2">
-            <img className="w-100 h-100  " src="./images/hero_2.jpg" alt="" />
+
+          {/* PACKAGES */}
+          <Pricing pricingArray={packagesData} />
+        </div>
+
+        {/* OUR SERVIECS GALLERY */}
+        <div className="gallery mb-5">
+          <h2 className="text-center my-5">Our Services Gallery</h2>
+          <div className="row container mx-auto">
+            <div className="col-8 row">
+              <div className="col-6">
+                <img className="col-12 py-2" src="./images/hero_1.jpg" alt="" />
+              </div>
+              <div className="col-6 py-2">
+                <img className="col-12" src="./images/hero_2.jpg" alt="" />
+              </div>
+              <div className="col-12 py-2">
+                <img className="col-12" src="./images/hero_3.jpg" alt="" />
+              </div>
+            </div>
+            <div className="col-4 py-2">
+              <img className="w-100 h-100  " src="./images/hero_2.jpg" alt="" />
+            </div>
           </div>
         </div>
-      </div>
-      <div>
-        {confetti === true && <ConfettiModal size={windowDimensions} />}
-        {/* PACKAGES */}
-        <Pricing
-          pricingArray={packagesData}
-          handleShow={handleShow}
-          setPackages={setPackages}
-        />
+        <div>
+          {confetti === true && <ConfettiModal size={windowDimensions} />}
+          {/* PACKAGES */}
+          <Pricing
+            pricingArray={packagesData}
+            handleShow={handleShow}
+            setPackages={setPackages}
+          />
+        </div>
       </div>
     </div>
   );
