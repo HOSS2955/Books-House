@@ -14,7 +14,7 @@ export default function SwiperData({
          </div>
          <div className="myFeed col-10">
             <p className="">{children}</p>
-            <h5>{feedTitle}</h5>
+            <h5 className="fw-bold">{feedTitle}</h5>
             <p>{feedPosition}</p>
          </div>
       </div>

@@ -8,7 +8,7 @@ import { homepageApi } from "../../features/homeApiSlice";
 import { authorReducer } from "./reducers/authorSlice";
 import { packageApi } from "../../features/packageApiSlice";
 import { packageReducer } from "./reducers/packageSlice";
-import { checkAuthReducer } from "./reducers/checkAuth";
+// import { checkAuthReducer } from "./reducers/checkAuth";
 import userReducer from "./reducers/userSlice";
 import adminReducer from "./reducers/adminSlice";
 import { userApi } from "../../services/userApi";
@@ -22,7 +22,7 @@ export const clientStore = configureStore({
     res: resReducer,
     author: authorReducer,
     homepage: homepageReducer,
-    checkAuth: checkAuthReducer,
+    // checkAuth: checkAuthReducer,
     [homepageApi.reducerPath]: homepageApi.reducer,
     package: packageReducer,
     [packageApi.reducerPath]: packageApi.reducer,
