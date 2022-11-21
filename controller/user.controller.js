@@ -249,6 +249,18 @@ const deleteUser=async (req, res) => {
   
   
   }
+
+
+  const logoutUser = async (req,res)=>{
+      try{
+          req.user.tokens = []
+          await req.user.save()
+          res.status(200).send('you loged out all tokens')
+      }
+      catch(e){
+          res.status(500).send(e)
+      }
+  }
 module.exports = {
   confirmEmail,
   refreshEmail,
@@ -260,4 +272,5 @@ module.exports = {
   addProfileAvatar,
   deleteUser,
   tokenRefresher,
+  logoutUser
 };
