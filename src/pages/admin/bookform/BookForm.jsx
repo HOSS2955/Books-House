@@ -26,7 +26,6 @@ const initialValues = {
    BookDesc: "",
    category: "",
    type: "",
-   // imageSrc: "",
 };
 
 const userSchema = yup.object().shape({
@@ -36,7 +35,6 @@ const userSchema = yup.object().shape({
    BookDesc: yup.string(),
    category: yup.string(),
    type: yup.string(),
-   // imageSrc: yup.string(),
 });
 
 export default function BookForm() {
@@ -188,6 +186,9 @@ export default function BookForm() {
                      {/* DECRIPTOIN */}
                      <TextField
                         fullWidth
+                        multiline
+                        rows={5}
+                        maxRows={10}
                         variant="filled"
                         type="text"
                         label="Description"
