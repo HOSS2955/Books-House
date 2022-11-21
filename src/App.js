@@ -36,6 +36,9 @@ import RequireAuth from "./components/RequireAuth";
 import AlreadyUser from "./components/AlreadyUser";
 // import FullScreenLoader from "./components/FullScreenLoader";
 import Completion from "./components/client/ui/Completion/Completion";
+import Login2 from "./pages/client/authPages/login/log";
+import ErrorNotFound from "./pages/client/errorNotFound";
+import RegisterPage from "./pages/client/authPages/register/Register";
 function App() {
   const [showWishlist, setShowWishlist] = useState(false);
   const hideModal = () => {
@@ -85,14 +88,14 @@ function App() {
           </Route>
           <Route element={<AlreadyUser />}>
             <Route path="auth" element={<AuthRoutes />}>
-              <Route path="register" element={<Register />} />
+              <Route path="register" element={<RegisterPage />} />
 
-              <Route path="login" element={<Login />} />
+              <Route path="login" element={<Login2 />} />
             </Route>
           </Route>
           {/* Catch All */}
           //** محتاجين صفحة ايرور هنااا */
-          {/* <Route path="*" element={<NoProducts />} /> */}
+          <Route path="*" element={<ErrorNotFound />} />
         </Routes>
         {/* <Counter /> */}
         <Footer />

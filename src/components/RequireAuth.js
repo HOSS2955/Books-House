@@ -2,7 +2,7 @@ import { useLocation, Navigate, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
 import React from "react";
-import useAuth from "../Hooks/useAuth";
+import useAuth from "../hooks/useAuth";
 
 //allowedRoles={['admin']}
 function RequireAuth({ allowedRoles }) {
