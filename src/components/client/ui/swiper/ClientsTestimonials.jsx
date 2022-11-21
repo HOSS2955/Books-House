@@ -19,9 +19,9 @@ export default function ClientsTestmonialsSwiper({clientsTestimonialsArray}) {
         // install Swiper modules
         modules={[Navigation, Pagination, A11y , FreeMode , Autoplay]}
         spaceBetween={100}
-        centeredSlides={true}
+        centeredSlides={false}
         loop={true}
-        slidesPerView={2}
+        slidesPerView={1}
         autoplay={{
             delay: 2500,
             disableOnInteraction: false,
@@ -46,15 +46,42 @@ export default function ClientsTestmonialsSwiper({clientsTestimonialsArray}) {
 
 {/* <Mapping Clients testmonials/> */}
 {clientsTestimonialsArray.map((item , index)=>
-  <SwiperSlide key={index}  className="bg-light swiper__card">
-    <SwiperData
+  <SwiperSlide key={index}  className=" swiper__card">
+    {/* <div className="custom-shape-divider-top-1668530886">
+    <svg
+            data-name="Layer 1"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M602.45,3.86h0S572.9,116.24,281.94,120H923C632,116.24,602.45,3.86,602.45,3.86Z"
+              className="shape-fill"
+            ></path>
+          </svg> 
+          </div> */}<SwiperData
             feedTitle={item.title}
             feedPosition={item.feedPosition}
             imgSrc={item.img}
           >
 Do you want to be even more successful? Learn to love learning and growth. The more effort you put into improving your skills, the bigger the payoff you.
           </SwiperData>
+         
+          {/* <div className="custom-shape-divider-bottom-1668531089">
+          <svg
+            data-name="Layer 1"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M1200,0H0V120H281.94C572.9,116.24,602.45,3.86,602.45,3.86h0S632,116.24,923,120h277Z"
+              className="shape-fill"
+            ></path>
+          </svg>
+        </div> */}
         </SwiperSlide>
+
         )}
       </Swiper>
     </div>

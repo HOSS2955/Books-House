@@ -25,14 +25,17 @@ import AuthRoutes from "./routes/AuthRoutes";
 import VerifyPass from "./pages/client/authPages/passwordPage/VerifyPass";
 import Login from "./pages/client/authPages/login/Login";
 import Verification from "./pages/client/authPages/verification/Verification";
-import { PrivateOutlet } from "./utils/privateRoutes";
+// import { PrivateOutlet } from "./utils/privateRoutes";
 import Reviews from "./pages/client/Review";
 import ReviewDetails from "./pages/client/ReviewDetails/ReviewDetails";
-import AdminPage from "./pages/client/authPages/LoginAdmin/adminPage";
+// import AdminPage from "./pages/client/authPages/LoginAdmin/adminPage";
 import LoginAdmin from "./pages/client/authPages/login/LoginAdmin";
-import NoProducts from "./components/client/ui/NoProducts/NoProducts";
+// import NoProducts from "./components/client/ui/NoProducts/NoProducts";
 import UnauthorizePage from "./pages/client/Unauthorized/UnauthorizedPage";
 import RequireAuth from "./components/RequireAuth";
+import AlreadyUser from "./components/AlreadyUser";
+// import FullScreenLoader from "./components/FullScreenLoader";
+import Completion from "./components/client/ui/Completion/Completion";
 function App() {
   const [showWishlist, setShowWishlist] = useState(false);
   const hideModal = () => {
@@ -72,14 +75,20 @@ function App() {
           <Route path="/unauthorized" element={<UnauthorizePage />} />
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/reviewdetails/:id" element={<ReviewDetails />} />
+          <Route path="/completion" element={<Completion />} />
           {/* Protected Routes */}
-          <Route path="auth" element={<AuthRoutes />}>
-            <Route element={<RequireAuth allowedRoles={["user", "admin"]} />}>
-              <Route path="password" element={<VerifyPass />} />
+          <Route path="user/confirmEmail" element={<Verification />}>
+            <Route path=":verificationCode" element={<Verification />} />
+          </Route>
+          <Route element={<RequireAuth allowedRoles={["user", "admin"]} />}>
+            <Route path="password" element={<VerifyPass />} />
+          </Route>
+          <Route element={<AlreadyUser />}>
+            <Route path="auth" element={<AuthRoutes />}>
+              <Route path="register" element={<Register />} />
+
+              <Route path="login" element={<Login />} />
             </Route>
-            <Route path="register" element={<Register />} />
-            <Route path="verification" element={<Verification />} />
-            <Route path="login" element={<Login />} />
           </Route>
           {/* Catch All */}
           //** محتاجين صفحة ايرور هنااا */

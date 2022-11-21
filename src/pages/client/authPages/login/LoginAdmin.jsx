@@ -12,13 +12,14 @@ import { toast } from "react-toastify";
 import { useLoginAdminMutation } from "../../../../services/adminAuthApi";
 const LoadingButton = styled(_LoadingButton)`
   padding: 0.6rem 0;
-  background-color: #f9d13e;
-  color: #2363eb;
+  background-color: #212529;
+  color: #fff;
   font-weight: 500;
+  border-radius: 50px;
 
   &:hover {
-    background-color: #ebc22c;
-    transform: translateY(-2px);
+    background-color: #000000;
+    transform: translateY(-1px);
   }
 `;
 
@@ -111,7 +112,6 @@ const LoginAdmin = () => {
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
-        backgroundColor: "#2363eb",
       }}
     >
       <Box
@@ -120,13 +120,17 @@ const LoginAdmin = () => {
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
+          boxShadow: 8,
+          borderRadius: "10px",
+          px: "20px",
+          mt: "3%",
         }}
       >
         <Typography
           textAlign="center"
           component="h1"
           sx={{
-            color: "#f9d13e",
+            color: "#ffc107",
             fontWeight: 600,
             fontSize: { xs: "2rem", md: "3rem" },
             mb: 2,
@@ -138,7 +142,7 @@ const LoginAdmin = () => {
         <Typography
           variant="body1"
           component="h2"
-          sx={{ color: "#e5e7eb", mb: 2 }}
+          sx={{ color: "#000", mb: 2 }}
         >
           Login to have access!
         </Typography>
@@ -152,13 +156,32 @@ const LoginAdmin = () => {
             maxWidth="27rem"
             width="100%"
             sx={{
-              backgroundColor: "#e5e7eb",
               p: { xs: "1rem", sm: "2rem" },
               borderRadius: 2,
             }}
           >
-            <FormInput name="email" label="Email Address" type="email" />
-            <FormInput name="password" label="Password" type="password" />
+            <FormInput
+              name="email"
+              label="Email Address"
+              type="email"
+              sx={{
+                border: 1,
+                borderColor: "#000",
+                borderRadius: "10px",
+                boxShadow: 3,
+              }}
+            />
+            <FormInput
+              name="password"
+              label="Password"
+              type="password"
+              sx={{
+                border: 1,
+                borderColor: "#000",
+                borderRadius: "10px",
+                boxShadow: 3,
+              }}
+            />
 
             <LoadingButton
               variant="contained"
