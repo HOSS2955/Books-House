@@ -60,7 +60,6 @@ const WhatWillWeDiscoverSwiper = () => {
           <SwiperSlide className="bg-light text-dark " key={index}>
             <ItemCard
               className="m-3 p-4 col d-flex w-100"
-              key={index}
               book={book}
             />
           </SwiperSlide>
