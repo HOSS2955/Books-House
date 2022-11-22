@@ -15,8 +15,8 @@ const signUp = async (req, res) => {
     const token = jwt.sign({ _id: savedUser._id }, process.env.emailToken, {
       expiresIn: 5 * 60,
     });
-    const link = `${req.protocol}://${req.headers.host}/user/confirmEmail/${token}`;
-    const link2 = `${req.protocol}://${req.headers.host}/user/refreshEmail/${savedUser._id}`;
+    const link = `$http://localhost:3000://${req.headers.host}/user/confirmEmail/${token}`;
+    const link2 = `$http://localhost:3000://${req.headers.host}/user/refreshEmail/${savedUser._id}`;
     const message = `
     <a href=${link}> please confirm your email </a><br>
                    <a href=${link2}> resend confirmation email </a>`;
@@ -38,17 +38,17 @@ const signUp = async (req, res) => {
 };
 
 //-------------------------------------------------------------------refresh token
-let refreshTokens =[] //in chach or DB
-const  tokenRefresher= (req,res)=>{
-  const refreshToken= req.body.token
-  if(refreshToken == null)return res.status(401)
-  if(! refreshTokens.includes(refreshToken))return res.status(403)
-  jwt.verify(refreshToken,process.env.logingtoken,(err,user)=>{
-    if(err) return res.status(403)
-    const accessToken=jwt.sign({_id:user._id},process.env.logingtoken)
-    res.json({token:accessToken})
-  })
-}
+let refreshTokens = []; //in chach or DB
+const tokenRefresher = (req, res) => {
+  const refreshToken = req.body.token;
+  if (refreshToken == null) return res.status(401);
+  if (!refreshTokens.includes(refreshToken)) return res.status(403);
+  jwt.verify(refreshToken, process.env.logingtoken, (err, user) => {
+    if (err) return res.status(403);
+    const accessToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
+    res.json({ token: accessToken });
+  });
+};
 //-------------------------------------login
 
 const login = async (req, res) => {
@@ -68,17 +68,21 @@ const login = async (req, res) => {
         process.env.logingtoken,
         { expiresIn: "60s" }
       );
-      const refreshToken = jwt.sign({_id:user._id},process.env.logingtoken)
-      refreshTokens.push(refreshToken)
+      const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
+      refreshTokens.push(refreshToken);
 
       res
-      .status(200)
-      .json({ message: "login suceess", token,refreshToken,user, allowedRole: "user" });
+        .status(200)
+        .json({
+          message: "login suceess",
+          token,
+          refreshToken,
+          user,
+          allowedRole: "user",
+        });
     }
   }
 };
-
-
 
 // --------------------------------------------------------EmailConfirm
 
@@ -118,10 +122,10 @@ const refreshEmail = async (req, res) => {
   const user = await User.findOne({ id }).select("confirmEmail email");
 
   if (!user) {
-    res.status(404).json({ message: "invalid account" });
+    res.status(404).json({ message: "Invalid account" });
   } else {
     if (user.confirmEmail) {
-      res.status(400).json({ message: "already confirmed" });
+      res.status(400).json({ message: "Already confirmed" });
     } else {
       const token = jwt.sign({ _id: user._id }, process.env.emailToken, {
         expiresIn: 5 * 60,
