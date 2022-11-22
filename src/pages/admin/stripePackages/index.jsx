@@ -26,14 +26,13 @@ export default function StripePackages() {
    const columns = [
       {
          field: "_id",
-         headerName: "ID",
-         flex: 0.5,
+         hide: true,
       },
       {
-         field: "c",
+         field: "authorData.firstName",
          headerName: "First Name",
          flex: 1,
-         cellClassName: "name-column--cell",
+         // cellClassName: "name-column--cell",
          valueGetter: (params) => {
             return params.row.authorData.firstName;
          },
@@ -82,15 +81,14 @@ export default function StripePackages() {
          field: "package.price",
          headerName: "Package Price",
          flex: 1,
-
          valueGetter: (params) => {
-            return params.row.package.price;
+            return "$" + params.row.package.price;
          },
       },
       {
          field: "createdAt",
          headerName: "Craeted At",
-         flex: 1,
+         flex: 1.5,
       },
    ];
 

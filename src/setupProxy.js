@@ -80,4 +80,13 @@ module.exports = function (app) {
          changeOrigin: true,
       })
    );
+   //----------------------STRIP ORDERS-------------------
+
+   app.use(
+      "/getallpayments/orders",
+      createProxyMiddleware({
+         target: "http://localhost:3001",
+         changeOrigin: true,
+      })
+   );
 };

@@ -1,45 +1,62 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../../theme";
-import { mockDataInvoices } from "../../../data/mockData";
 import Header from "../../../components/admin/Header";
 import { useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getstripePackages } from "../../../store/client/reducers/stripePackagesSlice";
 import { useEffect } from "react";
+import { getstripeOrders } from "../../../store/client/reducers/stripeOrdersSlice";
 
 export default function OrderPayment() {
    const theme = useTheme();
    const colors = tokens(theme.palette.mode);
    const dispatch = useDispatch();
-   const { stripePackagesData } = useSelector((state) => state.stripePackages);
-   // useEffect(() => {
-   //    dispatch(getstripePackages());
-   //    console.log(stripePackagesData);
-   // }, []);
+   const { stripeOrdersData } = useSelector((state) => state.stripeOrders);
+   useEffect(() => {
+      dispatch(getstripeOrders());
+      console.log(stripeOrdersData);
+   }, []);
 
    const columns = [
-      { field: "pacakage.id", headerName: "ID", flex: 0.5 },
       {
-         field: "pacakage.price",
-         headerName: "Price",
+         field: "_id",
+         hide: true,
+      },
+      {
+         field: "quantity",
+         headerName: "Quantity",
+         flex: 1,
+         align: "center",
+         cellClassName: "name-column--cell",
+         valueGetter: (params) => {
+            return params.row.products[0].quantity;
+         },
+      },
+      {
+         field: "payment_status",
+         headerName: "Payment Status",
+         flex: 1,
+      },
+      {
+         field: "delivery_status",
+         headerName: "Delivery Status",
+         flex: 1,
+      },
+      {
+         field: "subtotal",
+         headerName: "Subtotal",
+         flex: 1,
+      },
+      {
+         field: "total",
+         headerName: "Total",
          flex: 1,
          cellClassName: "name-column--cell",
       },
       {
-         field: "pacakage.authorData",
-         headerName: "Author Data",
-         flex: 1,
-      },
-      {
-         field: "pacakage.lastName",
-         headerName: "Last Name",
-         flex: 1,
-      },
-      {
-         field: "pacakage.authorEmail",
-         headerName: "Email",
-         flex: 1,
+         field: "createdAt",
+         headerName: "Craeted At",
+         flex: 1.5,
       },
    ];
 
@@ -75,7 +92,12 @@ export default function OrderPayment() {
                },
             }}
          >
-            {/* <DataGrid rows={stripePackagesData} columns={columns} /> */}
+            <DataGrid
+               rows={stripeOrdersData}
+               getRowId={(row) => row._id}
+               columns={columns}
+               loading={!stripeOrdersData.length}
+            />
          </Box>
       </Box>
    );
