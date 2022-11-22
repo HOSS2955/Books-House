@@ -80,8 +80,6 @@ function App() {
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/reviewdetails/:id" element={<ReviewDetails />} />
           <Route path="/completion" element={<Completion />} />
-          <Route path="/cart2" element={<Cart />} />
-          <Route path="/mainprofile" element={<MainProfile />} />
           {/* Protected Routes */}
           <Route path="user/confirmEmail" element={<Verification />}>
             <Route path=":verificationCode" element={<Verification />} />
@@ -97,7 +95,6 @@ function App() {
             </Route>
           </Route>
           {/* Catch All */}
-          //** محتاجين صفحة ايرور هنااا */
           <Route path="*" element={<ErrorNotFound />} />
         </Routes>
         {/* <Counter /> */}

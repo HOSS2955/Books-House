@@ -24,21 +24,38 @@ export default function Books() {
    const theme = useTheme();
    const colors = tokens(theme.palette.mode);
    const columns = [
-      { field: "_id", headerName: "ID" },
+      { field: "_id", hide: true },
+      {
+         field: "imageSource",
+         headerName: "Image",
+         width: "70px",
+         flex: 1,
+         sortable: false,
+         filterable: false,
+         renderCell: (params) => (
+            <img
+               alt="img"
+               src={params.row.imageSource}
+               className=" img-fluid"
+               variant="rounded"
+            />
+         ),
+      },
       {
          field: "title",
          headerName: "Title",
-         flex: 1,
+         flex: 1.3,
          cellClassName: "name-column--cell",
       },
       {
          field: "price",
+         renderCell: (params) => "$" + params.row.price,
          headerName: "Price",
          headerAlign: "left",
          align: "left",
       },
       {
-         field: "desc",
+         field: "bookDesc",
          headerName: "Description",
          type: "text",
          flex: 1,
@@ -52,6 +69,11 @@ export default function Books() {
       {
          field: "category",
          headerName: "Category",
+         flex: 1,
+      },
+      {
+         field: "type",
+         headerName: "Type",
          flex: 1,
       },
       // {
@@ -73,7 +95,7 @@ export default function Books() {
          field: "test",
          headerName: "Actions",
          headerAlign: "center",
-         flex: 1,
+         flex: 1.8,
          renderCell: (params) => {
             const actionHandler = (e) => {
                e.stopPropagation();
@@ -93,9 +115,13 @@ export default function Books() {
                if (e.target.innerText === "DELETE") {
                   dispatch(deleteBook(thisRow));
                }
+
                if (e.target.innerText === "EDIT") {
                   dispatch(changeBookData(filteredBook[0]));
                   navigate(`/admin/bookform/${filteredBook[0]._id}`);
+               }
+               if (e.target.innerText === "VIEW") {
+                  navigate(`/bookdetails/${filteredBook[0]._id}`);
                }
             };
             return (
@@ -113,13 +139,23 @@ export default function Books() {
                   </Button>
                   <Button
                      sx={{
-                        ml: "5px",
+                        mx: "5px",
                      }}
                      variant="contained"
                      color="success"
                      onClick={actionHandler}
                   >
                      <Typography color={colors.grey[100]}>Edit</Typography>
+                  </Button>
+                  <Button
+                     sx={{
+                        ml: "5px",
+                     }}
+                     variant="contained"
+                     color="inherit"
+                     onClick={actionHandler}
+                  >
+                     <Typography color={colors.grey[900]}>View</Typography>
                   </Button>
                </Box>
             );
@@ -186,6 +222,7 @@ export default function Books() {
                components={{
                   Toolbar: GridToolbar,
                }}
+               loading={!books.length}
                getRowId={(row) => row._id}
                rowsPerPageOptions={[10, 15, 20]}
                pageSize={pageSize}

@@ -15,6 +15,8 @@ import { userApi } from "../../services/userApi";
 import { authApi } from "../../services/authApi";
 import { adminAuthApi } from "../../services/adminAuthApi";
 import { bookReviewReducer } from "./reducers/bookReviewSlice";
+import { stripePackagesReducer } from "./reducers/stripePackagesSlice";
+import { stripeOrdersReducer } from "./reducers/stripeOrdersSlice";
 import { profilePackageReducer } from "./reducers/profilePaymet";
 export const clientStore = configureStore({
   reducer: {
@@ -24,6 +26,8 @@ export const clientStore = configureStore({
     author: authorReducer,
     homepage: homepageReducer,
     // checkAuth: checkAuthReducer,
+    stripePackages: stripePackagesReducer,
+    stripeOrders: stripeOrdersReducer,
     [homepageApi.reducerPath]: homepageApi.reducer,
     package: packageReducer,
     [packageApi.reducerPath]: packageApi.reducer,
