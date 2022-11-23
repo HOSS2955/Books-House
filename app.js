@@ -24,6 +24,8 @@ const package = require("./routers/package");
 const stripeCart = require("./routers/stripeCart");
 const stripeRouter = require("./routers/stripeRouter");
 const bookReviewRoute = require("./routers/bookreview");
+const comments= require('./routers/comment')
+
 app.use(author);
 
 app.use(book);
@@ -37,6 +39,7 @@ app.use(author);
 app.use(bookReviewRoute);
 app.use(stripeRouter);
 app.use(stripeCart);
+app.use(comments)
 app.use(express.static(path.join(__dirname,'uploadsImgs')))
 
 
