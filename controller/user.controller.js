@@ -15,8 +15,8 @@ const signUp = async (req, res) => {
     const token = jwt.sign({ _id: savedUser._id }, process.env.emailToken, {
       expiresIn: 5 * 60,
     });
-    const link = `$http://localhost:3000://${req.headers.host}/user/confirmEmail/${token}`;
-    const link2 = `$http://localhost:3000://${req.headers.host}/user/refreshEmail/${savedUser._id}`;
+    const link = `http://localhost:3000://${req.headers.host}/user/confirmEmail/${token}`;
+    const link2 = `http://localhost:3000://${req.headers.host}/user/refreshEmail/${savedUser._id}`;
     const message = `
     <a href=${link}> please confirm your email </a><br>
                    <a href=${link2}> resend confirmation email </a>`;
@@ -50,11 +50,10 @@ const tokenRefresher = (req, res) => {
   });
 };
 //-------------------------------------login
-
 const login = async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email }).exec();
 
   if (!user) {
     res.status(404).json({ message: "invalid email account" });
@@ -71,15 +70,14 @@ const login = async (req, res) => {
       const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
       refreshTokens.push(refreshToken);
 
-      res
-        .status(200)
-        .json({
-          message: "login suceess",
-          token,
-          refreshToken,
-          user,
-          allowedRole: "user",
-        });
+      res.status(200).json({
+        message: "login suceess",
+        token,
+        refreshToken,
+        user,
+        allowedRole: "user",
+      });
+      res.cookie("refreshToken", refreshToken)
     }
   }
 };
@@ -143,7 +141,7 @@ const refreshEmail = async (req, res) => {
   }
 };
 
-//-----------------------------------------------------sening code
+//-----------------------------------------------------sending code
 
 const sendCode = async (req, res) => {
   const { email } = req.body;
@@ -222,6 +220,21 @@ const updateProfile = async (req, res) => {
     }
   }
 };
+
+const getMeHandler = (req, res, next) => {
+  try {
+    const user = res.locals.user;
+    res.status(200).json({
+      status: "success",
+      data: {
+        user,
+      },
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 //---------------------------------------------------------user avatar
 
 const addProfileAvatar = async (req, res) => {
@@ -237,34 +250,41 @@ const addProfileAvatar = async (req, res) => {
 
 //---------------------- delete user
 
-const deleteUser=async (req, res) => {
+const deleteUser = async (req, res) => {
+  const { _id } = req.user;
 
+  await User.findOneAndDelete({ _id: _id }, { new: true });
 
-  const {_id}=req.user
-  
-  
-  
-  await User.findOneAndDelete({_id:_id},{new:true})
-  
-  
-  res.json({message:"done"})
-  
-  
-  
-  
-  }
+  res.json({ message: "done" });
+};
 
+const logoutUser = async (req, res) => {
+    const cookies = req.cookies;
+    if (!cookies?.jwt) return res.status(204);
+    const refreshToken = cookies.jwt;
 
-  const logoutUser = async (req,res)=>{
-      try{
-          req.user.tokens = []
-          await req.user.save()
-          res.status(200).send('you loged out all tokens')
-      }
-      catch(e){
-          res.status(500).send(e)
-      }
-  }
+    // If refresher token exist in database
+    const foundUser = await User.findOne({ refreshToken }).exec();
+    if (!foundUser) {
+      res.clearCookie("jwt", {
+        httpOnly: true,
+        sameSite: "None",
+        secure: true,
+      });
+      return res.status(204);
+    }
+
+    // Delete refresher in database
+    foundUser.refreshToken = foundUser.refreshToken.filter(
+      (rt) => rt !== refreshToken
+    );
+    const result = await foundUser.save();
+    console.log("deleteddddd", result);
+
+    res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
+    res.status(204).send("you loged out all tokens");
+ 
+};
 module.exports = {
   confirmEmail,
   refreshEmail,
@@ -276,5 +296,6 @@ module.exports = {
   addProfileAvatar,
   deleteUser,
   tokenRefresher,
-  logoutUser
+  logoutUser,
+  getMeHandler,
 };

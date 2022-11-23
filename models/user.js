@@ -1,59 +1,63 @@
-const mongoose=require('mongoose')
-const bcrypt = require('bcrypt')
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const time = {
-    timestamps: {currentTime: () => new Date().setHours(new Date().getHours() + 2)}
-}
+  timestamps: {
+    currentTime: () => new Date().setHours(new Date().getHours() + 2),
+  },
+};
 
-const userSchema=new mongoose.Schema({
-    name:{
-        type:String,
-        required:true,
-        trim:true
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      trim: true,
     },
-    email:{
-        type:String,
-        required:true,
-        trim:true,
-        lowercase:true,
-        unique:true
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+      lowercase: true,
+      unique: true,
     },
-    phone:{
-        type:String,
-        required:true
+    phone: {
+      type: String,
+      required: true,
     },
-    avatar:{
-        type:Buffer,
+    avatar: {
+      type: Buffer,
     },
-    password:{
-        type:String,
-        required:true,
-        trim:true
+    password: {
+      type: String,
+      required: true,
+      trim: true,
     },
-    confirmed:{
-        type:Boolean,
-        default: false
-        },
-    isDeleted:{
-        type:Boolean,
-        default: false
-        },
-    code:{
-        type:String
-        }
-},
- 
-    time
-)
+    confirmed: {
+      type: Boolean,
+      default: false,
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
+    code: {
+      type: String,
+    },
+    refreshToken: [String],
+  },
 
+  time
+);
 
+userSchema.pre("save", async function (next) {
+  this.password = await bcrypt.hash(
+    this.password,
+    parseInt(process.env.saltRounds)
+  );
 
-userSchema.pre('save', async function (next){
-
-    this.password=await bcrypt.hash(this.password,parseInt(process.env.saltRounds)) 
-
-next() 
-})
+  next();
+});
 
 // userSchema.pre('findByIdAndUpdate',async function (next){
 //     const hookData=await this.model.findOne(this.getQuery()).select("__v")
@@ -69,11 +73,7 @@ next()
 
 //     }
 
-
 //     })
 
-
-
-
-const User=mongoose.model('user',userSchema)
-module.exports=User
+const User = mongoose.model("user", userSchema);
+module.exports = User;
