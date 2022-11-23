@@ -8,7 +8,7 @@ export default function MyOrder() {
   const email = "hoss2955@gmail.com";
   const { profileOrder } = useSelector((state) => state.ProfilePayment);
   useEffect(() => {
-    dispatch(getprofileOrder(email));
+    dispatch(getprofileOrder({ email }));
   }, []);
 
   return (

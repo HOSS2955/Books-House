@@ -2,24 +2,24 @@ import { useLocation, Navigate, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
 import React from "react";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../Hooks/useAuth";
 
 //allowedRoles={['admin']}
 function RequireAuth({ allowedRoles }) {
-   const [cookies] = useCookies(["logged_in"]);
-   const user = useSelector((state) => state.userState);
-   // const user = useSelector((state) => state.userState);
-   // const admin = useSelector((state) => state.adminState);
+  const [cookies] = useCookies(["logged_in"]);
+  const user = useSelector((state) => state.userState);
+  // const user = useSelector((state) => state.userState);
+  // const admin = useSelector((state) => state.adminState);
 
-   const location = useLocation();
-   return (cookies.logged_in || user?.token) &&
-      allowedRoles.includes(user?.role) ? (
-      <Outlet />
-   ) : cookies.logged_in || user?.token ? (
-      <Navigate to="/unauthorized" state={{ from: location }} replace />
-   ) : (
-      <Navigate to="/auth/login" state={{ from: location }} replace />
-   );
+  const location = useLocation();
+  return (cookies.logged_in || user?.token) &&
+    allowedRoles.includes(user?.role) ? (
+    <Outlet />
+  ) : cookies.logged_in || user?.token ? (
+    <Navigate to="/unauthorized" state={{ from: location }} replace />
+  ) : (
+    <Navigate to="/auth/login" state={{ from: location }} replace />
+  );
 }
 
 export default RequireAuth;
