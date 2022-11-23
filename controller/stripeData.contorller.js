@@ -1,7 +1,7 @@
 const { Order } = require("../models/order");
 const { Stripe } = require("../models/stripe");
 
-//----------------------------------get all stripes data
+//----------------------------------get all stripes data packages
 
 const getStripe = async (req, res) => {
    try {

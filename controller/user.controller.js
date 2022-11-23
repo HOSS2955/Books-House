@@ -8,273 +8,282 @@ require("dotenv").config();
 // --------------------------------------------------------signUp
 
 const signUp = async (req, res) => {
-  try {
-    const newUser = new User(req.body);
-    const savedUser = await newUser.save();
+   try {
+      const newUser = new User(req.body);
+      const savedUser = await newUser.save();
 
-    const token = jwt.sign({ _id: savedUser._id }, process.env.emailToken, {
-      expiresIn: 5 * 60,
-    });
-    const link = `$http://localhost:3000://${req.headers.host}/user/confirmEmail/${token}`;
-    const link2 = `$http://localhost:3000://${req.headers.host}/user/refreshEmail/${savedUser._id}`;
-    const message = `
+      const token = jwt.sign({ _id: savedUser._id }, process.env.emailToken, {
+         expiresIn: 5 * 60,
+      });
+      const link = `$http://localhost:3000://${req.headers.host}/user/confirmEmail/${token}`;
+      const link2 = `$http://localhost:3000://${req.headers.host}/user/refreshEmail/${savedUser._id}`;
+      const message = `
     <a href=${link}> please confirm your email </a><br>
                    <a href=${link2}> resend confirmation email </a>`;
 
-    console.log(savedUser.email);
-    console.log(message);
-    console.log(sendEmail(savedUser.email, message));
-    sendEmail(savedUser.email, message);
-    res
-      .status(201)
-      .json({ message: "please check your email to verify it", savedUser });
-  } catch (e) {
-    if (e.keyValue?.email) {
-      res.status(409).json({ message: "email exists" });
-    } else {
-      res.status(500).json({ message: "Error", e });
-    }
-  }
+      console.log(savedUser.email);
+      console.log(message);
+      console.log(sendEmail(savedUser.email, message));
+      sendEmail(savedUser.email, message);
+      res.status(201).json({
+         message: "please check your email to verify it",
+         savedUser,
+      });
+   } catch (e) {
+      if (e.keyValue?.email) {
+         res.status(409).json({ message: "email exists" });
+      } else {
+         res.status(500).json({ message: "Error", e });
+      }
+   }
 };
 
 //-------------------------------------------------------------------refresh token
 let refreshTokens = []; //in chach or DB
 const tokenRefresher = (req, res) => {
-  const refreshToken = req.body.token;
-  if (refreshToken == null) return res.status(401);
-  if (!refreshTokens.includes(refreshToken)) return res.status(403);
-  jwt.verify(refreshToken, process.env.logingtoken, (err, user) => {
-    if (err) return res.status(403);
-    const accessToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
-    res.json({ token: accessToken });
-  });
+   const refreshToken = req.body.token;
+   if (refreshToken == null) return res.status(401);
+   if (!refreshTokens.includes(refreshToken)) return res.status(403);
+   jwt.verify(refreshToken, process.env.logingtoken, (err, user) => {
+      if (err) return res.status(403);
+      const accessToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
+      res.json({ token: accessToken });
+   });
 };
 //-------------------------------------login
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
+   const { email, password } = req.body;
 
-  const user = await User.findOne({ email });
+   const user = await User.findOne({ email });
 
-  if (!user) {
-    res.status(404).json({ message: "invalid email account" });
-  } else {
-    const match = await bcrypt.compare(password, user.password);
-    if (!match) {
-      res.status(400).json({ message: "email password mismatch" });
-    } else {
-      const token = jwt.sign(
-        { _id: user._id, isLogged: true },
-        process.env.logingtoken,
-        { expiresIn: "60s" }
-      );
-      const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
-      refreshTokens.push(refreshToken);
+   if (!user) {
+      res.status(404).json({ message: "invalid email account" });
+   } else {
+      const match = await bcrypt.compare(password, user.password);
+      if (!match) {
+         res.status(400).json({ message: "email password mismatch" });
+      } else {
+         const token = jwt.sign(
+            { _id: user._id, isLogged: true },
+            process.env.logingtoken,
+            { expiresIn: "60s" }
+         );
+         const refreshToken = jwt.sign(
+            { _id: user._id },
+            process.env.logingtoken
+         );
+         refreshTokens.push(refreshToken);
 
-      res
-        .status(200)
-        .json({
-          message: "login suceess",
-          token,
-          refreshToken,
-          user,
-          allowedRole: "user",
-        });
-    }
-  }
+         res.status(200).json({
+            message: "login suceess",
+            token,
+            refreshToken,
+            user,
+            allowedRole: "user",
+         });
+      }
+   }
 };
 
 // --------------------------------------------------------EmailConfirm
 
 const confirmEmail = async (req, res) => {
-  try {
-    const { token } = req.params;
+   try {
+      const { token } = req.params;
 
-    const decoded = jwt.verify(token, process.env.emailToken);
+      const decoded = jwt.verify(token, process.env.emailToken);
 
-    if (!decoded) {
-      res.status(400).json({ message: "invalid token" });
-    } else {
-      const user = await User.findById(decoded._id);
-
-      if (!user) {
-        res.status(404).json({ message: "invalid token id" });
+      if (!decoded) {
+         res.status(400).json({ message: "invalid token" });
       } else {
-        if (user.confirmed) {
-          res.status(400).json({ message: "you already confirmed " });
-        } else {
-          await User.findOneAndUpdate({ _id: user.id }, { confirmed: true });
+         const user = await User.findById(decoded._id);
 
-          res.status(200).json({ message: " Done plz login" });
-        }
+         if (!user) {
+            res.status(404).json({ message: "invalid token id" });
+         } else {
+            if (user.confirmed) {
+               res.status(400).json({ message: "you already confirmed " });
+            } else {
+               await User.findOneAndUpdate(
+                  { _id: user.id },
+                  { confirmed: true }
+               );
+
+               res.status(200).json({ message: " Done plz login" });
+            }
+         }
       }
-    }
-  } catch (e) {
-    res.status(500).json({ message: " error confirmed", e });
-  }
+   } catch (e) {
+      res.status(500).json({ message: " error confirmed", e });
+   }
 };
 
 // --------------------------------------------refresh email
 
 const refreshEmail = async (req, res) => {
-  const { id } = req.params;
+   const { id } = req.params;
 
-  const user = await User.findOne({ id }).select("confirmEmail email");
+   const user = await User.findOne({ id }).select("confirmEmail email");
 
-  if (!user) {
-    res.status(404).json({ message: "Invalid account" });
-  } else {
-    if (user.confirmEmail) {
-      res.status(400).json({ message: "Already confirmed" });
-    } else {
-      const token = jwt.sign({ _id: user._id }, process.env.emailToken, {
-        expiresIn: 5 * 60,
-      });
+   if (!user) {
+      res.status(404).json({ message: "Invalid account" });
+   } else {
+      if (user.confirmEmail) {
+         res.status(400).json({ message: "Already confirmed" });
+      } else {
+         const token = jwt.sign({ _id: user._id }, process.env.emailToken, {
+            expiresIn: 5 * 60,
+         });
 
-      const link = `${req.protocol}://${req.headers.host}/user/confirmEmail/${token}  `;
-      const link2 = `${req.protocol}://${req.headers.host}/user/refreshEmail/${user._id}  `;
-      const message = `<a href=${link}>plz confirm your email </a> <br> <a href=${link2}>resend confirmintion email </a>`;
+         const link = `${req.protocol}://${req.headers.host}/user/confirmEmail/${token}  `;
+         const link2 = `${req.protocol}://${req.headers.host}/user/refreshEmail/${user._id}  `;
+         const message = `<a href=${link}>plz confirm your email </a> <br> <a href=${link2}>resend confirmintion email </a>`;
 
-      sendEmail(user.email, message);
-      await User.findByIdAndUpdate({ _id: user.id });
+         sendEmail(user.email, message);
+         await User.findByIdAndUpdate({ _id: user.id });
 
-      res.status(400).json({ message: "done check u email" });
-    }
-  }
+         res.status(400).json({ message: "done check u email" });
+      }
+   }
 };
 
 //-----------------------------------------------------sening code
 
 const sendCode = async (req, res) => {
-  const { email } = req.body;
+   const { email } = req.body;
 
-  const user = await User.findOne({ email });
-  if (!user) {
-    res.status(404).json({ message: "in-valid email" });
-  } else {
-    const code = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000);
-    const message = `your code is ${code}`;
+   const user = await User.findOne({ email });
+   if (!user) {
+      res.status(404).json({ message: "in-valid email" });
+   } else {
+      const code = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000);
+      const message = `your code is ${code}`;
 
-    await User.findByIdAndUpdate({ _id: user._id }, { code });
-    sendEmail(email, message);
+      await User.findByIdAndUpdate({ _id: user._id }, { code });
+      sendEmail(email, message);
 
-    res.status(200).json({ message: "done", code });
-  }
+      res.status(200).json({ message: "done", code });
+   }
 };
 
 //---------------------------------------------------------forget password
 const forgetPassword = async (req, res) => {
-  const { email, newpassword, code } = req.body;
+   const { email, newpassword, code } = req.body;
 
-  const user = await User.findOne({ email });
-  if (!user) {
-    res.status(404).json({ message: "in-valid email" });
-  } else {
-    if (user.code != code) {
-      res.status(404).json({ message: "invalid code" });
-    } else {
-      const hashPassword = await bcrypt.hash(
-        newpassword,
-        parseInt(process.env.saltRounds)
-      );
+   const user = await User.findOne({ email });
+   if (!user) {
+      res.status(404).json({ message: "in-valid email" });
+   } else {
+      if (user.code != code) {
+         res.status(404).json({ message: "invalid code" });
+      } else {
+         const hashPassword = await bcrypt.hash(
+            newpassword,
+            parseInt(process.env.saltRounds)
+         );
 
-      await User.findByIdAndUpdate(
-        { _id: user._id },
-        { password: hashPassword, code: " " }
-      );
-      res.json({ message: "done" });
-    }
-  }
+         await User.findByIdAndUpdate(
+            { _id: user._id },
+            { password: hashPassword, code: " " }
+         );
+         res.json({ message: "done" });
+      }
+   }
 };
 
 // --------------------------------------------------------------------Update profile
 const updateProfile = async (req, res) => {
-  const { email, newpassword } = req.body;
+   const { email, newpassword } = req.body;
 
-  const user = await User.findOne({ email });
+   const user = await User.findOne({ email });
 
-  if (!user) {
-    res.status(404).json({ message: "in-valid email" });
-  } else {
-    const hashPassword = await bcrypt.hash(
-      newpassword,
-      parseInt(process.env.saltRounds)
-    );
-    const match = await bcrypt.compare(hashPassword, user.password);
-    // console.log(match);
-    // console.log(user.password);
-    // console.log(hashPassword);
-    if (!match) {
-      const code = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000);
-
-      await userModel.findByIdAndUpdate(
-        { _id: user._id },
-        { email, password: hashPassword }
+   if (!user) {
+      res.status(404).json({ message: "in-valid email" });
+   } else {
+      const hashPassword = await bcrypt.hash(
+         newpassword,
+         parseInt(process.env.saltRounds)
       );
+      const match = await bcrypt.compare(hashPassword, user.password);
+      // console.log(match);
+      // console.log(user.password);
+      // console.log(hashPassword);
+      if (!match) {
+         const code = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000);
 
-      sendEmail(
-        user.email,
-        `<P>use this code to update u passowrd ${code} </p>`
-      );
-      res.status(200).json({ message: "done", code });
-    } else {
-      res.status(404).json({ message: "sorry same password" });
-    }
-  }
+         await userModel.findByIdAndUpdate(
+            { _id: user._id },
+            { email, password: hashPassword }
+         );
+
+         sendEmail(
+            user.email,
+            `<P>use this code to update u passowrd ${code} </p>`
+         );
+         res.status(200).json({ message: "done", code });
+      } else {
+         res.status(404).json({ message: "sorry same password" });
+      }
+   }
 };
 //---------------------------------------------------------user avatar
 
 const addProfileAvatar = async (req, res) => {
-  try {
-    req.user.avatar = req.file.buffer;
-    await req.user.save();
-    res.status(200).send("image uploaded");
-  } catch (e) {
-    console.log("nnnn");
-    res.status(500).send(e.message);
-  }
+   try {
+      req.user.avatar = req.file.buffer;
+      await req.user.save();
+      res.status(200).send("image uploaded");
+   } catch (e) {
+      console.log("nnnn");
+      res.status(500).send(e.message);
+   }
 };
 
 //---------------------- delete user
 
-const deleteUser=async (req, res) => {
+const deleteUser = async (req, res) => {
+   const { _id } = req.user;
 
+   await User.findOneAndDelete({ _id: _id }, { new: true });
 
-  const {_id}=req.user
-  
-  
-  
-  await User.findOneAndDelete({_id:_id},{new:true})
-  
-  
-  res.json({message:"done"})
-  
-  
-  
-  
-  }
+   res.json({ message: "done" });
+};
 
+//--------------------------------------log out
+const logoutUser = async (req, res) => {
+   try {
+      req.user.tokens = [];
+      await req.user.save();
+      res.status(200).send("you loged out all tokens");
+   } catch (e) {
+      res.status(500).send(e);
+   }
+};
 
-  const logoutUser = async (req,res)=>{
-      try{
-          req.user.tokens = []
-          await req.user.save()
-          res.status(200).send('you loged out all tokens')
+//----------------------get all users
+const getUsersData = async (req, res) => {
+   try {
+      const user = await User.find({});
+      if (!user) {
+         throw Error("there is no user ");
       }
-      catch(e){
-          res.status(500).send(e)
-      }
-  }
+      res.status(200).send(user);
+   } catch (error) {
+      res.status(500).send(error.message);
+   }
+};
 module.exports = {
-  confirmEmail,
-  refreshEmail,
-  login,
-  sendCode,
-  forgetPassword,
-  signUp,
-  updateProfile,
-  addProfileAvatar,
-  deleteUser,
-  tokenRefresher,
-  logoutUser
+   confirmEmail,
+   refreshEmail,
+   login,
+   sendCode,
+   forgetPassword,
+   signUp,
+   updateProfile,
+   addProfileAvatar,
+   deleteUser,
+   tokenRefresher,
+   logoutUser,
+   getUsersData,
 };

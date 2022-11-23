@@ -1,25 +1,25 @@
 const express = require("express");
 const router = express.Router();
 const {
-  signUp,
-  login,
-  sendCode,
-  forgetPassword,
-  confirmEmail,
-  addProfileAvatar,
-  updateProfile,
-  refreshEmail,
-  deleteUser,
-  tokenRefresher,
-  logoutUser
+   signUp,
+   login,
+   sendCode,
+   forgetPassword,
+   confirmEmail,
+   addProfileAvatar,
+   updateProfile,
+   refreshEmail,
+   deleteUser,
+   tokenRefresher,
+   logoutUser,
+   getUsersData,
 } = require("../controller/user.controller");
 const auth = require("../middelware/auth2");
 const uploads = require("../services/multer.services");
 
+const authController = require("../controller/auth.controller");
 
-const authController = require('../controller/auth.controller');
-
-router.post('/user/authLogin', authController.handleLogin);
+router.post("/user/authLogin", authController.handleLogin);
 
 //done
 router.post("/user/signUp", signUp);
@@ -29,11 +29,19 @@ router.get("/user/confirmEmail/:token", confirmEmail);
 router.get("/user/refreshEmail/:token", refreshEmail);
 router.post("/forgetPassword", forgetPassword);
 // router.get("/user/confirmEmail/:token", confirmEmail);
-router.post('/profile/avatar',auth, uploads.single('avatar'),addProfileAvatar)
-router.patch('/user/updateProfile',auth,updateProfile)
-router.delete('/user/deleteUser',auth,deleteUser)
+router.post(
+   "/profile/avatar",
+   auth,
+   uploads.single("avatar"),
+   addProfileAvatar
+);
+router.patch("/user/updateProfile", updateProfile);
+// router.patch("/user/updateProfile", auth, updateProfile);
+router.delete("/user/deleteUser", auth, deleteUser);
 router.get("/user/refreshToken", tokenRefresher);
-router.delete('/user/logout',auth,logoutUser)
-
+router.delete("/user/logout", auth, logoutUser);
+// get users data
+router.get("/user/getallusers", getUsersData);
+router.get("/user/getuser/:id", getUsersData);
 
 module.exports = router;
