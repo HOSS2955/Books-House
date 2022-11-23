@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { LoadingButton as _LoadingButton } from "@mui/lab";
 import { toast } from "react-toastify";
-import { useVerifyEmailMutation } from "../../../../services/authApi";
+import { useVerifyEmailMutation } from "../../../../features/authApiSlice";
 
 const LoadingButton = styled(_LoadingButton)`
   padding: 0.6rem 0;

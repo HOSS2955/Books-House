@@ -10,7 +10,7 @@ import validator from "validator";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useVerifyEmailMutation } from "../../../../services/authApi";
+import { useVerifyEmailMutation } from "../../../../features/authApiSlice";
 
 export default function VerifyPass() {
   //The state of the error message

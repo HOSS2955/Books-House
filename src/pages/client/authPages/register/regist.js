@@ -15,7 +15,7 @@ import { LoadingButton as _LoadingButton } from "@mui/lab";
 
 import { useDispatch } from "react-redux";
 import ProtectedComponent from "../../../../features/ProtectedComponent";
-import { useRegisterUserMutation } from "../../../../services/authApi";
+import { useRegisterUserMutation } from "../../../../features/authApiSlice";
 import { toast } from "react-toastify";
 import "./Register.css";
 
@@ -41,13 +41,7 @@ const LinkItem = styled(Link)`
 `;
 
 const registerSchema = object({
-  fullName: string()
-    .min(4, "Full name is required")
-    .max(30, "Try shorter name!")
-    .regex(
-      new RegExp("([A-ZÀ-ÿ][-,a-z. ']+[ ]*)"),
-      "Please enter a valid name!"
-    ),
+  name: string().min(4, "Full name is required").max(30, "Try shorter name!"),
   phone: string()
     .min(1, "Phone number is required")
     .min(8, "Please Enter a valid phone number!"),
@@ -89,6 +83,7 @@ const RegisterPage = () => {
   // ? Calling the Register Mutation
   const [registerUser, { isLoading, isSuccess, error, isError }] =
     useRegisterUserMutation();
+    
 
   const navigate = useNavigate();
 
@@ -119,7 +114,7 @@ const RegisterPage = () => {
       //     position: "top-right",
       //   });
       // }
-      toast.error(error.data.message, {
+      toast.error(error?.data, {
         position: "top-right",
       });
     }
@@ -154,15 +149,15 @@ const RegisterPage = () => {
                     <FaUserAlt />
                   </InputGroup.Text>
                   <Form.Control
-                    name="fullName"
-                    {...register("fullName")}
-                    aria-label="Full Name Input"
-                    placeholder="Full Name (first & last)"
+                    name="name"
+                    {...register("name")}
+                    aria-label="Name Input"
+                    placeholder="Name"
                   />
                 </InputGroup>
-                {errors.fullName && (
+                {errors.name && (
                   <Form.Text className="text-danger">
-                    {errors.fullName.message}
+                    {errors.name.message}
                   </Form.Text>
                 )}
               </Form.Group>
