@@ -27,6 +27,7 @@ const bookSchema = new mongoose.Schema(
       },
       bookDesc: {
          type: String,
+         required: true,
       },
       price: {
          type: Number,

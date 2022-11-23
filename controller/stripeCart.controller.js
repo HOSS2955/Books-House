@@ -54,7 +54,7 @@ const postStripeCart = async (req, res) => {
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     shipping_address_collection: {
-      allowed_countries: ["US", "CA", "KE"],
+      allowed_countries: ["US", "CA", "KE", "EG"],
     },
     shipping_options: [
       {
@@ -120,17 +120,21 @@ const createOrder = async (customer, data) => {
   const products = Items.map((item) => {
     return {
       productId: item.id,
+      imageSource: item.imageSource,
+      title: item.title,
       quantity: item.cartQuantity,
     };
   });
 
   const newOrder = new Order({
+    customerEmail: customer.email,
+    customerPhone: customer.phone,
     customerId: data.customer,
     paymentIntentId: data.id,
     products,
-    subtotal: data.amount,
-    total: data.amount_received,
-    shipping: data.customer,
+    subtotal: data.amount / 100,
+    total: data.amount_received / 100,
+    shipping: data.shipping,
     payment_status: data.status,
   });
 
@@ -143,7 +147,6 @@ const createOrder = async (customer, data) => {
 };
 
 const postWebHook = async (req, res) => {
-  console.log(req.body);
   console.log("insied web hook cart");
 
   let data;
@@ -151,7 +154,7 @@ const postWebHook = async (req, res) => {
   try {
     data = req.body.data.object;
     eventType = req.body.type;
-    console.log(data, eventType);
+
     if (eventType === "payment_intent.succeeded") {
       stripe.customers
         .retrieve(data.customer)

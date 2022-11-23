@@ -23,9 +23,11 @@ const package = require("./routers/package");
 const stripeCart = require("./routers/stripeCart");
 const stripeRouter = require("./routers/stripeRouter");
 const bookReviewRoute = require("./routers/bookreview");
-app.use(author);
+const stripeData = require("./routers/stripeData");
 
+app.use(author);
 app.use(book);
+app.use(stripeData);
 app.use(admin);
 app.use(home);
 app.use(user);
@@ -39,5 +41,5 @@ app.use(stripeRouter);
 app.use(express.static(path.join(__dirname, "uploadsImgs")));
 
 app.listen(port, () => {
-  console.log("Server is running " + port);
+   console.log("Server is running " + port);
 });
