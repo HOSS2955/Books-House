@@ -49,7 +49,7 @@ const NavBar = ({ showModal }) => {
   }, [cart, dispatch]);
   const navigate = useNavigate();
   const clickCart = () => {
-    navigate("/cart2");
+    navigate("/cart");
   };
   // Check if the user is Authorized
   const user = useSelector((state) => state.userState.user);
