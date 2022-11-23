@@ -89,4 +89,13 @@ module.exports = function (app) {
          changeOrigin: true,
       })
    );
+
+   // --------------------GET ALL USERS------------------------
+   app.use(
+      "/user/getallusers",
+      createProxyMiddleware({
+         target: "http://localhost:3001",
+         changeOrigin: true,
+      })
+   );
 };

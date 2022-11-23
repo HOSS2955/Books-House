@@ -17,6 +17,7 @@ import { adminAuthApi } from "../../services/adminAuthApi";
 import { bookReviewReducer } from "./reducers/bookReviewSlice";
 import { stripePackagesReducer } from "./reducers/stripePackagesSlice";
 import { stripeOrdersReducer } from "./reducers/stripeOrdersSlice";
+import { userDataReducer } from "./reducers/userDataSlice";
 export const clientStore = configureStore({
    reducer: {
       books: booksReducer,
@@ -38,6 +39,7 @@ export const clientStore = configureStore({
       //  auth: authReducer,
       //  [authApi.reducerPath]: authApi.reducer,
       bookReviews: bookReviewReducer,
+      userData: userDataReducer,
    },
    middleware: (gDM) =>
       gDM().concat(
