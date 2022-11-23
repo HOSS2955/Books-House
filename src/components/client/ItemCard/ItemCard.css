@@ -12,7 +12,7 @@
    overflow: hidden;
 }
 .imgparentt img {
-   height: 40vh;
+   height: 50vh;
    width: 100%;
    /* object-fit: contain; */
 }
@@ -49,4 +49,11 @@
 
 .itemBtns:hover {
    background-color: var(--secondary);
+}
+.authorName {
+   color: var(--secondary);
+   /* cursor: pointer; */
+}
+.authorName:hover {
+   text-decoration: underline;
 }

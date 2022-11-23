@@ -30,25 +30,38 @@ export default function StripePackages() {
       },
       {
          field: "authorData.firstName",
-         headerName: "First Name",
+         headerName: "Name",
          flex: 1,
-         // cellClassName: "name-column--cell",
+         cellClassName: "name-column--cell",
          valueGetter: (params) => {
-            return params.row.authorData.firstName;
+            return (
+               params.row.authorData.firstName +
+               " " +
+               params.row.authorData.lastName
+            );
          },
       },
-      {
-         field: "authorData.lastName",
-         headerName: "Last Name",
-         flex: 1,
-         valueGetter: (params) => {
-            return params.row.authorData.lastName;
-         },
-      },
+      // {
+      //    field: "authorData.firstName",
+      //    headerName: "First Name",
+      //    flex: 1,
+      //    // cellClassName: "name-column--cell",
+      //    valueGetter: (params) => {
+      //       return params.row.authorData.firstName;
+      //    },
+      // },
+      // {
+      //    field: "authorData.lastName",
+      //    headerName: "Last Name",
+      //    flex: 1,
+      //    valueGetter: (params) => {
+      //       return params.row.authorData.lastName;
+      //    },
+      // },
       {
          field: "authorData.authorEmail",
          headerName: "Email",
-         flex: 1,
+         flex: 1.4,
          valueGetter: (params) => {
             return params.row.authorData.authorEmail;
          },

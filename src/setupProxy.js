@@ -98,4 +98,12 @@ module.exports = function (app) {
          changeOrigin: true,
       })
    );
+   // --------------------GET USER------------------------
+   app.use(
+      "/user/getuser/:id",
+      createProxyMiddleware({
+         target: "http://localhost:3001",
+         changeOrigin: true,
+      })
+   );
 };
