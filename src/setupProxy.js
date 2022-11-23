@@ -89,4 +89,23 @@ module.exports = function (app) {
          changeOrigin: true,
       })
    );
+   homePage
+   app.use(
+      "/homeData/home",
+      createProxyMiddleware({
+         target: "http://localhost:3001",
+         changeOrigin: true,
+      })
+   )
+
+   // Packages
+   // app.use(
+   //    "/homeData/home",
+   //    createProxyMiddleware({
+   //       target: "http://localhost:3001",
+   //       changeOrigin: true,
+   //    })
+   // )
+
+   
 };

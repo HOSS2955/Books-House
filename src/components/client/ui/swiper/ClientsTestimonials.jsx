@@ -10,7 +10,7 @@ import "swiper/css/bundle";
 
 export default function ClientsTestmonialsSwiper({clientsTestimonialsArray}) {
 
-  
+  console.log(clientsTestimonialsArray)
   
   // const feedbacksList = "s";
   return (

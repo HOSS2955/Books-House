@@ -9,6 +9,8 @@ import { IoBagHandleOutline } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../store/client/reducers/cartSlice";
 import { useNavigate } from "react-router-dom";
+import { gridColumnsTotalWidthSelector } from "@mui/x-data-grid";
+import { getBook } from "../../../store/client/reducers/bookSlice";
 
 const container = {
   hidden: { opacity: 0 },
@@ -41,7 +43,8 @@ export default function ItemCard({ book }) {
   const dispatch = useDispatch();
 
   const detailsOfBook = () => {
-    navigate(`bookdetails/${book.id}`);
+    dispatch(getBook(book))
+    navigate(`${book._id}`);
   };
   const handleAddToCart = (item) => {
     dispatch(addToCart(item));
@@ -103,7 +106,7 @@ export default function ItemCard({ book }) {
       </motion.div>
       <div className="textitem mt-3">
         <div className="text-center mb-1">
-          <a className=" textlink   fw-bolder textitem" href="#">
+          <a className=" textlink   fw-bolder textitem" href="#" onClick={detailsOfBook}>
             {book.title}
           </a>
         </div>

@@ -1,13 +1,21 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import "../../assets/css/BookDetails.css";
-import { addToCart, decreaseCart } from "../../store/client/reducers/cartSlice";
+import "../../../assets/css/BookDetails.css";
+import CommentSection from "../../../components/client/comments/CommentSection";
+import { getBook , getBooks } from "../../../store/client/reducers/bookSlice";
+import { addToCart, decreaseCart } from "../../../store/client/reducers/cartSlice";
+
 
 export default function BookDetails() {
   const { id } = useParams();
-  const { books } = useSelector((state) => state.books);
-  const book = books[id - 1];
+  const {books} = useSelector((state) => state.books);
+  const book = useSelector((state)=>state.books.bookDetails);
+   console.log(book)
+
+
+
+  // console.log(id)
 
   const cart = useSelector((state) => state.cart);
   const cartItem = cart.cartItems;
@@ -19,6 +27,15 @@ export default function BookDetails() {
   const handleDecreaseCart = (product) => {
     dispatch(decreaseCart(product));
   };
+
+
+  useEffect(() => {
+    dispatch(getBooks());
+    dispatch(getBook());
+     
+ }, [dispatch , book]);
+ 
+
   // const quantity = () => {
   //   const find = cartItem.find((el) => {
   //     return el.id === book.id;
@@ -34,7 +51,7 @@ export default function BookDetails() {
 
   const quantity = () => {
     const find = cartItem.find((el) => {
-      return el.id === book.id;
+      return el.id === book?.id;
     });
     if (find) {
       return find.cartQuantity;
@@ -43,19 +60,32 @@ export default function BookDetails() {
     }
   };
 
+
+
+  // const filteredBooks = books.filter((item)=>{
+    // return item._id === id})
+  //  }).then(()=> { console.log(filteredBooks) ; const book = filteredBooks[0]; return book})
+  //  console.log(filteredBooks)
+
+
+
+
+
+
   useEffect(() => {}, [cart]);
   return (
+    <div className="container">
     <div className="border border-1 mx-5 rounded">
       <div className="row p-5">
         <div className="col-5">
-          <img src={book.imageSrc} className="col-12 imgs" alt="" />
+          <img src={book?.imageSource} className="col-12 imgs" alt="" />
         </div>
         <div className="col-6 p-5">
           <div className="row">
-            <h2 className="fw-bolder text-capitalize ">{book.title}</h2>
-            <p className="mb-5 text-secondary">By {book.author}</p>
-            <h3 className="fw-bold mb-5">${book.price}</h3>
-            <p>Description : {book.desc}</p>
+            <h2 className="fw-bolder text-capitalize ">{book?.title}</h2>
+            <p className="mb-5 text-secondary">By {book?.author}</p>
+            <h3 className="fw-bold mb-5">${book?.price}</h3>
+            <p>Description : {book?.desc}</p>
           </div>
           <div className="row m-3">
             <button
@@ -74,6 +104,8 @@ export default function BookDetails() {
           </div>
         </div>
       </div>
+    </div>
+    <CommentSection book={book}/>
     </div>
   );
 }

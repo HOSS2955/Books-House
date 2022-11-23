@@ -10,7 +10,7 @@ import Home from "./pages/client/Home";
 import BooksShop from "./pages/client/BookShop/index";
 import Service from "./pages/client/Service/Service";
 import AuthorsHouse from "./pages/client/AuthorsHouse";
-import BookDetails from "./pages/client/BookDetails";
+import BookDetails from "./pages/client/BookShop/BookDetails";
 import WishlistSideBar from "./pages/client/WishlistSideBar";
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
@@ -38,7 +38,11 @@ import AlreadyUser from "./components/AlreadyUser";
 import Completion from "./components/client/ui/Completion/Completion";
 import Login2 from "./pages/client/authPages/login/log";
 import ErrorNotFound from "./pages/client/errorNotFound";
-import RegisterPage from "./pages/client/authPages/register/Register";
+import RegisterPage from "./pages/client/authPages/register/regist";
+import VerificationOtp from "./pages/client/authPages/verification/verify";
+import FargotPass from "./pages/client/authPages/forget-pass/ForgetPass";
+import CommentSection from "./components/client/comments/CommentSection";
+// import VerifyPass from "./pages/client/authPages/passwordPage/VerifyPass";
 function App() {
    const [showWishlist, setShowWishlist] = useState(false);
    const hideModal = () => {
@@ -69,13 +73,21 @@ function App() {
                >
                   <Route path="/cart" element={<Cart />} />
                </Route>
-               <Route path="/bookdetails/:id" element={<BookDetails />} />
+
+                  <Route path="forgetMyPassword" element={<VerificationOtp/>}/>
+                  <Route path ="forgotPass" element = {<FargotPass/>}/>
+                  <Route path="comments" element={<CommentSection/>}/>
+                  
+
+              
                <Route path="/@admin" element={<LoginAdmin />} />
                <Route path="/about" element={<About />} />
                <Route path="/service" element={<Service />} />
                <Route path="/contactus" element={<Contactus />} />
                <Route path="/profile/settings" element={<MyProfile />} />
-               <Route path="/booksshop" element={<BooksShop />} />
+               <Route path="/booksshop" element={<BooksShop />}></Route>
+               
+               <Route path="booksshop/:id" element={<BookDetails />} />
                <Route path="/authorshouse" element={<AuthorsHouse />} />
                <Route path="/unauthorized" element={<UnauthorizePage />} />
                <Route path="/reviews" element={<Reviews />} />

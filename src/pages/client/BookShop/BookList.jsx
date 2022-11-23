@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ItemCard from "../../../components/client/ItemCard/ItemCard";
 import NoProducts from "../../../components/client/ui/NoProducts/NoProducts";
 import Pagination from "../../../components/client/ui/Pagination/Pagination";
-import { getBooks } from "../../../store/client/reducers/bookSlice";
+import { getBooks , getBook } from "../../../store/client/reducers/bookSlice";
 
 export default function BookList() {
    const dispatch = useDispatch();
@@ -15,12 +15,18 @@ export default function BookList() {
       bookStoreCategory,
       maxPriceFilter,
       minPriceFilter,
-      bookStoreType,
+      bookStoreType
    } = useSelector((state) => state.books);
 
    useEffect(() => {
       dispatch(getBooks());
    }, [dispatch]);
+
+   
+
+
+
+
 
    const [search, setSearch] = useState("");
    const [isNoProducts, setIsNoProducts] = useState(false);
@@ -76,7 +82,7 @@ export default function BookList() {
                            key={index}
                            className=" col-md-6 col-lg-4 mb-3"
                         >
-                           <ItemCard key={index} book={book} />
+                           <ItemCard book={book}/>
                         </motion.div>
                      );
                   })}

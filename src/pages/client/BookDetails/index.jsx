@@ -1,5 +1,6 @@
 import React from "react";
 import BreadCrumb from "../../../components/client/ui/Breadcrump/BreadCrumb";
+import CommentSection from "../../../components/client/comments/CommentSection";
 
 export default function BookDetails() {
    return (
@@ -28,6 +29,8 @@ export default function BookDetails() {
                   </div>
                </div>
             </div>
+            
+          <CommentSection/>
          </div>
       </div>
    );

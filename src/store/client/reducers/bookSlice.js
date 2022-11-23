@@ -4,6 +4,7 @@ import axios from "axios";
 const initialState = {
    books: [],
    bookDetails: null,
+   bookComments:[],
    bookCart: [],
    isLoadind: false,
    editBook: false,
@@ -39,6 +40,36 @@ export const addBook = createAsyncThunk(
       }
    }
 );
+
+
+// export const commentBook = createAsyncThunk(
+//    "book/comment",
+//    async(value , id, thunckAPI) => {
+//       const { rejectWithValue } = thunckAPI;
+//       try{
+//          const { data } = await axios.post(`/book/${id}/commentBook`, { value });
+//       console.log("Data from reducer" , data)
+//       return data.comments;
+
+//       } catch (error) {
+//          return rejectWithValue(error.message);
+//       }
+//    }
+// )
+
+
+// export const addComment = createAsyncThunk(
+//    "books/addComment",
+//    async (book, thunckAPI) => {
+//       const { rejectWithValue } = thunckAPI;
+//       try {
+//          const res = await axios.patch(`/books/${id}/commentBook`, book._id);
+//          return res.data;
+//       } catch (error) {
+//          return rejectWithValue(error.message);
+//       }
+//    }
+// );
 
 export const deleteBook = createAsyncThunk(
    "books/deleteBook",
@@ -120,6 +151,12 @@ const booksSlice = createSlice({
       [deleteBook.fulfilled]: (state, action) => {
          state.books = action.payload;
       },
+      [getBook.fulfilled]: (state , action)=>{
+         state.bookDetails = action.payload
+      },
+      // [commentBook.fulfilled]:(state , action)=>{
+      //    state.bookDetails = action.payload
+      // }
    },
 });
 

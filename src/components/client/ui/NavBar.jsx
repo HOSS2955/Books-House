@@ -80,13 +80,13 @@ const NavBar = ({ showModal }) => {
   // });
   return (
     <motion.div
-      // initial={{ opacity: 0, y: -180 }}
-      // animate={{ opacity: 1, y: 0 }}
-      // transition={{
-      //    ease: "easeInOut",
-      //    duration: 1,
-      //    delay: 0.2,
-      // }}
+      initial={{ opacity: 0, y: -180 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+         ease: "easeInOut",
+         duration: 1,
+         delay: 0.2,
+      }}
       className="fixed-top"
       ref={headerRef}
     >
@@ -130,10 +130,10 @@ const NavBar = ({ showModal }) => {
                     <FiHeart />
                     <span className="__badge">1</span>
                   </span>
-                  <span className="cart__icon">
+                  <Link to="cart"><span className="cart__icon">
                     <BsBag />
                     <span className="__badge">1</span>
-                  </span>
+                  </span></Link>
                   <span>
                   <Dropdown>
                   <Dropdown.Toggle variant="transparent" id="dropdown-basic" className="dropDown__Toggle">
@@ -146,22 +146,22 @@ const NavBar = ({ showModal }) => {
 
                   {role==="admin" ? (<Dropdown.Menu>
                   
-                  <Link to="/auth/login">
+                  <Link to="/admin">
                     <Dropdown.Item href="#/action-1">Dash board</Dropdown.Item>
                   </Link>
-                  <Link to="/auth/register">
+                  <Link to="/password">
                     <Dropdown.Item href="#/action-2">Change password</Dropdown.Item>
                   </Link>
-                  <Link to="/auth/register">
+                  <Link to="/">
                     <Dropdown.Item href="#/action-3">Log out</Dropdown.Item>
                   </Link>
                 </Dropdown.Menu>) : 
                 (<Dropdown.Menu>
                   
-                  <Link to="/auth/login">
+                  <Link to="/profile/settings">
                     <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
                   </Link>
-                  <Link to="/auth/register">
+                  <Link to="/">
                     <Dropdown.Item href="#/action-2">Log out</Dropdown.Item>
                   </Link>
                 </Dropdown.Menu>)}
@@ -207,10 +207,10 @@ const NavBar = ({ showModal }) => {
                   <FiHeart />
                   <span className="__badge">1</span>
                 </span>
-                <span className="cart__icon">
+                <Link to="cart"><span className="cart__icon">
                   <BsBag />
                   <span className="__badge">1</span>
-                </span>
+                </span></Link>
                 <span>
                 <Dropdown>
                   <Dropdown.Toggle variant="transparent" id="dropdown-basic" className="dropDown__Toggle">
@@ -223,22 +223,22 @@ const NavBar = ({ showModal }) => {
 
                   {role==="admin" ? (<Dropdown.Menu>
                   
-                  <Link to="/auth/login">
+                  <Link to="/admin">
                     <Dropdown.Item href="#/action-1">Dash board</Dropdown.Item>
                   </Link>
-                  <Link to="/auth/register">
+                  <Link to="/password">
                     <Dropdown.Item href="#/action-2">Change password</Dropdown.Item>
                   </Link>
-                  <Link to="/auth/register">
+                  <Link to="/">
                     <Dropdown.Item href="#/action-3">Log out</Dropdown.Item>
                   </Link>
                 </Dropdown.Menu>) : 
                 (<Dropdown.Menu>
                   
-                  <Link to="/auth/login">
+                  <Link to="/profile/settings">
                     <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
                   </Link>
-                  <Link to="/auth/register">
+                  <Link to="/">
                     <Dropdown.Item href="#/action-2">Log out</Dropdown.Item>
                   </Link>
                 </Dropdown.Menu>)}
@@ -261,8 +261,8 @@ const NavBar = ({ showModal }) => {
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                   <Nav className="justify-content-end flex-grow-1 pe-3">
-                    {nav__links.map((item, index) => (
-                      <li className="nav__item mt-4" key={index} onClick={() => setToggle(false)}>
+                    {nav__links.map((item, i) => (
+                      <li className="nav__item mt-4" key={i} onClick={() => setToggle(false)}>
                         <NavLink
                           to={item.path}
                           className={(navClass) =>
