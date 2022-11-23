@@ -8,7 +8,7 @@ const time = {
 const stripeSchema = new mongoose.Schema(
   {
     package: {
-      id: { type: Number, required: true },
+      id: { type: String, required: true },
       name: {
         type: String,
         required: true,
