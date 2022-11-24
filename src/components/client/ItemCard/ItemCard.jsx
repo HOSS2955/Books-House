@@ -41,8 +41,12 @@ const item = {
 };
 
 export default function ItemCard({ book }) {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+   const user = useSelector((state) => state.userState.user);
+   const role = useSelector((state) => state.userState.role);
+   const token = useSelector((state) => state.userState.token);
+
+   const navigate = useNavigate();
+   const dispatch = useDispatch();
 
   const detailsOfBook = () => {
     navigate(`/bookdetails/${book._id}`);
@@ -86,57 +90,57 @@ export default function ItemCard({ book }) {
       >
         <img src={book.imageSource} alt="" className="col-12" />
 
-        {showbtns && (
-          <motion.div
-            variants={container}
-            initial="hidden"
-            animate="show"
-            exit="exit"
-            className="btnsCont d-flex justify-content-center align-items-center"
-          >
-            <motion.button
-              className="itemBtns btn btn-light mx-1 rounded-5"
-              type="submit"
-              variants={item}
-              onClick={detailPage}
-            >
-              <AiOutlinePlus />
-            </motion.button>
-            <motion.button
-              className="itemBtns btn btn-light mx-1 text-bold rounded-5"
-              type="submit"
-              variants={item}
-              onClick={() => handleAddToCart(book)}
-            >
-              <IoBagHandleOutline />
-            </motion.button>
-            <motion.button
-              className="itemBtns btn btn-light mx-1 rounded-5"
-              type="submit"
-              variants={item}
-              onClick={addToWishlist}
-            >
-              {wishlistIcon ? <AiFillHeart /> : <AiOutlineHeart />}
-            </motion.button>
-          </motion.div>
-        )}
-        <div className="blackBG"></div>
+            {showbtns && user && token && role && (
+               <motion.div
+                  variants={container}
+                  initial="hidden"
+                  animate="show"
+                  exit="exit"
+                  className="btnsCont d-flex justify-content-center align-items-center"
+               >
+                  <motion.button
+                     className="itemBtns btn btn-light mx-1 rounded-5"
+                     type="submit"
+                     variants={item}
+                     onClick={detailPage}
+                  >
+                     <AiOutlinePlus />
+                  </motion.button>
+                  <motion.button
+                     className="itemBtns btn btn-light mx-1 text-bold rounded-5"
+                     type="submit"
+                     variants={item}
+                     onClick={() => handleAddToCart(book)}
+                  >
+                     <IoBagHandleOutline />
+                  </motion.button>
+                  <motion.button
+                     className="itemBtns btn btn-light mx-1 rounded-5"
+                     type="submit"
+                     variants={item}
+                     onClick={addToWishlist}
+                  >
+                    {wishlistIcon ? <AiFillHeart /> : <AiOutlineHeart />}
+                  </motion.button>
+               </motion.div>
+            )}
+            <div className="blackBG"></div>
+         </motion.div>
+         <div className="textitem mt-3">
+            <div className="">
+               <a
+                  onClick={detailsOfBook}
+                  className=" textlink fw-bold textitem"
+                  href="#"
+               >
+                  {book.title}
+               </a>
+            </div>
+            <span className="textitem mb-1">
+               By <a className="authorName">{book.author}</a>{" "}
+            </span>
+            <p className="textitem ">${book.price}.00</p>
+         </div>
       </motion.div>
-      <div className="textitem mt-3">
-        <div className="">
-          <a
-            onClick={detailsOfBook}
-            className=" textlink fw-bold textitem"
-            href="#"
-          >
-            {book.title}
-          </a>
-        </div>
-        <span className="textitem mb-1">
-          By <a className="authorName">{book.author}</a>{" "}
-        </span>
-        <p className="textitem ">${book.price}.00</p>
-      </div>
-    </motion.div>
-  );
+   );
 }
