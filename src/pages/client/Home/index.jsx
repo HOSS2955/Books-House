@@ -18,9 +18,8 @@ export default function Home() {
       (state) => state.homepage
    );
    useEffect(() => {
-      // console.log("welcome" ,data);
-      if (data) {
-         // console.log("mirna" , data)
+      console.log(data);
+      if (data) { 
          dispatch(setDataInLocalState(data));
          // console.log("hello" , data);
       }

@@ -118,7 +118,6 @@ const NavBar = ({ showModal }) => {
                   </Link>
                 </div>
               </div>
-
               <div className="navigation">
                 <ul className="menu">
                   {nav__links.map((item, index) => (

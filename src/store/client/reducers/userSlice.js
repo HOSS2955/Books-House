@@ -12,16 +12,17 @@ export const userSlice = createSlice({
   reducers: {
     logoutInState: () => initialState,
     setUserInState: (state, { payload }) => {
-      console.log(payload);
-      state.user = payload.user;
-      state.token = payload.token;
-      state.role = payload.allowedRole;
+      const { allowedRole, user, token } = payload;
+      state.user = user;
+      state.token = token;
+      state.role = allowedRole;
     },
   },
 });
 
 export default userSlice.reducer;
 
-export const selectCurrentUser = (state) => state.userSlice;
+export const selectCurrentUser = (state) => state.userSlice.user;
+export const selectCurrentToken = (state) => state.userSlice.token;
 
 export const { logoutInState, setUserInState } = userSlice.actions;

@@ -10,7 +10,6 @@ export const userApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${BASE_URL}/api/validate/`,
   }),
-  
   tagTypes: ["User"],
   endpoints: (builder) => ({
     getMe: builder.query({
