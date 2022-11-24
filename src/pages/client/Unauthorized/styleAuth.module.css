@@ -12,7 +12,7 @@ body {
   background: linear-gradient(to bottom right, #eee, #aaa);
 } */
 
-h1 {
+h1.restrictid__Access {
   margin: 40px 0 20px;
 }
 
