@@ -8,7 +8,8 @@ import { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LoadingButton as _LoadingButton } from "@mui/lab";
 import { toast } from "react-toastify";
-import { useLoginUserMutation } from "../../../../services/authApi";
+import { useLoginUserMutation } from "../../../../features/authApiSlice";
+;
 
 const LoadingButton = styled(_LoadingButton)`
   padding: 0.6rem 0;

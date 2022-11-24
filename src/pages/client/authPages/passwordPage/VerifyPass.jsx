@@ -2,6 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { FaLock } from "react-icons/fa";
+import { object, string, TypeOf } from "zod";
+
+import { LoadingButton as _LoadingButton } from "@mui/lab";
 import { GoEye } from "react-icons/go";
 import { BsEyeSlash } from "react-icons/bs";
 import "./PasswordPage.css";
@@ -11,18 +14,31 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useVerifyEmailMutation } from "../../../../services/authApi";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { styled } from "@mui/material/styles";
+
+
+
+
+const LoadingButton = styled(_LoadingButton)`
+padding: 0.6rem 0;
+background-color: #212529;
+color: #fff;
+font-weight: 500;
+border-radius: 50px;
+
+&:hover {
+  background-color: #000000;
+  transform: translateY(-1px);
+}
+`;
 
 export default function VerifyPass() {
   //The state of the error message
-  const [equalPass, setEqualPass] = useState(false);
-  const [showPass, setShowPass] = useState(false);
-  const [displayPassErrMsg, setDisplayPassErrMsg] = useState("");
-  const [displayRePassErrMsg, setDisplayRePassErrMsg] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
   const navigate = useNavigate();
 
-  const [verifyEmail, { isLoading, isError, error, isSuccess, data }] =
-    useVerifyEmailMutation();
   const myArr = [new Array(6).fill("")];
   const [otp, setOtp] = useState(...myArr);
   const handleChange = (element, index) => {
@@ -32,83 +48,168 @@ export default function VerifyPass() {
       element.nextSibling.focus();
     }
   };
+  // const validOTPLength = (num)=>{num.join("").length == 6;} 
 
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success(data?.message, {
-        position: "top-right",
-      });
-      navigate("/auth/login");
-    }
-    if (isError) {
-      if (Array.isArray(error.data)) {
-        error.data.error.forEach((el) =>
-          toast.error(el.message, {
-            position: "top-right",
-          })
-        );
-      } else {
-        toast.error(error.data.message, {
-          position: "top-right",
-        });
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
-  const validOTPLength = otp.join("").length == 6;
-  useEffect(() => {
-    if (validOTPLength && repassRef && equalValues) {
-      setEqualPass(true);
-      setIsDisabled(false);
-    } else {
-      setEqualPass(false);
-      setIsDisabled(true);
-    }
-  }, [validOTPLength]);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validOTPLength) {
-      verifyEmail(otp.join(""));
-    } else {
-      toast.error("Enter a valid OTP", {
-        position: "top-right",
-      });
-    }
-  };
-  const passRef = useRef(null);
-  const repassRef = useRef(null);
-  const equalValues = passRef?.current?.value === repassRef?.current?.value;
+  const validOTPLength =otp.join("").length == 6;
 
-  const validatePass = (event) => {
-    const value = event.target.value;
+const passwordSchema = object ({
+  password: string()
+  .regex(
+    new RegExp("(?=.*[0-9])"),
+    "Password must have at least one numeric character!"
+  )
+  .regex(
+    new RegExp("(?=.*[!@#$%^&*])"),
+    "Password must have at least one special character!"
+  )
+  .regex(
+    new RegExp("(?=.*[A-Z])"),
+    "Password must have at least one uppercase character!"
+  )
+  .regex(
+    new RegExp("(?=.*[a-z])"),
+    "Password must have at least one lowercase character!"
+  )
+  .min(1, "Password is required")
+  .min(8, "Password must be more than 8 characters")
+  .max(32, "Password must be less than 32 characters"),
+passwordConfirm: string().min(1, "Please confirm your password"),
 
-    if (validator.isStrongPassword(value)) {
-      // if the email or username is valid
-      setDisplayPassErrMsg("Strong Password ✔");
-    } else {
-      // if the email or username is invalid
-      setDisplayPassErrMsg(
-        "Password should contain at least 8 characters with 1 special 1 uppercase 1 lowercase and 1 numeric!"
-      );
-    }
-  };
-  const validateRePass = (event) => {
-    if (equalValues) {
-      setDisplayRePassErrMsg("Matched Password ✔");
-    } else {
-      setDisplayRePassErrMsg("Unmatched Passwords!");
-    }
-  };
-  const showPassword = () => {
-    setShowPass((prevState) => !prevState);
-    if (passRef.current.type === "password") {
-      passRef.current.type = "text";
-      repassRef.current.type = "text";
-    } else {
-      passRef.current.type = "password";
-      repassRef.current.type = "password";
-    }
-  };
+}).refine((data) => data.password === data.passwordConfirm, {
+path: ["passwordConfirm"],
+message: "Passwords do not match",
+
+})
+const methods = useForm({
+  reValidateMode: "onSubmit",
+  resolver: zodResolver(passwordSchema),
+});
+
+const {
+  reset,
+  handleSubmit,
+  register,
+
+  formState: { isSubmitSuccessful, errors },
+} = methods;
+
+const deletePasswords= (e) => {
+  setOtp([...otp.map((v) => "")])
+  reset();
+}
+
+useEffect(() => {
+  if (isSubmitSuccessful) {
+    reset();
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [isSubmitSuccessful]);
+
+useEffect(()=>{
+if(validOTPLength){
+  setIsDisabled(false)
+}
+else{setIsDisabled(true)}
+},[validOTPLength])
+
+const onSubmitHandler = (values) => {
+  // ? Executing the RegisterUser Mutation
+  // registerUser(values);
+  console.log({...values, otp:otp.join("")})
+  
+
+};
+
+  // const [verifyEmail, { isLoading, isError, error, isSuccess, data }] =
+  //   useVerifyEmailMutation();
+
+
+
+
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     toast.success(data?.message, {
+  //       position: "top-right",
+  //     });
+  //     navigate("/auth/login");
+  //   }
+  //   if (isError) {
+  //     if (Array.isArray(error.data)) {
+  //       error.data.error.forEach((el) =>
+  //         toast.error(el.message, {
+  //           position: "top-right",
+  //         })
+  //       );
+  //     } else {
+  //       toast.error(error.data.message, {
+  //         position: "top-right",
+  //       });
+  //     }
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isLoading]);
+  // const validOTPLength = otp.join("").length == 6;
+  // useEffect(() => {
+  //   if (validOTPLength && repassRef && equalValues) {
+  //     setEqualPass(true);
+  //     setIsDisabled(false);
+  //   } else {
+  //     setEqualPass(false);
+  //     setIsDisabled(true);
+  //   }
+  // }, [validOTPLength]);
+
+
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (validOTPLength) {
+  //     verifyEmail(otp.join(""));
+  //   } else {
+  //     toast.error("Enter a valid OTP", {
+  //       position: "top-right",
+  //     });
+  //   }
+  // };
+
+
+
+
+
+  // const passRef = useRef(null);
+  // const repassRef = useRef(null);
+  // const equalValues = passRef?.current?.value === repassRef?.current?.value;
+
+  // const validatePass = (event) => {
+  //   const value = event.target.value;
+
+  //   if (validator.isStrongPassword(value)) {
+  //     // if the email or username is valid
+  //     setDisplayPassErrMsg("Strong Password ✔");
+  //   } else {
+  //     // if the email or username is invalid
+  //     setDisplayPassErrMsg(
+  //       "Password should contain at least 8 characters with 1 special 1 uppercase 1 lowercase and 1 numeric!"
+  //     );
+  //   }
+  // };
+  // const validateRePass = (event) => {
+  //   if (equalValues) {
+  //     setDisplayRePassErrMsg("Matched Password ✔");
+  //   } else {
+  //     setDisplayRePassErrMsg("Unmatched Passwords!");
+  //   }
+  // };
+  // const showPassword = () => {
+  //   setShowPass((prevState) => !prevState);
+  //   if (passRef.current.type === "password") {
+  //     passRef.current.type = "text";
+  //     repassRef.current.type = "text";
+  //   } else {
+  //     passRef.current.type = "password";
+  //     repassRef.current.type = "password";
+  //   }
+  // };
 
   // const onDisplayErrorMsg = (e) => {
   //   console.log(e.target.value);
@@ -126,7 +227,6 @@ export default function VerifyPass() {
           <div className="auth">
             <p className="h4 my-5 text-center">Check Your Email</p>
             <div className="row">
-              <p className="h4">Enter The OTP sent to your Email.</p>
               <div className="col d-flex flex-row text-center " method="post">
                 {otp.map((data, index) => (
                   <input
@@ -143,11 +243,55 @@ export default function VerifyPass() {
               </div>
               <div className="mt-4 text-center">
                 <p>OTP Entered: {otp.join("")}</p>
-                <div className="d-flex flex-row ">
+
+
+                 {/* if the user clicked outside the input the status of the error message will appear */}
+          <FormProvider {...methods}>
+            <Form onSubmit={handleSubmit(onSubmitHandler)}>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <InputGroup className="userInput mb-2">
+                  <InputGroup.Text id="basic-addon2">
+                    <FaLock />
+                  </InputGroup.Text>
+                  <Form.Control
+                    type="password"
+                    {...register("password")}
+                    name="password"
+                    aria-label="Password Input"
+                    placeholder="Password"
+                  />
+                </InputGroup>
+                {errors.password && (
+                  <Form.Text className="text-danger">
+                    {errors.password.message}
+                  </Form.Text>
+                )}
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <InputGroup className="userInput mb-2">
+                  <InputGroup.Text id="basic-addon2">
+                    <FaLock />
+                  </InputGroup.Text>
+                  <Form.Control
+                    type="password"
+                    {...register("passwordConfirm")}
+                    name="passwordConfirm"
+                    aria-label="Confirm Password"
+                    placeholder="Confirm Password"
+                  />
+                </InputGroup>
+                {errors.passwordConfirm && (
+                  <Form.Text className="text-danger">
+                    {errors.passwordConfirm.message}
+                  </Form.Text>
+                )}
+              </Form.Group>
+              <div className="d-flex flex-row ">
+
                   <button
                     className="btn btn-secondary w-50 m-1"
                     type="button"
-                    onClick={(e) => setOtp([...otp.map((v) => "")])}
+                    onClick={deletePasswords}
                   >
                     Clear
                   </button>
@@ -155,10 +299,14 @@ export default function VerifyPass() {
                     className="btn btn-primary w-50"
                     type="submit"
                     disabled={isDisabled}
+                    // onClick={submitMyInputs}
                   >
                     Verify
                   </button>
                 </div>
+            </Form>
+          </FormProvider>
+                
               </div>
             </div>
 
@@ -174,114 +322,10 @@ export default function VerifyPass() {
               <hr className="hrRight" />
             </div>
 
-            <h4 className="my-4">Forget Password</h4>
-            <p className="text-small">placeholder@gmail.com</p>
-            <div className="mb-5">
-              <InputGroup className="userInput mb-2">
-                <InputGroup.Text id="basic-addon2">
-                  <FaLock />
-                </InputGroup.Text>
-                <Form.Control
-                  ref={passRef}
-                  type="password"
-                  name="password"
-                  // onBlur={(e) => onDisplayErrorMsg(e)}
-                  onChange={(e) => validatePass(e)}
-                  aria-label="Password Input"
-                  placeholder="Password"
-                  style={{
-                    borderLeft:
-                      displayPassErrMsg === "Strong Password ✔"
-                        ? "4px solid green"
-                        : displayPassErrMsg === ""
-                        ? "none"
-                        : "5px solid red",
-                    boxShadow: "none",
-                  }}
-                />
-                <InputGroup.Text
-                  onClick={showPassword}
-                  style={{ cursor: "pointer" }}
-                >
-                  {showPass ? <GoEye /> : <BsEyeSlash />}
-                </InputGroup.Text>
-              </InputGroup>
-              {displayPassErrMsg && (
-                <Form.Text
-                  className="errorMsg text-small float-start fw-semibold"
-                  style={{
-                    color:
-                      displayPassErrMsg === "Strong Password ✔"
-                        ? "green"
-                        : "#d21313",
-                  }}
-                >
-                  {displayPassErrMsg}
-                </Form.Text>
-              )}
-            </div>
-            <div className="mb-5">
-              {/* if the user clicked outside the input the status of the error message will appear */}
-              <InputGroup className="userInput mb-2">
-                {/* password icon */}
-                <InputGroup.Text id="basic-addon1">
-                  <FaLock />
-                </InputGroup.Text>
-                {/* Password input */}
-                <Form.Control
-                  type="password"
-                  ref={repassRef}
-                  name="repass"
-                  onChange={(e) => validateRePass(e)}
-                  aria-label="Text input with checkbox"
-                  placeholder="Re-enter Password"
-                  style={{ borderLeft: "none", boxShadow: "none" }}
-                />
-              </InputGroup>
-              {/* for displaying the status of the input */}
-              {displayRePassErrMsg && (
-                <Form.Text
-                  className="errorMsg text-small float-start fw-semibold"
-                  style={{
-                    color:
-                      displayRePassErrMsg === "Matched Password ✔"
-                        ? "green"
-                        : "#d21313",
-                  }}
-                >
-                  {displayRePassErrMsg}
-                </Form.Text>
-              )}
-            </div>
+            
 
-            {/* for checking if the user want the website keep him loggedin or not */}
-            <Form className=" form fw-semibold text-small ">
-              <div key="inline-checkbox " className="checkbox mb-3 d-inline">
-                <Form.Check
-                  inline
-                  name="group1"
-                  type="checkbox"
-                  id="inline-checkbox"
-                />
-                <label>Keep me logged in</label>
-              </div>
-              {/* For navigating the user to change password page */}
-              <a className="forgetPassword" href="#">
-                Forget password?
-              </a>
-            </Form>
-            {/* Login button that will be disabled if the form is not valid */}
-            <button
-              className="btn btn-dark mt-4 mb-2 fw-semibold logIn text-small"
-              disabled={isDisabled}
-            >
-              Reset Password
-            </button>
-            <br></br>
+            
 
-            <a className="notYou text-dark fw-semibold text-small" href="#">
-              Not you?
-            </a>
           </div>
         </div>
       </div>

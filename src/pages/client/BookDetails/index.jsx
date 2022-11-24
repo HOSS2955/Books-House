@@ -7,6 +7,7 @@ import {
 import { BsTruck } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import CommentSection from "../../../components/client/comments/CommentSection";
 import BreadCrumb from "../../../components/client/ui/Breadcrump/BreadCrumb";
 import { getBooks } from "../../../store/client/reducers/bookSlice";
 import { addToCart } from "../../../store/client/reducers/cartSlice";
@@ -99,7 +100,7 @@ export default function BookDetails() {
             </div>
           </div>
           {/* COMMENTS */}
-          <div className="col-12"></div>
+          <div className="col-12"><CommentSection book={book}/></div>
         </div>
       </div>
     </div>

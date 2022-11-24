@@ -38,7 +38,12 @@ import AlreadyUser from "./components/AlreadyUser";
 import Completion from "./components/client/ui/Completion/Completion";
 import Login2 from "./pages/client/authPages/login/log";
 import ErrorNotFound from "./pages/client/errorNotFound";
-import RegisterPage from "./pages/client/authPages/register/Register";
+import RegisterPage from "./pages/client/authPages/register/regist";
+import VerificationOtp from "./pages/client/authPages/verification/verify";
+import FargotPass from "./pages/client/authPages/forget-pass/ForgetPass";
+import CommentSection from "./components/client/comments/CommentSection";
+// import VerifyPass from "./pages/client/authPages/passwordPage/VerifyPass";
+// import RegisterPage from "./pages/client/authPages/register/Register";
 import MainProfile from "./pages/client/Profile/MainProfile";
 function App() {
   const [showWishlist, setShowWishlist] = useState(false);
@@ -61,6 +66,11 @@ function App() {
       >
         <ToastContainer />
         <Routes>
+
+
+        <Route path="password" element={<VerifyPass />} ></Route>
+
+
           {/* Public Routes */}
           <Route path="/" element={<Home />} />
           <Route path="/sidebar" element={<WishlistSideBar />} />
@@ -92,6 +102,8 @@ function App() {
           </Route>
           <Route element={<AlreadyUser />}>
             <Route path="auth" element={<AuthRoutes />}>
+
+              //////////////////////تعديلات////////////////////////
               <Route path="register" element={<RegisterPage />} />
 
               <Route path="login" element={<Login2 />} />

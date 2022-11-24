@@ -15,7 +15,7 @@ import { LoadingButton as _LoadingButton } from "@mui/lab";
 
 import { useDispatch } from "react-redux";
 import ProtectedComponent from "../../../../features/ProtectedComponent";
-import { useLoginUserMutation } from "../../../../services/authApi";
+import { useLoginUserMutation } from "../../../../features/authApiSlice";
 import { toast } from "react-toastify";
 import "./Login.css";
 
