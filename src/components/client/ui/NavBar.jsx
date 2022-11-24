@@ -67,7 +67,9 @@ const NavBar = ({ showModal }) => {
   const headerRef = useRef(null);
 
   const [toggle, setToggle] = useState(false);
-
+  const toggleNavbar = () => {
+    setToggle((prevState) => !prevState);
+  };
   // const stickyHeaderFunc = () => {
   //    window.addEventListener("scroll", () => {
   //       headerRef.current.classList.add("sticky__header");
@@ -283,29 +285,27 @@ const NavBar = ({ showModal }) => {
 
             <Navbar.Toggle
               aria-controls="offcanvasNavbar-expand-lg"
-              onClick={() => {
-                return console.log(toggle), setToggle(true);
-              }}
+              openButton
             />
 
-            {toggle && (
-              <Navbar.Offcanvas
-                id="offcanvasNavbar-expand-lg"
-                aria-labelledby="offcanvasNavbarLabel-expand-lg"
-                placement="end"
-                className="w-50"
-              >
-                <Offcanvas.Header closeButton></Offcanvas.Header>
-                <Offcanvas.Body>
-                  <Nav className="justify-content-end flex-grow-1 pe-3">
-                    {nav__links.map((item, i) => (
-                      <li
-                        className="nav__item mt-4"
-                        key={i}
-                        onClick={() => setToggle(false)}
-                      >
+            <Navbar.Offcanvas
+              id="offcanvasNavbar-expand-lg"
+              aria-labelledby="offcanvasNavbarLabel-expand-lg"
+              placement="end"
+              className="w-50"
+            >
+              <Offcanvas.Header closeButton></Offcanvas.Header>
+              <Offcanvas.Body>
+                <Nav
+                  className="justify-content-end flex-grow-1 pe-3"
+                  closeButton
+                >
+                  {nav__links.map((item, i) => (
+                    <>
+                      <li className="nav__item mt-4" key={i} closeButton>
                         <NavLink
                           to={item.path}
+                          closeButton
                           className={(navClass) =>
                             navClass.isActive ? "nav__active" : ""
                           }
@@ -313,8 +313,9 @@ const NavBar = ({ showModal }) => {
                           {item.display}
                         </NavLink>
                       </li>
-                    ))}
-                    {/* {!checkAuth && (
+                    </>
+                  ))}
+                  {/* {!checkAuth && (
                       <Dropdown className="mt-4">
                         <Dropdown.Toggle variant="warning" id="dropdown-basic">
                           <BiUserCircle />
@@ -334,30 +335,29 @@ const NavBar = ({ showModal }) => {
                         </Dropdown.Menu>
                       </Dropdown>
                     )} */}
-                    {!user && (
-                      <Dropdown className="mt-4">
-                        <Dropdown.Toggle variant="warning" id="dropdown-basic">
-                          <BiUserCircle />
-                        </Dropdown.Toggle>
+                  {!user && (
+                    <Dropdown className="mt-4">
+                      <Dropdown.Toggle variant="warning" id="dropdown-basic">
+                        <BiUserCircle />
+                      </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
-                          <Link to="/auth/login">
-                            <Dropdown.Item href="#/action-1">
-                              Log-in
-                            </Dropdown.Item>
-                          </Link>
-                          <Link to="/auth/register">
-                            <Dropdown.Item href="#/action-2">
-                              Sign-up
-                            </Dropdown.Item>
-                          </Link>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    )}
-                  </Nav>
-                </Offcanvas.Body>
-              </Navbar.Offcanvas>
-            )}
+                      <Dropdown.Menu>
+                        <Link to="/auth/login">
+                          <Dropdown.Item href="#/action-1">
+                            Log-in
+                          </Dropdown.Item>
+                        </Link>
+                        <Link to="/auth/register">
+                          <Dropdown.Item href="#/action-2">
+                            Sign-up
+                          </Dropdown.Item>
+                        </Link>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  )}
+                </Nav>
+              </Offcanvas.Body>
+            </Navbar.Offcanvas>
           </div>
         </Container>
       </Navbar>
