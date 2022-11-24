@@ -29,13 +29,30 @@ export default function Reviews() {
    }, []);
 
    const columns = [
-      { field: "_id", headerName: "ID" },
+      { field: "_id", hide: true },
+      {
+         field: "imageSrc",
+         headerName: "Image",
+         width: "70px",
+         flex: 1,
+         sortable: false,
+         filterable: false,
+         renderCell: (params) => (
+            <img
+               alt="img"
+               src={params.row.imageSrc}
+               className=" img-fluid"
+               variant="rounded"
+            />
+         ),
+      },
       {
          field: "title",
          headerName: "Title",
          flex: 0.8,
          cellClassName: "name-column--cell",
       },
+
       {
          field: "reviwer",
          headerName: "Reviewer",
@@ -64,7 +81,7 @@ export default function Reviews() {
          field: "test",
          headerName: "Actions",
          headerAlign: "center",
-         flex: 1,
+         flex: 1.5,
          renderCell: (params) => {
             const actionHandler = (e) => {
                e.stopPropagation();
@@ -81,12 +98,14 @@ export default function Reviews() {
                   (book) => book._id === thisRow._id
                );
                if (e.target.innerText === "DELETE") {
-                  console.log("delete");
                   dispatch(deleteBookReview(thisRow));
                }
                if (e.target.innerText === "EDIT") {
                   dispatch(setdataEditBookReview(filteredBookReview[0]));
                   navigate(`/admin/reviewsform/${filteredBookReview[0]._id}`);
+               }
+               if (e.target.innerText === "VIEW") {
+                  navigate(`/reviewdetails/${filteredBookReview[0]._id}`);
                }
             };
             return (
@@ -104,13 +123,23 @@ export default function Reviews() {
                   </Button>
                   <Button
                      sx={{
-                        ml: "5px",
+                        mx: "5px",
                      }}
                      variant="contained"
                      color="success"
                      onClick={actionHandler}
                   >
                      <Typography color={colors.grey[100]}>Edit</Typography>
+                  </Button>
+                  <Button
+                     sx={{
+                        ml: "5px",
+                     }}
+                     variant="contained"
+                     color="inherit"
+                     onClick={actionHandler}
+                  >
+                     <Typography color={colors.grey[900]}>View</Typography>
                   </Button>
                </Box>
             );
@@ -174,6 +203,7 @@ export default function Reviews() {
             <DataGrid
                rows={bookReviews} //add reviews array
                columns={columns}
+               loading={!bookReviews.length}
                components={{
                   Toolbar: GridToolbar,
                }}

@@ -207,6 +207,5 @@ export default function AuthorsHouse() {
           <Pricing pricingArray={packagesData} />
         </div>
       </div>
-    </div>
-  );
+   );
 }

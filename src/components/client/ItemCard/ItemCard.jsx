@@ -6,6 +6,9 @@ import { useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { AiOutlineHeart } from "react-icons/ai";
 import { IoBagHandleOutline } from "react-icons/io5";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../../store/client/reducers/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 const container = {
    hidden: { opacity: 0 },
@@ -34,6 +37,15 @@ const item = {
 };
 
 export default function ItemCard({ book }) {
+   const navigate = useNavigate();
+   const dispatch = useDispatch();
+
+   const detailsOfBook = () => {
+      navigate(`/bookdetails/${book._id}`);
+   };
+   const handleAddToCart = (item) => {
+      dispatch(addToCart(item));
+   };
    const [showbtns, setShowbtns] = useState(false);
    return (
       <motion.div
@@ -67,6 +79,7 @@ export default function ItemCard({ book }) {
                      className="itemBtns btn btn-light mx-1 rounded-5"
                      type="submit"
                      variants={item}
+                     onClick={() => handleAddToCart(book)}
                   >
                      <AiOutlinePlus />
                   </motion.button>
@@ -89,12 +102,19 @@ export default function ItemCard({ book }) {
             <div className="blackBG"></div>
          </motion.div>
          <div className="textitem mt-3">
-            <div className="text-center mb-1">
-               <a className=" textlink   fw-bolder textitem" href="#">
+            <div className="">
+               <a
+                  onClick={detailsOfBook}
+                  className=" textlink fw-bold textitem"
+                  href="#"
+               >
                   {book.title}
                </a>
             </div>
-            <p className="textitem text-center fw-semibold">${book.price}.00</p>
+            <span className="textitem mb-1">
+               By <a className="authorName">{book.author}</a>{" "}
+            </span>
+            <p className="textitem ">${book.price}.00</p>
          </div>
       </motion.div>
    );

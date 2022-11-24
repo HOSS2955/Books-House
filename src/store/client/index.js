@@ -15,6 +15,11 @@ import { userApi } from "../../services/userApi";
 import { authApi } from "../../services/authApi";
 import { adminAuthApi } from "../../services/adminAuthApi";
 import { bookReviewReducer } from "./reducers/bookReviewSlice";
+import { stripePackagesReducer } from "./reducers/stripePackagesSlice";
+import { stripeOrdersReducer } from "./reducers/stripeOrdersSlice";
+import { profilePackageReducer } from "./reducers/profilePaymet";
+import { userDataReducer } from "./reducers/userDataSlice";
+import { wishlistReducer } from "./reducers/wishlistSlice";
 export const clientStore = configureStore({
   reducer: {
     books: booksReducer,
@@ -23,6 +28,8 @@ export const clientStore = configureStore({
     author: authorReducer,
     homepage: homepageReducer,
     // checkAuth: checkAuthReducer,
+    stripePackages: stripePackagesReducer,
+    stripeOrders: stripeOrdersReducer,
     [homepageApi.reducerPath]: homepageApi.reducer,
     package: packageReducer,
     [packageApi.reducerPath]: packageApi.reducer,
@@ -34,6 +41,9 @@ export const clientStore = configureStore({
     //  auth: authReducer,
     //  [authApi.reducerPath]: authApi.reducer,
     bookReviews: bookReviewReducer,
+    userData: userDataReducer,
+    ProfilePayment: profilePackageReducer,
+    WishList: wishlistReducer,
   },
   middleware: (gDM) =>
     gDM().concat(

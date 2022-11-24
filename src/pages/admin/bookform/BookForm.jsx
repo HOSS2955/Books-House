@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-   Box,
-   Button,
-   Checkbox,
-   FormControlLabel,
-   TextField,
-   Typography,
-} from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -23,7 +16,7 @@ const initialValues = {
    title: "",
    price: "",
    author: "",
-   BookDesc: "",
+   bookDesc: "",
    category: "",
    type: "",
 };
@@ -32,7 +25,7 @@ const userSchema = yup.object().shape({
    title: yup.string(),
    price: yup.string(),
    author: yup.string(),
-   BookDesc: yup.string(),
+   bookDesc: yup.string(),
    category: yup.string(),
    type: yup.string(),
 });
@@ -47,7 +40,7 @@ export default function BookForm() {
       price: "",
       author: "",
       category: "",
-      BookDesc: "",
+      bookDesc: "",
       imageSource: "",
    });
    const { id } = useParams();
@@ -57,6 +50,7 @@ export default function BookForm() {
       if (id) {
          setFormValue(dataEditBook);
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, []);
 
    const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -68,6 +62,7 @@ export default function BookForm() {
    // SUBMIT
    const handleFormSubmit = (book) => {
       if (id) {
+         console.log(formValue, "edit");
          dispatch(updateBook({ id, formValue }));
       } else {
          setFormValue({
@@ -183,24 +178,6 @@ export default function BookForm() {
                         helperText={touched.author && errors.author}
                         sx={{ gridColumn: "span 4" }}
                      />
-                     {/* DECRIPTOIN */}
-                     <TextField
-                        fullWidth
-                        multiline
-                        rows={5}
-                        maxRows={10}
-                        variant="filled"
-                        type="text"
-                        label="Description"
-                        placeholder={id ? dataEditBook.desc : ""}
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.BookDesc}
-                        name="BookDesc"
-                        error={!!touched.desc && !!errors.desc}
-                        helperText={touched.desc && errors.desc}
-                        sx={{ gridColumn: "span 4" }}
-                     />
                      {/* CATEGORY */}
                      <TextField
                         fullWidth
@@ -229,6 +206,21 @@ export default function BookForm() {
                         name="type"
                         error={!!touched.type && !!errors.type}
                         helperText={touched.type && errors.type}
+                        sx={{ gridColumn: "span 4" }}
+                     />
+                     {/* DECRIPTOIN */}
+                     <TextField
+                        fullWidth
+                        variant="filled"
+                        type="text"
+                        label="Description"
+                        placeholder={id ? dataEditBook.bookDesc : ""}
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.bookDesc}
+                        name="bookDesc"
+                        error={!!touched.bookDesc && !!errors.bookDesc}
+                        helperText={touched.bookDesc && errors.bookDesc}
                         sx={{ gridColumn: "span 4" }}
                      />
 

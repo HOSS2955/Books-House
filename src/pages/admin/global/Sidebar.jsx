@@ -16,6 +16,8 @@ import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import StyleIcon from "@mui/icons-material/Style";
 import GroupIcon from "@mui/icons-material/Group";
 import RateReviewIcon from "@mui/icons-material/RateReview";
+import ReceiptIcon from "@mui/icons-material/Receipt";
+import PaymentIcon from "@mui/icons-material/Payment";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
    const theme = useTheme();
@@ -61,6 +63,9 @@ export default function Sidebar() {
                },
                "& .pro-menu-item.active": {
                   color: "#6870fa !important",
+               },
+               "& .pro-sidebar.collapsed": {
+                  "min-width": "100px",
                },
             }}
          >
@@ -169,6 +174,29 @@ export default function Sidebar() {
                         selected={selected}
                         setSelected={setSelected}
                      />
+                     {/* PAYMENTS */}
+                     <Typography
+                        variant="h6"
+                        color={colors.grey[300]}
+                        sx={{ m: "15px 0 5px 20px" }}
+                     >
+                        Payments
+                     </Typography>
+                     <Item
+                        title="Packages Payments"
+                        to="/admin/packagespayments"
+                        icon={<ReceiptIcon />}
+                        selected={selected}
+                        setSelected={setSelected}
+                     />
+                     <Item
+                        title="Orders Payments"
+                        to="/admin/orderspayments"
+                        icon={<PaymentIcon />}
+                        selected={selected}
+                        setSelected={setSelected}
+                     />
+
                      {/* ECOMMERCE */}
                      <Typography
                         variant="h6"

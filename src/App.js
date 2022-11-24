@@ -19,12 +19,11 @@ import Footer from "./components/client/ui/Footer";
 
 import Contactus from "./pages/client/Contactus/Contactus";
 import About from "./pages/client/About";
-import RegisterPage2 from "./pages/client/authPages/register/regist";
+import Register from "./pages/client/authPages/register/Register";
 import ComponentsRoutes from "./routes/ComponentsRoutes";
 import AuthRoutes from "./routes/AuthRoutes";
 import VerifyPass from "./pages/client/authPages/passwordPage/VerifyPass";
-import Login2 from "./pages/client/authPages/login/log";
-
+import Login from "./pages/client/authPages/login/Login";
 import Verification from "./pages/client/authPages/verification/Verification";
 // import { PrivateOutlet } from "./utils/privateRoutes";
 import Reviews from "./pages/client/Review";
@@ -37,7 +36,10 @@ import RequireAuth from "./components/RequireAuth";
 import AlreadyUser from "./components/AlreadyUser";
 // import FullScreenLoader from "./components/FullScreenLoader";
 import Completion from "./components/client/ui/Completion/Completion";
+import Login2 from "./pages/client/authPages/login/log";
 import ErrorNotFound from "./pages/client/errorNotFound";
+import RegisterPage from "./pages/client/authPages/register/Register";
+import MainProfile from "./pages/client/Profile/MainProfile";
 function App() {
   const [showWishlist, setShowWishlist] = useState(false);
   const hideModal = () => {
@@ -78,6 +80,9 @@ function App() {
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/reviewdetails/:id" element={<ReviewDetails />} />
           <Route path="/completion" element={<Completion />} />
+          <Route path="/mainprofile" element={<MainProfile />} />
+          <Route path="/cart2" element={<Cart />} />
+
           {/* Protected Routes */}
           <Route path="user/confirmEmail" element={<Verification />}>
             <Route path=":verificationCode" element={<Verification />} />
@@ -87,13 +92,12 @@ function App() {
           </Route>
           <Route element={<AlreadyUser />}>
             <Route path="auth" element={<AuthRoutes />}>
-              <Route path="register" element={<RegisterPage2 />} />
+              <Route path="register" element={<RegisterPage />} />
 
               <Route path="login" element={<Login2 />} />
             </Route>
           </Route>
           {/* Catch All */}
-          //** محتاجين صفحة ايرور هنااا */
           <Route path="*" element={<ErrorNotFound />} />
         </Routes>
         {/* <Counter /> */}
