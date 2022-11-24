@@ -74,9 +74,7 @@ export default function BookList() {
                      );
                   })
                   .map((book, index) => {
-                     return Object.keys(book).length == 0 ? (
-                        <NoProducts />
-                     ) : (
+                     return (
                         <motion.div
                            layout
                            key={index}

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
-  AiFillHeart,
-  AiOutlineCheckCircle,
-  AiOutlineHeart,
+   AiFillHeart,
+   AiOutlineCheckCircle,
+   AiOutlineHeart,
 } from "react-icons/ai";
 import { BsTruck } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,8 +12,8 @@ import BreadCrumb from "../../../components/client/ui/Breadcrump/BreadCrumb";
 import { getBooks } from "../../../store/client/reducers/bookSlice";
 import { addToCart } from "../../../store/client/reducers/cartSlice";
 import {
-  addToWish,
-  removeFromWish,
+   addToWish,
+   removeFromWish,
 } from "../../../store/client/reducers/wishlistSlice";
 import "./bookDetails.css";
 
@@ -25,20 +25,20 @@ export default function BookDetails() {
   const { id } = useParams();
   const [book] = books.filter((item) => item._id === id);
 
-  useEffect(() => {
-    dispatch(getBooks());
-    addToWish(book);
-  }, [dispatch]);
+   useEffect(() => {
+      dispatch(getBooks());
+      addToWish(book);
+   }, [dispatch]);
 
-  const addToWishlist = () => {
-    if (wishlistIcon === false) {
-      setWishlistIcon(true);
-      dispatch(addToWish(book));
-    } else {
-      dispatch(removeFromWish(book));
-      setWishlistIcon(false);
-    }
-  };
+   const addToWishlist = () => {
+      if (wishlistIcon === false) {
+         setWishlistIcon(true);
+         dispatch(addToWish(book));
+      } else {
+         dispatch(removeFromWish(book));
+         setWishlistIcon(false);
+      }
+   };
 
   console.log(id);
   const handleAddToCart = (book) => {
@@ -106,6 +106,5 @@ export default function BookDetails() {
           </div>
         </div>
       </div>
-    </div>
-  );
+   );
 }

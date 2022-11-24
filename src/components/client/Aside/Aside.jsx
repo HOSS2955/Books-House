@@ -4,12 +4,14 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { get } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { booksActions } from "../../../store/client/reducers/bookSlice";
 import "./aside.css";
 
 export default function Aside() {
    const dispatch = useDispatch();
    const [isError, setIsError] = useState(false);
+   const [isActive, setIsActive] = useState(false);
    const {
       setBookStoreCategory,
       setMaxPriceFilter,
@@ -17,6 +19,7 @@ export default function Aside() {
       setBookStoreType,
    } = booksActions;
    const categoriesHandler = (e) => {
+      // e.target.className = "mb-2 text-lead fw-bold activeAside ";
       dispatch(setBookStoreCategory(e.target.name));
    };
    const typeHandler = (e) => {
@@ -100,7 +103,7 @@ export default function Aside() {
             onClick={(e) => {
                typeHandler(e);
             }}
-            className="mb-2 text-lead fw-lighter"
+            className="mb-2 text-lead fw-lighter activeAside"
             name={name}
          >
             {title}
@@ -111,9 +114,10 @@ export default function Aside() {
       return (
          // eslint-disable-next-line jsx-a11y/anchor-is-valid
          <a
-            className="mb-2 text-lead fw-lighter"
+            className={"mb-2 text-lead fw-lighter  activeAside"}
             onClick={(e) => {
                categoriesHandler(e);
+               setIsActive(true);
             }}
             name={name}
          >

@@ -16,65 +16,55 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { getTotals } from "../../../store/client/reducers/cartSlice";
 
 const nav__links = [
-  {
-    path: "",
-  },
-  {
-    path: "home",
-    display: "Home",
-  },
-  {
-    path: "about",
-    display: "About",
-  },
-  {
-    path: "booksshop",
-    display: "Shop",
-  },
-  {
-    path: "authorshouse",
-    display: "Authors House",
-  },
-  {
-    path: "reviews",
-    display: "Reviews",
-  },
+   {
+      path: "",
+   },
+   {
+      path: "home",
+      display: "Home",
+   },
+   {
+      path: "about",
+      display: "About",
+   },
+   {
+      path: "booksshop",
+      display: "Shop",
+   },
+   {
+      path: "authorshouse",
+      display: "Authors House",
+   },
+   {
+      path: "reviews",
+      display: "Reviews",
+   },
 ];
 const NavBar = ({ showModal }) => {
-  const { cartTotalQuantity } = useSelector((state) => state.cart);
-  const cart = useSelector((state) => state.cart);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getTotals());
-  }, [cart, dispatch]);
-  const navigate = useNavigate();
-  const clickCart = () => {
-    navigate("/cart");
-  };
-  // Check if the user is Authorized
-  const user = useSelector((state) => state.userState.user);
-  const role = useSelector((state) => state.userState.role);
-  // // change nav color when scrolling
-  const [color, setColor] = useState(false);
-  const changeColor = () => {
-    if (window.scrollY >= 40) {
-      setColor(true);
-    } else {
-      setColor(false);
-    }
-  };
-  window.addEventListener("scroll", changeColor);
-  const headerRef = useRef(null);
-  // closing the navbar
-  // const [showNav, setShowNav] = useState(false);
-  // const showNavBar =()=>{
-  //  if(showNav){
-  //   setShowNav(false)
-  //  }
-  //   else{
-  //     setShowNav(true)
-  //   }
-  // }
+   const { cartTotalQuantity } = useSelector((state) => state.cart);
+   const cart = useSelector((state) => state.cart);
+   const dispatch = useDispatch();
+   useEffect(() => {
+      dispatch(getTotals());
+   }, [cart, dispatch]);
+   const navigate = useNavigate();
+   const clickCart = () => {
+      navigate("/cart");
+   };
+   // Check if the user is Authorized
+   const user = useSelector((state) => state.userState.user);
+   const role = useSelector((state) => state.userState.role);
+   // // change nav color when scrolling
+   const [color, setColor] = useState(false);
+   const changeColor = () => {
+      if (window.scrollY >= 40) {
+         setColor(true);
+      } else {
+         setColor(false);
+      }
+   };
+   window.addEventListener("scroll", changeColor);
+   const headerRef = useRef(null);
 
   const [toggle, setToggle] = useState(false);
   const toggleNavbar = () => {

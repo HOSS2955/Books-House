@@ -8,6 +8,35 @@ import "swiper/css/effect-fade";
 import "swiper";
 import "swiper/css/bundle";
 
+const container = {
+  show: {
+    transition: {
+      staggerChildren: 0.6,
+    },
+  },
+};
+const item = {
+  hidden: { opacity: 0, y: 200 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      ease: [0.6, 0.01, -0.05, 0.95],
+      duration: 4,
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -200,
+    transition: {
+      ease: "easeInOut",
+      duration: 2,
+    },
+  },
+};
+
+
+
 const HeaderSwiper = ({ headerArray }) => {
   return (
     <div>
@@ -27,6 +56,7 @@ const HeaderSwiper = ({ headerArray }) => {
         freeMode
         a11y
       >
+        
         <SwiperSlide className="h-100 d-flex align-items-center justify-content-center mt-5 flex-column">
           <h1 className="m-5 fw-bold">BooksHouse</h1>
           <h5 className="m-5 fw-bold">Get you book reviewed</h5>
