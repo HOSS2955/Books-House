@@ -29,10 +29,10 @@ export const getUser = createAsyncThunk(
 );
 export const updateUser = createAsyncThunk(
    "books/updateBook",
-   async ({ id, newUser }, thunckAPI) => {
+   async ({ email, userData }, thunckAPI) => {
       const { rejectWithValue } = thunckAPI;
       try {
-         const res = await axios.patch(`/book/updateBook/${id}`, newUser);
+         const res = await axios.patch(`/book/updateBook/${email}`, userData);
          return res.data;
       } catch (error) {
          rejectWithValue(error.message);

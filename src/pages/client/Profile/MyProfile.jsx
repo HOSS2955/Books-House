@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserData } from "../../../store/client/reducers/userDataSlice";
+import {
+   getUser,
+   updateUser,
+} from "../../../store/client/reducers/userDataSlice";
 import "./Profile.css";
 
 export default function MyProfile() {
    const dispatch = useDispatch();
+   const id = "637d6bbde7bb429602c046e9";
    useEffect(() => {
-      dispatch(getUserData());
+      dispatch(getUser(id));
    }, []);
 
    const { user } = useSelector((state) => state.userData);
@@ -15,7 +19,7 @@ export default function MyProfile() {
       email: "",
       phone: "",
    });
-
+   const { email } = user;
    const inputHandler = (e) => {
       // console.log(e.target.name, ":", e.target.value);
       setUserData({ ...user, [e.target.name]: e.target.value });
@@ -24,14 +28,20 @@ export default function MyProfile() {
    const submitHandler = (e) => {
       e.preventDefault();
       console.log(userData);
+      dispatch(updateUser({ email, userData }));
    };
 
    return (
       <div className="profile">
-         <div className="container-xl px-4 mt-4 rounded">
+         <div className="container-xl   rounded">
+            {!user.confirmed && (
+               <h5 className="text-center text-danger text-capitalize">
+                  please confirm your email
+               </h5>
+            )}
             <div className="row ">
                <div className="col-xl-4 col-md-4 col-sm-12">
-                  <div className="card mb-4 mb-xl-0 pb-5">
+                  <div className="card mb-4 mb-xl-0 ">
                      <div className="card-header">Profile Picture</div>
                      <div className="card-body text-center">
                         <img
@@ -46,12 +56,7 @@ export default function MyProfile() {
                   </div>
                </div>
 
-               <div className="col-xl-8 col-md-8">
-                  {!user.confirmed && (
-                     <h5 className="text-center text-danger text-capitalize">
-                        please confirm your email
-                     </h5>
-                  )}
+               <div className="col-md-8">
                   <div className="card mb-4">
                      <div className="card-header">Account Details</div>
                      <div className="card-body">
@@ -64,7 +69,6 @@ export default function MyProfile() {
                                  className="form-control"
                                  id="name"
                                  type="text"
-                                 //  value={user?.name}
                                  name="name"
                                  onChange={inputHandler}
                                  placeholder={user.name ? user?.name : ""}

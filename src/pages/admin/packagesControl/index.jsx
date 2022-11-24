@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
@@ -9,29 +9,53 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import Header from "../../../components/admin/Header";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { useDispatch, useSelector } from "react-redux";
+import {
+   useGetPackageDataQuery,
+   useUpdatePackageDataMutation,
+} from "../../../features/packageApiSlice";
+import { packageActions } from "../../../store/client/reducers/packageSlice";
 
 const initialValues = {
-   title: "",
-   subTitle: "",
-   description: "",
-   price: "",
+   packageName: "",
+   packageDesc: "",
+   packagePrice: "",
 };
 const userSchema = yup.object().shape({
-   title: yup.string(),
-   subTitle: yup.string(),
-   description: yup.string(),
-   price: yup.string(),
+   packageName: yup.string(),
+   packageDesc: yup.string(),
+   packagePrice: yup.string(),
 });
 export default function PackagesControl() {
    const theme = useTheme();
    const colors = tokens(theme.palette.mode);
-   const [formValue, setFormValue] = useState({});
-   const isNonMobile = useMediaQuery("(min-width:600px)");
 
+   const { isSuccess } = useGetPackageDataQuery();
+   const { packageData } = useSelector((state) => state.package);
+
+   const [updatePackageData, { isError, isLoading }] =
+      useUpdatePackageDataMutation();
+
+   const [formValue, setFormValue] = useState({});
+   const [packageId, setPackageId] = useState("");
+
+   const isNonMobile = useMediaQuery("(min-width:600px)");
+   const dispatch = useDispatch();
+   const { setDataInLocalState } = packageActions;
    const handleFormSubmit = (book) => {
+      if (formValue.packageDesc) {
+         formValue.packageDesc = formValue.packageDesc.split(",");
+      }
       console.log(formValue);
       console.log(selectorValue);
+      console.log(packageId);
+      // updatePackageData(formvalue)
    };
+   // useEffect(() => {
+   //    if (data) {
+   //       dispatch(setDataInLocalState(data));
+   //    }
+   // }, []);
 
    const operationHandler = (e) => {
       setFormValue({
@@ -39,10 +63,11 @@ export default function PackagesControl() {
          [e.target.name]: e.target.value,
       });
    };
-   //SLECETOR LOGIC
+   //SELECETOR LOGIC
    const [selectorValue, setSelectorValue] = React.useState("");
    const handleChange = (event) => {
       setSelectorValue(event.target.value);
+      setPackageId(packageData[event.target.value - 1]._id);
    };
    return (
       <Box m="20px">
@@ -72,7 +97,6 @@ export default function PackagesControl() {
                <MenuItem value={1}>Package 1</MenuItem>
                <MenuItem value={2}>Package 2</MenuItem>
                <MenuItem value={3}>Package 3</MenuItem>
-               <MenuItem value={4}>Package 4</MenuItem>
             </Select>
          </FormControl>
          <Formik
@@ -104,52 +128,41 @@ export default function PackagesControl() {
                         fullWidth
                         variant="filled"
                         type="text"
-                        label="Title"
+                        label="Package Name"
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        value={values.title}
-                        name="title"
-                        error={!!touched.title && !!errors.title}
-                        helperText={touched.title && errors.title}
+                        value={values.packageName}
+                        name="packageName"
+                        error={!!touched.packageName && !!errors.packageName}
+                        helperText={touched.packageName && errors.packageName}
                         sx={{ gridColumn: "span 3  " }}
                      />
                      <TextField
                         fullWidth
                         variant="filled"
                         type="text"
-                        label="Price"
+                        label="Package Price"
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        value={values.price}
-                        name="price"
-                        error={!!touched.price && !!errors.price}
-                        helperText={touched.price && errors.price}
+                        value={values.packagePrice}
+                        name="packagePrice"
+                        error={!!touched.packagePrice && !!errors.packagePrice}
+                        helperText={touched.packagePrice && errors.packagePrice}
                         sx={{ gridColumn: "span 1" }}
                      />
                      <TextField
                         fullWidth
+                        multiline
+                        rows={3}
                         variant="filled"
                         type="text"
-                        label="Sub Title"
+                        label="Package Description"
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        value={values.subTitle}
-                        name="subTitle"
-                        error={!!touched.subTitle && !!errors.subTitle}
-                        helperText={touched.subTitle && errors.subTitle}
-                        sx={{ gridColumn: "span 4" }}
-                     />
-                     <TextField
-                        fullWidth
-                        variant="filled"
-                        type="text"
-                        label="Description"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.description}
-                        name="description"
-                        error={!!touched.description && !!errors.description}
-                        helperText={touched.description && errors.description}
+                        value={values.packageDesc}
+                        name="packageDesc"
+                        error={!!touched.packageDesc && !!errors.packageDesc}
+                        helperText={touched.packageDesc && errors.packageDesc}
                         sx={{ gridColumn: "span 4" }}
                      />
                   </Box>

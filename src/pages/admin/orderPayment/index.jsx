@@ -29,7 +29,25 @@ export default function OrderPayment() {
          align: "center",
          cellClassName: "name-column--cell",
          valueGetter: (params) => {
-            return params.row.products[0].quantity;
+            return params.row.products.length;
+         },
+      },
+      {
+         field: "customerEmail",
+         headerName: "Email",
+         flex: 1.5,
+      },
+      {
+         field: "customerPhone",
+         headerName: "Phone",
+         flex: 1,
+      },
+      {
+         field: "line1",
+         headerName: "Address",
+         flex: 1,
+         valueGetter: (params) => {
+            return params.row.shipping.address.line1;
          },
       },
       {
