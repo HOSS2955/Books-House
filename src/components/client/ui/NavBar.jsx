@@ -77,7 +77,9 @@ const NavBar = ({ showModal }) => {
   // }
 
   const [toggle, setToggle] = useState(false);
-
+  const toggleNavbar = () => {
+    setToggle((prevState) => !prevState);
+  };
   // const stickyHeaderFunc = () => {
   //    window.addEventListener("scroll", () => {
   //       headerRef.current.classList.add("sticky__header");
@@ -94,9 +96,9 @@ const NavBar = ({ showModal }) => {
       initial={{ opacity: 0, y: -180 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
-         ease: "easeInOut",
-         duration: 1,
-         delay: 0.2,
+        ease: "easeInOut",
+        duration: 1,
+        delay: 0.2,
       }}
       className="fixed-top"
       ref={headerRef}
@@ -148,39 +150,52 @@ const NavBar = ({ showModal }) => {
                     )}
                   </span>
                   <span>
-                  <Dropdown>
-                  <Dropdown.Toggle variant="transparent" id="dropdown-basic" className="dropDown__Toggle">
-                  <motion.img
-                      whileTap={{ scale: 1.2 }}
-                      src="./images/user-icon.png"
-                      alt="user icon"
-                    />
-                  </Dropdown.Toggle>
+                    <Dropdown>
+                      <Dropdown.Toggle
+                        variant="transparent"
+                        id="dropdown-basic"
+                        className="dropDown__Toggle"
+                      >
+                        <motion.img
+                          whileTap={{ scale: 1.2 }}
+                          src="./images/user-icon.png"
+                          alt="user icon"
+                        />
+                      </Dropdown.Toggle>
 
-                  {role==="admin" ? (<Dropdown.Menu>
-                  
-                  <Link to="/admin">
-                    <Dropdown.Item href="#/action-1">Dash board</Dropdown.Item>
-                  </Link>
-                  <Link to="/password">
-                    <Dropdown.Item href="#/action-2">Change password</Dropdown.Item>
-                  </Link>
-                  <Link to="/">
-                    <Dropdown.Item href="#/action-3">Log out</Dropdown.Item>
-                  </Link>
-                </Dropdown.Menu>) : 
-                (<Dropdown.Menu>
-                  
-                  <Link to="/profile/settings">
-                    <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
-                  </Link>
-                  <Link to="/">
-                    <Dropdown.Item href="#/action-2">Log out</Dropdown.Item>
-                  </Link>
-                </Dropdown.Menu>)}
-                  
-                </Dropdown>
-                    
+                      {role === "admin" ? (
+                        <Dropdown.Menu>
+                          <Link to="/admin">
+                            <Dropdown.Item href="#/action-1">
+                              Dash board
+                            </Dropdown.Item>
+                          </Link>
+                          <Link to="/password">
+                            <Dropdown.Item href="#/action-2">
+                              Change password
+                            </Dropdown.Item>
+                          </Link>
+                          <Link to="/">
+                            <Dropdown.Item href="#/action-3">
+                              Log out
+                            </Dropdown.Item>
+                          </Link>
+                        </Dropdown.Menu>
+                      ) : (
+                        <Dropdown.Menu>
+                          <Link to="/profile/settings">
+                            <Dropdown.Item href="#/action-1">
+                              Profile
+                            </Dropdown.Item>
+                          </Link>
+                          <Link to="/">
+                            <Dropdown.Item href="#/action-2">
+                              Log out
+                            </Dropdown.Item>
+                          </Link>
+                        </Dropdown.Menu>
+                      )}
+                    </Dropdown>
                   </span>
                 </div>
               ) : (
@@ -228,61 +243,79 @@ const NavBar = ({ showModal }) => {
                   )}
                 </span>
                 <span>
-                <Dropdown>
-                  <Dropdown.Toggle variant="transparent" id="dropdown-basic" className="dropDown__Toggle">
-                  <motion.img
-                      whileTap={{ scale: 1.2 }}
-                      src="./images/user-icon.png"
-                      alt="user icon"
-                    />
-                  </Dropdown.Toggle>
+                  <Dropdown>
+                    <Dropdown.Toggle
+                      variant="transparent"
+                      id="dropdown-basic"
+                      className="dropDown__Toggle"
+                    >
+                      <motion.img
+                        whileTap={{ scale: 1.2 }}
+                        src="./images/user-icon.png"
+                        alt="user icon"
+                      />
+                    </Dropdown.Toggle>
 
-                  {role==="admin" ? (<Dropdown.Menu>
-                  
-                  <Link to="/admin">
-                    <Dropdown.Item href="#/action-1">Dash board</Dropdown.Item>
-                  </Link>
-                  <Link to="/password">
-                    <Dropdown.Item href="#/action-2">Change password</Dropdown.Item>
-                  </Link>
-                  <Link to="/">
-                    <Dropdown.Item href="#/action-3">Log out</Dropdown.Item>
-                  </Link>
-                </Dropdown.Menu>) : 
-                (<Dropdown.Menu>
-                  
-                  <Link to="/profile/settings">
-                    <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
-                  </Link>
-                  <Link to="/">
-                    <Dropdown.Item href="#/action-2">Log out</Dropdown.Item>
-                  </Link>
-                </Dropdown.Menu>)}
-                  
-                </Dropdown>
+                    {role === "admin" ? (
+                      <Dropdown.Menu>
+                        <Link to="/admin">
+                          <Dropdown.Item href="#/action-1">
+                            Dash board
+                          </Dropdown.Item>
+                        </Link>
+                        <Link to="/password">
+                          <Dropdown.Item href="#/action-2">
+                            Change password
+                          </Dropdown.Item>
+                        </Link>
+                        <Link to="/">
+                          <Dropdown.Item href="#/action-3">
+                            Log out
+                          </Dropdown.Item>
+                        </Link>
+                      </Dropdown.Menu>
+                    ) : (
+                      <Dropdown.Menu>
+                        <Link to="/profile/settings">
+                          <Dropdown.Item href="#/action-1">
+                            Profile
+                          </Dropdown.Item>
+                        </Link>
+                        <Link to="/">
+                          <Dropdown.Item href="#/action-2">
+                            Log out
+                          </Dropdown.Item>
+                        </Link>
+                      </Dropdown.Menu>
+                    )}
+                  </Dropdown>
                 </span>
               </div>
             )}
 
             <Navbar.Toggle
               aria-controls="offcanvasNavbar-expand-lg"
-              onClick={() => setToggle(true)}
+              openButton
             />
 
-            {toggle && (
-              <Navbar.Offcanvas
-                id="offcanvasNavbar-expand-lg"
-                aria-labelledby="offcanvasNavbarLabel-expand-lg"
-                placement="end"
-                className="w-50"
-              >
-                <Offcanvas.Header closeButton></Offcanvas.Header>
-                <Offcanvas.Body>
-                  <Nav className="justify-content-end flex-grow-1 pe-3">
-                    {nav__links.map((item, i) => (
-                      <li className="nav__item mt-4" key={i} onClick={() => setToggle(false)}>
+            <Navbar.Offcanvas
+              id="offcanvasNavbar-expand-lg"
+              aria-labelledby="offcanvasNavbarLabel-expand-lg"
+              placement="end"
+              className="w-50"
+            >
+              <Offcanvas.Header closeButton></Offcanvas.Header>
+              <Offcanvas.Body>
+                <Nav
+                  className="justify-content-end flex-grow-1 pe-3"
+                  closeButton
+                >
+                  {nav__links.map((item, i) => (
+                    <>
+                      <li className="nav__item mt-4" key={i} closeButton>
                         <NavLink
                           to={item.path}
+                          closeButton
                           className={(navClass) =>
                             navClass.isActive ? "nav__active" : ""
                           }
@@ -290,8 +323,9 @@ const NavBar = ({ showModal }) => {
                           {item.display}
                         </NavLink>
                       </li>
-                    ))}
-                    {/* {!checkAuth && (
+                    </>
+                  ))}
+                  {/* {!checkAuth && (
                       <Dropdown className="mt-4">
                         <Dropdown.Toggle variant="warning" id="dropdown-basic">
                           <BiUserCircle />
@@ -311,30 +345,29 @@ const NavBar = ({ showModal }) => {
                         </Dropdown.Menu>
                       </Dropdown>
                     )} */}
-                    {!user && (
-                      <Dropdown className="mt-4">
-                        <Dropdown.Toggle variant="warning" id="dropdown-basic">
-                          <BiUserCircle />
-                        </Dropdown.Toggle>
+                  {!user && (
+                    <Dropdown className="mt-4">
+                      <Dropdown.Toggle variant="warning" id="dropdown-basic">
+                        <BiUserCircle />
+                      </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
-                          <Link to="/auth/login">
-                            <Dropdown.Item href="#/action-1">
-                              Log-in
-                            </Dropdown.Item>
-                          </Link>
-                          <Link to="/auth/register">
-                            <Dropdown.Item href="#/action-2">
-                              Sign-up
-                            </Dropdown.Item>
-                          </Link>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    )}
-                  </Nav>
-                </Offcanvas.Body>
-              </Navbar.Offcanvas>
-            )}
+                      <Dropdown.Menu>
+                        <Link to="/auth/login">
+                          <Dropdown.Item href="#/action-1">
+                            Log-in
+                          </Dropdown.Item>
+                        </Link>
+                        <Link to="/auth/register">
+                          <Dropdown.Item href="#/action-2">
+                            Sign-up
+                          </Dropdown.Item>
+                        </Link>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  )}
+                </Nav>
+              </Offcanvas.Body>
+            </Navbar.Offcanvas>
           </div>
         </Container>
       </Navbar>
