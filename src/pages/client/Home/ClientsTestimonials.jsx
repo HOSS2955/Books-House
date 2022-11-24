@@ -2,6 +2,7 @@ import React from "react";
 import ClientsTestmonialsSwiper from "../../../components/client/ui/swiper/ClientsTestimonials";
 
 export default function ClientsTestimonials({ clientsTestimonialsArray }) {
+  
   return (
     <div className="container">
       <section className="section bg-white">

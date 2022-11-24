@@ -21,7 +21,7 @@ export default function Home() {
       console.log(data);
       if (data) { 
          dispatch(setDataInLocalState(data));
-         console.log(data);
+         // console.log("hello" , data);
       }
    }, [dispatch, data]);
    return (

@@ -19,14 +19,18 @@ const HeaderSwiper = ({ headerArray }) => {
         loop={true}
         slidesPerView={1}
         autoplay={{
-          delay: 4000,
+          delay: 400000,
           disableOnInteraction: false,
         }}
-        className="container"
+        className="container h-100"
         
         freeMode
         a11y
       >
+        <SwiperSlide className="h-100 d-flex align-items-center justify-content-center mt-5 flex-column">
+          <h1 className="m-5 fw-bold">BooksHouse</h1>
+          <h5 className="m-5 fw-bold">Get you book reviewed</h5>
+        </SwiperSlide>
         <SwiperSlide style={{padding:"0px 20%"}}>
           <h1 className="fw-bold pb-3 text-center">BooksHouse</h1>
   <p className="pb-5 fs-5"><b>Bookshouse</b> is definitely the best place to help you start filling your shelves with all the books you love!

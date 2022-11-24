@@ -1,78 +1,76 @@
-import { Box, Container, Typography } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import { FaApple, FaLock, FaUserAlt } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
+import { useLocation, useNavigate , useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { styled } from "@mui/material/styles";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { object, string, TypeOf } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import FormInput from "../../../../components/client/MaterialForm/FormInput";
 
-import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import validator from "validator";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { LoadingButton as _LoadingButton } from "@mui/lab";
+
+import { useDispatch } from "react-redux";
+import ProtectedComponent from "../../../../features/ProtectedComponent";
 import { toast } from "react-toastify";
+import "./Login.css";
 import { useVerifyEmailMutation } from "../../../../features/authApiSlice";
 
-const LoadingButton = styled(_LoadingButton)`
-  padding: 0.6rem 0;
-  background-color: #212529;
-  color: #fff;
-  font-weight: 500;
-  border-radius: 50px;
+export default function EmailVerificationPage() {
+  const LoadingButton = styled(_LoadingButton)`
+    padding: 0.6rem 0;
+    background-color: #212529;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 50px;
 
-  &:hover {
-    background-color: #000000;
-  }
-`;
+    &:hover {
+      background-color: #000000;
+      transform: translateY(-1px);
+    };`
 
-const verificationCodeSchema = object({
+const verificationCodeSchema = object({      
   verificationCode: string()
     .min(1, "Verification code is required")
     .min(9, "Make sure you get that from your email!"),
 });
 
-const EmailVerificationPage = () => {
+
+ 
+
+ 
   const { verificationCode } = useParams();
 
   const methods = useForm({
     resolver: zodResolver(verificationCodeSchema),
   });
 
-  // ? API Login Mutation
-  const [verifyEmail, { isLoading, isSuccess, data, isError, error }] =
+    const [verifyEmail, { isLoading, isSuccess, data, isError, error }] =
     useVerifyEmailMutation();
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const {
     reset,
     handleSubmit,
-    formState: { isSubmitSuccessful },
+    register,
+    password,
+    formState: { isSubmitSuccessful, errors },
   } = methods;
-
-  useEffect(() => {
-    if (verificationCode) {
-      reset({ verificationCode });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     if (isSuccess) {
       console.log("data", data);
-      toast.success(data?.message);
-      navigate("/auth/login");
+            toast.success(data?.message);
+            navigate("/auth/login");
     }
     if (isError) {
-      // if (Array.isArray(error.data)) {
-      //   error.data.error.forEach((el) =>
-      //     toast.error(el.message, {
-      //       position: "top-right",
-      //     })
-      //   );
-      // } else {
-      //   toast.error(error.data.message, {
-      //     position: "top-right",
-      //   });
-      // }
+      console.log(error.data);
+
       toast.error(error.data.message, {
         position: "top-right",
       });
@@ -87,85 +85,67 @@ const EmailVerificationPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitSuccessful]);
 
-  const onSubmitHandler = ({ verificationCode }) => {
+    const onSubmitHandler = ({ verificationCode }) => {
     // ? Executing the verifyEmail Mutation
+    
     verifyEmail({ verificationCode });
+    console.log(verificationCode)
   };
 
+  // const signupHandler = () => {
+  //   navigate("/auth/signup");
+  // };
   return (
-    <Container
-      maxWidth={false}
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100vh",
-      }}
-    >
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-          boxShadow: 8,
-          borderRadius: "10px",
-          padding: "20px",
-        }}
-      >
-        <Typography
-          textAlign="center"
-          component="h1"
-          sx={{
-            color: "#ffc107",
-            fontWeight: 600,
-            fontSize: { xs: "2rem", md: "3rem" },
-            mb: 2,
-            letterSpacing: 0.75,
-          }}
-        >
-          Verify Email Address
-        </Typography>
+    <div className="main mt-5">
+      <div className="centeredElement mt-5 shadow-lg bg-body">
+        <div className="auth">
+          <h5 className="my-5">Login to Bookshouse</h5>
+          {/* if the user clicked outside the input the status of the error message will appear */}
+          <FormProvider {...methods}>
+            <Form onSubmit={handleSubmit(onSubmitHandler)}>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                {/* <Form.Label>Email</Form.Label> */}
+                <InputGroup className="userInput ">
+                  {/* user icon */}
+                  <InputGroup.Text id="basic-addon1">
+                    <FaUserAlt />
+                  </InputGroup.Text>
+                  <Form.Control
+                    {...register("verificationCode")}
+                    name="verificationCode"
+                    aria-label="Verification Code Input"
+                    placeholder="Verification Code"
+                    value ={verificationCode? verificationCode : "" }
+                  />
+                </InputGroup>
+                {errors.verificationCode && (
+                  <Form.Text className="text-danger">
+                    {errors.verificationCode.message}
+                  </Form.Text>
+                )}
+              </Form.Group>
+              
+              <LoadingButton
+                variant="contained"
+                sx={{ mt: 3, mb: 5 }}
+                fullWidth
+                disableElevation
+                type="submit"
+                loading={isLoading}
+              >
+                Verify Email
+              </LoadingButton>
+            </Form>
+          </FormProvider>
 
-        <FormProvider {...methods}>
-          <Box
-            component="form"
-            onSubmit={handleSubmit(onSubmitHandler)}
-            noValidate
-            autoComplete="off"
-            maxWidth="27rem"
-            width="100%"
-            sx={{
-              p: { xs: "1rem", sm: "2rem" },
-              borderRadius: 2,
-            }}
-          >
-            <FormInput
-              name="verificationCode"
-              label="Verification Code"
-              sx={{
-                border: 1,
-                borderColor: "#000",
-                borderRadius: "10px",
-                boxShadow: 4,
-              }}
-            />
-
-            <LoadingButton
-              variant="contained"
-              sx={{ mt: 1 }}
-              fullWidth
-              disableElevation
-              type="submit"
-              loading={isLoading}
-            >
-              Verify Email
-            </LoadingButton>
-          </Box>
-        </FormProvider>
-      </Box>
-    </Container>
+          <div className="divider acc mt-5">
+            <hr className="hrLeft text-small" />
+              <a>Please check your Email</a>
+            <hr className="hrRight" />
+          </div>
+          
+        </div>
+      </div>
+    </div>
   );
-};
-
-export default EmailVerificationPage;
+}
