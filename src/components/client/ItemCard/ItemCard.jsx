@@ -11,6 +11,7 @@ import { addToCart } from "../../../store/client/reducers/cartSlice";
 import { useNavigate } from "react-router-dom";
 import { gridColumnsTotalWidthSelector } from "@mui/x-data-grid";
 import { getBook } from "../../../store/client/reducers/bookSlice";
+import { useSelector } from "react-redux";
 
 const container = {
    hidden: { opacity: 0 },
@@ -39,6 +40,10 @@ const item = {
 };
 
 export default function ItemCard({ book }) {
+   const user = useSelector((state) => state.userState.user);
+   const role = useSelector((state) => state.userState.role);
+   const token = useSelector((state) => state.userState.token);
+
    const navigate = useNavigate();
    const dispatch = useDispatch();
 
@@ -69,7 +74,7 @@ export default function ItemCard({ book }) {
          >
             <img src={book.imageSource} alt="" className="col-12" />
 
-            {showbtns && (
+            {showbtns && user && token && role && (
                <motion.div
                   variants={container}
                   initial="hidden"

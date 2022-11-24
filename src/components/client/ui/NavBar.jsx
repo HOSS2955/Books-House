@@ -54,6 +54,7 @@ const NavBar = ({ showModal }) => {
   // Check if the user is Authorized
   const user = useSelector((state) => state.userState.user);
   const role = useSelector((state) => state.userState.role);
+  const token = useSelector((state) => state.userState.token);
   // // change nav color when scrolling
   const [color, setColor] = useState(false);
   const changeColor = () => {
@@ -134,7 +135,7 @@ const NavBar = ({ showModal }) => {
                   ))}
                 </ul>
               </div>
-              {user ? (
+              {user && token && role ? (
                 <div className="nav__icons">
                   <span onClick={showModal} className="fav__icon">
                     <FiHeart />
@@ -157,7 +158,7 @@ const NavBar = ({ showModal }) => {
                     />
                   </Dropdown.Toggle>
 
-                  {role==="admin" ? (<Dropdown.Menu>
+                  {user && token && role==="admin" ? (<Dropdown.Menu>
                   
                   <Link to="/admin">
                     <Dropdown.Item href="#/action-1">Dash board</Dropdown.Item>
@@ -214,7 +215,7 @@ const NavBar = ({ showModal }) => {
             </div>
           </div>
           <div className="w-50 d-flex align-items-baseline justify-content-end">
-            {user && (
+            {user&&token&&role && (
               <div className="nav__icons">
                 <span onClick={showModal} className="fav__icon">
                   <FiHeart />
@@ -237,7 +238,7 @@ const NavBar = ({ showModal }) => {
                     />
                   </Dropdown.Toggle>
 
-                  {role==="admin" ? (<Dropdown.Menu>
+                  {user&&token&&role==="admin" ? (<Dropdown.Menu>
                   
                   <Link to="/admin">
                     <Dropdown.Item href="#/action-1">Dash board</Dropdown.Item>
@@ -311,7 +312,7 @@ const NavBar = ({ showModal }) => {
                         </Dropdown.Menu>
                       </Dropdown>
                     )} */}
-                    {!user && (
+                    { !user || !token || !role && (
                       <Dropdown className="mt-4">
                         <Dropdown.Toggle variant="warning" id="dropdown-basic">
                           <BiUserCircle />
