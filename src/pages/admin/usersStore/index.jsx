@@ -5,13 +5,30 @@ import { mockDataTeam } from "../../../data/mockData";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
+import CheckIcon from "@mui/icons-material/Check";
+import ClearIcon from "@mui/icons-material/Clear";
 import Header from "../../../components/admin/Header";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserData } from "../../../store/client/reducers/userDataSlice";
 
 export default function UsersStore() {
+   const [pageSize, setPageSize] = useState(10);
+
    const theme = useTheme();
    const colors = tokens(theme.palette.mode);
+   const dispatch = useDispatch();
+   useEffect(() => {
+      dispatch(getUserData());
+   }, []);
+
+   const { users } = useSelector((state) => state.userData);
+
+   if (users) {
+      console.log(users);
+   }
    const columns = [
-      { field: "id", headerName: "ID" },
+      { field: "_id", hide: true },
       {
          field: "name",
          headerName: "Name",
@@ -19,11 +36,11 @@ export default function UsersStore() {
          cellClassName: "name-column--cell",
       },
       {
-         field: "age",
-         headerName: "Age",
-         type: "number",
+         field: "email",
+         headerName: "Email",
          headerAlign: "left",
          align: "left",
+         flex: 1,
       },
       {
          field: "phone",
@@ -31,15 +48,16 @@ export default function UsersStore() {
          flex: 1,
       },
       {
-         field: "email",
-         headerName: "Email",
+         field: "createdAt",
+         headerName: "Created at",
          flex: 1,
       },
       {
-         field: "accessLevel",
-         headerName: "Access Level",
+         field: "confirmed",
+         headerName: "Email Confirmed",
          flex: 1,
-         renderCell: ({ row: { access } }) => {
+         headerAlign: "center",
+         renderCell: ({ row: { confirmed } }) => {
             return (
                <Box
                   width="60%"
@@ -48,19 +66,12 @@ export default function UsersStore() {
                   display="flex"
                   justifyContent="center"
                   backgroundColor={
-                     access === "admin"
-                        ? colors.greenAccent[600]
-                        : access === "manager"
-                        ? colors.greenAccent[700]
-                        : colors.greenAccent[700]
+                     confirmed ? colors.greenAccent[600] : colors.redAccent[700]
                   }
                   borderRadius="4px"
                >
-                  {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
-                  {access === "manager" && <SecurityOutlinedIcon />}
-                  {access === "user" && <LockOpenOutlinedIcon />}
                   <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
-                     {access}
+                     {confirmed ? <CheckIcon /> : <ClearIcon />}
                   </Typography>
                </Box>
             );
@@ -100,7 +111,15 @@ export default function UsersStore() {
                },
             }}
          >
-            <DataGrid rows={mockDataTeam} columns={columns} />
+            <DataGrid
+               rows={users}
+               columns={columns}
+               loading={!users.length}
+               getRowId={(row) => row._id}
+               rowsPerPageOptions={[10, 15, 20]}
+               pageSize={pageSize}
+               onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+            />
          </Box>
       </Box>
    );

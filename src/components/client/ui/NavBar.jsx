@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import "../../../assets/css/NavBar.css";
 
 import { motion } from "framer-motion";
@@ -13,6 +13,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Dropdown from "react-bootstrap/Dropdown";
+import { getTotals } from "../../../store/client/reducers/cartSlice";
 
 const nav__links = [
   {
@@ -37,12 +38,22 @@ const nav__links = [
   {
     path: "reviews",
     display: "Reviews",
-  }
+  },
 ];
 const NavBar = ({ showModal }) => {
+  const { cartTotalQuantity } = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getTotals());
+  }, [cart, dispatch]);
+  const navigate = useNavigate();
+  const clickCart = () => {
+    navigate("/cart");
+  };
   // Check if the user is Authorized
-  const  user  = useSelector((state) => state.userState.user);
-  const role = useSelector((state) => state.userState.role)
+  const user = useSelector((state) => state.userState.user);
+  const role = useSelector((state) => state.userState.role);
   // // change nav color when scrolling
   const [color, setColor] = useState(false);
   const changeColor = () => {
@@ -65,8 +76,8 @@ const NavBar = ({ showModal }) => {
   //   }
   // }
 
-  const [toggle, setToggle] = useState(false)
-  
+  const [toggle, setToggle] = useState(false);
+
   // const stickyHeaderFunc = () => {
   //    window.addEventListener("scroll", () => {
   //       headerRef.current.classList.add("sticky__header");
@@ -128,12 +139,15 @@ const NavBar = ({ showModal }) => {
                 <div className="nav__icons">
                   <span onClick={showModal} className="fav__icon">
                     <FiHeart />
-                    <span className="__badge">1</span>
                   </span>
-                  <Link to="cart"><span className="cart__icon">
+                  <span className="cart__icon" onClick={clickCart}>
                     <BsBag />
-                    <span className="__badge">1</span>
-                  </span></Link>
+                    {cartTotalQuantity === 0 ? (
+                      false
+                    ) : (
+                      <span className="__badge"> {cartTotalQuantity}</span>
+                    )}
+                  </span>
                   <span>
                   <Dropdown>
                   <Dropdown.Toggle variant="transparent" id="dropdown-basic" className="dropDown__Toggle">
@@ -205,12 +219,15 @@ const NavBar = ({ showModal }) => {
               <div className="nav__icons">
                 <span onClick={showModal} className="fav__icon">
                   <FiHeart />
-                  <span className="__badge">1</span>
                 </span>
-                <Link to="cart"><span className="cart__icon">
+                <span className="cart__icon" onClick={clickCart}>
                   <BsBag />
-                  <span className="__badge">1</span>
-                </span></Link>
+                  {cartTotalQuantity === 0 ? (
+                    false
+                  ) : (
+                    <span className="__badge"> {cartTotalQuantity}</span>
+                  )}
+                </span>
                 <span>
                 <Dropdown>
                   <Dropdown.Toggle variant="transparent" id="dropdown-basic" className="dropDown__Toggle">
@@ -248,17 +265,19 @@ const NavBar = ({ showModal }) => {
               </div>
             )}
 
-            <Navbar.Toggle aria-controls="offcanvasNavbar-expand-lg"  onClick={() => setToggle(true)}/>
-            
-           {toggle && <Navbar.Offcanvas
+            <Navbar.Toggle
+              aria-controls="offcanvasNavbar-expand-lg"
+              onClick={() => setToggle(true)}
+            />
+
+            {toggle && (
+              <Navbar.Offcanvas
                 id="offcanvasNavbar-expand-lg"
                 aria-labelledby="offcanvasNavbarLabel-expand-lg"
                 placement="end"
                 className="w-50"
-                
               >
-                <Offcanvas.Header closeButton>
-                </Offcanvas.Header>
+                <Offcanvas.Header closeButton></Offcanvas.Header>
                 <Offcanvas.Body>
                   <Nav className="justify-content-end flex-grow-1 pe-3">
                     {nav__links.map((item, i) => (
@@ -315,8 +334,8 @@ const NavBar = ({ showModal }) => {
                     )}
                   </Nav>
                 </Offcanvas.Body>
-              </Navbar.Offcanvas>}
-            
+              </Navbar.Offcanvas>
+            )}
           </div>
         </Container>
       </Navbar>

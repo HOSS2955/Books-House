@@ -1,7 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserData } from "../../../store/client/reducers/userDataSlice";
 import "./Profile.css";
 
 export default function MyProfile() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUserData());
+  }, []);
+
+  const { user } = useSelector((state) => state.userData);
+  const [userData, setUserData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+  });
+
+  const inputHandler = (e) => {
+    // console.log(e.target.name, ":", e.target.value);
+    setUserData({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    console.log(userData);
+  };
+
   return (
     <div className="profile">
       <div className="container-xl px-4 mt-4 rounded">
@@ -21,26 +45,34 @@ export default function MyProfile() {
               </div>
             </div>
           </div>
+
           <div className="col-xl-8 col-md-8">
+            {!user.confirmed && (
+              <h5 className="text-center text-danger text-capitalize">
+                please confirm your email
+              </h5>
+            )}
             <div className="card mb-4">
               <div className="card-header">Account Details</div>
               <div className="card-body">
-                <form>
+                <form onSubmit={submitHandler}>
                   <div className="mb-3">
                     <label className="small mb-1" for="inputUsername">
-                      Username (how your name will appear to other users on the
-                      site)
+                      Username
                     </label>
                     <input
                       className="form-control"
-                      id="inputUsername"
+                      id="name"
                       type="text"
-                      placeholder="Enter your username"
+                      //  value={user?.name}
+                      name="name"
+                      onChange={inputHandler}
+                      placeholder={user.name ? user?.name : ""}
                     />
                   </div>
 
-                  <div className="row gx-3 mb-3">
-                    <div className="col-md-6">
+                  {/* <div className="row gx-3 mb-3"> */}
+                  {/* <div className="col-md-6">
                       <label className="small mb-1" for="inputFirstName">
                         First name
                       </label>
@@ -62,30 +94,33 @@ export default function MyProfile() {
                         type="text"
                         placeholder="Enter your last name"
                       />
-                    </div>
-                  </div>
+                    </div> */}
+                  {/* </div> */}
 
-                  <div className="col-md-12">
-                    <label className="small mb-1" for="inputLocation">
-                      Location
-                    </label>
-                    <input
-                      className="form-control"
-                      id="inputLocation"
-                      type="text"
-                      placeholder="Enter your location"
-                    />
-                  </div>
+                  {/* <div className="col-md-12">
+                              <label className="small mb-1" for="inputLocation">
+                                 Location
+                              </label>
+                              <input
+                                 className="form-control"
+                                 id="inputLocation"
+                                 type="text"
+                                 placeholder="Enter your location"
+                              />
+                           </div> */}
 
                   <div className="mb-3">
                     <label className="small mb-1" for="inputEmailAddress">
-                      Email address
+                      Email Address
                     </label>
                     <input
                       className="form-control"
                       id="inputEmailAddress"
+                      onChange={inputHandler}
                       type="email"
-                      placeholder="Enter your email address"
+                      name="email"
+                      //  value={user.email}
+                      placeholder={user.email ? user?.email : ""}
                     />
                   </div>
 
@@ -98,25 +133,31 @@ export default function MyProfile() {
                         className="form-control"
                         id="inputPhone"
                         type="tel"
-                        placeholder="Enter your phone number"
+                        name="phone"
+                        onChange={inputHandler}
+                        // value={user.phone}
+                        placeholder={user.phone ? user?.phone : ""}
                       />
                     </div>
 
-                    <div className="col-md-6">
-                      <label className="small mb-1" for="inputBirthday">
-                        Birthday
-                      </label>
-                      <input
-                        className="form-control"
-                        id="inputBirthday"
-                        type="text"
-                        name="birthday"
-                        placeholder="Enter your birthday"
-                      />
-                    </div>
+                    {/* <div className="col-md-6">
+                                 <label
+                                    className="small mb-1"
+                                    for="inputBirthday"
+                                 >
+                                    Birthday
+                                 </label>
+                                 <input
+                                    className="form-control"
+                                    id="inputBirthday"
+                                    type="text"
+                                    name="birthday"
+                                    placeholder="Enter your birthday"
+                                 />
+                              </div> */}
                   </div>
 
-                  <button className="btn btn-primary" type="button">
+                  <button type="submit" className="btn btn-primary">
                     Save changes
                   </button>
                 </form>

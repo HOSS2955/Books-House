@@ -89,23 +89,21 @@ module.exports = function (app) {
          changeOrigin: true,
       })
    );
-   homePage
+
+   // --------------------GET ALL USERS------------------------
    app.use(
-      "/homeData/home",
+      "/user/getallusers",
       createProxyMiddleware({
          target: "http://localhost:3001",
          changeOrigin: true,
       })
-   )
-
-   // Packages
-   // app.use(
-   //    "/homeData/home",
-   //    createProxyMiddleware({
-   //       target: "http://localhost:3001",
-   //       changeOrigin: true,
-   //    })
-   // )
-
-   
+   );
+   // --------------------GET USER------------------------
+   app.use(
+      "/user/getuser/:id",
+      createProxyMiddleware({
+         target: "http://localhost:3001",
+         changeOrigin: true,
+      })
+   );
 };

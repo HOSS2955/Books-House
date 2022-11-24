@@ -6,9 +6,10 @@ import { commentBook } from '../../../actions/book';
 import { useParams } from "react-router-dom";
 
 
-const CommentSection = () => {
-    const book = useSelector((state)=>state.books.bookDetails);
-    console.log(book?.comments)
+const CommentSection = ({book}) => {
+    // const book = useSelector((state)=>state.books.bookDetails);
+    // console.log(book?.comments)
+    console.log(book.comments)
     const { id } = useParams();
     console.log(id)
     const classes = useStyles()
@@ -32,7 +33,8 @@ const CommentSection = () => {
                 <Typography gutterBottom variant='h6'>Comments</Typography>
                 {comments.map((c , i)=>(
                      <Typography key={i} gutterBottom variant='subtitle1'>
-                         <strong>{c.split(': ')[0]}</strong>
+                      {/* {c} */}
+                         <strong>{c.split(':')[0]}</strong>
                          {c.split(':')[1]}
                      </Typography>
                 ))}

@@ -18,6 +18,7 @@ import {
 } from "../../../store/client/reducers/cartSlice";
 import "../../../assets/css/Cart.css";
 import { Link } from "react-router-dom";
+import NoProducts from "../ui/NoProducts/NoProducts";
 
 export default function Cart() {
   const cart = useSelector((state) => state.cart);
@@ -56,47 +57,27 @@ export default function Cart() {
                         </h1>
                       </div>
                       {cart.cartItems.length === 0 ? (
-                        <div className="cart-empty">
-                          <p>Your cart is currently empty</p>
-                          <div className="start-shopping">
-                            <Link to="/books">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="20"
-                                height="20"
-                                fill="currentColor"
-                                className="bi bi-arrow-left"
-                                viewBox="0 0 16 16"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
-                                />
-                              </svg>
-                              <span>Start Shopping</span>
-                            </Link>
-                          </div>
-                        </div>
+                        <NoProducts />
                       ) : (
                         <div>
                           {cart.cartItems &&
                             cart.cartItems.map((cartItem) => (
                               <div>
                                 <div className="row mb-4 d-flex justify-content-between align-items-center">
-                                  <div className="col-md-2 col-lg-2 col-xl-2">
+                                  <div className="col-md-2  p-0">
                                     <img
                                       src={cartItem.imageSource}
-                                      className="img-fluid rounded-3"
+                                      className="img-fluid rounded-3 p-0"
                                       alt={cartItem.title}
                                     />
                                   </div>
-                                  <div className="col-md-3 col-lg-3 col-xl-3">
+                                  <div className="col-md-3 ">
                                     <h6 className="text-muted">
                                       {cartItem.title}
                                     </h6>
                                     <p>{cartItem.type}</p>
                                   </div>
-                                  <div className="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                  <div className="col-md-2  d-flex">
                                     <button
                                       className="btn btn-link px-2"
                                       onClick={() =>
@@ -123,16 +104,16 @@ export default function Cart() {
                                       />
                                     </button>
                                   </div>
-                                  <div className="col-md-1 col-lg-1 col-xl-1 offset-lg-1">
+                                  <div className="col-md-1 offset-lg-1">
                                     <div className="mb-0">
                                       ${cartItem.price}
                                     </div>
                                   </div>
-                                  <div className="col-md-3 col-lg-2 col-xl-2 ">
+                                  <div className="col-md-2  ">
                                     Total: $
                                     {cartItem.price * cartItem.cartQuantity}
                                   </div>
-                                  <div className="col-md-1 col-lg-1 col-xl-1 text-end">
+                                  <div className="col-md-1  text-end">
                                     <button
                                       className="btn btn-link px-2"
                                       onClick={() =>
@@ -154,12 +135,17 @@ export default function Cart() {
                       )}
 
                       <div className="pt-5">
-                        <button
-                          className="btn clear-btn text-danger mb-2"
-                          onClick={() => handleClearCart()}
-                        >
-                          Clear Cart
-                        </button>
+                        {cart.cartItems.length === 0 ? (
+                          false
+                        ) : (
+                          <button
+                            className="btn clear-btn text-danger mb-2"
+                            onClick={() => handleClearCart()}
+                          >
+                            Clear Cart
+                          </button>
+                        )}
+
                         <h6 className="mb-0">
                           <a href="/books" className="text-body text-center">
                             <FontAwesomeIcon
