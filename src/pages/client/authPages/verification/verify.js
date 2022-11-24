@@ -6,11 +6,11 @@ import { FaApple, FaLock, FaUserAlt } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import validator from "validator";
-import { useVerifyEmailMutation } from "../../../../services/authApi";
 import { OTPBox } from "../otp/OtpPage";
 import { toast } from "react-toastify";
 
 import "./Verification.css";
+import { useVerifyEmailMutation } from "../../../../features/authApiSlice";
 export default function VerificationOtp() {
   const navigate = useNavigate();
   const [disabled, setDisabled] = useState(true);

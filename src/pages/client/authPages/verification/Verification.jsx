@@ -15,9 +15,9 @@ import { LoadingButton as _LoadingButton } from "@mui/lab";
 
 import { useDispatch } from "react-redux";
 import ProtectedComponent from "../../../../features/ProtectedComponent";
-import { useVerifyEmailMutation } from "../../../../services/authApi";
 import { toast } from "react-toastify";
 import "./Login.css";
+import { useVerifyEmailMutation } from "../../../../features/authApiSlice";
 
 export default function EmailVerificationPage() {
   const LoadingButton = styled(_LoadingButton)`
