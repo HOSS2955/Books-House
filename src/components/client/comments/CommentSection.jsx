@@ -7,9 +7,7 @@ import { useParams } from "react-router-dom";
 
 
 const CommentSection = ({book}) => {
-    // const book = useSelector((state)=>state.books.bookDetails);
-    // console.log(book?.comments)
-    console.log(book.comments)
+    console.log(book?.comments)
     const { id } = useParams();
     console.log(id)
     const classes = useStyles()

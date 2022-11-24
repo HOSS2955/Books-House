@@ -48,7 +48,7 @@ const HeaderSwiper = ({ headerArray }) => {
         loop={true}
         slidesPerView={1}
         autoplay={{
-          delay: 400000,
+          delay: 3500,
           disableOnInteraction: false,
         }}
         className="container h-100"
@@ -66,10 +66,6 @@ const HeaderSwiper = ({ headerArray }) => {
   <p className="pb-5 fs-5"><b>Bookshouse</b> is definitely the best place to help you start filling your shelves with all the books you love!
 In <b>Bookshouse</b>, we believe in the power of a single book which is why we have made the process of navigating through thousands of books as easy as a scroll of a finger!
 ( <b>Bookshouse</b> provides thousands of books worldwide at the scroll of your finger! )</p>
-
-<p className="fs-5"><b>Bookshouse</b> believes in talent which is why we offer every writer an equal chance at recognition.
-Display your book on Bookshouse and get the chance to have it exclusively reviewed by our team members.
-<b>Bookshouse</b> will help you provide readers of the world with the most honest reviews of your book!</p>
 </SwiperSlide>
         {/* <Mapping header data/> */}
         {headerArray.map((item, index) => {

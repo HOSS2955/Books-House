@@ -17,12 +17,15 @@ export default function ClientsTestmonialsSwiper({clientsTestimonialsArray}) {
     <div>
       <Swiper
         // install Swiper modules
-        modules={[Navigation, Pagination, A11y , FreeMode ]}
+        modules={[Navigation, Pagination, A11y , FreeMode , Autoplay ]}
         spaceBetween={100}
         centeredSlides={true}
         loop={true}
         slidesPerView={3}
-       
+        autoplay={{
+          delay: 1500,
+          disableOnInteraction: false,
+        }}
         className="container"
         navigation
         freeMode
@@ -60,7 +63,7 @@ export default function ClientsTestmonialsSwiper({clientsTestimonialsArray}) {
               </div>
 
 
-              <SwiperSlide className={` swiper__card h-auto ${index%2===0? "bg-primary" : "testimonial"}`}>
+              <SwiperSlide className={` swiper__card h-auto ${index%2===0? "testimonial__primary" : "testimonial__warning"}`}>
           <div className="custom-shape-divider-top-1668530886">
         <svg
                 data-name="Layer 1"
