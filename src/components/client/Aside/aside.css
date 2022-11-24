@@ -1,1 +1,13 @@
+.activeAside {
+   cursor: pointer;
+}
 
+.activeAside:active {
+   font-weight: bold;
+}
+.activeAside:focus {
+   font-weight: bold;
+}
+.activeAside:target {
+   font-weight: bold;
+}

@@ -42,24 +42,18 @@ export default function PackagesControl() {
    const isNonMobile = useMediaQuery("(min-width:600px)");
    const dispatch = useDispatch();
    const { setDataInLocalState } = packageActions;
-   const handleFormSubmit = (book) => {
-      if (formValue.packageDesc) {
-         formValue.packageDesc = formValue.packageDesc.split(",");
+
+   const handleFormSubmit = () => {
+      if (packageId.packageDesc[0].length < 2) {
+         packageId.packageDesc = packageId.packageDesc.split(",");
       }
-      console.log(formValue);
-      console.log(selectorValue);
       console.log(packageId);
-      // updatePackageData(formvalue)
+      // updatePackageData(packageId)
    };
-   // useEffect(() => {
-   //    if (data) {
-   //       dispatch(setDataInLocalState(data));
-   //    }
-   // }, []);
 
    const operationHandler = (e) => {
-      setFormValue({
-         ...formValue,
+      setPackageId({
+         ...packageId,
          [e.target.name]: e.target.value,
       });
    };
@@ -67,7 +61,7 @@ export default function PackagesControl() {
    const [selectorValue, setSelectorValue] = React.useState("");
    const handleChange = (event) => {
       setSelectorValue(event.target.value);
-      setPackageId(packageData[event.target.value - 1]._id);
+      setPackageId(packageData[event.target.value - 1]);
    };
    return (
       <Box m="20px">

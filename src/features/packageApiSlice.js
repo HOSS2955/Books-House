@@ -34,7 +34,7 @@ export const packageApi = createApi({
       updatePackageData: build.mutation({
          query: (credentials) => {
             return {
-               url: `/update/`,
+               url: `/update/${credentials._id}`,
                method: "PUT",
                body: credentials,
             };

@@ -131,4 +131,12 @@ module.exports = function (app) {
          changeOrigin: true,
       })
    );
+   //----------------------UPDATEA PACKAGE------------------------
+   app.use(
+      "/package/update/:id",
+      createProxyMiddleware({
+         target: "http://localhost:3001",
+         changeOrigin: true,
+      })
+   );
 };
