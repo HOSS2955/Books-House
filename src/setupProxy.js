@@ -106,4 +106,37 @@ module.exports = function (app) {
          changeOrigin: true,
       })
    );
+   // --------------------UPADTE USER------------------------
+   app.use(
+      "/user/updateProfile",
+      createProxyMiddleware({
+         target: "http://localhost:3001",
+         changeOrigin: true,
+      })
+   );
+   //===================================================
+   //------------------------HOME-----------------------
+   app.use(
+      "/homeData/home",
+      createProxyMiddleware({
+         target: "http://localhost:3001",
+         changeOrigin: true,
+      })
+   );
+   //------------------------HOME PACKAGE-----------------------
+   app.use(
+      "/package/getall",
+      createProxyMiddleware({
+         target: "http://localhost:3001",
+         changeOrigin: true,
+      })
+   );
+   //----------------------UPDATEA PACKAGE------------------------
+   app.use(
+      "/package/update/:id",
+      createProxyMiddleware({
+         target: "http://localhost:3001",
+         changeOrigin: true,
+      })
+   );
 };

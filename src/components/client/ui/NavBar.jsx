@@ -65,16 +65,6 @@ const NavBar = ({ showModal }) => {
   };
   window.addEventListener("scroll", changeColor);
   const headerRef = useRef(null);
-  // closing the navbar
-  // const [showNav, setShowNav] = useState(false);
-  // const showNavBar =()=>{
-  //  if(showNav){
-  //   setShowNav(false)
-  //  }
-  //   else{
-  //     setShowNav(true)
-  //   }
-  // }
 
   const [toggle, setToggle] = useState(false);
 
@@ -293,7 +283,9 @@ const NavBar = ({ showModal }) => {
 
             <Navbar.Toggle
               aria-controls="offcanvasNavbar-expand-lg"
-              onClick={() => setToggle(true)}
+              onClick={() => {
+                return console.log(toggle), setToggle(true);
+              }}
             />
 
             {toggle && (

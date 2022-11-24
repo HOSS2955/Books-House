@@ -1,6 +1,7 @@
 import React from 'react'
 import HeaderSwiper from "../../../components/client/ui/swiper/HeaderSwiper";
 
+
 const Banner = ({ headerArray }) => {
   return (
     // <div class="container-fluid">
