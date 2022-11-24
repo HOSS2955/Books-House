@@ -8,15 +8,6 @@ export const adminAuthApi = createApi({
   reducerPath: "adminAuthApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `/admin/`,
-    // prepareHeaders: (headers, { getState }) => {
-    //   // console.log(getState());
-    //   const token = getState().auth.token;
-    //   token && console.log(token);
-    //   if (token) {
-    //     headers.set("Authorization", `Bearer ${token}`);
-    //   }
-    //   return headers;
-    // },
   }),
   endpoints: (builder) => ({
     loginAdmin: builder.mutation({

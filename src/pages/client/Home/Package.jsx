@@ -18,6 +18,7 @@ const Package = ({ handleShow, setPackages }) => {
       console.log("data from pricing", data);
     }
   }, [dispatch, data]);
+  console.log(packageData)
   return (
     <div className="container">
       <section id="pricing" className="section bg-white">

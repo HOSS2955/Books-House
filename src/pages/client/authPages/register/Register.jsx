@@ -9,8 +9,8 @@ import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LoadingButton as _LoadingButton } from "@mui/lab";
 import { toast } from "react-toastify";
-import { useRegisterUserMutation } from "../../../../services/authApi";
 import { left } from "@popperjs/core";
+import { useRegisterUserMutation } from "../../../../features/authApiSlice";
 
 const LoadingButton = styled(_LoadingButton)`
   padding: 0.6rem 0;

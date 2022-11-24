@@ -1,27 +1,17 @@
 import { Box, Container, Typography } from "@mui/material";
+import style from "./styleAuth.module.css";
 
 const UnauthorizePage = () => {
   return (
-    <Container maxWidth="lg">
-      <Box
-        sx={{
-          backgroundColor: "#ece9e9",
-          mt: "2rem",
-          height: "15rem",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Typography
-          variant="h2"
-          component="h1"
-          sx={{ color: "#1f1e1e", fontWeight: 500 }}
-        >
-          Unauthorized Page
-        </Typography>
-      </Box>
-    </Container>
+    <div className="container p-5 mt-5 text-center d-flex flex-column align-items-center justify-content-evenly ">
+      <div className={style.lock}></div>
+      <div>
+        <h1>Access to this page is restricted</h1>
+        <p>
+          Please check with the site admin if you believe this is a mistake.
+        </p>
+      </div>
+    </div>
   );
 };
 
