@@ -204,8 +204,13 @@ export default function AuthorsHouse() {
           </motion.div>
 
           {/* PACKAGES */}
-          <Pricing pricingArray={packagesData} />
+          <Pricing
+            pricingArray={packagesData}
+            handleShow={handleShow}
+            setPackages={setPackages}
+          />
         </div>
       </div>
-   );
+    </div>
+  );
 }
