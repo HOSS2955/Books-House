@@ -107,6 +107,7 @@ export default function ItemCard({ book }) {
                   >
                      <AiOutlinePlus />
                   </motion.button>
+                  
                   <motion.button
                      className="itemBtns btn btn-light mx-1 text-bold rounded-5"
                      type="submit"

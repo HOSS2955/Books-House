@@ -105,7 +105,7 @@ export default function BookDetails() {
         </div>
       </div>
     </div>
-    <CommentSection book={book}/>
+    {/* <CommentSection book={book}/> */}
     </div>
   );
 }

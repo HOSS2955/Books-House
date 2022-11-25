@@ -25,6 +25,10 @@ export default function BookDetails() {
   const { id } = useParams();
   const [book] = books.filter((item) => item._id === id);
 
+   const user = useSelector((state) => state.userState.user);
+   const role = useSelector((state) => state.userState.role);
+   const token = useSelector((state) => state.userState.token);
+
   useEffect(() => {
     dispatch(getBooks());
     addToWish(book);
@@ -45,67 +49,90 @@ export default function BookDetails() {
     dispatch(addToCart(book));
   };
 
-  return (
-    <div>
-      <BreadCrumb title={book?.title} breadCrumb={book?.title} />
-      <div className="my-5 container">
-        <div className="row">
-          <div className="col-6 row">
-            <div className="col-3"></div>
-            <div className="col-9">
-              <img src={book?.imageSource} className="coverImage " alt="" />
-              <div className="d-flex flex-column justify-content-center align-items-center">
-                <a className="my-4 d-inline " onClick={addToWishlist} href>
-                  {wishlistIcon ? <AiFillHeart /> : <AiOutlineHeart />} Add to
-                  wishlist
-                </a>
-                <div>
-                  <span className="d-block">
-                    <AiOutlineCheckCircle /> Shop the Holiday Gift Guide
-                  </span>
-                  <span className="d-block">
-                    <AiOutlineCheckCircle /> Explore the Best Books of 2022
-                  </span>
-                  <span className="d-block">
-                    <AiOutlineCheckCircle /> Bookseller Favorites
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-6 px-5">
+   return (
+      <div>
+         <BreadCrumb title={book?.title} breadCrumb={book?.title} />
+         <div className="my-5 container">
             <div className="row">
-              <div className="border-bottom">
-                <h2 className="fw-bolder text-capitalize ">{book?.title}</h2>
-                <p className="mb-3 text-secondary">By {book?.author}</p>
-              </div>
-              <h3 className="fw-bold mb-4 mt-3">${book?.price}.00</h3>
-              <p>Description : {book?.bookDesc}</p>
+               <div className="col-6 row">
+                  <div className="col-3"></div>
+                  <div className="col-9">
+                     <img
+                        src={book?.imageSource}
+                        className="coverImage "
+                        alt=""
+                     />
+                     <div className="d-flex flex-column justify-content-center align-items-center">
+                        <a
+                           className="my-4 d-inline "
+                           onClick={addToWishlist}
+                           href
+                        >
+                           {wishlistIcon ? <AiFillHeart /> : <AiOutlineHeart />}{" "}
+                           Add to wishlist
+                        </a>
+                        <div>
+                           <span className="d-block">
+                              <AiOutlineCheckCircle /> Shop the Holiday Gift
+                              Guide
+                           </span>
+                           <span className="d-block">
+                              <AiOutlineCheckCircle /> Explore the Best Books of
+                              2022
+                           </span>
+                           <span className="d-block">
+                              <AiOutlineCheckCircle /> Bookseller Favorites
+                           </span>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div className="col-6 px-5">
+                  <div className="row">
+                     <div className="border-bottom">
+                        <h2 className="fw-bolder text-capitalize ">
+                           {book?.title}
+                        </h2>
+                        <p className="mb-3 text-secondary">By {book?.author}</p>
+                     </div>
+                     <h3 className="fw-bold mb-4 mt-3">${book?.price}.00</h3>
+                     <p>Description : {book?.bookDesc}</p>
+                  </div>
+                  <div className=" my-3">
+                     <button
+                        className="btn btn-dark rounded-5 col-6 mb-3 text-uppercase"
+                        onClick={() => handleAddToCart(book)}
+                     >
+                        add to cart
+                     </button>
+                     <div className="mt-3 border-bottom mb-5">
+                        <span className="px-2  fs-6 ">
+                           <BsTruck />
+                        </span>
+                        <span className="smallText   ">
+                           Choose Expedited Shipping at checkout for delivery by
+                           Monday ,November 28
+                        </span>
+                     </div>
+                  </div>
+               </div>
+               {/* COMMENTS */}
+               <div className="col-12 row mt-5">
+                  <div className="col-2"></div>
+                  <div className="col-10">
+                  {book?.comments ? (
+                     // <div className="col-12  d-flex justify-content-center align-items-center p-3">
+                        <CommentSection book={book} />
+                     // </div>
+                  ) : (
+                     <div className="col-10 bg-light  d-flex justify-content-center align-items-center p-3">
+                        <p className="fs-4">No Comments</p>
+                     </div>
+                  )}
+                  </div>
+               </div>
             </div>
-            <div className=" my-3">
-              <button
-                className="btn btn-dark rounded-5 col-6 mb-3 text-uppercase"
-                onClick={() => handleAddToCart(book)}
-              >
-                add to cart
-              </button>
-              <div className="mt-3 border-bottom mb-5">
-                <span className="px-2  fs-6 ">
-                  <BsTruck />
-                </span>
-                <span className="smallText   ">
-                  Choose Expedited Shipping at checkout for delivery by Monday
-                  ,November 28
-                </span>
-              </div>
-            </div>
-          </div>
-          {/* COMMENTS */}
-          <div className="col-12">
-            <CommentSection book={book} />
-          </div>
-        </div>
+         </div>
       </div>
-    </div>
-  );
+   );
 }

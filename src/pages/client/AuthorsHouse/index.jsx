@@ -116,7 +116,7 @@ export default function AuthorsHouse() {
       {/* SERVICE NAME AND DESCRIPTION */}
       <div className="mb-5">
         <div className="container">
-          <div className="row">
+          <div className="row d-flex justify-content-center authorHeader">
             <motion.div
               className="col-6 d-flex flex-column justify-content-center align-items-center"
               variants={container}
