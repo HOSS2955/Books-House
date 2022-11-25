@@ -7,12 +7,13 @@ import { AiFillHeart, AiOutlinePlus } from "react-icons/ai";
 import { AiOutlineHeart } from "react-icons/ai";
 import { IoBagHandleOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../../store/client/reducers/cartSlice";
+
 import { useNavigate } from "react-router-dom";
 import {
   addToWish,
   removeFromWish,
 } from "../../../store/client/reducers/wishlistSlice";
+import { addToCart } from "../../../store/client/reducers/cartSlice";
 
 const container = {
   hidden: { opacity: 0 },
@@ -106,6 +107,7 @@ export default function ItemCard({ book }) {
                   >
                      <AiOutlinePlus />
                   </motion.button>
+                  
                   <motion.button
                      className="itemBtns btn btn-light mx-1 text-bold rounded-5"
                      type="submit"
