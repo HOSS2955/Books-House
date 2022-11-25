@@ -23,8 +23,8 @@ const signUp = async (req, res) => {
 
     console.log(savedUser.email);
     console.log(message);
-    // console.log(sendEmail(savedUser.email, message));
-    // sendEmail(savedUser.email, message);
+    console.log(sendEmail(savedUser.email, message));
+    sendEmail(savedUser.email, message);
     res
       .status(201)
       .json({ message: "please check your email to verify it", savedUser });
@@ -59,37 +59,45 @@ const login = async (req, res) => {
     res.status(404).json({ message: "invalid email account" });
   } else {
     const match = await bcrypt.compare(password, user.password);
-    if(!match){
-      res.status(500).send("not match")
-    }else{
+    if (!match) {
+      res.status(500).send("not match");
+    } else {
+      console.log("hello iam match");
+      const refreshToken = jwt.sign(
+        { _id: user._id },
+        process.env.REFRESH_TOKEN_SECRET,
+        { expiresIn: "12h" }
+      );
+      const token = jwt.sign(
+        { _id: user._id, isLogged: true },
+        process.env.logingtoken,
+        { expiresIn: "1h" }
+      );
 
-      console.log('hello iam match')
-      const refreshToken = jwt.sign({ _id: user._id }, process.env.REFRESH_TOKEN_SECRET,{ expiresIn: "12h" });
-        const token = jwt.sign(
-          { _id: user._id, isLogged: true },
-          process.env.logingtoken,
-          { expiresIn: "1h" }
-        );
-                
-        (async ()=>{
-          console.log('ya function')
-          user.refreshToken=[refreshToken]
-          await user.save()
-        })()
+      (async () => {
+        console.log("ya function");
+        user.refreshToken = [refreshToken];
+        await user.save();
+      })();
 
-        res.cookie("refreshTokenVal", refreshToken, {
+      res.cookie("refreshTokenVal", refreshToken, {
         httpOnly: true,
+        secure: true,
         sameSite: "None",
         maxAge: 24 * 60 * 60 * 1000,
-          });
+      });
+      res.cookie("logged_in", true, {
+        httpOnly: false,
+        sameSite: "None",
+        maxAge: 24 * 60 * 60 * 1000,
+      });
 
-
-          res.status(200).json({
-            message: "login suceess",
-            token,
-            user,
-            allowedRole: "user",
-          });
+      res.status(200).json({
+        message: "login suceess",
+        token,
+        user,
+        allowedRole: "user",
+      });
     }
     // await user.comparePassword(password,function (err,isMatch){
     //   if(err){
@@ -98,7 +106,6 @@ const login = async (req, res) => {
 
     //   }else{
 
-
     //   // ////////////////////////////////////////////هنا في مشكله في ال save
     //   // res.cookie("refreshTokenVal", refreshToken, {
     //   //   httpOnly: true,
@@ -106,14 +113,13 @@ const login = async (req, res) => {
     //   //   maxAge: 24 * 60 * 60 * 1000,
     //   //     });
 
-
     //       // res.status(200).json({
     //       //   message: "login suceess",
     //       //   token,
     //       //   user,
     //       //   allowedRole: "user",
     //       // });
-          
+
     //     (async ()=>{
     //       const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
     //       console.log('ya function')
@@ -129,10 +135,10 @@ const login = async (req, res) => {
     //     // const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
     //     // // refreshTokens.push(refreshToken);
     //     // // console.log(user ,'/n',refreshToken)
-  
+
     //     // // user.refreshToken.push(refreshToken)
     //     // user.refreshToken=[refreshToken]
-  
+
     //     // ////////////////////////////////////////////هنا في مشكله في ال save
     //     // res.cookie("refreshTokenVal", refreshToken, {
     //     //   httpOnly: true,
@@ -140,8 +146,7 @@ const login = async (req, res) => {
     //     //   maxAge: 24 * 60 * 60 * 1000,
     //     //     });
     //     //     const result= await user.save()
-  
-  
+
     //     //     res.status(200).json({
     //     //       message: "login suceess",
     //     //       token,
@@ -153,47 +158,42 @@ const login = async (req, res) => {
     //     res.status(200).send({isMatch})
     //   }
 
-
-        //       (async ()=>{
-        //   const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
-        //   console.log('ya function')
-        //   user.refreshToken=[refreshToken]
-        //   await user.save()
-        // })()
+    //       (async ()=>{
+    //   const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
+    //   console.log('ya function')
+    //   user.refreshToken=[refreshToken]
+    //   await user.save()
+    // })()
     // })
     // if (!match) {
-      // res.status(400).json({ message: "email password mismatch" });
+    // res.status(400).json({ message: "email password mismatch" });
     // } else {
-      // const token = jwt.sign(
-      //   { _id: user._id, isLogged: true },
-      //   process.env.logingtoken,
-      //   { expiresIn: "1h" }
-      // );
-      // const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
-      // // refreshTokens.push(refreshToken);
-      // // console.log(user ,'/n',refreshToken)
+    // const token = jwt.sign(
+    //   { _id: user._id, isLogged: true },
+    //   process.env.logingtoken,
+    //   { expiresIn: "1h" }
+    // );
+    // const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
+    // // refreshTokens.push(refreshToken);
+    // // console.log(user ,'/n',refreshToken)
 
-      // // user.refreshToken.push(refreshToken)
-      // user.refreshToken=[refreshToken]
+    // // user.refreshToken.push(refreshToken)
+    // user.refreshToken=[refreshToken]
 
-      // ////////////////////////////////////////////هنا في مشكله في ال save
-      // res.cookie("refreshTokenVal", refreshToken, {
-      //   httpOnly: true,
-      //   sameSite: "None",
-      //   maxAge: 24 * 60 * 60 * 1000,
-      //     });
-      //     const result= await user.save()
+    // ////////////////////////////////////////////هنا في مشكله في ال save
+    // res.cookie("refreshTokenVal", refreshToken, {
+    //   httpOnly: true,
+    //   sameSite: "None",
+    //   maxAge: 24 * 60 * 60 * 1000,
+    //     });
+    //     const result= await user.save()
 
-
-      //     res.status(200).json({
-      //       message: "login suceess",
-      //       token,
-      //       user,
-      //       allowedRole: "user",
-      //     });
-
-
-
+    //     res.status(200).json({
+    //       message: "login suceess",
+    //       token,
+    //       user,
+    //       allowedRole: "user",
+    //     });
 
     // }
   }
@@ -376,46 +376,58 @@ const deleteUser = async (req, res) => {
 };
 
 const logoutUser = async (req, res) => {
-  const reqCookie=req.cookies['refreshTokenVal']
+  const reqCookie = req.cookies["refreshTokenVal"];
 
   if (!reqCookie) return res.status(204);
 
-    const refreshToken = reqCookie;
+  const refreshToken = reqCookie;
 
-    // If refresher token exist in database
-    const foundUser = await User.findOne({ refreshToken }).exec();
-    if (!foundUser) {
-      res.clearCookie("refreshTokenVal", {
-        httpOnly: true,
-        sameSite: "None",
-      });
-      return res.status(204);
-    }
+  // If refresher token exist in database
+  const foundUser = await User.findOne({ refreshToken }).exec();
+  if (!foundUser) {
+    res.clearCookie("refreshTokenVal", {
+      httpOnly: true,
+      secure: true,
 
-    // Delete refresher in database
-    foundUser.refreshToken = []
-    const result = await foundUser.save();
-    console.log("deleteddddd", result);
+      sameSite: "None",
+    });
+    res.clearCookie("logged_in", {
+      httpOnly: false,
+      secure: true,
+      sameSite: "None",
+    });
+    return res.status(204);
+  }
 
-    res.clearCookie("refreshTokenVal", { httpOnly: true, sameSite: "None" });
-    res.status(204).send("you loged out all tokens");
- 
+  // Delete refresher in database
+  foundUser.refreshToken = [];
+  const result = await foundUser.save();
+  console.log("deleteddddd", result);
+  res.clearCookie("logged_in", {
+    httpOnly: false,
+    secure: true,
+    sameSite: "None",
+  });
+  res.clearCookie("refreshTokenVal", {
+    httpOnly: true,
+    sameSite: "None",
+    secure: true,
+  });
+  res.status(204).send("you loged out all tokens");
 };
 
+const logout = async (req, res) => {
+  if (request.session.userId) {
+    delete request.session.userId;
+    response.json({ result: "SUCCESS" });
+  } else {
+    response.json({ result: "ERROR", message: "User is not logged in." });
+  }
+};
 
-const logout = async (req,res)=>{
-    if (request.session.userId) {
-        delete request.session.userId;
-        response.json({result: 'SUCCESS'});
-    } else {
-        response.json({result: 'ERROR', message: 'User is not logged in.'});
-    }
-}
-
-const userProfile = async(req,res)=>{
-  res.status(200).send(req.user)
-
-}
+const userProfile = async (req, res) => {
+  res.status(200).send(req.user);
+};
 module.exports = {
   confirmEmail,
   refreshEmail,
@@ -429,5 +441,5 @@ module.exports = {
   tokenRefresher,
   logoutUser,
   getMeHandler,
-  userProfile
+  userProfile,
 };
