@@ -8,9 +8,10 @@ import Modalnew from "../../../components/client/form-modal/Modal";
 import ConfettiModal from "../../../components/client/ui/ConfettiModel";
 import ReviewHeader from "../../../components/client/ui/ReviewHeader/ReviewHeader";
 import axios from "axios";
+import MyModal from "../../admin/calender/MyModal";
 
 export default function Service() {
-  const [show, setShow] = useState(false);
+  // const [show, setShow] = useState(false);
   const [active, setActive] = useState("form");
   const [stripePromise, setStripePromise] = useState(null);
   const [clientSecret, setClientSecret] = useState("");
@@ -32,8 +33,8 @@ export default function Service() {
   };
 
   const handlePay = () => setActive("pay");
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
 
   useEffect(() => {
     axios.get("/config").then(async (r) => {
@@ -50,10 +51,18 @@ export default function Service() {
       setClientSecret(clientSecret);
     });
   }, []);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <div>
-      {confetti === true && <ConfettiModal size={windowDimensions} />}
+      <Button variant="primary" onClick={handleShow}>
+        Launch static backdrop modal
+      </Button>
+      <MyModal show={show} handleClose={handleClose} />
+      {/* {confetti === true && <ConfettiModal size={windowDimensions} />}
       {/* <ConfettiModal /> */}
       <Button variant="primary" onClick={handleShow}>
         model
@@ -71,7 +80,7 @@ export default function Service() {
           </Elements>
         )}
       </Modalnew>
-      <ReviewHeader data={data} className="mt-5 pt-5" />
+      {/* <ReviewHeader data={data} className="mt-5 pt-5" />  */}
     </div>
   );
 }

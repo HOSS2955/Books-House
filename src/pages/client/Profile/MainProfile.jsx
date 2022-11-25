@@ -19,7 +19,7 @@ export default function MainProfile() {
               <div className="card-body">
                 <nav className="mProfile nav flex-lg-column nav-pills  ">
                   <button
-                    className="btn btn-outline-warning active rounded my-2"
+                    className="btn btn-outline-warning text-dark rounded my-2"
                     onClick={() => {
                       clickHandler("profile");
                     }}
