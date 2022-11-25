@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
-   AiFillHeart,
-   AiOutlineCheckCircle,
-   AiOutlineHeart,
+  AiFillHeart,
+  AiOutlineCheckCircle,
+  AiOutlineHeart,
 } from "react-icons/ai";
 import { BsTruck } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,52 +12,53 @@ import BreadCrumb from "../../../components/client/ui/Breadcrump/BreadCrumb";
 import { getBooks } from "../../../store/client/reducers/bookSlice";
 import { addToCart } from "../../../store/client/reducers/cartSlice";
 import {
-   addToWish,
-   removeFromWish,
+  addToWish,
+  removeFromWish,
 } from "../../../store/client/reducers/wishlistSlice";
 import "./bookDetails.css";
 
 export default function BookDetails() {
-   const { books } = useSelector((state) => state.books);
-   const { wishlistItems } = useSelector((state) => state.WishList);
-   const dispatch = useDispatch();
-   const [wishlistIcon, setWishlistIcon] = useState(false);
+  const { books } = useSelector((state) => state.books);
+  const { wishlistItems } = useSelector((state) => state.WishList);
+  const dispatch = useDispatch();
+  const [wishlistIcon, setWishlistIcon] = useState(false);
+  const { id } = useParams();
+  const [book] = books.filter((item) => item._id === id);
 
    const user = useSelector((state) => state.userState.user);
    const role = useSelector((state) => state.userState.role);
    const token = useSelector((state) => state.userState.token);
 
-   useEffect(() => {
-      dispatch(getBooks());
-      addToWish(book);
-   }, [dispatch]);
+  useEffect(() => {
+    dispatch(getBooks());
+    addToWish(book);
+  }, [dispatch]);
 
-   const addToWishlist = () => {
-      if (wishlistIcon === false) {
-         setWishlistIcon(true);
-         dispatch(addToWish(book));
-      } else {
-         dispatch(removeFromWish(book));
-         setWishlistIcon(false);
-      }
-   };
+  const addToWishlist = () => {
+    if (wishlistIcon === false) {
+      setWishlistIcon(true);
+      dispatch(addToWish(book));
+    } else {
+      dispatch(removeFromWish(book));
+      setWishlistIcon(false);
+    }
+  };
 
-   const { id } = useParams();
-   const [book] = books.filter((item) => item._id === id);
-   const handleAddToCart = (book) => {
-      dispatch(addToCart(book));
-   };
+  console.log(id);
+  const handleAddToCart = (book) => {
+    dispatch(addToCart(book));
+  };
 
    return (
       <div>
-         <BreadCrumb title={book.title} breadCrumb={book.title} />
+         <BreadCrumb title={book?.title} breadCrumb={book?.title} />
          <div className="my-5 container">
             <div className="row">
                <div className="col-6 row">
                   <div className="col-3"></div>
                   <div className="col-9">
                      <img
-                        src={book.imageSource}
+                        src={book?.imageSource}
                         className="coverImage "
                         alt=""
                      />
@@ -90,20 +91,20 @@ export default function BookDetails() {
                   <div className="row">
                      <div className="border-bottom">
                         <h2 className="fw-bolder text-capitalize ">
-                           {book.title}
+                           {book?.title}
                         </h2>
-                        <p className="mb-3 text-secondary">By {book.author}</p>
+                        <p className="mb-3 text-secondary">By {book?.author}</p>
                      </div>
-                     <h3 className="fw-bold mb-4 mt-3">${book.price}.00</h3>
-                     <p>Description : {book.bookDesc}</p>
+                     <h3 className="fw-bold mb-4 mt-3">${book?.price}.00</h3>
+                     <p>Description : {book?.bookDesc}</p>
                   </div>
                   <div className=" my-3">
-                  {user && token && role && ( <button
+                     <button
                         className="btn btn-dark rounded-5 col-6 mb-3 text-uppercase"
                         onClick={() => handleAddToCart(book)}
                      >
                         add to cart
-                     </button>)}
+                     </button>
                      <div className="mt-3 border-bottom mb-5">
                         <span className="px-2  fs-6 ">
                            <BsTruck />

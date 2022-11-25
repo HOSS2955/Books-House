@@ -58,7 +58,7 @@ export default function CheckoutForm({ packages, confetti }) {
       confetti(true);
       setTimeout(() => {
         confetti(false);
-      }, 6000);
+      }, 10000);
       setMessage("Payment status: " + paymentIntent.status);
     } else {
       setMessage("An unexpected error occured.");
