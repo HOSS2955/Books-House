@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 const time = {
   timestamps: {
@@ -51,13 +51,47 @@ const userSchema = new mongoose.Schema(
 );
 
 userSchema.pre("save", async function (next) {
-  this.password = await bcrypt.hash(
-    this.password,
+  let user=this
+if (!user.isModified('password')) return 333;
+if(user.isModified("password")){console.log('yes modified')}
+
+user.password = await bcrypt.hash(
+  user.password,
     parseInt(process.env.saltRounds)
   );
+  console.log('pre save password: ' + user.password);
+  if(user.isModified("password")){console.log('yes modifieddd')}
+
+
 
   next();
 });
+
+
+// userSchema.pre('save',async function(next){
+//     if (!this.isModified('password')) return next();
+
+//     const user = this;
+    
+//      bcrypt.genSalt(5, function(err, salt){
+//         if (err){ return next(err) }
+
+//          bcrypt.hash(user.password, salt, null, function(err, hash){
+//             if(err){return next(err)}
+
+//             user.password = hash;
+//             next();
+//         })
+//    })
+// })
+
+
+// userSchema.methods.comparePassword = function(candidatePassword, cb) {
+//   bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+//       if (err) return cb(err);
+//       cb(null, isMatch);
+//   });
+// };
 
 // userSchema.pre('findByIdAndUpdate',async function (next){
 //     const hookData=await this.model.findOne(this.getQuery()).select("__v")

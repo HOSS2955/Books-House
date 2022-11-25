@@ -12,6 +12,7 @@ const {
   deleteUser,
   tokenRefresher,
   logoutUser,
+  userProfile
 } = require("../controller/user.controller");
 //
 const auth = require("../middelware/auth2");
@@ -26,6 +27,7 @@ router.post("/sendCode",auth, sendCode);
 router.get("/user/confirmEmail/:token", confirmEmail);
 router.get("/user/refreshEmail/:token", refreshEmail);
 router.post("/forgetPassword",auth, forgetPassword);
+router.get("/user/profile",auth, userProfile);
 // router.get("/user/confirmEmail/:token", confirmEmail);
 router.post(
   "/profile/avatar",
@@ -37,9 +39,7 @@ router.patch("/user/updateProfile", auth, updateProfile);
 router.delete("/user/deleteUser", auth, deleteUser);
 
 //** تجارب */
-
-router.get("/user/refreshMe", tokenRefresher);
-router.delete("/user/logoutMe", logoutUser);
+router.delete("/user/logoutMe",auth, logoutUser);
 router.post("/user/authLogin", authController.handleLogin);
 
 module.exports = router;

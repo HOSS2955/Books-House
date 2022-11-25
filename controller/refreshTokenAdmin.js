@@ -1,4 +1,4 @@
-const User = require("../models/user");
+const User = require("../models/admin");
 const jwt = require("jsonwebtoken");
 const cookieParser= require('cookie-parser')
 
@@ -16,7 +16,7 @@ const handleRefreshToken = async (req, res) => {
 
   const foundUser = await User.findOne({refreshToken}).exec();
   if(!foundUser){
-    return res.status(404).send('no found user')
+    return res.status(404).send('no found admin')
   }
 
   jwt.verify(refreshToken,process.env.REFRESH_TOKEN_SECRET,async(err,decoded)=>{
@@ -52,7 +52,7 @@ const handleRefreshToken = async (req, res) => {
             message: "refreshed suceess",
             token,
             foundUser,
-            allowedRole: "user",
+            allowedRole: "admin",
           });
 
   })

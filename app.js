@@ -7,6 +7,7 @@ const connectDB = require("./db/connection");
 
 const app = express();
 const port = process.env.PORT || 3000;
+const cookieParser= require('cookie-parser')
 
 require("./db/connection");
 app.use(express.json());
@@ -26,6 +27,7 @@ const bookReviewRoute = require("./routers/bookreview");
 const stripeData = require("./routers/stripeData");
 
 const refresh= require('./routers/refresh')
+app.use(cookieParser())
 app.use(refresh)
 app.use(author);
 app.use(book);

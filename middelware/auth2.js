@@ -5,14 +5,23 @@ const User=require('../models/user')
 const auth2=async (req,res,next)=>{
    try{
     const token=req.header('Authorization').replace('Bearer ','')
-    const decode=jwt.verify(token,process.env.logingtoken)
-    const user=await User.findOne({_id:decode._id,tokens:token})
+    if(!token){
+      return res.status(401).send('no token founed')
+    }
+    jwt.verify(token,process.env.logingtoken,async(err,decoded)=>{
+      if(err){
+         console.log('403 expired')
+         return res.status(403).send()
+      }
+      const user=await User.findOne({_id:decoded._id})
+      console.log('user founded ystaaa not expired')
+      req.user=user
+      req.token=token
+      next()
+
+    })
    
-    if(!user)
-       throw new Error('NOT AUTHORIZED !!')
-    req.user=user
-    req.token=token
-    next()
+
    }
    catch(e){
        res.status(401).send("Please Authenticate !")
