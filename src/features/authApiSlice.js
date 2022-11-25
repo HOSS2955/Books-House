@@ -9,7 +9,7 @@ export const authApiSlice = authApi.injectEndpoints({
       query: (credentials) => ({
         url: "signUp",
         method: "POST",
-        body: { ...credentials },
+        body: credentials,
       }),
       transformResponse: (result) => result,
     }),
@@ -19,13 +19,15 @@ export const authApiSlice = authApi.injectEndpoints({
         return {
           url: "login",
           method: "POST",
-          body: { ...credentials },
+          body: credentials,
+          credientials: 'include'
         };
       },
       transformResponse: (result) => result,
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
+          console.log("user data", data);
           dispatch(setUserInState(data));
           console.log("done added user to state");
         } catch (error) {
@@ -36,7 +38,16 @@ export const authApiSlice = authApi.injectEndpoints({
         }
       },
     }),
-
+    forgetPassword: builder.mutation({
+      query(credientials) {
+        return {
+          url: "forgetPassword",
+          method: "POST",
+          body: { ...credientials },
+          credentials: "include",
+        };
+      },
+    }),
     verifyEmail: builder.mutation({
       query({ verificationCode }) {
         return {
@@ -45,11 +56,30 @@ export const authApiSlice = authApi.injectEndpoints({
         };
       },
     }),
+    updateProfile: builder.mutation({
+      query() {
+        return {
+          url: `updateProfile`,
+          method: "POST",
+          credentials: "include",
+        };
+      },
+    }),
+    getUser: builder.mutation({
+      query() {
+        return {
+          url: `profile`,
+          method: "POST",
+          credentials: "include",
+        };
+      },
+    }),
     logoutUser: builder.mutation({
       query() {
         return {
           url: `logoutMe`,
           method: "DELETE",
+          credentials: "include",
         };
       },
     }),
@@ -57,8 +87,11 @@ export const authApiSlice = authApi.injectEndpoints({
 });
 
 export const {
+  useGetUserMutation,
   useVerifyEmailMutation,
   useRegisterUserMutation,
   useLoginUserMutation,
   useLogoutUserMutation,
+  useForgetPasswordMutation,
+  useUpdateProfileMutation,
 } = authApiSlice;
