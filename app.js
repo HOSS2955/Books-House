@@ -45,5 +45,5 @@ app.use(stripeRouter);
 app.use(express.static(path.join(__dirname, "uploadsImgs")));
 
 app.listen(port, () => {
-   console.log("Server is running " + port);
+  console.log("Server is running " + port);
 });
