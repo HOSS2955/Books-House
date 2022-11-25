@@ -24,12 +24,12 @@ const addPackageData = async (req, res) => {
 //----------------------------get package by ID
 const getPackageByID = async (req, res) => {
    try {
-      const Package = await Package.findOne({ _id: req.params.id });
+      const package = await Package.findOne({ _id: req.params.id });
 
-      if (!Package) {
+      if (!package) {
          return res.send(404).send("Cannot find Package !");
       }
-      res.status(200).send(Package);
+      res.status(200).send(package);
    } catch (e) {
       res.status(400).send(e.message);
    }
@@ -60,7 +60,7 @@ const deleteAllPackages = async (req, res) => {
       res.status(500).send(e.message);
    }
 };
-//----------------------------------update package
+///
 const updatePackageById = async (req, res) => {
    try {
       const _id = req.params.id;

@@ -27,9 +27,9 @@ const getStripeByEmail = async (req, res) => {
 };
 
 //----------------------------------get all stripes orders
-const getStripeOrders = async (req, res) => {
+const getStripeOrdersByEmail = async (req, res) => {
    try {
-      const order = await Order.find({});
+      const order = await Order.find({ customerEmail: req.params.email });
       if (!order) {
          throw Error("there is no order ");
       }
@@ -38,11 +38,9 @@ const getStripeOrders = async (req, res) => {
       res.status(500).send(error.message);
    }
 };
-//----------------------------------get  stripe order by id
-
-const getStripeOrdersByEmail = async (req, res) => {
+const getStripeOrders = async (req, res) => {
    try {
-      const order = await Order.find({ customerEmail: req.params.email });
+      const order = await Order.find({});
       if (!order) {
          throw Error("there is no order ");
       }

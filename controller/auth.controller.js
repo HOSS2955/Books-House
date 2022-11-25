@@ -1,11 +1,10 @@
 const User = require("../models/user");
-const bcrypt = require("bcrypt");
+const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const handleLogin = async (req, res) => {
   const cookies = req.cookies;
-  // console.log(`cookie available ar login: ${JSON.stringify(cookies)}`);
-
+  // console.log(`cookie available ar login: ${JSON.stringify(cookies)}`);aaa
   const { email, password } = req.body;
 
   const user = await User.findOne({ email }).exec();
@@ -13,15 +12,15 @@ const handleLogin = async (req, res) => {
   if (!user) {
     return res.status(401).json({ message: "Invalid account data!" });
   }
-  const match = await bcrypt.compare(password, user.password);
+  const match = await bcryptjs.compare(password, user.password);
   if (match) {
     const token = jwt.sign({ _id: user._id }, process.env.logingtoken, {
-      expiresIn: "350s",
+      expiresIn: "1h",
     });
     const newRefreshToken = jwt.sign(
       { _id: user._id },
       process.env.REFRESH_TOKEN_SECRET,
-      { expiresIn: "500s" }
+      { expiresIn: "2h" }
     );
 
     let newRefreshTokenArray = !cookies?.jwt
@@ -61,7 +60,7 @@ const handleLogin = async (req, res) => {
     // Send authorization roles and access token to user
     res.json({ token });
   } else {
-    res.sendStatus(401);
+    res.sendStatus(400); ///error for auth login********************************
   }
 };
 
@@ -76,7 +75,7 @@ module.exports = { handleLogin };
 //  const foundUser = await User.findOne({ username: user }).exec();
 //  if (!foundUser) return res.status(401); //Unauthorized
 //  // evaluate password
-//  const match = await bcrypt.compare(pwd, foundUser.password);
+//  const match = await bcryptjs.compare(pwd, foundUser.password);
 //  if (match) {
 //    const roles = Object.values(foundUser.roles).filter(Boolean);
 //    // create JWTs

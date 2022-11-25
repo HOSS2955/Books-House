@@ -17,7 +17,5 @@ router.get("/package/:id", getPackageByID);
 
 // router.delete('/package/removeAll',auth,deleteAllPackages)
 router.delete("/package/removeAll", deleteAllPackages);
-// update Package By id
-router.put("/package/update/:id", updatePackageById);
 
 module.exports = router;

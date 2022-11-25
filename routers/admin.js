@@ -14,7 +14,7 @@ const {
 } = require("../validation/adminValidation");
 
 router.post("/admin/login", validation(loginValidation), login);
-router.post("/sendCode", validation(sendCodeValidation), sendCode);
+router.post("/admin/sendCode", validation(sendCodeValidation), sendCode);
 router.post(
   "/forgetPassword",
   validation(forgetPasswordValidation),
