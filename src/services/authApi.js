@@ -9,12 +9,13 @@ const BASE_URL = process.env.REACT_APP_SERVER_ENDPOINT;
 const baseQuery = fetchBaseQuery({
   credentials: "include",
   baseUrl: `/user/`,
+
   prepareHeaders: (headers, { getState }) => {
     console.log("headers", headers);
 
     const token = getState().userState?.token;
-    console.log(getState().userState);
-    console.log(getState().userSlice);
+    console.log(getState.userSlice?.token);
+    console.log(token);
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);
     }
@@ -24,7 +25,7 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
-  console.log(result.error.originalStatus, "Result inside custome base query");
+  console.log(result);
   if (result?.error?.originalStatus === 403) {
     console.log("Sending refresh token!");
     const refreshResult = await baseQuery("/refreshMe", api, extraOptions);

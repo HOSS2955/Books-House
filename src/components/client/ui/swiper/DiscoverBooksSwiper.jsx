@@ -25,7 +25,7 @@ const WhatWillWeDiscoverSwiper = () => {
         loop={true}
         slidesPerView={4}
         autoplay={{
-          delay: 2500,
+          delay: 4000,
           disableOnInteraction: false,
         }}
         className="container"

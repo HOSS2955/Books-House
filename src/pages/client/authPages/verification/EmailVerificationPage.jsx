@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { FaApple, FaLock, FaUserAlt } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { useLocation, useNavigate , useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import { object, string, TypeOf } from "zod";
@@ -30,25 +30,22 @@ export default function EmailVerificationPage() {
     &:hover {
       background-color: #000000;
       transform: translateY(-1px);
-    };`
+    }
+  `;
 
-const verificationCodeSchema = object({      
-  verificationCode: string()
-    .min(1, "Verification code is required")
-    .min(9, "Make sure you get that from your email!"),
-});
+  const verificationCodeSchema = object({
+    verificationCode: string()
+      .min(1, "Verification code is required")
+      .min(9, "Make sure you get that from your email!"),
+  });
 
-
- 
-
- 
   const { verificationCode } = useParams();
 
   const methods = useForm({
     resolver: zodResolver(verificationCodeSchema),
   });
 
-    const [verifyEmail, { isLoading, isSuccess, data, isError, error }] =
+  const [verifyEmail, { isLoading, isSuccess, data, isError, error }] =
     useVerifyEmailMutation();
 
   const navigate = useNavigate();
@@ -65,8 +62,8 @@ const verificationCodeSchema = object({
   useEffect(() => {
     if (isSuccess) {
       console.log("data", data);
-            toast.success(data?.message);
-            navigate("/auth/login");
+      toast.success(data?.message);
+      navigate("/auth/login");
     }
     if (isError) {
       console.log(error.data);
@@ -85,11 +82,11 @@ const verificationCodeSchema = object({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitSuccessful]);
 
-    const onSubmitHandler = ({ verificationCode }) => {
+  const onSubmitHandler = ({ verificationCode }) => {
     // ? Executing the verifyEmail Mutation
-    
+
     verifyEmail({ verificationCode });
-    console.log(verificationCode)
+    console.log(verificationCode);
   };
 
   // const signupHandler = () => {
@@ -99,7 +96,7 @@ const verificationCodeSchema = object({
     <div className="main mt-5">
       <div className="centeredElement mt-5 shadow-lg bg-body">
         <div className="auth">
-          <h5 className="my-5">Login to Bookshouse</h5>
+          <h5 className="my-5">Check Your Email for Verification.</h5>
           {/* if the user clicked outside the input the status of the error message will appear */}
           <FormProvider {...methods}>
             <Form onSubmit={handleSubmit(onSubmitHandler)}>
@@ -115,7 +112,7 @@ const verificationCodeSchema = object({
                     name="verificationCode"
                     aria-label="Verification Code Input"
                     placeholder="Verification Code"
-                    value ={verificationCode? verificationCode : "" }
+                    value={verificationCode ? verificationCode : ""}
                   />
                 </InputGroup>
                 {errors.verificationCode && (
@@ -124,7 +121,7 @@ const verificationCodeSchema = object({
                   </Form.Text>
                 )}
               </Form.Group>
-              
+
               <LoadingButton
                 variant="contained"
                 sx={{ mt: 3, mb: 5 }}
@@ -140,10 +137,9 @@ const verificationCodeSchema = object({
 
           <div className="divider acc mt-5">
             <hr className="hrLeft text-small" />
-              <a>Please check your Email</a>
+            <a>Please check your Email</a>
             <hr className="hrRight" />
           </div>
-          
         </div>
       </div>
     </div>

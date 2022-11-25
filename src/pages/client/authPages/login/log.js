@@ -12,7 +12,7 @@ import validator from "validator";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoadingButton as _LoadingButton } from "@mui/lab";
-
+import { MdEmail } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import ProtectedComponent from "../../../../features/ProtectedComponent";
 import { useLoginUserMutation } from "../../../../features/authApiSlice";
@@ -70,7 +70,7 @@ export default function Login2() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = location.state?.from.pathname || "/profile";
+  const from = location.state?.from.pathname || "/mainprofile";
   const {
     reset,
     handleSubmit,
@@ -81,13 +81,13 @@ export default function Login2() {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success("You successfully logged in");
+      toast.success("Welcome back again 😍");
       navigate(from);
     }
     if (isError) {
       console.log(error.data);
 
-      toast.error(error.data.message, {
+      toast.error(error.data, {
         position: "top-right",
       });
     }
@@ -106,14 +106,6 @@ export default function Login2() {
     console.log(values);
     loginUser(values);
   };
-  const onSubmit = (values) => {
-    console.log("Values:::", values);
-    console.log("Values:::", JSON.stringify(values));
-  };
-
-  const onError = (error) => {
-    console.log("ERROR:::", error);
-  };
 
   // const signupHandler = () => {
   //   navigate("/auth/signup");
@@ -125,13 +117,13 @@ export default function Login2() {
           <h5 className="my-5">Login to Bookshouse</h5>
           {/* if the user clicked outside the input the status of the error message will appear */}
           <FormProvider {...methods}>
-            <Form onSubmit={handleSubmit(onSubmitHandler, onError)}>
+            <Form onSubmit={handleSubmit(onSubmitHandler)}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 {/* <Form.Label>Email</Form.Label> */}
                 <InputGroup className="userInput ">
                   {/* user icon */}
-                  <InputGroup.Text id="basic-addon1">
-                    <FaUserAlt />
+                  <InputGroup.Text id="basic-addon2">
+                    <MdEmail />
                   </InputGroup.Text>
                   <Form.Control
                     {...register("email")}
@@ -148,7 +140,6 @@ export default function Login2() {
                 )}
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
                 <InputGroup className="userInput mb-2">
                   <InputGroup.Text id="basic-addon2">
                     <FaLock />
@@ -185,21 +176,7 @@ export default function Login2() {
             </Form>
           </FormProvider>
 
-          <div className="divider or mb-4">
-            <hr className="hrLeft" />
-            or
-            <hr className="hrRight" />
-          </div>
-          <button className="btn btn-primary w-100 mb-4 fw-semibold google text-small">
-            <FcGoogle className="googleSvg" />
-            Continue with Google
-          </button>
-          <br></br>
-          <button className="btn btn-outline-dark w-100 fw-semibold d-flex justify-content-center align-items-center text-small">
-            <FaApple className="me-1" />
-            Continue with Apple
-          </button>
-          <div className="divider acc mt-5">
+          <div className="divider acc ">
             <hr className="hrLeft text-small" />
             <Link to="/auth/register">
               <a>Don`t have an account?</a>

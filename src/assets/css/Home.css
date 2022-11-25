@@ -38,10 +38,15 @@
 .swiper__card {
    border-radius: 12px;
 }
-.testimonial{
-   background-color: rgba(255,193,7,0.5);
+.testimonial__warning{
+   background-color: rgba(255,193,7,0.3);
    color:black
 }
+.testimonial__primary{
+   background-color: rgba(13,110,253,0.6);
+   color:white
+}
+
 .buy__btn {
    border: none;
    outline: none;
@@ -176,6 +181,11 @@ ul.package__features button{
    line-height: 1.2;
 }
 
+
+div.authorHeader{
+   margin-top: 138px;
+   margin-bottom: 125px;
+}
 
 
 

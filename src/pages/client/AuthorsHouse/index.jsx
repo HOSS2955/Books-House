@@ -8,13 +8,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { homepageActions } from "../../../store/client/reducers/homepageSlice";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
-import ConfettiModal from "../../../components/client/ui/ConfettiModel";
+
 import { Button } from "react-bootstrap";
 import Modalnew from "../../../components/client/form-modal/Modal";
 import AuthorForm from "../../../components/client/author-form/AuthorForm";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../../../components/client/ChecoutForm/CheckoutForm";
 import { motion } from "framer-motion";
+import ConfettiModal from "../../../components/client/ui/ConfettiModel";
 
 const container = {
    show: {
@@ -96,7 +97,8 @@ export default function AuthorsHouse() {
 
    return (
       <div className="mt-5">
-         {/* <ConfettiModal /> */}
+         {/* <ConfettiModal size={windowDimensions} /> */}
+         {confetti === true && <ConfettiModal size={windowDimensions} />}
 
          {/* <Elements stripe={stripePromise} options={{ clientSecret }}>
         <CheckoutForm packages={packages} />

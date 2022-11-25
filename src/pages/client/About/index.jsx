@@ -7,7 +7,7 @@ import OurGoals from "./OurGoals";
 const index = () => {
    return (
       <div>
-         <BreadCrumb title="About" breadCrumb="About" />
+         {/* <BreadCrumb title="About" breadCrumb="About" /> */}
          <div className="container">
             <AboutImg />
             <OurGoals />

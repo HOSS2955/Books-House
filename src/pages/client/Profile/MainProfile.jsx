@@ -1,13 +1,41 @@
 import React, { useState } from "react";
+import { useLogoutUserMutation } from "../../../features/authApiSlice";
+import { logoutInState } from "../../../store/client/reducers/userSlice";
 import "./MainProfile.css";
 import MyOrder from "./MyOrder";
 import MyPackages from "./MyPackages";
 import MyProfile from "./MyProfile";
-
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 export default function MainProfile() {
   const [active, setActive] = useState("profile");
   const clickHandler = (data) => {
     setActive(data);
+  };
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [logoutUser, { isLoading, isError, isSuccess, error }] =
+    useLogoutUserMutation();
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(logoutInState());
+      toast.success("Logout Successfully");
+      navigate("/");
+    }
+
+    if (isError) {
+      console.log(error);
+
+      toast.error(error?.data, {
+        position: "top-right",
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
+  const logoutHandler = () => {
+    logoutUser();
   };
   return (
     <div className="profile">
@@ -19,7 +47,7 @@ export default function MainProfile() {
               <div className="card-body">
                 <nav className="mProfile nav flex-lg-column nav-pills  ">
                   <button
-                    className="btn btn-outline-warning active rounded my-2"
+                    className="btn btn-outline-warning text-dark rounded my-2"
                     onClick={() => {
                       clickHandler("profile");
                     }}
@@ -42,7 +70,10 @@ export default function MainProfile() {
                   >
                     My Packages Payment
                   </button>
-                  <button className="btn btn-outline-secondary  rounded my-2">
+                  <button
+                    className="btn btn-outline-secondary  rounded my-2"
+                    onClick={logoutHandler}
+                  >
                     Log out
                   </button>
                 </nav>
