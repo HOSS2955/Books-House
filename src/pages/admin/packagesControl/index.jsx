@@ -48,7 +48,7 @@ export default function PackagesControl() {
          packageId.packageDesc = packageId.packageDesc.split(",");
       }
       console.log(packageId);
-      // updatePackageData(packageId)
+      updatePackageData(packageId);
    };
 
    const operationHandler = (e) => {
@@ -57,6 +57,7 @@ export default function PackagesControl() {
          [e.target.name]: e.target.value,
       });
    };
+
    //SELECETOR LOGIC
    const [selectorValue, setSelectorValue] = React.useState("");
    const handleChange = (event) => {
@@ -125,6 +126,7 @@ export default function PackagesControl() {
                         label="Package Name"
                         onBlur={handleBlur}
                         onChange={handleChange}
+                        placeholder={packageId?.packageName}
                         value={values.packageName}
                         name="packageName"
                         error={!!touched.packageName && !!errors.packageName}
@@ -138,6 +140,7 @@ export default function PackagesControl() {
                         label="Package Price"
                         onBlur={handleBlur}
                         onChange={handleChange}
+                        placeholder={packageId?.packagePrice}
                         value={values.packagePrice}
                         name="packagePrice"
                         error={!!touched.packagePrice && !!errors.packagePrice}
@@ -152,6 +155,7 @@ export default function PackagesControl() {
                         type="text"
                         label="Package Description"
                         onBlur={handleBlur}
+                        placeholder={packageId?.packageDesc}
                         onChange={handleChange}
                         value={values.packageDesc}
                         name="packageDesc"

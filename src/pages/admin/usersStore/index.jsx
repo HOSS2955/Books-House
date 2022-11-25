@@ -66,7 +66,7 @@ export default function UsersStore() {
                   display="flex"
                   justifyContent="center"
                   backgroundColor={
-                     confirmed ? colors.greenAccent[600] : colors.redAccent[700]
+                     confirmed ? colors.greenAccent[600] : colors.redAccent[500]
                   }
                   borderRadius="4px"
                >
@@ -81,7 +81,7 @@ export default function UsersStore() {
 
    return (
       <Box m="20px">
-         <Header title="TEAM" subtitle="Managing the Team Members" />
+         <Header title="Our Users" subtitle="Managing the Team Members" />
          <Box
             m="40px 0 0 0"
             height="75vh"

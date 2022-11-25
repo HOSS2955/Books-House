@@ -14,7 +14,6 @@ export default function OrderPayment() {
    const { stripeOrdersData } = useSelector((state) => state.stripeOrders);
    useEffect(() => {
       dispatch(getstripeOrders());
-      console.log(stripeOrdersData);
    }, []);
 
    const columns = [
@@ -40,7 +39,7 @@ export default function OrderPayment() {
       {
          field: "customerPhone",
          headerName: "Phone",
-         flex: 1,
+         flex: 1.2,
       },
       {
          field: "line1",
@@ -74,7 +73,7 @@ export default function OrderPayment() {
       {
          field: "createdAt",
          headerName: "Craeted At",
-         flex: 1.5,
+         flex: 1.8,
       },
    ];
 
@@ -112,9 +111,10 @@ export default function OrderPayment() {
          >
             <DataGrid
                rows={stripeOrdersData}
-               getRowId={(row) => row._id}
+               getRowId={(row) => row?._id}
                columns={columns}
-               loading={!stripeOrdersData.length}
+               loading={!stripeOrdersData?.length}
+               error={undefined}
             />
          </Box>
       </Box>

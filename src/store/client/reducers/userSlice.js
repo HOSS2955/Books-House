@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { useGetUserMutation } from "../../../features/authApiSlice";
 
 const initialState = {
-  user: "hoss",
-  token: "da1321321sdsad",
-  role: "user",
+  user: "fady",
+  token: "10",
+  role: "admin",
 };
 
 export const userSlice = createSlice({
