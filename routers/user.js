@@ -13,13 +13,12 @@ const {
    tokenRefresher,
    logoutUser,
    getUsersData,
+   getUserByID,
 } = require("../controller/user.controller");
 const auth = require("../middelware/auth2");
 const uploads = require("../services/multer.services");
 
 const authController = require("../controller/auth.controller");
-
-router.post("/user/authLogin", authController.handleLogin);
 
 //done
 router.post("/user/signUp", signUp);
@@ -35,13 +34,17 @@ router.post(
    uploads.single("avatar"),
    addProfileAvatar
 );
+router.patch("/user/updateProfile", auth, updateProfile);
 router.patch("/user/updateProfile", updateProfile);
-// router.patch("/user/updateProfile", auth, updateProfile);
 router.delete("/user/deleteUser", auth, deleteUser);
-router.get("/user/refreshToken", tokenRefresher);
-router.delete("/user/logout", auth, logoutUser);
 // get users data
 router.get("/user/getallusers", getUsersData);
-router.get("/user/getuser/:id", getUsersData);
+router.get("/user/getuser/:id", getUserByID);
+
+//** تجارب */
+
+router.get("/user/refreshMe", tokenRefresher);
+router.delete("/user/logoutMe", logoutUser);
+router.post("/user/authLogin", authController.handleLogin);
 
 module.exports = router;

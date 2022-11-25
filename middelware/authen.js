@@ -13,7 +13,7 @@ const roles = {   //------>change<-------------
 
 const authen = (accessRoles) => {
     return async (req, res, next) => {
-        const headerToken = req.headers['authorization']
+        const headerToken = req.headers['Authorization']
 
         if (!headerToken.startsWith(`Bearer `)) {
             res.status(400).json({

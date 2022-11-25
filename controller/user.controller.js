@@ -15,8 +15,8 @@ const signUp = async (req, res) => {
       const token = jwt.sign({ _id: savedUser._id }, process.env.emailToken, {
          expiresIn: 5 * 60,
       });
-      const link = `$http://localhost:3000://${req.headers.host}/user/confirmEmail/${token}`;
-      const link2 = `$http://localhost:3000://${req.headers.host}/user/refreshEmail/${savedUser._id}`;
+      const link = `http://localhost:3000://${req.headers.host}/user/confirmEmail/${token}`;
+      const link2 = `http://localhost:3000://${req.headers.host}/user/refreshEmail/${savedUser._id}`;
       const message = `
     <a href=${link}> please confirm your email </a><br>
                    <a href=${link2}> resend confirmation email </a>`;
@@ -51,7 +51,6 @@ const tokenRefresher = (req, res) => {
    });
 };
 //-------------------------------------login
-
 const login = async (req, res) => {
    const { email, password } = req.body;
 
@@ -84,6 +83,13 @@ const login = async (req, res) => {
          });
       }
    }
+   res.status(200).json({
+      message: "login suceess",
+      token,
+      refreshToken,
+      user,
+      allowedRole: "user",
+   });
 };
 
 // --------------------------------------------------------EmailConfirm
@@ -148,7 +154,7 @@ const refreshEmail = async (req, res) => {
    }
 };
 
-//-----------------------------------------------------sening code
+//-----------------------------------------------------sending code
 
 const sendCode = async (req, res) => {
    const { email } = req.body;
@@ -227,6 +233,21 @@ const updateProfile = async (req, res) => {
       }
    }
 };
+
+const getMeHandler = (req, res, next) => {
+   try {
+      const user = res.locals.user;
+      res.status(200).json({
+         status: "success",
+         data: {
+            user,
+         },
+      });
+   } catch (err) {
+      next(err);
+   }
+};
+
 //---------------------------------------------------------user avatar
 
 const addProfileAvatar = async (req, res) => {
@@ -250,29 +271,66 @@ const deleteUser = async (req, res) => {
    res.json({ message: "done" });
 };
 
-//--------------------------------------log out
 const logoutUser = async (req, res) => {
    try {
-      req.user.tokens = [];
-      await req.user.save();
-      res.status(200).send("you loged out all tokens");
+      const cookies = req.cookies;
+      if (!cookies?.jwt) return res.status(204);
+      const refreshToken = cookies.jwt;
+
+      // If refresher token exist in database
+      const foundUser = await User.findOne({ refreshToken }).exec();
+      if (!foundUser) {
+         res.clearCookie("jwt", {
+            httpOnly: true,
+            sameSite: "None",
+            secure: true,
+         });
+         return res.status(204);
+      }
+
+      // Delete refresher in database
+      foundUser.refreshToken = foundUser.refreshToken.filter(
+         (rt) => rt !== refreshToken
+      );
+      const result = await foundUser.save();
+      console.log("deleteddddd", result);
+
+      res.clearCookie("jwt", {
+         httpOnly: true,
+         sameSite: "None",
+         secure: true,
+      });
+      res.status(204).send("you loged out all tokens");
    } catch (e) {
       res.status(500).send(e);
    }
 };
-
-//----------------------get all users
+// ---------------------------------get all users
 const getUsersData = async (req, res) => {
    try {
-      const user = await User.find({});
-      if (!user) {
-         throw Error("there is no user ");
+      const users = await User.find({});
+      if (!users) {
+         throw Error("there is no users");
       }
-      res.status(200).send(user);
+      res.status(200).send(users);
    } catch (error) {
       res.status(500).send(error.message);
    }
 };
+// ---------------------------------get data of user
+const getUserByID = async (req, res) => {
+   try {
+      const user = await User.findOne({ _id: req.params.id });
+
+      if (!user) {
+         return res.send(404).send("Cannot find user !");
+      }
+      res.status(200).send(user);
+   } catch (e) {
+      res.status(400).send(e.message);
+   }
+};
+
 module.exports = {
    confirmEmail,
    refreshEmail,
@@ -285,5 +343,7 @@ module.exports = {
    deleteUser,
    tokenRefresher,
    logoutUser,
+   getMeHandler,
    getUsersData,
+   getUserByID,
 };
