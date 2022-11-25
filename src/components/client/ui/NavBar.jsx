@@ -170,7 +170,7 @@ const NavBar = ({ showModal }) => {
                         </Dropdown.Menu>
                       ) : (
                         <Dropdown.Menu>
-                          <Link to="/profile/settings">
+                          <Link to="/mainprofile">
                             <Dropdown.Item href="#/action-1">
                               Profile
                             </Dropdown.Item>
@@ -270,7 +270,7 @@ const NavBar = ({ showModal }) => {
                       </Dropdown.Menu>
                     ) : (
                       <Dropdown.Menu>
-                        <Link to="/profile/settings">
+                        <Link to="/mainprofile">
                           <Dropdown.Item href="#/action-1">
                             Profile
                           </Dropdown.Item>

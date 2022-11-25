@@ -66,10 +66,7 @@ function App() {
       >
         <ToastContainer />
         <Routes>
-
-
-        <Route path="password" element={<VerifyPass />} ></Route>
-
+          <Route path="password" element={<VerifyPass />}></Route>
 
           {/* Public Routes */}
           <Route path="/" element={<Home />} />
@@ -102,10 +99,8 @@ function App() {
           </Route>
           <Route element={<AlreadyUser />}>
             <Route path="auth" element={<AuthRoutes />}>
-
               //////////////////////تعديلات////////////////////////
               <Route path="register" element={<RegisterPage />} />
-
               <Route path="login" element={<Login2 />} />
             </Route>
           </Route>

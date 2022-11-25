@@ -15,7 +15,7 @@ const item = {
     y: 0,
     transition: {
       ease: [0.6, 0.01, -0.05, 0.95],
-      duration: 4,
+      duration: 1.5,
     },
   },
   exit: {
@@ -23,7 +23,7 @@ const item = {
     y: -200,
     transition: {
       ease: "easeInOut",
-      duration: 2,
+      duration: 0.75,
     },
   },
 };
@@ -53,10 +53,10 @@ const AboutUs = () => {
           variants={container}
           initial="hidden"
           //animate="show"
-          exit="exit"
+          // exit="exit"
           transition={{ staggerChildren: 0.5 }}
           whileInView={"show"}
-          viewport={{ once: false, amount: 0.4 }}
+          viewport={{ once: true, amount: 0.6 }}
         >
           <motion.h5 className="fw-bold mb-4 pt-5" variants={item}>
             Who We Are ?

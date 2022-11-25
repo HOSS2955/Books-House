@@ -9,37 +9,41 @@ import AboutUs from "./AboutUs";
 import DiscoverBooks from "./DiscoverBooks";
 import Service from "./Service";
 import Banner from "./Banner";
+import FullScreenLoader from "../../../components/FullScreenLoader";
 
 export default function Home() {
-   const { data, isError, isLoading } = useGetHomepageDataQuery();
-   const dispatch = useDispatch();
-   const { setDataInLocalState } = homepageActions;
-   const { wallOfFamesData, clientsTestimonialsData , serviceData} = useSelector(
-      (state) => state.homepage
-   );
-   useEffect(() => {
-      console.log(data);
-      if (data) { 
-         dispatch(setDataInLocalState(data));
-         // console.log("hello" , data);
-      }
-   }, [dispatch, data]);
-   return (
+  const { data, isError, isLoading } = useGetHomepageDataQuery();
+  const dispatch = useDispatch();
+  const { setDataInLocalState } = homepageActions;
+  const { wallOfFamesData, clientsTestimonialsData, serviceData } = useSelector(
+    (state) => state.homepage
+  );
+  useEffect(() => {
+    console.log(data);
+    if (data) {
+      dispatch(setDataInLocalState(data));
+      // console.log("hello" , data);
+    }
+  }, [dispatch, data]);
+  return (
+    <>
+      {isLoading && <FullScreenLoader />}
       <div className="home__style">
-         <Banner headerArray={serviceData} />
-         
-         <section className="section pb-0">
-            <AboutUs />
-            <DiscoverBooks />
-            <ClientsTestimonials
+        <Banner headerArray={serviceData} />
+
+        <section className="section pb-0">
+          <AboutUs />
+          <DiscoverBooks />
+          <ClientsTestimonials
             clientsTestimonialsArray={clientsTestimonialsData}
-         ></ClientsTestimonials>
-         </section>
-         
-         <Service serviceArray = {serviceData}></Service>
-         {/* <Pricing/> */}
-         
-         <WallOfFames wallOfFamesArray={wallOfFamesData}></WallOfFames>
+          ></ClientsTestimonials>
+        </section>
+
+        <Service serviceArray={serviceData}></Service>
+        {/* <Pricing/> */}
+
+        <WallOfFames wallOfFamesArray={wallOfFamesData}></WallOfFames>
       </div>
-   );
+    </>
+  );
 }
