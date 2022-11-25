@@ -23,7 +23,6 @@ const login = async (req, res) => {
       res.status(500).send("not match")
     }else{
 
-      console.log('hello iam match')
       const refreshToken = jwt.sign({ _id: user._id }, process.env.REFRESH_TOKEN_SECRET,{ expiresIn: "12h" });
         const token = jwt.sign(
           { _id: user._id, isLogged: true },
@@ -32,7 +31,6 @@ const login = async (req, res) => {
         );
                 
         (async ()=>{
-          console.log('ya function')
           user.refreshToken=[refreshToken]
           await user.save()
         })()
@@ -51,111 +49,7 @@ const login = async (req, res) => {
             allowedRole: "admin",
           });
     }
-    // await user.comparePassword(password,function (err,isMatch){
-    //   if(err){
-    //     res.status(400).json({ message: "email password mismatch" });
-    //     throw new Error(err)
-
-    //   }else{
-
-
-    //   // ////////////////////////////////////////////هنا في مشكله في ال save
-    //   // res.cookie("refreshTokenVal", refreshToken, {
-    //   //   httpOnly: true,
-    //   //   sameSite: "None",
-    //   //   maxAge: 24 * 60 * 60 * 1000,
-    //   //     });
-
-
-    //       // res.status(200).json({
-    //       //   message: "login suceess",
-    //       //   token,
-    //       //   user,
-    //       //   allowedRole: "user",
-    //       // });
-          
-    //     (async ()=>{
-    //       const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
-    //       console.log('ya function')
-    //       user.refreshToken=[refreshToken]
-    //       await user.save()
-    //     })()
-
-    //     // const token = jwt.sign(
-    //     //   { _id: user._id, isLogged: true },
-    //     //   process.env.logingtoken,
-    //     //   { expiresIn: "1h" }
-    //     // );
-    //     // const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
-    //     // // refreshTokens.push(refreshToken);
-    //     // // console.log(user ,'/n',refreshToken)
-  
-    //     // // user.refreshToken.push(refreshToken)
-    //     // user.refreshToken=[refreshToken]
-  
-    //     // ////////////////////////////////////////////هنا في مشكله في ال save
-    //     // res.cookie("refreshTokenVal", refreshToken, {
-    //     //   httpOnly: true,
-    //     //   sameSite: "None",
-    //     //   maxAge: 24 * 60 * 60 * 1000,
-    //     //     });
-    //     //     const result= await user.save()
-  
-  
-    //     //     res.status(200).json({
-    //     //       message: "login suceess",
-    //     //       token,
-    //     //       user,
-    //     //       allowedRole: "user",
-    //     //     });
-    //     console.log(password,isMatch)
-
-    //     res.status(200).send({isMatch})
-    //   }
-
-
-        //       (async ()=>{
-        //   const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
-        //   console.log('ya function')
-        //   user.refreshToken=[refreshToken]
-        //   await user.save()
-        // })()
-    // })
-    // if (!match) {
-      // res.status(400).json({ message: "email password mismatch" });
-    // } else {
-      // const token = jwt.sign(
-      //   { _id: user._id, isLogged: true },
-      //   process.env.logingtoken,
-      //   { expiresIn: "1h" }
-      // );
-      // const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
-      // // refreshTokens.push(refreshToken);
-      // // console.log(user ,'/n',refreshToken)
-
-      // // user.refreshToken.push(refreshToken)
-      // user.refreshToken=[refreshToken]
-
-      // ////////////////////////////////////////////هنا في مشكله في ال save
-      // res.cookie("refreshTokenVal", refreshToken, {
-      //   httpOnly: true,
-      //   sameSite: "None",
-      //   maxAge: 24 * 60 * 60 * 1000,
-      //     });
-      //     const result= await user.save()
-
-
-      //     res.status(200).json({
-      //       message: "login suceess",
-      //       token,
-      //       user,
-      //       allowedRole: "user",
-      //     });
-
-
-
-
-    // }
+    
   }
 };
 
