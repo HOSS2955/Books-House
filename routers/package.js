@@ -5,6 +5,7 @@ const {
   getAllPackages,
   deleteAllPackages,
   getPackageByID,
+  updatePackageById,
 } = require("../controller/package.controller");
 // const auth = require('../middelware/auth')
 
@@ -15,5 +16,7 @@ router.get("/package/getall", getAllPackages);
 router.get("/package/:id", getPackageByID);
 // router.delete('/package/removeAll',auth,deleteAllPackages)
 router.delete("/package/removeAll", deleteAllPackages);
+// update Package By id
+router.put("/package/update/:id", updatePackageById);
 
 module.exports = router;

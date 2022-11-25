@@ -83,14 +83,33 @@ const postWebHookPackages = async (req, res) => {
   console.log("insied web hook");
   // console.log("req Hooooooooooook",req.body.type);
   let customer = req.body.data.object;
-  let event = req.body.type;
-  // console.log("hook",customer,"*",event)
-  // if (event === "charge.succeeded") {
-  try {
-    await createOrder(customer);
-  } catch (err) {
-    console.log(typeof createOrder);
-    console.log(err);
+  // let event = req.body;
+  // console.log("hook", customer, "*", event);
+
+  console.log("event///// type", req.body.type);
+  if (req.body.type === "payment_intent.succeeded") {
+    try {
+      console.log("here");
+      await createOrder(customer);
+    } catch (err) {
+      console.log(typeof createOrder);
+      console.log(err);
+    }
+  } else if (req.body.type === "charge.succeeded") {
+    console.log("from Else************************");
+    try {
+      await createOrder(customer);
+    } catch (err) {
+      console.log(typeof createOrder);
+      console.log(err);
+    }
+  } else {
+    try {
+      await createOrder(customer);
+    } catch (err) {
+      console.log(typeof createOrder);
+      console.log(err);
+    }
   }
 
   res.json({ sucess: true });
