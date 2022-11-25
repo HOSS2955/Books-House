@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useSelector } from "react-redux";
@@ -9,6 +9,7 @@ import {
   PaymentElement,
 } from "@stripe/react-stripe-js";
 import "../../../assets/css/CheckoutForm.css";
+import FullScreenLoader from "../../FullScreenLoader";
 
 export default function CheckoutForm({ packages, confetti }) {
   const stripe = useStripe();
@@ -66,6 +67,10 @@ export default function CheckoutForm({ packages, confetti }) {
 
     setIsProcessing(false);
   };
+  const [spinner, setSpinner] = useState(true);
+  useEffect(() => {
+    setTimeout(() => setSpinner(false), 2000);
+  }, []);
 
   return (
     <div>
@@ -115,6 +120,7 @@ export default function CheckoutForm({ packages, confetti }) {
           />
         </Form.Group> */}
         <div className="mb-3 my-5">
+          {spinner && <FullScreenLoader />}
           <PaymentElement id="payment-element" className="mb-3 my-5" />
         </div>
 
