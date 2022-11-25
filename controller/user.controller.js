@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const sendEmail = require("../services/email.service");
 
 require("dotenv").config();
@@ -53,31 +53,149 @@ const tokenRefresher = (req, res) => {
 const login = async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email }).exec();
 
   if (!user) {
     res.status(404).json({ message: "invalid email account" });
   } else {
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
-      res.status(400).json({ message: "email password mismatch" });
+      res.status(500).send("not match");
     } else {
+      console.log("hello iam match");
+      const refreshToken = jwt.sign(
+        { _id: user._id },
+        process.env.REFRESH_TOKEN_SECRET,
+        { expiresIn: "12h" }
+      );
       const token = jwt.sign(
         { _id: user._id, isLogged: true },
         process.env.logingtoken,
-        { expiresIn: "60s" }
+        { expiresIn: "1h" }
       );
-      const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
-      refreshTokens.push(refreshToken);
+
+      (async () => {
+        console.log("ya function");
+        user.refreshToken = [refreshToken];
+        await user.save();
+      })();
+
+      res.cookie("refreshTokenVal", refreshToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "None",
+        maxAge: 24 * 60 * 60 * 1000,
+      });
+      res.cookie("logged_in", true, {
+        httpOnly: false,
+        sameSite: "None",
+        maxAge: 24 * 60 * 60 * 1000,
+      });
 
       res.status(200).json({
         message: "login suceess",
         token,
-        refreshToken,
         user,
         allowedRole: "user",
       });
     }
+    // await user.comparePassword(password,function (err,isMatch){
+    //   if(err){
+    //     res.status(400).json({ message: "email password mismatch" });
+    //     throw new Error(err)
+
+    //   }else{
+
+    //   // ////////////////////////////////////////////هنا في مشكله في ال save
+    //   // res.cookie("refreshTokenVal", refreshToken, {
+    //   //   httpOnly: true,
+    //   //   sameSite: "None",
+    //   //   maxAge: 24 * 60 * 60 * 1000,
+    //   //     });
+
+    //       // res.status(200).json({
+    //       //   message: "login suceess",
+    //       //   token,
+    //       //   user,
+    //       //   allowedRole: "user",
+    //       // });
+
+    //     (async ()=>{
+    //       const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
+    //       console.log('ya function')
+    //       user.refreshToken=[refreshToken]
+    //       await user.save()
+    //     })()
+
+    //     // const token = jwt.sign(
+    //     //   { _id: user._id, isLogged: true },
+    //     //   process.env.logingtoken,
+    //     //   { expiresIn: "1h" }
+    //     // );
+    //     // const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
+    //     // // refreshTokens.push(refreshToken);
+    //     // // console.log(user ,'/n',refreshToken)
+
+    //     // // user.refreshToken.push(refreshToken)
+    //     // user.refreshToken=[refreshToken]
+
+    //     // ////////////////////////////////////////////هنا في مشكله في ال save
+    //     // res.cookie("refreshTokenVal", refreshToken, {
+    //     //   httpOnly: true,
+    //     //   sameSite: "None",
+    //     //   maxAge: 24 * 60 * 60 * 1000,
+    //     //     });
+    //     //     const result= await user.save()
+
+    //     //     res.status(200).json({
+    //     //       message: "login suceess",
+    //     //       token,
+    //     //       user,
+    //     //       allowedRole: "user",
+    //     //     });
+    //     console.log(password,isMatch)
+
+    //     res.status(200).send({isMatch})
+    //   }
+
+    //       (async ()=>{
+    //   const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
+    //   console.log('ya function')
+    //   user.refreshToken=[refreshToken]
+    //   await user.save()
+    // })()
+    // })
+    // if (!match) {
+    // res.status(400).json({ message: "email password mismatch" });
+    // } else {
+    // const token = jwt.sign(
+    //   { _id: user._id, isLogged: true },
+    //   process.env.logingtoken,
+    //   { expiresIn: "1h" }
+    // );
+    // const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
+    // // refreshTokens.push(refreshToken);
+    // // console.log(user ,'/n',refreshToken)
+
+    // // user.refreshToken.push(refreshToken)
+    // user.refreshToken=[refreshToken]
+
+    // ////////////////////////////////////////////هنا في مشكله في ال save
+    // res.cookie("refreshTokenVal", refreshToken, {
+    //   httpOnly: true,
+    //   sameSite: "None",
+    //   maxAge: 24 * 60 * 60 * 1000,
+    //     });
+    //     const result= await user.save()
+
+    //     res.status(200).json({
+    //       message: "login suceess",
+    //       token,
+    //       user,
+    //       allowedRole: "user",
+    //     });
+
+    // }
   }
 };
 
@@ -258,34 +376,57 @@ const deleteUser = async (req, res) => {
 };
 
 const logoutUser = async (req, res) => {
-  try {
-    const cookies = req.cookies;
-    if (!cookies?.jwt) return res.status(204);
-    const refreshToken = cookies.jwt;
+  const reqCookie = req.cookies["refreshTokenVal"];
 
-    // If refresher token exist in database
-    const foundUser = await User.findOne({ refreshToken }).exec();
-    if (!foundUser) {
-      res.clearCookie("jwt", {
-        httpOnly: true,
-        sameSite: "None",
-        secure: true,
-      });
-      return res.status(204);
-    }
+  if (!reqCookie) return res.status(204);
 
-    // Delete refresher in database
-    foundUser.refreshToken = foundUser.refreshToken.filter(
-      (rt) => rt !== refreshToken
-    );
-    const result = await foundUser.save();
-    console.log("deleteddddd", result);
+  const refreshToken = reqCookie;
 
-    res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
-    res.status(204).send("you loged out all tokens");
-  } catch (e) {
-    res.status(500).send(e);
+  // If refresher token exist in database
+  const foundUser = await User.findOne({ refreshToken }).exec();
+  if (!foundUser) {
+    res.clearCookie("refreshTokenVal", {
+      httpOnly: true,
+      secure: true,
+
+      sameSite: "None",
+    });
+    res.clearCookie("logged_in", {
+      httpOnly: false,
+      secure: true,
+      sameSite: "None",
+    });
+    return res.status(204);
   }
+
+  // Delete refresher in database
+  foundUser.refreshToken = [];
+  const result = await foundUser.save();
+  console.log("deleteddddd", result);
+  res.clearCookie("logged_in", {
+    httpOnly: false,
+    secure: true,
+    sameSite: "None",
+  });
+  res.clearCookie("refreshTokenVal", {
+    httpOnly: true,
+    sameSite: "None",
+    secure: true,
+  });
+  res.status(204).send("you loged out all tokens");
+};
+
+const logout = async (req, res) => {
+  if (request.session.userId) {
+    delete request.session.userId;
+    response.json({ result: "SUCCESS" });
+  } else {
+    response.json({ result: "ERROR", message: "User is not logged in." });
+  }
+};
+
+const userProfile = async (req, res) => {
+  res.status(200).send(req.user);
 };
 module.exports = {
   confirmEmail,
@@ -300,4 +441,5 @@ module.exports = {
   tokenRefresher,
   logoutUser,
   getMeHandler,
+  userProfile,
 };

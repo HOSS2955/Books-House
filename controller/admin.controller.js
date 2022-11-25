@@ -1,34 +1,161 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/admin");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const sendEmail = require("../services/email.service");
 
 require("dotenv").config();
 
 //-------------------------------------login
 
+
+/////////////////////////////////////////////
+
 const login = async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email }).exec();
 
   if (!user) {
-    res.status(404).json({ message: "Invalid email account" });
+    res.status(404).json({ message: "invalid email account" });
   } else {
     const match = await bcrypt.compare(password, user.password);
-    if (!match) {
-      res.status(400).json({ message: "Email password mismatch" });
-    } else {
-      const token = jwt.sign(
-        { _id: user._id, isLogged: true },
-        process.env.logingtoken,
-        { expiresIn: "3h" }
-      );
+    if(!match){
+      res.status(500).send("not match")
+    }else{
 
-      res
-        .status(200)
-        .json({ message: "login suceess", token, allowedRole: "admin" });
+      console.log('hello iam match')
+      const refreshToken = jwt.sign({ _id: user._id }, process.env.REFRESH_TOKEN_SECRET,{ expiresIn: "12h" });
+        const token = jwt.sign(
+          { _id: user._id, isLogged: true },
+          process.env.logingtoken,
+          { expiresIn: "1h" }
+        );
+                
+        (async ()=>{
+          console.log('ya function')
+          user.refreshToken=[refreshToken]
+          await user.save()
+        })()
+
+        res.cookie("refreshTokenVal", refreshToken, {
+        httpOnly: true,
+        sameSite: "None",
+        maxAge: 24 * 60 * 60 * 1000,
+          });
+
+
+          res.status(200).json({
+            message: "login suceess",
+            token,
+            user,
+            allowedRole: "admin",
+          });
     }
+    // await user.comparePassword(password,function (err,isMatch){
+    //   if(err){
+    //     res.status(400).json({ message: "email password mismatch" });
+    //     throw new Error(err)
+
+    //   }else{
+
+
+    //   // ////////////////////////////////////////////هنا في مشكله في ال save
+    //   // res.cookie("refreshTokenVal", refreshToken, {
+    //   //   httpOnly: true,
+    //   //   sameSite: "None",
+    //   //   maxAge: 24 * 60 * 60 * 1000,
+    //   //     });
+
+
+    //       // res.status(200).json({
+    //       //   message: "login suceess",
+    //       //   token,
+    //       //   user,
+    //       //   allowedRole: "user",
+    //       // });
+          
+    //     (async ()=>{
+    //       const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
+    //       console.log('ya function')
+    //       user.refreshToken=[refreshToken]
+    //       await user.save()
+    //     })()
+
+    //     // const token = jwt.sign(
+    //     //   { _id: user._id, isLogged: true },
+    //     //   process.env.logingtoken,
+    //     //   { expiresIn: "1h" }
+    //     // );
+    //     // const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
+    //     // // refreshTokens.push(refreshToken);
+    //     // // console.log(user ,'/n',refreshToken)
+  
+    //     // // user.refreshToken.push(refreshToken)
+    //     // user.refreshToken=[refreshToken]
+  
+    //     // ////////////////////////////////////////////هنا في مشكله في ال save
+    //     // res.cookie("refreshTokenVal", refreshToken, {
+    //     //   httpOnly: true,
+    //     //   sameSite: "None",
+    //     //   maxAge: 24 * 60 * 60 * 1000,
+    //     //     });
+    //     //     const result= await user.save()
+  
+  
+    //     //     res.status(200).json({
+    //     //       message: "login suceess",
+    //     //       token,
+    //     //       user,
+    //     //       allowedRole: "user",
+    //     //     });
+    //     console.log(password,isMatch)
+
+    //     res.status(200).send({isMatch})
+    //   }
+
+
+        //       (async ()=>{
+        //   const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
+        //   console.log('ya function')
+        //   user.refreshToken=[refreshToken]
+        //   await user.save()
+        // })()
+    // })
+    // if (!match) {
+      // res.status(400).json({ message: "email password mismatch" });
+    // } else {
+      // const token = jwt.sign(
+      //   { _id: user._id, isLogged: true },
+      //   process.env.logingtoken,
+      //   { expiresIn: "1h" }
+      // );
+      // const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
+      // // refreshTokens.push(refreshToken);
+      // // console.log(user ,'/n',refreshToken)
+
+      // // user.refreshToken.push(refreshToken)
+      // user.refreshToken=[refreshToken]
+
+      // ////////////////////////////////////////////هنا في مشكله في ال save
+      // res.cookie("refreshTokenVal", refreshToken, {
+      //   httpOnly: true,
+      //   sameSite: "None",
+      //   maxAge: 24 * 60 * 60 * 1000,
+      //     });
+      //     const result= await user.save()
+
+
+      //     res.status(200).json({
+      //       message: "login suceess",
+      //       token,
+      //       user,
+      //       allowedRole: "user",
+      //     });
+
+
+
+
+    // }
   }
 };
 
