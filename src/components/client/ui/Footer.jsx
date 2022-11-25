@@ -25,9 +25,9 @@ const Footer = () => {
         <Row>
           <Col md="6" lg="3"  className="pt-md-4 mt-sm-5">
             <div className="logo">
-              <img src="./images/hero_1.jpg" alt="logo" />
+              <img src="./images/logo2.png" alt="logo" />
               <div>
-                <h1 className="text-light">Furniture</h1>
+                <h1 className="text-light">BooksHouse</h1>
               </div>
             </div>
             <p className="footer__text mt-4 pe-3 text-white-50">
