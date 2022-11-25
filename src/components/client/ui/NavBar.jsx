@@ -112,11 +112,7 @@ const NavBar = ({ showModal }) => {
                               <li className="nav__item" key={index}>
                                  <NavLink
                                     to={item.path}
-                                    className={(navClass) =>
-                                       !navClass.isActive
-                                          ? "nav__notActive"
-                                          : "nav__active"
-                                    }
+                                   
                                  >
                                     {item.display}
                                  </NavLink>

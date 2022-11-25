@@ -6,6 +6,10 @@
    height: 593px;
    object-fit: cover;
 }
+.about__img img{
+   height: 75%;
+   width:75%;
+}
 ul.about__list li {
    list-style-type: circle;
    list-style-position: inside;
