@@ -46,77 +46,76 @@ import CommentSection from "./components/client/comments/CommentSection";
 // import RegisterPage from "./pages/client/authPages/register/Register";
 import MainProfile from "./pages/client/Profile/MainProfile";
 function App() {
-  const [showWishlist, setShowWishlist] = useState(false);
-  const hideModal = () => {
-    setShowWishlist(false);
-  };
-  const showModal = () => {
-    setShowWishlist(true);
-  };
-  return (
-    <div>
-      {/* <MyNav /> */}
-      <NavBar showModal={showModal} />
-      {showWishlist && (
-        <WishlistSideBar hideModal={hideModal} showModal={showModal} />
-      )}
-      <AnimatePresence
-        exitBeforeEnter
-        onExitComplete={() => setShowWishlist(false)}
-      >
-        <ToastContainer />
-        <Routes>
+   const [showWishlist, setShowWishlist] = useState(false);
+   const hideModal = () => {
+      setShowWishlist(false);
+   };
+   const showModal = () => {
+      setShowWishlist(true);
+   };
+   return (
+      <div>
+         {/* <MyNav /> */}
+         <NavBar showModal={showModal} />
+         {showWishlist && (
+            <WishlistSideBar hideModal={hideModal} showModal={showModal} />
+         )}
+         <AnimatePresence
+            exitBeforeEnter
+            onExitComplete={() => setShowWishlist(false)}
+         >
+            <ToastContainer />
+            <Routes>
+               <Route path="password" element={<VerifyPass />}></Route>
 
+               {/* Public Routes */}
+               <Route path="/" element={<Home />} />
+               <Route path="/sidebar" element={<WishlistSideBar />} />
+               <Route path="/home" element={<Home />} />
+               <Route
+                  element={<RequireAuth allowedRoles={["user", "admin"]} />}
+               >
+                  <Route path="/cart" element={<Cart />} />
+               </Route>
+               <Route path="/bookdetails/:id" element={<BookDetails />} />
+               <Route path="/@admin" element={<LoginAdmin />} />
+               <Route path="/about" element={<About />} />
+               <Route path="/service" element={<Service />} />
+               <Route path="/contactus" element={<Contactus />} />
+               <Route path="/profile/settings" element={<MyProfile />} />
+               <Route path="/booksshop" element={<BooksShop />} />
+               <Route path="/authorshouse" element={<AuthorsHouse />} />
+               <Route path="/unauthorized" element={<UnauthorizePage />} />
+               <Route path="/reviews" element={<Reviews />} />
+               <Route path="/reviewdetails/:id" element={<ReviewDetails />} />
+               <Route path="/completion" element={<Completion />} />
+               <Route path="/mainprofile" element={<MainProfile />} />
+               <Route path="/cart2" element={<Cart />} />
 
-        <Route path="password" element={<VerifyPass />} ></Route>
-
-
-          {/* Public Routes */}
-          <Route path="/" element={<Home />} />
-          <Route path="/sidebar" element={<WishlistSideBar />} />
-          <Route path="/home" element={<Home />} />
-          <Route element={<RequireAuth allowedRoles={["user", "admin"]} />}>
-            <Route path="/cart" element={<Cart />} />
-          </Route>
-          <Route path="/bookdetails/:id" element={<BookDetails />} />
-          <Route path="/@admin" element={<LoginAdmin />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/service" element={<Service />} />
-          <Route path="/contactus" element={<Contactus />} />
-          <Route path="/profile/settings" element={<MyProfile />} />
-          <Route path="/booksshop" element={<BooksShop />} />
-          <Route path="/authorshouse" element={<AuthorsHouse />} />
-          <Route path="/unauthorized" element={<UnauthorizePage />} />
-          <Route path="/reviews" element={<Reviews />} />
-          <Route path="/reviewdetails/:id" element={<ReviewDetails />} />
-          <Route path="/completion" element={<Completion />} />
-          <Route path="/mainprofile" element={<MainProfile />} />
-          <Route path="/cart2" element={<Cart />} />
-
-          {/* Protected Routes */}
-          <Route path="user/confirmEmail" element={<Verification />}>
-            <Route path=":verificationCode" element={<Verification />} />
-          </Route>
-          <Route element={<RequireAuth allowedRoles={["user", "admin"]} />}>
-            <Route path="password" element={<VerifyPass />} />
-          </Route>
-          <Route element={<AlreadyUser />}>
-            <Route path="auth" element={<AuthRoutes />}>
-
-              //////////////////////تعديلات////////////////////////
-              <Route path="register" element={<RegisterPage />} />
-
-              <Route path="login" element={<Login2 />} />
-            </Route>
-          </Route>
-          {/* Catch All */}
-          <Route path="*" element={<ErrorNotFound />} />
-        </Routes>
-        {/* <Counter /> */}
-        <Footer />
-      </AnimatePresence>
-    </div>
-  );
+               {/* Protected Routes */}
+               <Route path="user/confirmEmail" element={<Verification />}>
+                  <Route path=":verificationCode" element={<Verification />} />
+               </Route>
+               <Route
+                  element={<RequireAuth allowedRoles={["user", "admin"]} />}
+               >
+                  <Route path="password" element={<VerifyPass />} />
+               </Route>
+               {/* <Route element={<AlreadyUser />}> */}
+               <Route path="auth" element={<AuthRoutes />}>
+                  //////////////////////تعديلات////////////////////////
+                  <Route path="register" element={<RegisterPage />} />
+                  <Route path="login" element={<Login2 />} />
+               </Route>
+               {/* </Route> */}
+               {/* Catch All */}
+               <Route path="*" element={<ErrorNotFound />} />
+            </Routes>
+            {/* <Counter /> */}
+            <Footer />
+         </AnimatePresence>
+      </div>
+   );
 }
 
 export default App;

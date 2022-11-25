@@ -1,6 +1,8 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { FaComments } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import "./review.css";
 
 export default function BookReview({ data }) {
    const navigate = useNavigate();
@@ -22,14 +24,14 @@ export default function BookReview({ data }) {
             {/* Title & Review */}
             <div className="col-lg-6 col-sm-12 d-flex flex-column">
                <p className="text-uppercase">book review</p>
-               <h2
-                  className="text-capitalize fs-3"
+               <a
+                  className="Review-title fs-2 text-capitalize fs-3"
                   onClick={() => {
                      toBookDetail();
                   }}
                >
                   book review: {data.title}
-               </h2>
+               </a>
                <p className="text-lead">
                   {data.desc.split(",")[0]}Check out what {data.reviwer} has to
                   say in her book review of this indie thriller
@@ -39,7 +41,7 @@ export default function BookReview({ data }) {
             <div className="col-lg-4 col-sm-12">
                <div className=" h-75 w-100 mt-2">
                   <img
-                     className="h-100 w-100 "
+                     className="h-100 w-100 Review-title"
                      onClick={() => {
                         toBookDetail();
                      }}

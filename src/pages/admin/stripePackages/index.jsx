@@ -19,10 +19,6 @@ export default function StripePackages() {
       dispatch(getstripePackages());
    }, []);
 
-   if (stripePackagesData) {
-      console.log(stripePackagesData);
-   }
-
    const columns = [
       {
          field: "_id",
@@ -41,23 +37,6 @@ export default function StripePackages() {
             );
          },
       },
-      // {
-      //    field: "authorData.firstName",
-      //    headerName: "First Name",
-      //    flex: 1,
-      //    // cellClassName: "name-column--cell",
-      //    valueGetter: (params) => {
-      //       return params.row.authorData.firstName;
-      //    },
-      // },
-      // {
-      //    field: "authorData.lastName",
-      //    headerName: "Last Name",
-      //    flex: 1,
-      //    valueGetter: (params) => {
-      //       return params.row.authorData.lastName;
-      //    },
-      // },
       {
          field: "authorData.authorEmail",
          headerName: "Email",
@@ -139,9 +118,9 @@ export default function StripePackages() {
          >
             <DataGrid
                rows={stripePackagesData}
-               getRowId={(row) => row.createdAt}
+               getRowId={(row) => row?.createdAt}
                columns={columns}
-               loading={!stripePackagesData.length}
+               loading={!stripePackagesData?.length}
             />
          </Box>
       </Box>

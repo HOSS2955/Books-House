@@ -2,11 +2,13 @@ import { TextField } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { AiOutlineSearch } from "react-icons/ai";
+import { IoSearchOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import ItemCard from "../../../components/client/ItemCard/ItemCard";
 import NoProducts from "../../../components/client/ui/NoProducts/NoProducts";
 import Pagination from "../../../components/client/ui/Pagination/Pagination";
-import { getBooks , getBook } from "../../../store/client/reducers/bookSlice";
+import { getBooks, getBook } from "../../../store/client/reducers/bookSlice";
 
 export default function BookList() {
    const dispatch = useDispatch();
@@ -15,18 +17,12 @@ export default function BookList() {
       bookStoreCategory,
       maxPriceFilter,
       minPriceFilter,
-      bookStoreType
+      bookStoreType,
    } = useSelector((state) => state.books);
 
    useEffect(() => {
       dispatch(getBooks());
    }, [dispatch]);
-
-   
-
-
-
-
 
    const [search, setSearch] = useState("");
    const [isNoProducts, setIsNoProducts] = useState(false);
@@ -40,13 +36,18 @@ export default function BookList() {
    return (
       <div>
          {/* SEARCH BAR */}
-         <div className="ms-3 mb-3">
-            <TextField
-               id="standard-basic"
-               onChange={(e) => setSearch(e.target.value)}
-               label="Search"
-               variant="standard"
-            />
+         <div className="ms-3 mb-3 d-flex">
+            <div className="pt-3 me-1">
+               <IoSearchOutline />
+            </div>
+            <div>
+               <TextField
+                  id="standard-basic"
+                  onChange={(e) => setSearch(e.target.value)}
+                  label="Search"
+                  variant="standard"
+               />
+            </div>
          </div>
          {/* ITEMS OF LIST */}
          <div className="row ms-2">
@@ -80,7 +81,7 @@ export default function BookList() {
                            key={index}
                            className=" col-md-6 col-lg-4 mb-3"
                         >
-                           <ItemCard book={book}/>
+                           <ItemCard book={book} />
                         </motion.div>
                      );
                   })}

@@ -2,7 +2,6 @@ import { React, useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
 import { tokens } from "../../../theme";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CreateIcon from "@mui/icons-material/Create";
@@ -18,11 +17,12 @@ import GroupIcon from "@mui/icons-material/Group";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import PaymentIcon from "@mui/icons-material/Payment";
+import { Link, useNavigate } from "react-router-dom";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
    const theme = useTheme();
    const colors = tokens(theme.palette.mode);
-
+   const navigate = useNavigate();
    return (
       <MenuItem
          active={selected === title}
@@ -30,7 +30,9 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
             color: colors.grey[100],
             listStyle: "none",
          }}
-         onClick={() => setSelected(title)}
+         onClick={() => {
+            return setSelected(title), navigate(to);
+         }}
          icon={icon}
       >
          <Typography>{title}</Typography>
@@ -124,7 +126,40 @@ export default function Sidebar() {
                   )}
                   {/* HOUSES */}
                   <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+                     {/* ECOMMERCE */}
                      <Typography
+                        variant="h6"
+                        color={colors.grey[300]}
+                        sx={{ m: "15px 0 5px 20px" }}
+                     >
+                        Store
+                     </Typography>
+                     <Item
+                        title="Users"
+                        to="/admin/users"
+                        icon={<GroupIcon />}
+                        selected={selected}
+                        setSelected={setSelected}
+                     />
+                     <Item
+                        title="Books"
+                        to="/admin/books"
+                        onClick={() => {
+                           console.log("object");
+                        }}
+                        icon={<BookIcon />}
+                        selected={selected}
+                        setSelected={setSelected}
+                     />
+                     <Item
+                        title="Reviews"
+                        to="/admin/reviews"
+                        icon={<RateReviewIcon />}
+                        selected={selected}
+                        setSelected={setSelected}
+                     />
+
+                     {/* <Typography
                         variant="h6"
                         color={colors.grey[300]}
                         sx={{ m: "15px 0 5px 20px" }}
@@ -151,24 +186,27 @@ export default function Sidebar() {
                         icon={<LocalLibraryIcon />}
                         selected={selected}
                         setSelected={setSelected}
-                     />
+                     /> */}
                      {/* CONTROLLERS */}
                      <Typography
                         variant="h6"
                         color={colors.grey[300]}
                         sx={{ m: "15px 0 5px 20px" }}
                      >
-                        Controllers
+                        Control
                      </Typography>
-                     <Item
+                     {/* <Item
                         title="Slider Control"
                         to="/admin/slidercontrol"
                         icon={<FilterIcon />}
                         selected={selected}
                         setSelected={setSelected}
-                     />
+                     /> */}
                      <Item
                         title="Packages Control"
+                        onClick={() => {
+                           console.log("packagge");
+                        }}
                         to="/admin/packagescontrol"
                         icon={<LocalOfferIcon />}
                         selected={selected}
@@ -197,51 +235,21 @@ export default function Sidebar() {
                         setSelected={setSelected}
                      />
 
-                     {/* ECOMMERCE */}
-                     <Typography
-                        variant="h6"
-                        color={colors.grey[300]}
-                        sx={{ m: "15px 0 5px 20px" }}
-                     >
-                        Store
-                     </Typography>
-                     <Item
-                        title="Books"
-                        to="/admin/books"
-                        icon={<StyleIcon />}
-                        selected={selected}
-                        setSelected={setSelected}
-                     />
-                     <Item
-                        title="Reviews"
-                        to="/admin/reviews"
-                        icon={<RateReviewIcon />}
-                        selected={selected}
-                        setSelected={setSelected}
-                     />
-                     <Item
-                        title="Users"
-                        to="/admin/users"
-                        icon={<GroupIcon />}
-                        selected={selected}
-                        setSelected={setSelected}
-                     />
-
                      {/* PAGES */}
                      <Typography
                         variant="h6"
                         color={colors.grey[300]}
                         sx={{ m: "15px 0 5px 20px" }}
                      >
-                        Pages
+                        Dates
                      </Typography>
-                     <Item
+                     {/* <Item
                         title="Profile Form"
                         to="/admin/form"
                         icon={<PersonOutlinedIcon />}
                         selected={selected}
                         setSelected={setSelected}
-                     />
+                     /> */}
                      <Item
                         title="Calendar"
                         to="/admin/calendar"
