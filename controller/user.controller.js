@@ -165,7 +165,7 @@ const sendCode = async (req, res) => {
    if (!user) {
       res.status(404).json({ message: "in-valid email" });
    } else {
-      const code = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000);
+      const code = Math.floor(Math.random() * (9999 - 1000 + 1) + 100000);
       const title=`<h3>Security code</h3>`
       const message = `${title}</br>Please use the following security code for Your account </br>
                        Security code: <b>${code}</b></br>
@@ -182,13 +182,12 @@ const sendCode = async (req, res) => {
 //---------------------------------------------------------forget password
 const forgetPassword = async (req, res) => {
    const { email, newpassword, code } = req.body;
-
    const user = await User.findOne({ email });
    if (!user) {
       res.status(404).json({ message: "in-valid email" });
    } else {
       if (user.code != code) {
-         res.status(404).json({ message: "invalid code" });
+        res.status(404).json({ message: "invalid code" });
       } else {
          const hashPassword = await bcrypt.hash(
             newpassword,

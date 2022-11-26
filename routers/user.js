@@ -27,7 +27,7 @@ router.post("/user/login", login);
 router.post("/user/sendCode", sendCode);
 router.get("/user/confirmEmail/:token", confirmEmail);
 router.get("/user/refreshEmail/:token", refreshEmail);
-router.post("/forgetPassword", auth, forgetPassword);
+router.post("/user/forgetPassword", forgetPassword);
 router.get("/user/profile", auth, userProfile);
 // router.get("/user/confirmEmail/:token", confirmEmail);
 router.post(

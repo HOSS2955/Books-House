@@ -121,8 +121,12 @@ const sendCode = async (req, res) => {
   if (!user) {
     res.status(404).json({ message: "in-valid email" });
   } else {
-    const code = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000);
-    const message = `your code is ${code}`;
+    const code = Math.floor(Math.random() * (9999 - 1000 + 1) + 100000);
+    const title=`<h3>Security code</h3>`
+    const message = `${title}</br>Please use the following security code for Your account </br>
+                     Security code: <b>${code}</b></br>
+                     </br></br>
+                     Thanks,</br>The Books-House team`;
 
     await User.findByIdAndUpdate({ _id: user._id }, { code });
     sendEmail(email, message);
