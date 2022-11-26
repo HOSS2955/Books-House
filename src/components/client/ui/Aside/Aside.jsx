@@ -5,10 +5,6 @@ import Form from "react-bootstrap/Form";
 import "./aside.css";
 
 export default function Aside() {
-   const categoriesHandler = (e) => {
-      console.log(e.target.name);
-   };
-
    return (
       <div>
          {/* Search */}

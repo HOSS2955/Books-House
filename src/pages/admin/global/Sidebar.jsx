@@ -144,9 +144,6 @@ export default function Sidebar() {
                      <Item
                         title="Books"
                         to="/admin/books"
-                        onClick={() => {
-                           console.log("object");
-                        }}
                         icon={<BookIcon />}
                         selected={selected}
                         setSelected={setSelected}
@@ -204,9 +201,6 @@ export default function Sidebar() {
                      /> */}
                      <Item
                         title="Packages Control"
-                        onClick={() => {
-                           console.log("packagge");
-                        }}
                         to="/admin/packagescontrol"
                         icon={<LocalOfferIcon />}
                         selected={selected}

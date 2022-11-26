@@ -47,7 +47,6 @@ export default function PackagesControl() {
       if (packageId.packageDesc[0].length < 2) {
          packageId.packageDesc = packageId.packageDesc.split(",");
       }
-      console.log(packageId);
       updatePackageData(packageId);
    };
 

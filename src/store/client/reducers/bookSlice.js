@@ -4,7 +4,7 @@ import axios from "axios";
 const initialState = {
    books: [],
    bookDetails: null,
-   bookComments:[],
+   bookComments: [],
    bookCart: [],
    isLoadind: false,
    editBook: false,
@@ -41,7 +41,6 @@ export const addBook = createAsyncThunk(
    }
 );
 
-
 // export const commentBook = createAsyncThunk(
 //    "book/comment",
 //    async(value , id, thunckAPI) => {
@@ -56,7 +55,6 @@ export const addBook = createAsyncThunk(
 //       }
 //    }
 // )
-
 
 // export const addComment = createAsyncThunk(
 //    "books/addComment",
@@ -76,13 +74,11 @@ export const deleteBook = createAsyncThunk(
    async (book, thunckAPI) => {
       const { rejectWithValue, getState } = thunckAPI;
       const state = getState();
-      console.log(book);
       try {
          await axios.delete(`/book/remove/${book._id}`, book._id);
          const filterArr = state.books.books.filter(
             (ele) => ele._id !== book._id
          );
-         console.log(filterArr);
          return filterArr;
       } catch (error) {
          rejectWithValue(error.message);
@@ -106,7 +102,6 @@ export const updateBook = createAsyncThunk(
    "books/updateBook",
    async ({ id, formValue }, thunckAPI) => {
       const { rejectWithValue } = thunckAPI;
-      console.log(formValue);
       try {
          const res = await axios.put(`/book/updateBook/${id}`, formValue);
          return res.data;
@@ -151,8 +146,8 @@ const booksSlice = createSlice({
       [deleteBook.fulfilled]: (state, action) => {
          state.books = action.payload;
       },
-      [getBook.fulfilled]: (state , action)=>{
-         state.bookDetails = action.payload
+      [getBook.fulfilled]: (state, action) => {
+         state.bookDetails = action.payload;
       },
       // [commentBook.fulfilled]:(state , action)=>{
       //    state.bookDetails = action.payload

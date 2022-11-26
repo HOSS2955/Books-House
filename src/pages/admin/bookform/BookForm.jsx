@@ -11,6 +11,7 @@ import { addBook, updateBook } from "../../../store/client/reducers/bookSlice";
 import { useEffect } from "react";
 import { tokens } from "../../../theme";
 import { useTheme } from "@mui/material";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const initialValues = {
    title: "",
@@ -62,14 +63,12 @@ export default function BookForm() {
    // SUBMIT
    const handleFormSubmit = (book) => {
       if (id) {
-         console.log(formValue, "edit");
          dispatch(updateBook({ id, formValue }));
       } else {
          setFormValue({
             ...book,
             imageSource: image,
          });
-         console.log(formValue);
          dispatch(addBook(formValue));
       }
       navigate("/admin/books");
@@ -77,7 +76,6 @@ export default function BookForm() {
 
    const operationHandler = (e) => {
       const { name, value } = e.target;
-      console.log(name, value);
       setFormValue((pervState) => ({
          ...pervState,
          [name]: value,
@@ -255,19 +253,9 @@ export default function BookForm() {
                display: "flex",
             }}
          >
-            <Typography sx={{ color: colors.grey[200], mr: 2 }}>
+            {/* <Typography sx={{ color: colors.grey[200], mr: 2 }}>
                Image
-            </Typography>
-            {/* <input
-          type="file"
-          onChange={(e) => {
-            updateImagePath(e);
-          }}
-          style={{
-            color: "#418022",
-            cursor: "pointer",
-          }}
-        ></input> */}
+            </Typography> */}
             <label htmlFor="upload-photo">
                <input
                   onChange={(e) => {
@@ -284,7 +272,7 @@ export default function BookForm() {
                   component="span"
                   sx={{
                      color: "#ffffff",
-                     backgroundColor: colors.blueAccent[400],
+                     backgroundColor: colors.blueAccent[600],
                      "&:hover": {
                         backgroundColor: colors.blueAccent[500],
                         opacity: [0.9, 0.8, 0.7],
@@ -302,14 +290,24 @@ export default function BookForm() {
                sx={{
                   backgroundColor: colors.greenAccent[600],
                   ml: 3,
+                  "&:hover": {
+                     backgroundColor: colors.greenAccent[700],
+                     opacity: [0.9, 0.8, 0.7],
+                  },
                }}
             >
                Upload
             </Button>
+            {url && (
+               // <p className="fs-5 ms-3 text-success">
+               //    Uploaded Successfully
+               // </p>
+               <div className="fs-5 ms-3  text-success">
+                  Uploaded
+                  <CheckCircleIcon className="fs-5 ms-1  text-success" />
+               </div>
+            )}
          </Box>
-         <div className="d-flex">
-            {url && <p className="fs-5 text-success">Uploaded Successfully</p>}
-         </div>
       </Box>
    );
 }
