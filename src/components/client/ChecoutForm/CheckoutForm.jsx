@@ -41,7 +41,6 @@ export default function CheckoutForm({ packages, confetti }) {
 
     axios.post("/data", [{ packages }, { authorData }]).then(async (result) => {
       var data = await result.data;
-      console.log(data);
     });
 
     const { error, paymentIntent } = await stripe.confirmPayment({

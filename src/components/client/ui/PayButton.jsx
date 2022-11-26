@@ -22,13 +22,13 @@ const PayButton = ({ cartItems }) => {
     }
   );
 
-  console.log(data);
+  // console.log(data);
   const handleCheckout = () => {
     axios
       .post("/create-checkout-session", { data })
       .then((response) => {
         if (response.data.url) {
-          console.log(response);
+          // console.log(response);
           window.location.href = response.data.url;
         }
       })
