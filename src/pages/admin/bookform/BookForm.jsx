@@ -140,6 +140,9 @@ export default function BookForm() {
                         type="text"
                         label="Title"
                         onBlur={handleBlur}
+                        color="grey"
+                        defaultValue={id ? dataEditBook.title : ""}
+                        InputLabelProps={{ className: "text-field" }}
                         onChange={handleChange}
                         value={values.title}
                         placeholder={id ? dataEditBook.title : ""}
@@ -154,6 +157,7 @@ export default function BookForm() {
                         variant="filled"
                         type="text"
                         label="Price"
+                        color="grey"
                         onBlur={handleBlur}
                         onChange={handleChange}
                         value={values.price}
@@ -169,6 +173,7 @@ export default function BookForm() {
                         variant="filled"
                         type="text"
                         label="Author"
+                        color="grey"
                         onBlur={handleBlur}
                         placeholder={id ? dataEditBook.author : ""}
                         onChange={handleChange}
@@ -184,6 +189,7 @@ export default function BookForm() {
                         variant="filled"
                         type="text"
                         label="Category"
+                        color="grey"
                         placeholder={id ? dataEditBook.category : ""}
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -199,6 +205,7 @@ export default function BookForm() {
                         variant="filled"
                         type="text"
                         label="Type"
+                        color="grey"
                         placeholder={id ? dataEditBook.type : ""}
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -211,9 +218,13 @@ export default function BookForm() {
                      {/* DECRIPTOIN */}
                      <TextField
                         fullWidth
+                        multiline
+                        rows={5}
+                        maxRows={10}
                         variant="filled"
                         type="text"
                         label="Description"
+                        color="grey"
                         placeholder={id ? dataEditBook.bookDesc : ""}
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -223,20 +234,6 @@ export default function BookForm() {
                         helperText={touched.bookDesc && errors.bookDesc}
                         sx={{ gridColumn: "span 4" }}
                      />
-
-                     {/* <TextField
-                        fullWidth
-                        variant="filled"
-                        type="text"
-                        label="Image Source"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.imageSrc}
-                        name="imageSrc"
-                        error={!!touched.imageSrc && !!errors.imageSrc}
-                        helperText={touched.imageSrc && errors.imageSrc}
-                        sx={{ gridColumn: "span 4" }}
-                     /> */}
                   </Box>
                   <Box display="flex" justifyContent="end" mt="20px">
                      <Button

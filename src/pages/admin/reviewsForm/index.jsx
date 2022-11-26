@@ -139,6 +139,7 @@ export default function ReviewsForm() {
                         variant="filled"
                         type="text"
                         label="Title"
+                        color="grey"
                         onBlur={handleBlur}
                         onChange={handleChange}
                         value={values.title}
@@ -154,6 +155,7 @@ export default function ReviewsForm() {
                         variant="filled"
                         type="text"
                         label="Reviewer"
+                        color="grey"
                         onBlur={handleBlur}
                         onChange={handleChange}
                         value={values.reviewer}
@@ -169,6 +171,7 @@ export default function ReviewsForm() {
                         variant="filled"
                         type="text"
                         label="Publisher"
+                        color="grey"
                         onBlur={handleBlur}
                         placeholder={id ? dataEditBookReview.publisher : ""}
                         onChange={handleChange}
@@ -184,6 +187,7 @@ export default function ReviewsForm() {
                         variant="filled"
                         type="text"
                         label="Category"
+                        color="grey"
                         placeholder={id ? dataEditBookReview.category : ""}
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -202,6 +206,7 @@ export default function ReviewsForm() {
                         variant="filled"
                         type="text"
                         label="Description"
+                        color="grey"
                         placeholder={id ? dataEditBookReview.desc : ""}
                         onBlur={handleBlur}
                         onChange={handleChange}

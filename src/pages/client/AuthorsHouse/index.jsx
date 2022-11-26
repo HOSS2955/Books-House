@@ -118,7 +118,7 @@ export default function AuthorsHouse() {
             <div className="container">
                <div className="row">
                   <motion.div
-                     className="col-6 d-flex flex-column justify-content-center align-items-center"
+                     className="col-12 my-5 d-flex flex-column justify-content-center align-items-center"
                      variants={container}
                      initial="hidden"
                      animate="show"

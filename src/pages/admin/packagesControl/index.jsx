@@ -124,6 +124,7 @@ export default function PackagesControl() {
                         variant="filled"
                         type="text"
                         label="Package Name"
+                        color="grey"
                         onBlur={handleBlur}
                         onChange={handleChange}
                         placeholder={packageId?.packageName}
@@ -138,6 +139,7 @@ export default function PackagesControl() {
                         variant="filled"
                         type="text"
                         label="Package Price"
+                        color="grey"
                         onBlur={handleBlur}
                         onChange={handleChange}
                         placeholder={packageId?.packagePrice}
@@ -154,6 +156,7 @@ export default function PackagesControl() {
                         variant="filled"
                         type="text"
                         label="Package Description"
+                        color="grey"
                         onBlur={handleBlur}
                         placeholder={packageId?.packageDesc}
                         onChange={handleChange}
