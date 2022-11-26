@@ -93,7 +93,7 @@ export default function AuthorsHouse() {
       });
     }
     // console.log(confetti);
-  }, []);
+  }, [packages, confetti]);
 
   return (
     <div className="mt-5">

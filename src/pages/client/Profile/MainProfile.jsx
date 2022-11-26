@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import ProfileImg from "./ProfileImg";
+import Null from "./Null";
 export default function MainProfile() {
   const [active, setActive] = useState("profile");
   const clickHandler = (data) => {
@@ -45,6 +47,7 @@ export default function MainProfile() {
             <div className="card mb-4 mb-xl-0 ">
               <div className="card-header">My Account </div>
               <div className="card-body">
+                <ProfileImg />
                 <nav className="mProfile nav flex-lg-column nav-pills  ">
                   <button
                     className="btn btn-outline-warning text-dark rounded my-2"
@@ -71,6 +74,12 @@ export default function MainProfile() {
                     My Packages Payment
                   </button>
                   <button
+                    className="btn btn-outline-warning text-dark  rounded my-2"
+                    onClick={() => {}}
+                  >
+                    Forget You Password
+                  </button>
+                  <button
                     className="btn btn-outline-secondary  rounded my-2"
                     onClick={logoutHandler}
                   >
@@ -80,6 +89,7 @@ export default function MainProfile() {
               </div>
             </div>
           </div>
+
           <div className="col-xl-8 col-md-8 col-sm-12">
             <div className="card mb-4">
               <div className="card-header">Information</div>

@@ -4,17 +4,17 @@ import { getprofilePackage } from "../../../store/client/reducers/profilePaymet"
 
 export default function MyPackages() {
   const dispatch = useDispatch();
-  const email = "hoss2955@gmail.com";
+  const { user } = useSelector((state) => state.userState);
+  const email = user.email;
   const { profilePackage } = useSelector((state) => state.ProfilePayment);
   useEffect(() => {
     dispatch(getprofilePackage(email));
   }, []);
-  console.log(profilePackage);
 
   return (
     <>
       {profilePackage?.map((item, index) => (
-        <div className="card border-primary">
+        <div className="card border-primary mb-2">
           <div className="card-body">
             <header className="d-lg-flex">
               <div className="flex-grow-1">
