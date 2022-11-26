@@ -89,103 +89,7 @@ const login = async (req, res) => {
             allowedRole: "user",
          });
       }
-      // await user.comparePassword(password,function (err,isMatch){
-      //   if(err){
-      //     res.status(400).json({ message: "email password mismatch" });
-      //     throw new Error(err)
-
-      //   }else{
-
-      //   // ////////////////////////////////////////////هنا في مشكله في ال save
-      //   // res.cookie("refreshTokenVal", refreshToken, {
-      //   //   httpOnly: true,
-      //   //   sameSite: "None",
-      //   //   maxAge: 24 * 60 * 60 * 1000,
-      //   //     });
-
-      //       // res.status(200).json({
-      //       //   message: "login suceess",
-      //       //   token,
-      //       //   user,
-      //       //   allowedRole: "user",
-      //       // });
-
-      //     (async ()=>{
-      //       const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
-      //       console.log('ya function')
-      //       user.refreshToken=[refreshToken]
-      //       await user.save()
-      //     })()
-
-      //     // const token = jwt.sign(
-      //     //   { _id: user._id, isLogged: true },
-      //     //   process.env.logingtoken,
-      //     //   { expiresIn: "1h" }
-      //     // );
-      //     // const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
-      //     // // refreshTokens.push(refreshToken);
-      //     // // console.log(user ,'/n',refreshToken)
-
-      //     // // user.refreshToken.push(refreshToken)
-      //     // user.refreshToken=[refreshToken]
-
-      //     // ////////////////////////////////////////////هنا في مشكله في ال save
-      //     // res.cookie("refreshTokenVal", refreshToken, {
-      //     //   httpOnly: true,
-      //     //   sameSite: "None",
-      //     //   maxAge: 24 * 60 * 60 * 1000,
-      //     //     });
-      //     //     const result= await user.save()
-
-      //     //     res.status(200).json({
-      //     //       message: "login suceess",
-      //     //       token,
-      //     //       user,
-      //     //       allowedRole: "user",
-      //     //     });
-      //     console.log(password,isMatch)
-
-      //     res.status(200).send({isMatch})
-      //   }
-
-      //       (async ()=>{
-      //   const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
-      //   console.log('ya function')
-      //   user.refreshToken=[refreshToken]
-      //   await user.save()
-      // })()
-      // })
-      // if (!match) {
-      // res.status(400).json({ message: "email password mismatch" });
-      // } else {
-      // const token = jwt.sign(
-      //   { _id: user._id, isLogged: true },
-      //   process.env.logingtoken,
-      //   { expiresIn: "1h" }
-      // );
-      // const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
-      // // refreshTokens.push(refreshToken);
-      // // console.log(user ,'/n',refreshToken)
-
-      // // user.refreshToken.push(refreshToken)
-      // user.refreshToken=[refreshToken]
-
-      // ////////////////////////////////////////////هنا في مشكله في ال save
-      // res.cookie("refreshTokenVal", refreshToken, {
-      //   httpOnly: true,
-      //   sameSite: "None",
-      //   maxAge: 24 * 60 * 60 * 1000,
-      //     });
-      //     const result= await user.save()
-
-      //     res.status(200).json({
-      //       message: "login suceess",
-      //       token,
-      //       user,
-      //       allowedRole: "user",
-      //     });
-
-      // }
+     
    }
 };
 
@@ -261,7 +165,11 @@ const sendCode = async (req, res) => {
       res.status(404).json({ message: "in-valid email" });
    } else {
       const code = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000);
-      const message = `your code is ${code}`;
+      const title=`<h3>Security code</h3>`
+      const message = `${title}</br>Please use the following security code for Your account </br>
+                       Security code: <b>${code}</b></br>
+                       </br></br>
+                       Thanks,</br>The Books-House team`;
 
       await User.findByIdAndUpdate({ _id: user._id }, { code });
       sendEmail(email, message);
@@ -456,7 +364,6 @@ module.exports = {
    updateProfile,
    addProfileAvatar,
    deleteUser,
-   tokenRefresher,
    logoutUser,
    getMeHandler,
    getUsersData,
