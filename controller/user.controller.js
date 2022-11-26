@@ -163,7 +163,7 @@ const sendCode = async (req, res) => {
 
    const user = await User.findOne({ email });
    if (!user) {
-      res.status(404).json({ message: "in-valid email" });
+      res.status(404).json({ message: "In-valid email" });
    } else {
       const code = Math.floor(Math.random() * (9999 - 1000 + 1) + 100000);
       const title=`<h3>Security code</h3>`
@@ -175,7 +175,7 @@ const sendCode = async (req, res) => {
       await User.findByIdAndUpdate({ _id: user._id }, { code });
       sendEmail(email, message);
 
-      res.status(200).json({ message: "done", code });
+      res.status(200).json({ message: "Valid Email check your Inbox ", code });
    }
 };
 
@@ -184,10 +184,10 @@ const forgetPassword = async (req, res) => {
    const { email, newpassword, code } = req.body;
    const user = await User.findOne({ email });
    if (!user) {
-      res.status(404).json({ message: "in-valid email" });
+      res.status(404).json({ message: "In-valid email" });
    } else {
       if (user.code != code) {
-        res.status(404).json({ message: "invalid code" });
+        res.status(404).json({ message: "Invalid code" });
       } else {
          const hashPassword = await bcrypt.hash(
             newpassword,
@@ -198,7 +198,7 @@ const forgetPassword = async (req, res) => {
             { _id: user._id },
             { password: hashPassword, code: " " }
          );
-         res.json({ message: "done" });
+         res.json({ message: "password changed successfuly" });
       }
    }
 };
