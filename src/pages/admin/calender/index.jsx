@@ -63,9 +63,9 @@ export default function Calender() {
             >
                <Typography variant="h5">Events</Typography>
                <List>
-                  {currentEvents.map((event) => (
+                  {currentEvents.map((event , index) => (
                      <ListItem
-                        key={event.id}
+                        key={index}
                         sx={{
                            backgroundColor: colors.greenAccent[500],
                            margin: "10px 0",

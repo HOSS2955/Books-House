@@ -11,8 +11,7 @@ export default function DiscoverBooks() {
               <div className="title text-center">
                 <h1 className="fw-semibold">What will we discover ?</h1>
                 <p className="text-muted text-sm text-dark">
-                  It is very easy to start smoking but it is an uphill task to
-                  quit it. Ask any chain smoker or even a person.
+                Reading fires up your imagination and stimulates the memory centers of your mind
                 </p>
               </div>
             </div>

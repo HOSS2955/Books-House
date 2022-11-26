@@ -11,8 +11,7 @@ export default function ClientsTestimonials({ clientsTestimonialsArray }) {
             <div className="title text-center">
               <h1 className="fw-semibold">Client’s Testmonials</h1>
               <p className="text-muted text-sm">
-                It is very easy to start smoking but it is an uphill task to
-                quit it. Ask any chain smoker or even a person.
+              3,000+ successful authors & publishers use us , Join a growing community of happy authors
               </p>
             </div>
           </div>

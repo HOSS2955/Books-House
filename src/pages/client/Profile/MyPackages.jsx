@@ -14,7 +14,7 @@ export default function MyPackages() {
   return (
     <>
       {profilePackage?.map((item, index) => (
-        <div className="card border-primary mb-2">
+        <div className="card border-primary mb-2" key={index}>
           <div className="card-body">
             <header className="d-lg-flex">
               <div className="flex-grow-1">

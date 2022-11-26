@@ -75,9 +75,7 @@ export default function MainProfile() {
                   </button>
                   <button
                     className="btn btn-outline-warning text-dark  rounded my-2"
-                    onClick={() => {
-                      navigate("/auth/forgetpassword");
-                    }}
+                    onClick={() => {}}
                   >
                     Forget Your Password
                   </button>

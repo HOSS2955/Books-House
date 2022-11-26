@@ -33,8 +33,8 @@ export default function Reviews() {
    }, [data]);
 
    return (
-      <div className="">
-         <BreadCrumb title="Reviews" breadCrumb="Reviews" />
+      <div className="starting__page">
+         {/* <BreadCrumb title="Reviews" breadCrumb="Reviews" /> */}
          <div className="container ">
             {/* BUTTONS */}
             <div className="px-0 mt-5 col-12 d-flex justify-content-between flex-wrap btn-group">
