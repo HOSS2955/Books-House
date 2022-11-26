@@ -77,7 +77,7 @@ export default function MainProfile() {
                     className="btn btn-outline-warning text-dark  rounded my-2"
                     onClick={() => {}}
                   >
-                    Forget You Password
+                    Forget Your Password
                   </button>
                   <button
                     className="btn btn-outline-secondary  rounded my-2"
