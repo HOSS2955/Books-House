@@ -8,7 +8,16 @@ const PayButton = ({ cartItems }) => {
   //     delete object["BookDesc"];
   //   });
   const data = cartItems.map(
-    ({ bookDesc, author, type, category, updatedAt, ourChoise, ...rest }) => {
+    ({
+      bookDesc,
+      author,
+      type,
+      category,
+      updatedAt,
+      ourChoise,
+      comments,
+      ...rest
+    }) => {
       return rest;
     }
   );

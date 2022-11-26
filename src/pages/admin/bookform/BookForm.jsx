@@ -258,12 +258,42 @@ export default function BookForm() {
             <Typography sx={{ color: colors.grey[200], mr: 2 }}>
                Image
             </Typography>
-            <input
-               type="file"
-               onChange={(e) => {
-                  updateImagePath(e);
-               }}
-            ></input>
+            {/* <input
+          type="file"
+          onChange={(e) => {
+            updateImagePath(e);
+          }}
+          style={{
+            color: "#418022",
+            cursor: "pointer",
+          }}
+        ></input> */}
+            <label htmlFor="upload-photo">
+               <input
+                  onChange={(e) => {
+                     updateImagePath(e);
+                  }}
+                  style={{ display: "none" }}
+                  id="upload-photo"
+                  name="upload-photo"
+                  type="file"
+               />
+
+               <Button
+                  variant="contained"
+                  component="span"
+                  sx={{
+                     color: "#ffffff",
+                     backgroundColor: colors.blueAccent[400],
+                     "&:hover": {
+                        backgroundColor: colors.blueAccent[500],
+                        opacity: [0.9, 0.8, 0.7],
+                     },
+                  }}
+               >
+                  Choose Image
+               </Button>
+            </label>
             <Button
                disabled={image ? false : true}
                variant="contained"
