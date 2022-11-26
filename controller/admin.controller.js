@@ -23,7 +23,6 @@ const login = async (req, res) => {
       res.status(500).send("not match")
     }else{
 
-      console.log('hello iam match')
       const refreshToken = jwt.sign({ _id: user._id }, process.env.REFRESH_TOKEN_SECRET,{ expiresIn: "12h" });
         const token = jwt.sign(
           { _id: user._id, isLogged: true },
@@ -32,7 +31,6 @@ const login = async (req, res) => {
         );
                 
         (async ()=>{
-          console.log('ya function')
           user.refreshToken=[refreshToken]
           await user.save()
         })()
@@ -51,115 +49,11 @@ const login = async (req, res) => {
             allowedRole: "admin",
           });
     }
-    // await user.comparePassword(password,function (err,isMatch){
-    //   if(err){
-    //     res.status(400).json({ message: "email password mismatch" });
-    //     throw new Error(err)
-
-    //   }else{
-
-
-    //   // ////////////////////////////////////////////هنا في مشكله في ال save
-    //   // res.cookie("refreshTokenVal", refreshToken, {
-    //   //   httpOnly: true,
-    //   //   sameSite: "None",
-    //   //   maxAge: 24 * 60 * 60 * 1000,
-    //   //     });
-
-
-    //       // res.status(200).json({
-    //       //   message: "login suceess",
-    //       //   token,
-    //       //   user,
-    //       //   allowedRole: "user",
-    //       // });
-          
-    //     (async ()=>{
-    //       const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
-    //       console.log('ya function')
-    //       user.refreshToken=[refreshToken]
-    //       await user.save()
-    //     })()
-
-    //     // const token = jwt.sign(
-    //     //   { _id: user._id, isLogged: true },
-    //     //   process.env.logingtoken,
-    //     //   { expiresIn: "1h" }
-    //     // );
-    //     // const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
-    //     // // refreshTokens.push(refreshToken);
-    //     // // console.log(user ,'/n',refreshToken)
-  
-    //     // // user.refreshToken.push(refreshToken)
-    //     // user.refreshToken=[refreshToken]
-  
-    //     // ////////////////////////////////////////////هنا في مشكله في ال save
-    //     // res.cookie("refreshTokenVal", refreshToken, {
-    //     //   httpOnly: true,
-    //     //   sameSite: "None",
-    //     //   maxAge: 24 * 60 * 60 * 1000,
-    //     //     });
-    //     //     const result= await user.save()
-  
-  
-    //     //     res.status(200).json({
-    //     //       message: "login suceess",
-    //     //       token,
-    //     //       user,
-    //     //       allowedRole: "user",
-    //     //     });
-    //     console.log(password,isMatch)
-
-    //     res.status(200).send({isMatch})
-    //   }
-
-
-        //       (async ()=>{
-        //   const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
-        //   console.log('ya function')
-        //   user.refreshToken=[refreshToken]
-        //   await user.save()
-        // })()
-    // })
-    // if (!match) {
-      // res.status(400).json({ message: "email password mismatch" });
-    // } else {
-      // const token = jwt.sign(
-      //   { _id: user._id, isLogged: true },
-      //   process.env.logingtoken,
-      //   { expiresIn: "1h" }
-      // );
-      // const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
-      // // refreshTokens.push(refreshToken);
-      // // console.log(user ,'/n',refreshToken)
-
-      // // user.refreshToken.push(refreshToken)
-      // user.refreshToken=[refreshToken]
-
-      // ////////////////////////////////////////////هنا في مشكله في ال save
-      // res.cookie("refreshTokenVal", refreshToken, {
-      //   httpOnly: true,
-      //   sameSite: "None",
-      //   maxAge: 24 * 60 * 60 * 1000,
-      //     });
-      //     const result= await user.save()
-
-
-      //     res.status(200).json({
-      //       message: "login suceess",
-      //       token,
-      //       user,
-      //       allowedRole: "user",
-      //     });
-
-
-
-
-    // }
+    
   }
 };
 
-// --------------------------------------------------------EmailConfirm
+// Confirm email**************************************
 
 const confirmEmail = async (req, res) => {
   try {
@@ -189,7 +83,7 @@ const confirmEmail = async (req, res) => {
   }
 };
 
-// --------------------------------------------refresh email
+// refresh email*************************************
 
 const refreshEmail = async (req, res) => {
   const { id } = req.params;
@@ -206,7 +100,7 @@ const refreshEmail = async (req, res) => {
         expiresIn: 5 * 60,
       });
 
-      const link = `${req.protocol}://${req.headers.host}/api/v1/user/confirmEmail/${token}  `;
+      const link = `${req.protocol}://${process.env.host}/api/v1/user/confirmEmail/${token}  `;
       const link2 = `${req.protocol}://${req.headers.host}/api/v1/user/refreshEmail/${user._id}  `;
       const message = `<a href=${link}>plz confirm your email </a> <br> <a href=${link2}>resend confirmintion email </a>`;
 
@@ -227,8 +121,12 @@ const sendCode = async (req, res) => {
   if (!user) {
     res.status(404).json({ message: "in-valid email" });
   } else {
-    const code = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000);
-    const message = `your code is ${code}`;
+    const code = Math.floor(Math.random() * (9999 - 1000 + 1) + 100000);
+    const title=`<h3>Security code</h3>`
+    const message = `${title}</br>Please use the following security code for Your account </br>
+                     Security code: <b>${code}</b></br>
+                     </br></br>
+                     Thanks,</br>The Books-House team`;
 
     await User.findByIdAndUpdate({ _id: user._id }, { code });
     sendEmail(email, message);

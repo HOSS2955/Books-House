@@ -19,13 +19,22 @@ const adminSchema = new mongoose.Schema({
 });
 
 
-adminSchema.pre('save', async function (next){
-
-    this.password=await bcrypt.hash(this.password,parseInt(process.env.saltRounds)) 
-
-next()
-})
-
+adminSchema.pre("save", async function (next) {
+    let user=this
+  if (!user.isModified('password')) return 333;
+  if(user.isModified("password")){console.log('yes modified')}
+  
+  user.password = await bcrypt.hash(
+    user.password,
+      parseInt(process.env.saltRounds)
+    );
+    console.log('pre save password: ' + user.password);
+    if(user.isModified("password")){console.log('yes modifieddd')}
+  
+  
+  
+    next();
+  });
 adminSchema.pre('findByIdAndUpdate',async function (next){
     const hookData=await this.model.findOne(this.getQuery()).select("__v")
     console.log(hookData);
