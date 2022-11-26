@@ -39,12 +39,12 @@ const handleRefreshToken = async (req, res) => {
       const newrefreshTokenn = jwt.sign(
         { _id: foundUser._id },
         process.env.REFRESH_TOKEN_SECRET,
-        { expiresIn: "60s" }
+        { expiresIn: "3d" }
       );
       const token = jwt.sign(
         { _id: foundUser._id, isLogged: true },
         process.env.logingtoken,
-        { expiresIn: "50s" }
+        { expiresIn: "3h" }
       );
 
       (async () => {
@@ -61,11 +61,16 @@ const handleRefreshToken = async (req, res) => {
 
         maxAge: 24 * 60 * 60 * 1000,
       });
-
+      res.cookie("logged_in", true, {
+        httpOnly: false,
+        secure: true,
+        sameSite: "None",
+        maxAge: 24 * 60 * 60 * 1000,
+      });
       res.status(200).json({
         message: "refreshed suceess",
         token,
-        foundUser,
+        user: foundUser,
         allowedRole: "user",
       });
     }

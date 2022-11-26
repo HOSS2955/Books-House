@@ -45,24 +45,24 @@ const login = async (req, res) => {
 
    const user = await User.findOne({ email }).exec();
 
-   if (!user) {
-      res.status(404).json({ message: "invalid email account" });
-   } else {
-      const match = await bcrypt.compare(password, user.password);
-      if (!match) {
-         res.status(500).send("not match");
-      } else {
-         console.log("hello iam match");
-         const refreshToken = jwt.sign(
-            { _id: user._id },
-            process.env.REFRESH_TOKEN_SECRET,
-            { expiresIn: "12h" }
-         );
-         const token = jwt.sign(
-            { _id: user._id, isLogged: true },
-            process.env.logingtoken,
-            { expiresIn: "1h" }
-         );
+  if (!user) {
+    res.status(404).json({ message: "invalid email account" });
+  } else {
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      res.status(500).send("not match");
+    } else {
+      console.log("hello iam match");
+      const refreshToken = jwt.sign(
+        { _id: user._id },
+        process.env.REFRESH_TOKEN_SECRET,
+        { expiresIn: "3d" }
+      );
+      const token = jwt.sign(
+        { _id: user._id, isLogged: true },
+        process.env.logingtoken,
+        { expiresIn: "3h" }
+      );
 
          (async () => {
             console.log("ya function");
@@ -70,17 +70,18 @@ const login = async (req, res) => {
             await user.save();
          })();
 
-         res.cookie("refreshTokenVal", refreshToken, {
-            httpOnly: true,
-            secure: true,
-            sameSite: "None",
-            maxAge: 24 * 60 * 60 * 1000,
-         });
-         res.cookie("logged_in", true, {
-            httpOnly: false,
-            sameSite: "None",
-            maxAge: 24 * 60 * 60 * 1000,
-         });
+      res.cookie("refreshTokenVal", refreshToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "None",
+        maxAge: 24 * 60 * 60 * 1000,
+      });
+      res.cookie("logged_in", true, {
+        httpOnly: false,
+        secure: true,
+        sameSite: "None",
+        maxAge: 24 * 60 * 60 * 1000,
+      });
 
          res.status(200).json({
             message: "login suceess",
@@ -352,7 +353,7 @@ const getUserByID = async (req, res) => {
 };
 
 const userProfile = async (req, res) => {
-   res.status(200).send(req.user);
+  res.status(200).send({ user: req.user, allowedRole: "user" });
 };
 module.exports = {
    confirmEmail,
