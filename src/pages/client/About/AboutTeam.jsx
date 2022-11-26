@@ -12,7 +12,7 @@ export default function AboutTeam() {
       </div>
       <div className="container mt-3 ">
         <div className="row d-flex justify-content-center">
-          <div className="col-md-2 col-sm-6">
+          <div className="col-md-4 mt-2 col-sm-6">
             <div className="bg-white p-3 text-center rounded box">
               <img
                 className="img-responsive rounded-circle"
@@ -20,7 +20,9 @@ export default function AboutTeam() {
                 width="90"
               />
               <h5 className="mt-3 name">Kareem Abdelsamea</h5>
-              <span className="work d-block">Full Stack Mearn Developer</span>
+              <span className="work d-block mt-3">
+                Full Stack Mearn Developer
+              </span>
 
               <div className="mt-4 about">
                 <span>
@@ -30,12 +32,12 @@ export default function AboutTeam() {
               </div>
               <div className="mt-4">
                 <a className="v-profile" href="https://mail.google.com">
-                  View Profile
+                  Send Email
                 </a>
               </div>
             </div>
           </div>
-          <div className="col-md-2 col-sm-6">
+          <div className="col-md-4 mt-2 col-sm-6">
             <div className="bg-white p-3 text-center rounded box">
               <img
                 className="img-responsive rounded-circle"
@@ -43,7 +45,9 @@ export default function AboutTeam() {
                 width="90"
               />
               <h5 className="mt-3 name">Fady Khairy Nasrallah</h5>
-              <span className="work d-block">Full Stack Mearn Developer</span>
+              <span className="work d-block mt-3">
+                Full Stack Mearn Developer
+              </span>
 
               <div className="mt-4 about">
                 <span>
@@ -53,12 +57,12 @@ export default function AboutTeam() {
               </div>
               <div className="mt-4">
                 <a className="v-profile" href="https://mail.google.com">
-                  View Profile
+                  Send Email
                 </a>
               </div>
             </div>
           </div>
-          <div className="col-md-2 col-sm-6 ">
+          <div className="col-md-4 mt-2 col-sm-6 ">
             <div className="bg-white p-3 text-center rounded box">
               <img
                 className="img-responsive rounded-circle"
@@ -66,7 +70,9 @@ export default function AboutTeam() {
                 width="90"
               />
               <h5 className="mt-3 name">Mirna Milad Shafik</h5>
-              <span className="work d-block">Full Stack Mearn Developer</span>
+              <span className="work d-block mt-3">
+                Full Stack Mearn Developer
+              </span>
 
               <div className="mt-4 about">
                 <span>
@@ -76,12 +82,12 @@ export default function AboutTeam() {
               </div>
               <div className="mt-4">
                 <a className="v-profile" href="https://mail.google.com">
-                  View Profile
+                  Send Email
                 </a>
               </div>
             </div>
           </div>
-          <div className="col-md-2 col-sm-6">
+          <div className="col-md-4 mt-2 col-sm-6">
             <div className="bg-white p-3 text-center rounded box">
               <img
                 className="img-responsive rounded-circle"
@@ -89,7 +95,9 @@ export default function AboutTeam() {
                 width="90"
               />
               <h5 className="mt-3 name">Nourhan Abd Elhameed</h5>
-              <span className="work d-block">Full Stack Mearn Developer</span>
+              <span className="work d-block mt-3">
+                Full Stack Mearn Developer
+              </span>
 
               <div className="mt-4 about">
                 <span>
@@ -99,12 +107,12 @@ export default function AboutTeam() {
               </div>
               <div className="mt-4">
                 <a className="v-profile" href="https://mail.google.com">
-                  View Profile
+                  Send Email
                 </a>
               </div>
             </div>
           </div>
-          <div className="col-md-2 col-sm-6">
+          <div className="col-md-4 mt-2 col-sm-6">
             <div className="bg-white p-3 text-center rounded box">
               <img
                 className="img-responsive rounded-circle"
@@ -112,7 +120,9 @@ export default function AboutTeam() {
                 width="90"
               />
               <h5 className="mt-3 name">Mahmoud Hossam</h5>
-              <span className="work d-block">Full Stack Mearn Developer</span>
+              <span className="work d-block mt-3">
+                Full Stack Mearn Developer
+              </span>
 
               <div className="mt-4 about">
                 <span>
@@ -121,8 +131,11 @@ export default function AboutTeam() {
                 </span>
               </div>
               <div className="mt-4">
-                <a className="v-profile" href="https://mail.google.com">
-                  View Profile
+                <a
+                  className="v-profile"
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=hoss2955@gmial.com&su=SUBJECT&body=BODY&bcc=someone.else@example.com"
+                >
+                  Send Email
                 </a>
               </div>
             </div>
