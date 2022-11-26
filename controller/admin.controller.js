@@ -53,7 +53,7 @@ const login = async (req, res) => {
   }
 };
 
-// --------------------------------------------------------EmailConfirm
+// Confirm email**************************************
 
 const confirmEmail = async (req, res) => {
   try {
@@ -83,7 +83,7 @@ const confirmEmail = async (req, res) => {
   }
 };
 
-// --------------------------------------------refresh email
+// refresh email*************************************
 
 const refreshEmail = async (req, res) => {
   const { id } = req.params;
@@ -100,7 +100,7 @@ const refreshEmail = async (req, res) => {
         expiresIn: 5 * 60,
       });
 
-      const link = `${req.protocol}://${req.headers.host}/api/v1/user/confirmEmail/${token}  `;
+      const link = `${req.protocol}://${process.env.host}/api/v1/user/confirmEmail/${token}  `;
       const link2 = `${req.protocol}://${req.headers.host}/api/v1/user/refreshEmail/${user._id}  `;
       const message = `<a href=${link}>plz confirm your email </a> <br> <a href=${link2}>resend confirmintion email </a>`;
 

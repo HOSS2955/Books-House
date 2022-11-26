@@ -10,7 +10,6 @@ const {
   updateProfile,
   refreshEmail,
   deleteUser,
-  tokenRefresher,
   logoutUser,
   userProfile
 } = require("../controller/user.controller");
