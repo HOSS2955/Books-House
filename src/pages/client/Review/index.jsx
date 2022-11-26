@@ -13,7 +13,7 @@ export default function Reviews() {
    const data = bookReviews;
    const [items, setItems] = useState([]);
    const [currentPage, setCurrentPage] = useState(1);
-   const [itemsPerPage, setItemsPerPage] = useState(2);
+   const [itemsPerPage, setItemsPerPage] = useState(3);
 
    const lastItemIndex = currentPage * itemsPerPage;
    const firstItemIndex = lastItemIndex - itemsPerPage;

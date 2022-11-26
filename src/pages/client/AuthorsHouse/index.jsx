@@ -52,10 +52,8 @@ export default function AuthorsHouse() {
     (state) => state.homepage
   );
   useEffect(() => {
-    // console.log(data);
     if (data) {
       dispatch(setDataInLocalState(data));
-      // console.log(data);
     }
   }, [dispatch, data]);
 
@@ -78,21 +76,17 @@ export default function AuthorsHouse() {
   useEffect(() => {
     axios.get("/config").then(async (r) => {
       const { publishableKey } = await r.data;
-      // console.log(publishableKey);
       setStripePromise(loadStripe(publishableKey));
     });
   }, []);
 
   useEffect(() => {
     if (packages !== null) {
-      // console.log(packages);
       axios.post("/create-payment-intent", packages).then(async (result) => {
         var { clientSecret } = await result.data;
-        //   console.log(clientSecret);
         setClientSecret(clientSecret);
       });
     }
-    // console.log(confetti);
   }, [packages, confetti]);
 
   return (
@@ -118,7 +112,7 @@ export default function AuthorsHouse() {
         <div className="container">
           <div className="row">
             <motion.div
-              className="col-6 d-flex flex-column justify-content-center align-items-center"
+              className="col-12 my-5 d-flex flex-column justify-content-center align-items-center"
               variants={container}
               initial="hidden"
               animate="show"

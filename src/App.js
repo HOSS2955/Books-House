@@ -102,7 +102,6 @@ function App() {
                {/* Catch All */}
                <Route path="*" element={<ErrorNotFound />} />
             </Routes>
-            {/* <Counter /> */}
             <Footer />
          </AnimatePresence>
       </div>

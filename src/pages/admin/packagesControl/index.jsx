@@ -47,7 +47,6 @@ export default function PackagesControl() {
       if (packageId.packageDesc[0].length < 2) {
          packageId.packageDesc = packageId.packageDesc.split(",");
       }
-      console.log(packageId);
       updatePackageData(packageId);
    };
 
@@ -124,6 +123,7 @@ export default function PackagesControl() {
                         variant="filled"
                         type="text"
                         label="Package Name"
+                        color="grey"
                         onBlur={handleBlur}
                         onChange={handleChange}
                         placeholder={packageId?.packageName}
@@ -138,6 +138,7 @@ export default function PackagesControl() {
                         variant="filled"
                         type="text"
                         label="Package Price"
+                        color="grey"
                         onBlur={handleBlur}
                         onChange={handleChange}
                         placeholder={packageId?.packagePrice}
@@ -154,6 +155,7 @@ export default function PackagesControl() {
                         variant="filled"
                         type="text"
                         label="Package Description"
+                        color="grey"
                         onBlur={handleBlur}
                         placeholder={packageId?.packageDesc}
                         onChange={handleChange}
