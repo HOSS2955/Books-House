@@ -13,22 +13,23 @@ const signUp = async (req, res) => {
     const savedUser = await newUser.save();
 
     const token = jwt.sign({ _id: savedUser._id }, process.env.emailToken, {
-      expiresIn: 5 * 60,
+      expiresIn: "1h",
     });
-    const link = `http://localhost:3000://${req.headers.host}/user/confirmEmail/${token}`;
-    const link2 = `http://localhost:3000://${req.headers.host}/user/refreshEmail/${savedUser._id}`;
-    const message = `
-    <a href=${link}> please confirm your email </a><br>
-                   <a href=${link2}> resend confirmation email </a>`;
-
-    console.log(savedUser.email);
-    console.log(message);
-    console.log(sendEmail(savedUser.email, message));
+    const link = `${req.protocol}://${req.headers.host}/user/confirmEmail/${token}`;
+    const link2 = `${req.protocol}://${req.headers.host}/user/refreshEmail/${savedUser._id}`;
+    const message = `Hi ${newUser.email}, </br>We received Your request for 
+                     Email Confermation to use Your Account 
+                     Click The Following link :</br><a href=${link}> confirm your email </a><br>
+                     <br>If you did not confirm your email within an hour, click on the following 
+                     link to send you another email : </br></b>
+                    <a href=${link2}> resend confirmation email </a>
+                     </br>if you didn't confirmation request, You can safely 
+                     Ignore this Email, Someone else might have typed your email address by mistake,</br></br>
+                     Thanks,</br>The Books-House Team`;
     sendEmail(savedUser.email, message);
-    res.status(201).json({
-      message: "please check your email to verify it",
-      savedUser,
-    });
+    res
+      .status(201)
+      .json({ message: "please check your email to verify it", savedUser });
   } catch (e) {
     if (e.keyValue?.email) {
       res.status(409).json({ message: "email exists" });
@@ -38,18 +39,6 @@ const signUp = async (req, res) => {
   }
 };
 
-//-------------------------------------------------------------------refresh token
-let refreshTokens = []; //in chach or DB
-const tokenRefresher = (req, res) => {
-  const refreshToken = req.body.token;
-  if (refreshToken == null) return res.status(401);
-  if (!refreshTokens.includes(refreshToken)) return res.status(403);
-  jwt.verify(refreshToken, process.env.logingtoken, (err, user) => {
-    if (err) return res.status(403);
-    const accessToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
-    res.json({ token: accessToken });
-  });
-};
 //-------------------------------------login
 const login = async (req, res) => {
   const { email, password } = req.body;
@@ -67,12 +56,12 @@ const login = async (req, res) => {
       const refreshToken = jwt.sign(
         { _id: user._id },
         process.env.REFRESH_TOKEN_SECRET,
-        { expiresIn: "12h" }
+        { expiresIn: "3d" }
       );
       const token = jwt.sign(
         { _id: user._id, isLogged: true },
         process.env.logingtoken,
-        { expiresIn: "1h" }
+        { expiresIn: "3h" }
       );
 
       (async () => {
@@ -89,6 +78,7 @@ const login = async (req, res) => {
       });
       res.cookie("logged_in", true, {
         httpOnly: false,
+        secure: true,
         sameSite: "None",
         maxAge: 24 * 60 * 60 * 1000,
       });
@@ -100,103 +90,6 @@ const login = async (req, res) => {
         allowedRole: "user",
       });
     }
-    // await user.comparePassword(password,function (err,isMatch){
-    //   if(err){
-    //     res.status(400).json({ message: "email password mismatch" });
-    //     throw new Error(err)
-
-    //   }else{
-
-    //   // ////////////////////////////////////////////هنا في مشكله في ال save
-    //   // res.cookie("refreshTokenVal", refreshToken, {
-    //   //   httpOnly: true,
-    //   //   sameSite: "None",
-    //   //   maxAge: 24 * 60 * 60 * 1000,
-    //   //     });
-
-    //       // res.status(200).json({
-    //       //   message: "login suceess",
-    //       //   token,
-    //       //   user,
-    //       //   allowedRole: "user",
-    //       // });
-
-    //     (async ()=>{
-    //       const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
-    //       console.log('ya function')
-    //       user.refreshToken=[refreshToken]
-    //       await user.save()
-    //     })()
-
-    //     // const token = jwt.sign(
-    //     //   { _id: user._id, isLogged: true },
-    //     //   process.env.logingtoken,
-    //     //   { expiresIn: "1h" }
-    //     // );
-    //     // const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
-    //     // // refreshTokens.push(refreshToken);
-    //     // // console.log(user ,'/n',refreshToken)
-
-    //     // // user.refreshToken.push(refreshToken)
-    //     // user.refreshToken=[refreshToken]
-
-    //     // ////////////////////////////////////////////هنا في مشكله في ال save
-    //     // res.cookie("refreshTokenVal", refreshToken, {
-    //     //   httpOnly: true,
-    //     //   sameSite: "None",
-    //     //   maxAge: 24 * 60 * 60 * 1000,
-    //     //     });
-    //     //     const result= await user.save()
-
-    //     //     res.status(200).json({
-    //     //       message: "login suceess",
-    //     //       token,
-    //     //       user,
-    //     //       allowedRole: "user",
-    //     //     });
-    //     console.log(password,isMatch)
-
-    //     res.status(200).send({isMatch})
-    //   }
-
-    //       (async ()=>{
-    //   const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
-    //   console.log('ya function')
-    //   user.refreshToken=[refreshToken]
-    //   await user.save()
-    // })()
-    // })
-    // if (!match) {
-    // res.status(400).json({ message: "email password mismatch" });
-    // } else {
-    // const token = jwt.sign(
-    //   { _id: user._id, isLogged: true },
-    //   process.env.logingtoken,
-    //   { expiresIn: "1h" }
-    // );
-    // const refreshToken = jwt.sign({ _id: user._id }, process.env.logingtoken);
-    // // refreshTokens.push(refreshToken);
-    // // console.log(user ,'/n',refreshToken)
-
-    // // user.refreshToken.push(refreshToken)
-    // user.refreshToken=[refreshToken]
-
-    // ////////////////////////////////////////////هنا في مشكله في ال save
-    // res.cookie("refreshTokenVal", refreshToken, {
-    //   httpOnly: true,
-    //   sameSite: "None",
-    //   maxAge: 24 * 60 * 60 * 1000,
-    //     });
-    //     const result= await user.save()
-
-    //     res.status(200).json({
-    //       message: "login suceess",
-    //       token,
-    //       user,
-    //       allowedRole: "user",
-    //     });
-
-    // }
   }
 };
 
@@ -268,8 +161,12 @@ const sendCode = async (req, res) => {
   if (!user) {
     res.status(404).json({ message: "in-valid email" });
   } else {
-    const code = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000);
-    const message = `your code is ${code}`;
+    const code = Math.floor(Math.random() * (9999 - 1000 + 1) + 100000);
+    const title = `<h3>Security code</h3>`;
+    const message = `${title}</br>Please use the following security code for Your account </br>
+                       Security code: <b>${code}</b></br>
+                       </br></br>
+                       Thanks,</br>The Books-House team`;
 
     await User.findByIdAndUpdate({ _id: user._id }, { code });
     sendEmail(email, message);
@@ -281,7 +178,6 @@ const sendCode = async (req, res) => {
 //---------------------------------------------------------forget password
 const forgetPassword = async (req, res) => {
   const { email, newpassword, code } = req.body;
-
   const user = await User.findOne({ email });
   if (!user) {
     res.status(404).json({ message: "in-valid email" });
@@ -452,7 +348,7 @@ const getUserByID = async (req, res) => {
 };
 
 const userProfile = async (req, res) => {
-  res.status(200).send(req.user);
+  res.status(200).send({ user: req.user, allowedRole: "user" });
 };
 module.exports = {
   confirmEmail,
@@ -464,7 +360,6 @@ module.exports = {
   updateProfile,
   addProfileAvatar,
   deleteUser,
-  tokenRefresher,
   logoutUser,
   getMeHandler,
   getUsersData,

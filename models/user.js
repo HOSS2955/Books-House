@@ -68,46 +68,5 @@ user.password = await bcrypt.hash(
 });
 
 
-// userSchema.pre('save',async function(next){
-//     if (!this.isModified('password')) return next();
-
-//     const user = this;
-    
-//      bcrypt.genSalt(5, function(err, salt){
-//         if (err){ return next(err) }
-
-//          bcrypt.hash(user.password, salt, null, function(err, hash){
-//             if(err){return next(err)}
-
-//             user.password = hash;
-//             next();
-//         })
-//    })
-// })
-
-
-// userSchema.methods.comparePassword = function(candidatePassword, cb) {
-//   bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-//       if (err) return cb(err);
-//       cb(null, isMatch);
-//   });
-// };
-
-// userSchema.pre('findByIdAndUpdate',async function (next){
-//     const hookData=await this.model.findOne(this.getQuery()).select("__v")
-//     console.log(hookData);
-//     this.set({__v:hookData.__v+1})
-//     if(hookData.__v>3){
-
-// res.json({message:'sorry no more req'})
-
-//     }else{
-
-//         next()
-
-//     }
-
-//     })
-
 const User = mongoose.model("user", userSchema);
 module.exports = User;

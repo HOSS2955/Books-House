@@ -9,11 +9,11 @@ const admins = [
   }),
   new Admin({
     email: "noor582273@gmail.com",
-    password: "noor"
+    password: "Nawara$12345"
   }),
 ]
 //connect mongoose
-db='mongodb://0.0.0.0:27017/finalproject'
+db='mongodb+srv://ititeam1:ititeam1@cluster0.gw6m8ls.mongodb.net/?retryWrites=true&w=majority'
 mongoose
   .connect(String(db), { useNewUrlParser: true })
   .catch(err => {
