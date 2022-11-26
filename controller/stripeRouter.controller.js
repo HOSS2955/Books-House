@@ -95,7 +95,8 @@ const postWebHookPackages = async (req, res) => {
       console.log(typeof createOrder);
       console.log(err);
     }
-  } else if (req.body.type === "charge.succeeded") {
+  }
+  if (req.body.type === "charge.succeeded") {
     console.log("from Else************************");
     try {
       await createOrder(customer);
