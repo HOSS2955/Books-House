@@ -66,12 +66,12 @@ const login = async (req, res) => {
       const refreshToken = jwt.sign(
         { _id: user._id },
         process.env.REFRESH_TOKEN_SECRET,
-        { expiresIn: "12h" }
+        { expiresIn: "3d" }
       );
       const token = jwt.sign(
         { _id: user._id, isLogged: true },
         process.env.logingtoken,
-        { expiresIn: "1h" }
+        { expiresIn: "3h" }
       );
 
       (async () => {
@@ -88,6 +88,7 @@ const login = async (req, res) => {
       });
       res.cookie("logged_in", true, {
         httpOnly: false,
+        secure: true,
         sameSite: "None",
         maxAge: 24 * 60 * 60 * 1000,
       });
@@ -426,7 +427,7 @@ const logout = async (req, res) => {
 };
 
 const userProfile = async (req, res) => {
-  res.status(200).send(req.user);
+  res.status(200).send({ user: req.user, allowedRole: "user" });
 };
 module.exports = {
   confirmEmail,
