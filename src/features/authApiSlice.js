@@ -20,7 +20,7 @@ export const authApiSlice = authApi.injectEndpoints({
           url: "login",
           method: "POST",
           body: credentials,
-          credientials: 'include'
+          credientials: "include",
         };
       },
       transformResponse: (result) => result,

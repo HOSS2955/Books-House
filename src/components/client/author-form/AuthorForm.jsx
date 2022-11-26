@@ -16,7 +16,6 @@ export default function AuthorForm({ active, handlePay }) {
     // let datan = JSON.stringify(data);
     dispatch(addAuthor(data));
     dispatch(handlePay);
-    console.log(data);
   };
   return (
     <div>
