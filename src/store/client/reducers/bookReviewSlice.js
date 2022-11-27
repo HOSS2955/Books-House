@@ -18,39 +18,39 @@ const initialState = {
 //    }
 // );
 
-export const addBookReview = createAsyncThunk(
-   "books/addBook",
-   async (bookReview, thunckAPI) => {
-      const { rejectWithValue } = thunckAPI;
-      try {
-         const res = await axios.post("/newbookreview", bookReview);
-         return res.data;
-      } catch (error) {
-         return rejectWithValue(error.message);
-      }
-   }
-);
+// export const addBookReview = createAsyncThunk(
+//    "books/addBook",
+//    async (bookReview, thunckAPI) => {
+//       const { rejectWithValue } = thunckAPI;
+//       try {
+//          const res = await axios.post("/newbookreview", bookReview);
+//          return res.data;
+//       } catch (error) {
+//          return rejectWithValue(error.message);
+//       }
+//    }
+// );
 
-export const deleteBookReview = createAsyncThunk(
-   "books/deleteBook",
-   async (bookReview, thunckAPI) => {
-      const { rejectWithValue, getState } = thunckAPI;
-      const state = getState();
-      console.log(bookReview);
-      try {
-         await axios.delete(
-            `/bookReview/remove/${bookReview._id}`,
-            bookReview._id
-         );
-         const filterArr = state.bookReviews.bookReviews.filter(
-            (ele) => ele._id !== bookReview._id
-         );
-         return filterArr;
-      } catch (error) {
-         rejectWithValue(error.message);
-      }
-   }
-);
+// export const deleteBookReview = createAsyncThunk(
+//    "books/deleteBook",
+//    async (bookReview, thunckAPI) => {
+//       const { rejectWithValue, getState } = thunckAPI;
+//       const state = getState();
+//       console.log(bookReview);
+//       try {
+//          await axios.delete(
+//             `/bookReview/remove/${bookReview._id}`,
+//             bookReview._id
+//          );
+//          const filterArr = state.bookReviews.bookReviews.filter(
+//             (ele) => ele._id !== bookReview._id
+//          );
+//          return filterArr;
+//       } catch (error) {
+//          rejectWithValue(error.message);
+//       }
+//    }
+// );
 export const updateBookReview = createAsyncThunk(
    "books/updateBook",
    async ({ id, formValue }, thunckAPI) => {

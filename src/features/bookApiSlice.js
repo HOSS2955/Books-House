@@ -1,4 +1,3 @@
-import { build } from "@reduxjs/toolkit/dist/query/core/buildMiddleware/cacheLifecycle";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { booksActions } from "../store/client/reducers/bookSlice";
 
@@ -58,7 +57,7 @@ export const bookApiSlice = createApi({
             }
          },
       }),
-      getBook: build.query({
+      getBook: builder.query({
          query: ({ _id }) => {
             return {
                url: `getBook/${_id}`,
@@ -73,7 +72,7 @@ export const bookApiSlice = createApi({
             }
          },
       }),
-      updateBook: build.mutation({
+      updateBook: builder.mutation({
          query: ({ id, formValue }) => {
             return {
                url: `updatebook/${id}`,
