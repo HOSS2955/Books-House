@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { bookReviewActions } from "../store/client/reducers/bookReviewSlice";
-const { getDataBookReview, addNewBookReview, setFilteredBookReview } =
+const { DataBookReview, addNewBookReview, setFilteredBookReview } =
    bookReviewActions;
 
 export const bookReviewApiSlice = createApi({
@@ -20,7 +20,7 @@ export const bookReviewApiSlice = createApi({
          async onQueryStarted(args, { dispatch, queryFulfilled }) {
             try {
                const { data } = await queryFulfilled;
-               dispatch(getDataBookReview(data));
+               dispatch(DataBookReview(data));
             } catch (error) {
                console.log(error);
             }
@@ -91,7 +91,7 @@ export const bookReviewApiSlice = createApi({
                   ele._id === data._id ? data : ele
                );
                console.log("updated list", updatedlist);
-               dispatch(getDataBookReview(updatedlist));
+               dispatch(DataBookReview(updatedlist));
             } catch (error) {
                console.log(error);
             }

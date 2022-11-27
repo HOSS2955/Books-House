@@ -15,7 +15,7 @@ export default function Books() {
    const navigate = useNavigate();
    const { changeBookData } = booksActions;
    const { books } = useSelector((state) => state.books);
-   const [pageSize, setPageSize] = useState(10);
+   const [pageSize, setPageSize] = useState(25);
 
    useEffect(() => {
       dispatch(getBooks());
@@ -70,27 +70,18 @@ export default function Books() {
          field: "category",
          headerName: "Category",
          flex: 1,
+         valueGetter: (params) => {
+            return params.row.category.toUpperCase();
+         },
       },
       {
          field: "type",
          headerName: "Type",
          flex: 1,
+         valueGetter: (params) => {
+            return params.row.type.toUpperCase();
+         },
       },
-      // {
-      //    field: "accessLevel",
-      //    headerName: "Package",
-      //    headerAlign: "center",
-      //    flex: 1,
-      //    height: 550,
-      //    cellClassName: "img-column--cell",
-      //    renderCell: ({ row: { imageSrc } }) => {
-      //       return (
-      //          <Box height="80%" width="100%" sx={{ height: "100%" }}>
-      //             <img src={imageSrc} alt="" />
-      //          </Box>
-      //       );
-      //    },
-      // },
       {
          field: "test",
          headerName: "Actions",
@@ -224,9 +215,9 @@ export default function Books() {
                components={{
                   Toolbar: GridToolbar,
                }}
-               loading={!books.length}
+               loading={!books?.length}
                getRowId={(row) => row._id}
-               rowsPerPageOptions={[10, 15, 20]}
+               rowsPerPageOptions={[25, 50, 100]}
                pageSize={pageSize}
                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
             />
