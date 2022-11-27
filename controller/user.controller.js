@@ -147,7 +147,7 @@ const refreshEmail = async (req, res) => {
       sendEmail(user.email, message);
       await User.findByIdAndUpdate({ _id: user.id });
 
-      res.status(400).json({ message: "done check u email" });
+      res.status(400).json({ message: "Done Check Your Email" });
     }
   }
 };
@@ -157,13 +157,13 @@ const refreshEmail = async (req, res) => {
 const sendCode = async (req, res) => {
   const { email } = req.body;
 
-  const user = await User.findOne({ email });
-  if (!user) {
-    res.status(404).json({ message: "in-valid email" });
-  } else {
-    const code = Math.floor(Math.random() * (9999 - 1000 + 1) + 100000);
-    const title = `<h3>Security code</h3>`;
-    const message = `${title}</br>Please use the following security code for Your account </br>
+   const user = await User.findOne({ email });
+   if (!user) {
+      res.status(404).json({ message: "In-valid email" });
+   } else {
+      const code = Math.floor(Math.random() * (9999 - 1000 + 1) + 100000);
+      const title=`<h3>Security code</h3>`
+      const message = `${title}</br>Please use the following security code for Your account </br>
                        Security code: <b>${code}</b></br>
                        </br></br>
                        Thanks,</br>The Books-House team`;
@@ -171,8 +171,8 @@ const sendCode = async (req, res) => {
     await User.findByIdAndUpdate({ _id: user._id }, { code });
     sendEmail(email, message);
 
-    res.status(200).json({ message: "done", code });
-  }
+      res.status(200).json({ message: "Valid Email check your Inbox ", code });
+   }
 };
 
 //---------------------------------------------------------forget password
@@ -180,23 +180,23 @@ const forgetPassword = async (req, res) => {
   const { email, newpassword, code } = req.body;
   const user = await User.findOne({ email });
   if (!user) {
-    res.status(404).json({ message: "in-valid email" });
+    res.status(404).json({ message: "In-valid email" });
   } else {
     if (user.code != code) {
-      res.status(404).json({ message: "invalid code" });
+      res.status(404).json({ message: "Invalid code" });
     } else {
       const hashPassword = await bcrypt.hash(
         newpassword,
         parseInt(process.env.saltRounds)
       );
 
-      await User.findByIdAndUpdate(
-        { _id: user._id },
-        { password: hashPassword, code: " " }
-      );
-      res.json({ message: "done" });
-    }
-  }
+         await User.findByIdAndUpdate(
+            { _id: user._id },
+            { password: hashPassword, code: " " }
+         );
+         res.json({ message: "Password Changed Successfuly" });
+      }
+   }
 };
 
 // --------------------------------------------------------------------Update profile
@@ -206,16 +206,13 @@ const updateProfile = async (req, res) => {
   const user = await User.findOne({ email });
 
   if (!user) {
-    res.status(404).json({ message: "in-valid email" });
+    res.status(404).json({ message: "In-valid email" });
   } else {
     const hashPassword = await bcrypt.hash(
       newpassword,
       parseInt(process.env.saltRounds)
     );
     const match = await bcrypt.compare(hashPassword, user.password);
-    // console.log(match);
-    // console.log(user.password);
-    // console.log(hashPassword);
     if (!match) {
       const code = Math.floor(Math.random() * (9999 - 1000 + 1) + 1000);
 
@@ -228,9 +225,9 @@ const updateProfile = async (req, res) => {
         user.email,
         `<P>use this code to update u passowrd ${code} </p>`
       );
-      res.status(200).json({ message: "done", code });
+      res.status(200).json({ message: "Profile Updated Successfuly", code });
     } else {
-      res.status(404).json({ message: "sorry same password" });
+      res.status(404).json({ message: "Sorry Same Password" });
     }
   }
 };
@@ -255,9 +252,8 @@ const addProfileAvatar = async (req, res) => {
   try {
     req.user.avatar = req.file.buffer;
     await req.user.save();
-    res.status(200).send("image uploaded");
+    res.status(200).send("Image Uploaded");
   } catch (e) {
-    console.log("nnnn");
     res.status(500).send(e.message);
   }
 };
@@ -269,7 +265,7 @@ const deleteUser = async (req, res) => {
 
   await User.findOneAndDelete({ _id: _id }, { new: true });
 
-  res.json({ message: "done" });
+  res.json({ message: "User Deleted Successfuly" });
 };
 
 const logoutUser = async (req, res) => {
@@ -299,7 +295,6 @@ const logoutUser = async (req, res) => {
   // Delete refresher in database
   foundUser.refreshToken = [];
   const result = await foundUser.save();
-  console.log("deleteddddd", result);
   res.clearCookie("logged_in", {
     httpOnly: false,
     secure: true,
@@ -310,7 +305,7 @@ const logoutUser = async (req, res) => {
     sameSite: "None",
     secure: true,
   });
-  res.status(204).send("you loged out all tokens");
+  res.status(204).send("You Loged Out All Tokens");
 };
 
 const logout = async (req, res) => {
@@ -318,7 +313,7 @@ const logout = async (req, res) => {
     delete request.session.userId;
     response.json({ result: "SUCCESS" });
   } else {
-    response.json({ result: "ERROR", message: "User is not logged in." });
+    response.json({ result: "ERROR", message: "User Is Not Logged In." });
   }
 };
 // ---------------------------------get all users
@@ -339,7 +334,7 @@ const getUserByID = async (req, res) => {
     const user = await User.findOne({ _id: req.params.id });
 
     if (!user) {
-      return res.status(404).send("Cannot find user !");
+      return res.status(404).send("Cannot Find User !");
     }
     res.status(200).send(user);
   } catch (e) {
