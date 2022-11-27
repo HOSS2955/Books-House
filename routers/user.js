@@ -17,7 +17,7 @@ const {
 } = require("../controller/user.controller");
 //
 const auth = require("../middelware/auth2");
-const auth2 = requier('../middelware/auth')
+const auth2 = require('../middelware/auth')
 const uploads = require("../services/multer.services");
 
 const authController = require("../controller/auth.controller");
