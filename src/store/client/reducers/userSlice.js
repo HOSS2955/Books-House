@@ -1,8 +1,4 @@
-import {
-  createSlice,
-  // , PayloadAction
-} from "@reduxjs/toolkit";
-// import { useGetUserMutation } from "../../../features/authApiSlice";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
   user: null,
@@ -17,16 +13,22 @@ export const userSlice = createSlice({
     logoutInState: () => initialState,
     setUserInState: (state, { payload }) => {
       const { allowedRole, user, token } = payload;
+      console.log(payload);
       state.user = user;
       state.token = token;
       state.role = allowedRole;
+    },
+    setTokenInState: (state, { payload }) => {
+      console.log(payload);
+      state.token = payload.token;
     },
   },
 });
 
 export default userSlice.reducer;
 
-export const selectCurrentUser = (state) => state.userSlice.user;
-export const selectCurrentToken = (state) => state.userSlice.token;
+export const selectCurrentUser = (state) => state.userState.user;
+export const selectCurrentToken = (state) => state.userState.token;
 
-export const { logoutInState, setUserInState } = userSlice.actions;
+export const { logoutInState, setUserInState, setTokenInState } =
+  userSlice.actions;

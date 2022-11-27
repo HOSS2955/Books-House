@@ -11,6 +11,7 @@ import App from "./App";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { CookiesProvider } from "react-cookie";
 import Admin from "./Admin";
 import RequireUser from "./components/RequireAuth";
 import RequireAuth from "./components/RequireAuth";
@@ -18,24 +19,23 @@ import ScrollToTop from "./components/ScrollToTop";
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-   <React.StrictMode>
-      {/* <Provider store={adminStore}> */}
-      <Provider store={clientStore}>
-         <BrowserRouter>
-            <QueryClientProvider client={queryClient}>
-               <ScrollToTop />
-               {/* <ApiProvider api={homepageApi}>  */}
-               <Routes>
-                  {/* <Route element={<RequireAuth allowedRoles={["admin"]} />}> */}
-                  <Route path="/*" element={<App />} />
-                  {/* </Route> */}
-                  <Route path="/admin/*" element={<Admin />} />
-               </Routes>
-            </QueryClientProvider>
-         </BrowserRouter>
-      </Provider>
-      {/* </Provider> */}
-   </React.StrictMode>
+  <React.StrictMode>
+    {/* <Provider store={adminStore}> */}
+    <Provider store={clientStore}>
+      <BrowserRouter>
+        <QueryClientProvider client={queryClient}>
+          <ScrollToTop />
+          <Routes>
+            <Route path="/*" element={<App />} />
+            <Route element={<RequireAuth allowedRoles={["admin"]} />}>
+              <Route path="/admin/*" element={<Admin />} />
+            </Route>
+          </Routes>
+        </QueryClientProvider>
+      </BrowserRouter>
+    </Provider>
+    {/* </Provider> */}
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

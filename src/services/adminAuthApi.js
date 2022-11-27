@@ -38,14 +38,6 @@ export const adminAuthApi = createApi({
         };
       },
     }),
-    verifyEmailAdmin: builder.mutation({
-      query({ verificationCode }) {
-        return {
-          url: `confirmEmail/${verificationCode}`,
-          method: "GET",
-        };
-      },
-    }),
   }),
 });
 
