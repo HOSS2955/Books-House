@@ -10,6 +10,7 @@ import {
 } from "@stripe/react-stripe-js";
 import "../../../assets/css/CheckoutForm.css";
 import FullScreenLoader from "../../FullScreenLoader";
+import Spinner from "../../Spinner";
 
 export default function CheckoutForm({ packages, confetti }) {
   const stripe = useStripe();
@@ -118,7 +119,7 @@ export default function CheckoutForm({ packages, confetti }) {
           />
         </Form.Group> */}
         <div className="mb-3 my-5">
-          {spinner && <FullScreenLoader />}
+          {spinner && <Spinner />}
           <PaymentElement id="payment-element" className="mb-3 my-5" />
         </div>
 
