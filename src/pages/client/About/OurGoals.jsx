@@ -5,7 +5,7 @@ import AboutUs from "./AboutUs";
 const OurGoals = () => {
   return (
     <section className="section mt-5">
-      <AboutUs />
+      
       {/* <div className="container">
         <div className="row">
           <div className="col-md-4 p-5 col-sm-12">

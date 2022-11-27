@@ -4,6 +4,7 @@ import axios from "axios";
 const initialState = {
   bookReviews: [],
   dataEditBookReview: {},
+//   review:{}
 };
 export const getBookReviews = createAsyncThunk(
   "/bookreview/getall",
@@ -80,6 +81,7 @@ const bookReviewSlice = createSlice({
       console.log("data From reducer", action.payload);
       state.bookReviews = action.payload;
     },
+
     setFilteredBookReview: (state, action) => {
       console.log("deleted book From reducer", action.payload);
       state.bookReviews = action.payload;
@@ -87,6 +89,10 @@ const bookReviewSlice = createSlice({
     addNewBookReview: (state, action) => {
       state.bookReviews.push(action.payload);
     },
+   //  getReviewById: (state , action)=>{
+   //    state.review=action.payload;
+   //    console.log("review by id " , action.payload)
+   //  }
   },
   extraReducers: {
     // [getBookReviews.fulfilled]: (state, action) => {

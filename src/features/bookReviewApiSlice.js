@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { bookReviewActions } from "../store/client/reducers/bookReviewSlice";
-const { getDataBookReview, addNewBookReview, setFilteredBookReview } =
+const { getDataBookReview, addNewBookReview, setFilteredBookReview  , getReviewById} =
    bookReviewActions;
 
 export const bookReviewApiSlice = createApi({
@@ -16,6 +16,7 @@ export const bookReviewApiSlice = createApi({
                credentials: "include",
             };
          },
+         providesTags: [{ title: "REVIEWS", id: "REVIEWS_LIST" }],
          transformResponse: (result) => result,
          async onQueryStarted(args, { dispatch, queryFulfilled }) {
             try {
@@ -27,6 +28,34 @@ export const bookReviewApiSlice = createApi({
          },
       }),
 
+      getBookReviewById: builder.query({
+         query: (id) => `${id}`,
+         providesTags: (result, error, id) => [{ title: "REVIEWS", id: id }],
+       }),
+
+
+         // getBookReviewById: builder.query({
+         //    query(id) => `${id}` {
+         //       console.log("id from rtk" , id)
+         //       return {
+         //          url: `${id}`,
+         //          method: "GET",
+         //          credentials: "include",
+         //       };
+         //    },
+         //    invalidatesTags: [{ title: "REVIEWS", id: "REVIEWS_LIST" }],
+         //    async onQueryStarted(args, { queryFulfilled }) {
+         //       try {
+                  
+         //          const { data } = await queryFulfilled;
+                  
+         //          console.log("review" , data);
+         //       } catch (error) {
+         //          console.log(error);
+         //       }
+         //    },
+         // }),
+
       deleteBookReview: builder.mutation({
          query(bookReview) {
             const { _id } = bookReview;
@@ -37,7 +66,7 @@ export const bookReviewApiSlice = createApi({
                credentials: "include",
             };
          },
-         providesTags: [{ title: "REVIEWS", id: "REVIEWS_LIST" }],
+         invalidatesTags: [{ title: "REVIEWS", id: "REVIEWS_LIST" }],
          async onQueryStarted(bookReview, { dispatch, getState }) {
             try {
                const state = getState();
@@ -61,7 +90,7 @@ export const bookReviewApiSlice = createApi({
                credentials: "include",
             };
          },
-         providesTags: [{ title: "REVIEWS", id: "REVIEWS_LIST" }],
+         invalidatesTags: [{ title: "REVIEWS", id: "REVIEWS_LIST" }],
          async onQueryStarted(comingData, { dispatch, queryFulfilled }) {
             try {
                const { data } = await queryFulfilled;
@@ -81,7 +110,7 @@ export const bookReviewApiSlice = createApi({
                credentials: "include",
             };
          },
-         providesTags: [{ title: "REVIEWS", id: "REVIEWS_LIST" }],
+         invalidatesTags: [{ title: "REVIEWS", id: "REVIEWS_LIST" }],
          async onQueryStarted(args, { getState, dispatch, queryFulfilled }) {
             try {
                const state = getState();
@@ -105,4 +134,5 @@ export const {
    useAddBookReviewMutation,
    useDeleteBookReviewMutation,
    useUpdateBookReviewMutation,
+   useGetBookReviewByIdQuery
 } = bookReviewApiSlice;

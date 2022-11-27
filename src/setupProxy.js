@@ -70,6 +70,13 @@ module.exports = function (app) {
          changeOrigin: true,
       })
    );
+   app.use(
+      "/bookreview/:id" , 
+      createProxyMiddleware({
+         target: "http://localhost:3001",
+         changeOrigin: true,
+      })
+   )
 
    //----------------------STRIP PACKAGES-------------------
 

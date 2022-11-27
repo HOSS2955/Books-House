@@ -11,29 +11,29 @@ export default function ReviewContent({ data }) {
               <div id="entry-content" className="">
                 <h1 className="text-center pb-5">
                   <strong>
-                    Book Review: <em>{data.title}</em>
+                    Book Review: <em>{data?.title}</em>
                   </strong>{" "}
                 </h1>
 
-                <p className="text-center">Reviewed by {data.reviwer}</p>
+                <p className="text-center">Reviewed by {data?.reviwer}</p>
 
                 <div className="d-flex align-items-center">
                   <figure className="m-auto  ">
                     <img
                       data-attachment-id="24469"
-                      data-permalink={data.imageSrc}
-                      data-orig-file={data.imageSrc}
+                      data-permalink={data?.imageSrc}
+                      data-orig-file={data?.imageSrc}
                       data-orig-size="1650,2550"
                       data-comments-opened="1"
                       data-image-meta='{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0"}'
                       data-image-title="Neben-Cover-Project-front-jpg"
                       data-image-description=""
                       data-image-caption=""
-                      data-medium-file={data.imageSrc}
-                      data-large-file={data.imageSrc}
+                      data-medium-file={data?.imageSrc}
+                      data-large-file={data?.imageSrc}
                       decoding="async"
                       loading="lazy"
-                      src={data.imageSrc}
+                      src={data?.imageSrc}
                       alt=""
                       className="img-fluid"
                       width="517"
@@ -46,13 +46,13 @@ export default function ReviewContent({ data }) {
 
                 <h2 className="text-center py-5 ">
                   <strong>
-                    <em>{data.title}</em>
+                    <em>{data?.title}</em>
                   </strong>
                   .
                 </h2>
                 <hr className="dark" />
 
-                <p>{data.desc}.&nbsp;</p>
+                <p>{data?.desc}.&nbsp;</p>
 
                 <p>.&nbsp;</p>
 
@@ -63,7 +63,7 @@ export default function ReviewContent({ data }) {
                     target="_blank"
                     rel="noreferrer noopener"
                   >
-                    {data.publisher}
+                    {data?.publisher}
                   </a>
                 </p>
 

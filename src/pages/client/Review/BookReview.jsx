@@ -5,10 +5,11 @@ import { useNavigate } from "react-router-dom";
 import "./review.css";
 
 export default function BookReview({ data }) {
+  console.log(data)
   const navigate = useNavigate();
 
   const toBookDetail = () => {
-    navigate(`/reviewdetails/${data._id}`);
+    navigate(`/reviewdetails/${data?._id}`);
   };
 
   return (
@@ -30,10 +31,10 @@ export default function BookReview({ data }) {
               toBookDetail();
             }}
           >
-            book review: {data.title}
+            book review: {data?.title}
           </a>
           <p className="text-lead pt-3">
-            {data.desc.split(",")[0]}Check out what {data.reviwer} has to say in
+            {data?.desc?.split(",")[0]}Check out what {data?.reviwer} has to say in
             her book review of this indie thriller
           </p>
         </div>
@@ -45,7 +46,7 @@ export default function BookReview({ data }) {
               onClick={() => {
                 toBookDetail();
               }}
-              src={data.imageSrc}
+              src={data?.imageSrc}
               alt=""
             />
           </div>
