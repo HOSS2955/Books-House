@@ -76,6 +76,12 @@ const bookReviewSlice = createSlice({
          console.log(action.payload);
          state.dataEditBookReview = action.payload;
       },
+      setDataInState: (state, action) => {
+         state.bookReviews = action.payload;
+      },
+      deletBookReview: (state, action) => {
+         state.bookReviews = action.payload;
+      },
    },
    extraReducers: {
       [getBookReviews.fulfilled]: (state, action) => {

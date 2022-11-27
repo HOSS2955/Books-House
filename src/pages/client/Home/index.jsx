@@ -10,9 +10,11 @@ import DiscoverBooks from "./DiscoverBooks";
 import Service from "./Service";
 import Banner from "./Banner";
 import FullScreenLoader from "../../../components/FullScreenLoader";
+import { useLoginUserMutation } from "../../../features/authApiSlice";
 
 export default function Home() {
   const { data, isError, isLoading } = useGetHomepageDataQuery();
+  const [loginUser,{sucesslogin: isSuccess, isFetching}] = useLoginUserMutation();
   const dispatch = useDispatch();
   const { setDataInLocalState } = homepageActions;
   const { wallOfFamesData, clientsTestimonialsData, serviceData } = useSelector(
@@ -20,6 +22,7 @@ export default function Home() {
   );
   useEffect(() => {
     console.log(data);
+    loginUser();
     if (data) {
       dispatch(setDataInLocalState(data));
       // console.log("hello" , data);

@@ -10,55 +10,55 @@ import { LoadingButton as _LoadingButton } from "@mui/lab";
 import { toast } from "react-toastify";
 // import { use } from "../../../../services/authApi";
 import { useLoginAdminMutation } from "../../../../services/adminAuthApi";
-const LoadingButton = styled(_LoadingButton)`
-  padding: 0.6rem 0;
-  background-color: #212529;
-  color: #fff;
-  font-weight: 500;
-  border-radius: 50px;
+const MyAdminLogin = () => {
+  const LoadingButton = styled(_LoadingButton)`
+    padding: 0.6rem 0;
+    background-color: #212529;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 50px;
 
-  &:hover {
-    background-color: #000000;
-    transform: translateY(-1px);
-  }
-`;
+    &:hover {
+      background-color: #000000;
+      transform: translateY(-1px);
+    }
+  `;
 
-const LinkItem = styled(Link)`
-  text-decoration: none;
-  color: #2363eb;
-  &:hover {
-    text-decoration: underline;
-  }
-`;
+  const LinkItem = styled(Link)`
+    text-decoration: none;
+    color: #2363eb;
+    &:hover {
+      text-decoration: underline;
+    }
+  `;
 
-const loginSchema = object({
-  email: string()
-    .min(1, "Email address is required")
-    .email("Email Address is invalid"),
-  password: string()
-    .regex(
-      new RegExp("(?=.*[0-9])"),
-      "Password must have at least one numeric character!"
-    )
-    .regex(
-      new RegExp("(?=.*[!@#$%^&*])"),
-      "Password must have at least one special character!"
-    )
-    .regex(
-      new RegExp("(?=.*[A-Z])"),
-      "Password must have at least one uppercase character!"
-    )
-    .regex(
-      new RegExp("(?=.*[a-z])"),
-      "Password must have at least one lowercase character!"
-    )
-    .min(1, "Password is required")
-    .min(8, "Password must be more than 8 characters")
+  const loginSchema = object({
+    email: string()
+      .min(1, "Email address is required")
+      .email("Email Address is invalid"),
+    password: string()
+      .regex(
+        new RegExp("(?=.*[0-9])"),
+        "Password must have at least one numeric character!"
+      )
+      .regex(
+        new RegExp("(?=.*[!@#$%^&*])"),
+        "Password must have at least one special character!"
+      )
+      .regex(
+        new RegExp("(?=.*[A-Z])"),
+        "Password must have at least one uppercase character!"
+      )
+      .regex(
+        new RegExp("(?=.*[a-z])"),
+        "Password must have at least one lowercase character!"
+      )
+      .min(1, "Password is required")
+      .min(8, "Password must be more than 8 characters")
 
-    .max(32, "Password must be less than 32 characters"),
-});
+      .max(32, "Password must be less than 32 characters"),
+  });
 
-const LoginAdmin = () => {
   const methods = useForm({
     resolver: zodResolver(loginSchema),
   });
@@ -68,7 +68,6 @@ const LoginAdmin = () => {
     useLoginAdminMutation();
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   // const from = location.state?.from.pathname || "/profile";
 

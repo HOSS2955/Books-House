@@ -18,7 +18,7 @@ import { useDispatch } from "react-redux";
 import ProtectedComponent from "../../../../features/ProtectedComponent";
 import { useRegisterUserMutation } from "../../../../features/authApiSlice";
 import { toast } from "react-toastify";
-import "./Register.css";
+import "../Login.css";
 
 const LoadingButton = styled(_LoadingButton)`
   padding: 0.6rem 0;

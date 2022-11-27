@@ -78,7 +78,7 @@ const NavBar = ({ showModal }) => {
   };
   // Check if the user is Authorized
   const user = useSelector((state) => state.userState.user);
-  console.log("IS THERE IS A COOKIE ", Cookies.get("logged_in"));
+  // console.log("IS THERE IS A COOKIE ", Cookies.get("logged_in"));
   const role = useSelector((state) => state.userState.role);
   // // change nav color when scrolling
   const [color, setColor] = useState(false);

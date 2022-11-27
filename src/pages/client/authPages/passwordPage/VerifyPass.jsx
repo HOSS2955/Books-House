@@ -7,7 +7,7 @@ import { object, string, TypeOf } from "zod";
 import { LoadingButton as _LoadingButton } from "@mui/lab";
 import { GoEye } from "react-icons/go";
 import { BsEyeSlash } from "react-icons/bs";
-import "./PasswordPage.css";
+import "../Login.css";
 import validator from "validator";
 // import AuthFooter from "../AuthFooter/AuthFooter";
 import { Link } from "react-router-dom";
@@ -20,7 +20,7 @@ import {
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { styled } from "@mui/material/styles";
-
+import { useSelector } from "react-redux";
 const LoadingButton = styled(_LoadingButton)`
   padding: 0.6rem 0;
   background-color: #212529;
@@ -90,7 +90,7 @@ export default function VerifyPass() {
 
     formState: { isSubmitSuccessful, errors },
   } = methods;
-
+  const email = useSelector((state) => state.temporaryEmail);
   const [forgetPassword, { isLoading, isError, error, isSuccess }] =
     useForgetPasswordMutation();
 
@@ -102,7 +102,7 @@ export default function VerifyPass() {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Password Changed Successfully.");
-      navigate("/mainprofile");
+      navigate("/auth/login");
     }
     if (isError) {
       console.log(error.data);
@@ -131,8 +131,7 @@ export default function VerifyPass() {
   const onSubmitHandler = (values) => {
     // ? Executing the RegisterUser Mutation
     // registerUser(values);
-    console.log({ ...values, code: otp.join("") });
-    forgetPassword({ ...values, code: otp.join("") });
+    forgetPassword({ ...values, code: otp.join(""), email: email.tempEmail });
   };
 
   return (
@@ -140,7 +139,9 @@ export default function VerifyPass() {
       <div className="main mt-3">
         <div className="centeredElement shadow-lg p-3 mb-2 bg-body">
           <div className="auth">
-            <p className="h4 my-5 text-center">Check Your Email</p>
+            <p className="h4 my-5 text-center">{`Code has been sent to ${
+              email.tempEmail ? email.tempEmail : "your email"
+            }.`}</p>
             <div className="row">
               <div className="col d-flex flex-row text-center " method="post">
                 {otp.map((data, index) => (
@@ -168,9 +169,9 @@ export default function VerifyPass() {
                           <FaLock />
                         </InputGroup.Text>
                         <Form.Control
-                          type="newpassword"
-                          {...register("password")}
-                          name="password"
+                          type="password"
+                          name="newpassword"
+                          {...register("newpassword")}
                           aria-label="Password Input"
                           placeholder="New Password"
                         />
@@ -181,7 +182,10 @@ export default function VerifyPass() {
                         </Form.Text>
                       )}
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Group
+                      className="mb-3"
+                      controlId="formConfirmPassword"
+                    >
                       <InputGroup className="userInput mb-2">
                         <InputGroup.Text id="basic-addon2">
                           <FaLock />

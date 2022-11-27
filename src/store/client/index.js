@@ -12,7 +12,7 @@ import { packageReducer } from "./reducers/packageSlice";
 import userReducer from "./reducers/userSlice";
 import adminReducer from "./reducers/adminSlice";
 import { userApi } from "../../services/userApi";
-import { authApi } from "../../services/authApi";
+import { authApiSlice } from "../../features/authApiSlice";
 import { adminAuthApi } from "../../services/adminAuthApi";
 import { bookReviewReducer } from "./reducers/bookReviewSlice";
 import { stripePackagesReducer } from "./reducers/stripePackagesSlice";
@@ -20,6 +20,7 @@ import { stripeOrdersReducer } from "./reducers/stripeOrdersSlice";
 import { profilePackageReducer } from "./reducers/profilePaymet";
 import { userDataReducer } from "./reducers/userDataSlice";
 import { wishlistReducer } from "./reducers/wishlistSlice";
+import { tempEmailReducer } from "./reducers/tempEmail";
 export const clientStore = configureStore({
   reducer: {
     books: booksReducer,
@@ -30,10 +31,11 @@ export const clientStore = configureStore({
     // checkAuth: checkAuthReducer,
     stripePackages: stripePackagesReducer,
     stripeOrders: stripeOrdersReducer,
+    temporaryEmail: tempEmailReducer,
     [homepageApi.reducerPath]: homepageApi.reducer,
     package: packageReducer,
     [packageApi.reducerPath]: packageApi.reducer,
-    [authApi.reducerPath]: authApi.reducer,
+    [authApiSlice.reducerPath]: authApiSlice.reducer,
     [userApi.reducerPath]: userApi.reducer,
     [adminAuthApi.reducerPath]: adminAuthApi.reducer,
     // adminState: adminReducer,
@@ -49,7 +51,7 @@ export const clientStore = configureStore({
     gDM().concat(
       homepageApi.middleware,
       packageApi.middleware,
-      authApi.middleware,
+      authApiSlice.middleware,
       adminAuthApi.middleware,
       userApi.middleware
       // authApi.middleware

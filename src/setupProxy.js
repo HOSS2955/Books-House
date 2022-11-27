@@ -70,7 +70,20 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
-
+  app.use(
+    "/user/confirmEmail/:verificationCode",
+    createProxyMiddleware({
+      target: "http://localhost:3001",
+      changeOrigin: true,
+    })
+  );
+  app.use(
+    "/user/sendCode",
+    createProxyMiddleware({
+      target: "http://localhost:3001",
+      changeOrigin: true,
+    })
+  );
   //----------------------STRIP PACKAGES-------------------
 
   app.use(
