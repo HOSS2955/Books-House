@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 // import useStyles from "./styles";
 import { commentBook } from "../../../actions/book";
 import { useParams } from "react-router-dom";
+import { useAddCommentMutation } from "../../../features/bookApiSlice";
 
 const CommentSection = ({ book }) => {
    const [comments, setComments] = useState(book?.comments);
    const [comment, setComment] = useState("");
+   const [addComment ,{isError , isLoading}]  = useAddCommentMutation();
    // let date = new Date().toLocaleString()
    let date = `${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`
    const user = useSelector((state) => state.userState.user);
@@ -15,7 +17,7 @@ const CommentSection = ({ book }) => {
    const commentsRef = useRef();
    const handleClick = async() => {
       const finalComment = `${user} : ${date} : ${comment}`;
-      const newComment =  await dispatch(commentBook(finalComment, book?._id));
+      const newComment =  await dispatch(addComment(finalComment, book?._id));
       setComments(newComment);
       commentsRef.current.scrollIntoView({ behavior: "smooth" });
       setComment("")
