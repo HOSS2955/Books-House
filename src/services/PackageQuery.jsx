@@ -6,7 +6,6 @@
 
 
 // const numbers = [{title:"hello" , specifications:["Drag & Drop Builder" , "1,000's of Templates" , "Blog Support Tools" , "eCommerce Store"]},{title:"welcome" , specifications:["Drag & Drop Builder" , "1,000's of Templates" , "Blog Support Tools" , "eCommerce Store"]}];
-// // console.log(numbers.map((item , index)=> {return (item) }))
 // const PackageQuery = ({ pricingArray }) => {
 
   // return (

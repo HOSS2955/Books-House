@@ -3,6 +3,7 @@ import "../../../assets/css/Footer.css";
 
 import { Container, Row, Col, ListGroup, ListGroupItem } from "reactstrap";
 import { Link } from "react-router-dom";
+import logo2 from "../../../assets/images/logo2.png"
 import {
    AiFillGithub,
    AiFillHome,
@@ -36,7 +37,7 @@ const Footer = () => {
                <Col md="6" lg="3" className="pt-md-2 ps-0 mt-sm-5">
                   <div className="logo ">
                      <img
-                        src="./images/logo2.png"
+                        src={logo2}
                         className="mt-1"
                         alt="logo"
                      />

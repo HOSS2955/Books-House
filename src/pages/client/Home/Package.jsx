@@ -12,13 +12,10 @@ const Package = ({ handleShow, setPackages }) => {
   const { setDataInLocalState } = packageActions;
   const { packageData } = useSelector((state) => state.package);
   useEffect(() => {
-    console.log("data before dispatch pricing", data);
     if (data) {
       dispatch(setDataInLocalState(data));
-      console.log("data from pricing", data);
     }
   }, [dispatch, data]);
-  console.log(packageData)
   return (
     <div className="container">
       <section id="pricing" className="section bg-white">

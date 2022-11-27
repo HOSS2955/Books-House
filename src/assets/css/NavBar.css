@@ -121,6 +121,25 @@
    background-color: white;
    box-shadow: 3px 3px 8px -3px #ddd;
 }
+.dropDown__user{
+   padding-top:0px;
+   padding-bottom:0px
+}
+.dropDown__item:focus{
+   background-color:gray;
+}
+.dropDown__item{
+padding-top:0px;
+padding-bottom:0px
+}
+  
+
+
+
+
+
+
+
 
 @media screen and (max-width: 1000px) {
    .small__screen {

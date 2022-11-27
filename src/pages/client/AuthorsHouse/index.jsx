@@ -89,57 +89,57 @@ export default function AuthorsHouse() {
     }
   }, [packages, confetti]);
 
-  return (
-    <div className="mt-5">
-      {/* <ConfettiModal size={windowDimensions} /> */}
-      {confetti === true && <ConfettiModal size={windowDimensions} />}
+   return (
+      <div className="starting__page w-100 d-flex flex-column justify-content-center align-items-center">
+         {/* <ConfettiModal size={windowDimensions} /> */}
+         {confetti === true && <ConfettiModal size={windowDimensions} />}
 
       {/* <Elements stripe={stripePromise} options={{ clientSecret }}>
         <CheckoutForm packages={packages} />
       </Elements> */}
-      <Modalnew show={show} handleClose={handleClose} packages={packages}>
-        {active === "form" && (
-          <AuthorForm active={active} handlePay={handlePay} />
-        )}
-        {clientSecret && stripePromise && active === "pay" && (
-          <Elements stripe={stripePromise} options={{ clientSecret }}>
-            <CheckoutForm packages={packages} confetti={setConfetti} />
-          </Elements>
-        )}
-      </Modalnew>
-      {/* SERVICE NAME AND DESCRIPTION */}
-      <div className="mb-5">
-        <div className="container">
-          <div className="row">
-            <motion.div
-              className="col-12 my-5 d-flex flex-column justify-content-center align-items-center"
-              variants={container}
-              initial="hidden"
-              animate="show"
-              exit="exit"
-              transition={{ staggerChildren: 0.5 }}
-              whileInView={"show"}
-              viewport={{ once: false, amount: 0.4 }}
-            >
-              <motion.h1 className="mb-3" variants={item}>
-                Authors House
-              </motion.h1>
-              <motion.p variants={item}>
-                You’re in the right place.No matter how you publish your book
-                Give us your book and we will provide you with real reviews
-                about your book
-              </motion.p>
-              <div>
-                <motion.a
-                  className="packages-btn px-4 btn btn-outline-dark rounded-0"
-                  variants={item}
-                  href="#packages-Section"
-                >
-                  Packages
-                </motion.a>
-              </div>
-            </motion.div>
-          </div>
+         <Modalnew show={show} handleClose={handleClose} packages={packages}>
+            {active === "form" && (
+               <AuthorForm active={active} handlePay={handlePay} />
+            )}
+            {clientSecret && stripePromise && active === "pay" && (
+               <Elements stripe={stripePromise} options={{ clientSecret }}>
+                  <CheckoutForm packages={packages} confetti={setConfetti} />
+               </Elements>
+            )}
+         </Modalnew>
+         {/* SERVICE NAME AND DESCRIPTION */}
+         <div className="mb-5">
+            <div className="container">
+               <div className="row d-flex flex-column justify-content-center align-items-center">
+                  <motion.div
+                     className="col-6 d-flex flex-column justify-content-center align-items-center"
+                     variants={container}
+                     initial="hidden"
+                     animate="show"
+                     exit="exit"
+                     transition={{ staggerChildren: 0.5 }}
+                     whileInView={"show"}
+                     viewport={{ once: false, amount: 0.4 }}
+                  >
+                     <motion.h1 className="mb-3" variants={item}>
+                        Authors House
+                     </motion.h1>
+                     <motion.p variants={item}>
+                        You’re in the right place.No matter how you publish your
+                        book Give us your book and we will provide you with real
+                        reviews about your book
+                     </motion.p>
+                     <div>
+                        <motion.a
+                           className="packages-btn px-4 btn btn-outline-dark rounded-0"
+                           variants={item}
+                           href="#packages-Section"
+                        >
+                           Packages
+                        </motion.a>
+                     </div>
+                  </motion.div>
+               </div>
 
           {/* OUR SERVIECS GALLERY */}
           <motion.div

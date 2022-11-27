@@ -25,7 +25,6 @@ export default function Reviews() {
 
    useEffect(() => {
       dispatch(getBookReviews());
-      console.log(bookReviews);
    }, []);
 
    const columns = [

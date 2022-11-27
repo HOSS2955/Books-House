@@ -20,7 +20,7 @@ export default function WallOfFamesSwiper({wallOfFamesArray}) {
             delay: 2500,
             disableOnInteraction: false,
           }}
-        className="container"
+        className="container shadow fames__swiper"
         navigation
         freeMode
         a11y
@@ -28,11 +28,12 @@ export default function WallOfFamesSwiper({wallOfFamesArray}) {
          {/* Mapping wall of fames */}
        
     {wallOfFamesArray.map((item , index)=>{
-      return <SwiperSlide className="bg-light text-dark swiper__card" key={index}>
+      return <SwiperSlide className=" text-dark swiper__card" key={index}>
      <SwiperData
             feedTitle={item.feedTitle}
             feedPosition={item.feedPosition}
             imgSrc={item.imgSrc}
+            className="my-5"
           >
             {item.paragraph}
           </SwiperData>

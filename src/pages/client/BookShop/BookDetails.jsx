@@ -11,11 +11,6 @@ export default function BookDetails() {
   const { id } = useParams();
   const {books} = useSelector((state) => state.books);
   const book = useSelector((state)=>state.books.bookDetails);
-   console.log(book)
-
-
-
-  // console.log(id)
 
   const cart = useSelector((state) => state.cart);
   const cartItem = cart.cartItems;
@@ -59,14 +54,6 @@ export default function BookDetails() {
       return 0;
     }
   };
-
-
-
-  // const filteredBooks = books.filter((item)=>{
-    // return item._id === id})
-  //  }).then(()=> { console.log(filteredBooks) ; const book = filteredBooks[0]; return book})
-  //  console.log(filteredBooks)
-
 
 
 

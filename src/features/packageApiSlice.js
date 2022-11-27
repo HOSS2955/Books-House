@@ -24,9 +24,8 @@ export const packageApi = createApi({
             try {
                const { data } = await queryFulfilled;
                dispatch(setDataInLocalState(data));
-               console.log(data);
             } catch (error) {
-               console.log(error);
+               return error
             }
          },
       }),
