@@ -24,6 +24,7 @@ import { logoutInState } from "../../../store/client/reducers/userSlice";
 import { toast } from "react-toastify";
 import { BiLogOut } from "react-icons/bi";
 import { useLogoutAdminMutation } from "../../../services/adminAuthApi";
+import { RiLockPasswordLine } from "react-icons/ri";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -74,6 +75,9 @@ export default function Sidebar() {
   }, [isLoading]);
   const logoutHandler = () => {
     logoutAdmin();
+  };
+  const passwordHandler = () => {
+    navigate("/auth/adminpassword");
   };
 
   return (
@@ -271,6 +275,13 @@ export default function Sidebar() {
                 title="Calendar"
                 to="/admin/calendar"
                 icon={<CalendarTodayOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                title="Change Password"
+                onClick={passwordHandler}
+                icon={<RiLockPasswordLine size={27} />}
                 selected={selected}
                 setSelected={setSelected}
               />
