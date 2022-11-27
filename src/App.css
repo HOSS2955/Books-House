@@ -15,9 +15,9 @@
 }
 
 body {
-   font-family: "Cairo", sans-serif;
-   letter-spacing: 1.35px;
-   word-spacing: 2px;
+   font-family: var(--font-family-display,"Charlie Display",sans-serif);
+   /* letter-spacing: 1.35px; */
+   /* word-spacing: 2px; */
 }
 a,
 Link {

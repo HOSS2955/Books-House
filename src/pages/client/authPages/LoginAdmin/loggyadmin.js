@@ -15,11 +15,12 @@ import { LoadingButton as _LoadingButton } from "@mui/lab";
 
 import { useDispatch } from "react-redux";
 import ProtectedComponent from "../../../../features/ProtectedComponent";
-import { useLoginUserMutation } from "../../../../services/authApi";
+import { useLoginUserMutation } from "../../../../features/authApiSlice";
+import { useLoginAdminMutation } from "../../../../services/adminAuthApi";
 import { toast } from "react-toastify";
-import "./Login.css";
+import "../Login.css";
 
-export default function AdminLogin() {
+export default function LoginAdmin() {
   const LoadingButton = styled(_LoadingButton)`
     padding: 0.6rem 0;
     background-color: #212529;
@@ -32,7 +33,6 @@ export default function AdminLogin() {
       transform: translateY(-1px);
     }
   `;
-
   const loginSchema = object({
     email: string()
       .min(1, "Email address is required")
@@ -56,38 +56,42 @@ export default function AdminLogin() {
       )
       .min(1, "Password is required")
       .min(8, "Password must be more than 8 characters")
+
       .max(32, "Password must be less than 32 characters"),
   });
 
   const methods = useForm({
-    reValidateMode: "onSubmit",
     resolver: zodResolver(loginSchema),
   });
-
-  const [loginUser, { isLoading, isError, error, isSuccess }] =
-    useLoginUserMutation();
+  // ? API Login Mutation
+  const [LoginAdmin, { isLoading, isError, error, isSuccess }] =
+    useLoginAdminMutation();
 
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const from = location.state?.from.pathname || "/profile";
+  // const from = location.state?.from.pathname || "/profile";
   const {
     reset,
     handleSubmit,
     register,
-    password,
     formState: { isSubmitSuccessful, errors },
   } = methods;
 
   useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSubmitSuccessful]);
+
+  useEffect(() => {
     if (isSuccess) {
       toast.success("You successfully logged in");
-      navigate(from);
+      navigate("/admin");
     }
     if (isError) {
-      console.log(error.data);
-
-      toast.error(error.data.message, {
+      console.log("inside login admin", error);
+      toast.error(error.message, {
         position: "top-right",
       });
     }
@@ -104,9 +108,8 @@ export default function AdminLogin() {
   const onSubmitHandler = (values) => {
     // ? Executing the loginUser Mutation
     console.log(values);
-    loginUser(values);
+    LoginAdmin(values);
   };
-
   return (
     <div className="main mt-5">
       <div className="centeredElement mt-5 shadow-lg bg-body">
@@ -144,10 +147,7 @@ export default function AdminLogin() {
                   </InputGroup.Text>
                   <Form.Control
                     type="password"
-                    {...register("password", {
-                      required: "Password is required!",
-                    })}
-        
+                    {...register("password", {})}
                     name="password"
                     aria-label="Password Input"
                     placeholder="Password"
@@ -171,7 +171,6 @@ export default function AdminLogin() {
               </LoadingButton>
             </Form>
           </FormProvider>
-          //** هنا هيتحط الكوود اللي تحت علشان متبقاش بتاعت ادمن */
         </div>
       </div>
     </div>

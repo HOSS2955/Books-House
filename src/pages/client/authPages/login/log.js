@@ -75,7 +75,6 @@ export default function Login2() {
     reset,
     handleSubmit,
     register,
-    password,
     formState: { isSubmitSuccessful, errors },
   } = methods;
 
@@ -165,7 +164,7 @@ export default function Login2() {
               </Form.Group>
               <LoadingButton
                 variant="contained"
-                sx={{ mt: 3, mb: 5 }}
+                sx={{ mt: 3, mb: 2 }}
                 fullWidth
                 disableElevation
                 type="submit"
@@ -175,7 +174,13 @@ export default function Login2() {
               </LoadingButton>
             </Form>
           </FormProvider>
-
+          <div className="divider acc mb-3">
+            <Link to="/auth/forgetpass">
+              <a>
+                <span className="text-primary">Forgot your password?</span>
+              </a>
+            </Link>
+          </div>
           <div className="divider acc ">
             <hr className="hrLeft text-small" />
             <Link to="/auth/register">

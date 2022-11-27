@@ -50,7 +50,7 @@ export default function Service() {
       console.log(clientSecret);
       setClientSecret(clientSecret);
     });
-  }, []);
+  }, [packages]);
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -65,7 +65,7 @@ export default function Service() {
       {/* {confetti === true && <ConfettiModal size={windowDimensions} />}
       {/* <ConfettiModal /> */}
       <Button variant="primary" onClick={handleShow}>
-        model
+        Model
       </Button>
       {/* <Elements stripe={stripePromise} options={{ clientSecret }}>
         <CheckoutForm packages={packages} />

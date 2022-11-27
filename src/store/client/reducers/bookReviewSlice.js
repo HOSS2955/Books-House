@@ -5,18 +5,18 @@ const initialState = {
    bookReviews: [],
    dataEditBookReview: {},
 };
-// export const getBookReviews = createAsyncThunk(
-//    "/bookreview/getall",
-//    async (_, thunckAPI) => {
-//       const { rejectWithValue } = thunckAPI;
-//       try {
-//          const response = await axios.get("/bookreview/getall");
-//          return response.data;
-//       } catch (error) {
-//          return rejectWithValue(error.message);
-//       }
-//    }
-// );
+export const getBookReviews = createAsyncThunk(
+   "/bookreview/getall",
+   async (_, thunckAPI) => {
+      const { rejectWithValue } = thunckAPI;
+      try {
+         const response = await axios.get("/bookreview/getall");
+         return response.data;
+      } catch (error) {
+         return rejectWithValue(error.message);
+      }
+   }
+);
 
 // export const addBookReview = createAsyncThunk(
 //    "books/addBook",
@@ -51,22 +51,22 @@ const initialState = {
 //       }
 //    }
 // );
-// export const updateBookReview = createAsyncThunk(
-//    "books/updateBook",
-//    async ({ id, formValue }, thunckAPI) => {
-//       const { rejectWithValue } = thunckAPI;
-//       console.log(formValue);
-//       try {
-//          const res = await axios.put(
-//             `/bookreview/updateBookReview/${id}`,
-//             formValue
-//          );
-//          return res.data;
-//       } catch (error) {
-//          rejectWithValue(error.message);
-//       }
-//    }
-// );
+export const updateBookReview = createAsyncThunk(
+   "books/updateBook",
+   async ({ id, formValue }, thunckAPI) => {
+      const { rejectWithValue } = thunckAPI;
+      console.log(formValue);
+      try {
+         const res = await axios.put(
+            `/bookreview/updateBookReview/${id}`,
+            formValue
+         );
+         return res.data;
+      } catch (error) {
+         rejectWithValue(error.message);
+      }
+   }
+);
 
 const bookReviewSlice = createSlice({
    name: "bookReviews",
