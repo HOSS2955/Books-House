@@ -4,9 +4,9 @@ import AboutUs from "./AboutUs";
 
 const OurGoals = () => {
   return (
-    <section className="section">
+    <section className="section mt-5">
       <AboutUs />
-      <div className="container">
+      {/* <div className="container">
         <div className="row">
           <div className="col-md-4 p-5 col-sm-12">
             <h6 className="fw-bold mb-4">ABOUT US</h6>
@@ -43,7 +43,7 @@ const OurGoals = () => {
             </ul>
           </div>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };

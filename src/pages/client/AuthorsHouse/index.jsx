@@ -31,7 +31,7 @@ const item = {
     y: 0,
     transition: {
       ease: [0.6, 0.01, -0.05, 0.95],
-      duration: 4,
+      duration: 1,
     },
   },
   exit: {
@@ -39,7 +39,7 @@ const item = {
     y: -200,
     transition: {
       ease: "easeInOut",
-      duration: 2,
+      duration: 1,
     },
   },
 };
@@ -112,7 +112,7 @@ export default function AuthorsHouse() {
             <div className="container">
                <div className="row d-flex flex-column justify-content-center align-items-center">
                   <motion.div
-                     className="col-6 d-flex flex-column justify-content-center align-items-center"
+                     className="col-6 d-flex flex-column justify-content-center align-items-center  mb-5"
                      variants={container}
                      initial="hidden"
                      animate="show"
@@ -206,6 +206,7 @@ export default function AuthorsHouse() {
               pricingArray={packagesData}
               handleShow={handleShow}
               setPackages={setPackages}
+              variants={item}
             />
           </div>
         </div>

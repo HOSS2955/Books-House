@@ -8,7 +8,7 @@ export default function SwiperData({
 }) {
    // const sds = "sd";
    return (
-      <div className="feed1 m-3 p-4 col d-flex">
+      <div className="feed1 m-3 p-4 col d-flex my-5">
          <div className="myImg col-2 d-flex justify-content-center p-1">
             <img src={imgSrc} alt="profile" className="mb-5" />
          </div>

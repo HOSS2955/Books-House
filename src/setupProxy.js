@@ -81,7 +81,7 @@ module.exports = function (app) {
     "/bookreview/newbookreview",
     createProxyMiddleware({
       target: "http://localhost:3001",
-      changeOrigin: true,
+      changeOrigin: true
     })
   );
   //DELETE BOOK REVIEW

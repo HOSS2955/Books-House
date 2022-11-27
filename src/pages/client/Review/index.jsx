@@ -5,15 +5,24 @@ import BookReview from "./BookReview";
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../../../components/client/ui/Pagination/Pagination";
 import { useGetBookReviewsQuery } from "../../../features/bookReviewApiSlice";
+import { bookReviewActions } from "../../../store/client/reducers/bookReviewSlice";
 
 export default function Reviews() {
-   const dispatch = useDispatch();
-
-   const { bookReviews } = useSelector((state) => state.bookReviews);
-   const data = bookReviews;
+   // const data = bookReviews;
    const [items, setItems] = useState([]);
    const [currentPage, setCurrentPage] = useState(1);
    const [itemsPerPage, setItemsPerPage] = useState(3);
+   const { data, isError, isLoading } = useGetBookReviewsQuery();
+   const dispatch = useDispatch();
+   const {getDataBookReview} = bookReviewActions;
+   const {bookReviews} = useSelector((state)=>state.bookReviews)
+   console.log(bookReviews)
+   useEffect(()=>{
+      if(data){
+         dispatch(getDataBookReview(data))
+         console.log("data from index" ,data)
+      }
+   },[dispatch , data])
 
    const lastItemIndex = currentPage * itemsPerPage;
    const firstItemIndex = lastItemIndex - itemsPerPage;
@@ -25,13 +34,16 @@ export default function Reviews() {
       });
       setItems(newItem);
    };
-   const {ReviewData , isError , isLoading} = useGetBookReviewsQuery()
+   // const {ReviewData , isError , isLoading} = useGetBookReviewsQuery()
+   // useEffect(() => {
+   //    dispatch(ReviewData);
+   // }, [dispatch , ReviewData]);
    useEffect(() => {
-      dispatch(ReviewData);
-   }, [dispatch , ReviewData]);
-   useEffect(() => {
-      setItems(data);
+      if(data){
+      setItems(data);}
    }, [data]);
+   
+
 
    return (
       <div className="starting__page">
