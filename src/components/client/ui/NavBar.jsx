@@ -125,7 +125,6 @@ const NavBar = ({ showModal }) => {
                   <div className="nav__wrapper">
                      <div className="logo">
                         <img src={logo2} alt="logo" />
-                        <p>Hello Mirna</p>
                         <div>
                            <Link to="/">
                               <h1 className="mb-0">Books House</h1>
