@@ -41,6 +41,10 @@ const bookSchema = new mongoose.Schema(
          type: Boolean,
          default: false,
       },
+      comments: {
+         type: [String],
+         default: [],
+      },
    },
    time
 );

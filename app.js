@@ -7,7 +7,7 @@ const connectDB = require("./db/connection");
 
 const app = express();
 const port = process.env.PORT || 3000;
-const cookieParser= require('cookie-parser')
+const cookieParser = require("cookie-parser");
 
 require("./db/connection");
 app.use(express.json());
@@ -26,9 +26,9 @@ const stripeRouter = require("./routers/stripeRouter");
 const bookReviewRoute = require("./routers/bookreview");
 const stripeData = require("./routers/stripeData");
 
-const refresh= require('./routers/refresh')
-app.use(cookieParser())
-app.use(refresh)
+const refresh = require("./routers/refresh");
+app.use(cookieParser());
+app.use(refresh);
 app.use(author);
 app.use(book);
 app.use(stripeData);
@@ -41,8 +41,8 @@ app.use(author);
 
 app.use(bookReviewRoute);
 
-app.use(stripeRouter);
 app.use(stripeCart);
+app.use(stripeRouter);
 
 app.use(express.static(path.join(__dirname, "uploadsImgs")));
 

@@ -94,6 +94,20 @@ const updateBook = async (req, res) => {
    }
 };
 
+
+//----------------------------------add a comment
+const commentBook = async (req, res) => {
+   const { id } = req.params;
+   const {value} = req.body;
+   const book = await Book.findById(id);
+
+   book.comments.push(value);
+
+   const updatedBook = await Book.findByIdAndUpdate(id, book, { new: true });
+
+   res.json(updatedBook);
+};
+
 module.exports = {
    addBookData,
    getbookByID,
@@ -101,4 +115,5 @@ module.exports = {
    deleteAllBook,
    deleteBook,
    updateBook,
+   commentBook
 };
