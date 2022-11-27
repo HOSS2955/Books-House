@@ -11,18 +11,18 @@ export default function Reviews() {
    // const data = bookReviews;
    const [items, setItems] = useState([]);
    const [currentPage, setCurrentPage] = useState(1);
-   const [itemsPerPage, setItemsPerPage] = useState(3);
+   const [itemsPerPage, setItemsPerPage] = useState(4);
    const { data, isError, isLoading } = useGetBookReviewsQuery();
    const dispatch = useDispatch();
-   const {getDataBookReview} = bookReviewActions;
-   const {bookReviews} = useSelector((state)=>state.bookReviews)
-   console.log(bookReviews)
-   useEffect(()=>{
-      if(data){
-         dispatch(getDataBookReview(data))
-         console.log("data from index" ,data)
+   const { getDataBookReview } = bookReviewActions;
+   const { bookReviews } = useSelector((state) => state.bookReviews);
+   console.log(bookReviews);
+   useEffect(() => {
+      if (data) {
+         dispatch(getDataBookReview(data));
+         console.log("data from index", data);
       }
-   },[dispatch , data])
+   }, [dispatch, data]);
 
    const lastItemIndex = currentPage * itemsPerPage;
    const firstItemIndex = lastItemIndex - itemsPerPage;
@@ -39,11 +39,10 @@ export default function Reviews() {
    //    dispatch(ReviewData);
    // }, [dispatch , ReviewData]);
    useEffect(() => {
-      if(data){
-      setItems(data);}
+      if (data) {
+         setItems(data);
+      }
    }, [data]);
-   
-
 
    return (
       <div className="starting__page">

@@ -33,8 +33,9 @@ export default function Aside() {
             <div className="categories d-flex flex-column ">
                <CategoryItem title="All" name="all" />
                <CategoryItem title="Fiction" name="fiction" />
-               <CategoryItem title="Non-Fiction" name="nonfiction" />
-               <CategoryItem title="Natural" name="natural" />
+               <CategoryItem title="Non-Fiction" name="non-fiction" />
+               <CategoryItem title="Poetry" name="poetry" />
+               <CategoryItem title="Fantasy" name="fantasy" />
             </div>
          </div>
          <hr></hr>
@@ -42,9 +43,8 @@ export default function Aside() {
             <h5 className="mb-3 fw-bold">Types</h5>
             <div className="categories d-flex flex-column ">
                <TypeItem name="all" title="All" />
-               <TypeItem name="comedy" title="Comedy" />
+               <TypeItem name="romance" title="Romance" />
                <TypeItem name="drama" title="Drama" />
-               <TypeItem name="action" title="Action" />
                <TypeItem name="adventure" title="Adventure stories" />
                <TypeItem name="crime" title="Crime" />
             </div>

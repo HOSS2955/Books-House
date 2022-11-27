@@ -82,13 +82,13 @@ export const bookApiSlice = createApi({
          },
       }),
       addComment: builder.mutation({
-         query:({value, id})=>{
-            return{
-               url:`${id}/commentBook`,
-               method:"POST",
-               body:value,
-               credentials: "include"
-            }
+         query: ({ value, id }) => {
+            return {
+               url: `${id}/commentBook`,
+               method: "POST",
+               body: value,
+               credentials: "include",
+            };
          },
          transformResponse: (result) => result,
          async onQueryStarted(args, { dispatch, queryFulfilled }) {
@@ -96,7 +96,7 @@ export const bookApiSlice = createApi({
                const { data } = await queryFulfilled;
                console.log("comment", data);
                // dispatch(setDataInLocalState(data));
-               console.log("done added comment to state" , data);
+               console.log("done added comment to state", data);
             } catch (error) {
                console.log(
                   "Error Inside onQueryStarted RTK QUERY FROM bookSlice : ",
@@ -104,7 +104,7 @@ export const bookApiSlice = createApi({
                );
             }
          },
-      })
+      }),
    }),
 });
 
@@ -114,5 +114,4 @@ export const {
    useAddBookMutation,
    useDeleteBookMutation,
    useUpdateBookMutation,
-   useAddCommentMutation,
 } = bookApiSlice;

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import NoProducts from "../../../components/client/ui/NoProducts/NoProducts";
 import { getprofileOrder } from "../../../store/client/reducers/profilePaymet";
 import OrderCard from "./OrderCard";
 
@@ -15,10 +16,13 @@ export default function MyOrder() {
 
   return (
     <div>
-      {profileOrder &&
+      {profileOrder ? (
         profileOrder?.map((item, index) => (
           <OrderCard key={index} data={item} />
-        ))}
+        ))
+      ) : (
+        <NoProducts />
+      )}
     </div>
   );
 }

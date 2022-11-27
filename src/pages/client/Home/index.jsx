@@ -41,50 +41,49 @@ const item = {
 };
 
 export default function Home() {
-  const { data, isError, isLoading } = useGetHomepageDataQuery();
-  const [loginUser, { sucesslogin: isSuccess, isFetching }] =
-    useLoginUserMutation();
-  const dispatch = useDispatch();
-  const { setDataInLocalState } = homepageActions;
-  const { wallOfFamesData, clientsTestimonialsData, serviceData } = useSelector(
-    (state) => state.homepage
-  );
-  useEffect(() => {
-    console.log(data);
-    loginUser();
-    if (data) {
-      dispatch(setDataInLocalState(data));
-    }
-  }, [dispatch, data]);
-  return (
-    <motion.div
-      variants={container}
-      initial="hidden"
-      animate="show"
-      exit="exit"
-      transition={{ staggerChildren: 0.5 }}
-    >
-      {isLoading && <FullScreenLoader />}
-      <motion.div className="home__style" variants={item}>
-        <Banner headerArray={serviceData} />
+   const { data, isError, isLoading } = useGetHomepageDataQuery();
+   const [loginUser, { sucesslogin: isSuccess, isFetching }] =
+      useLoginUserMutation();
+   const dispatch = useDispatch();
+   const { setDataInLocalState } = homepageActions;
+   const { wallOfFamesData, clientsTestimonialsData, serviceData } =
+      useSelector((state) => state.homepage);
+   useEffect(() => {
+      console.log(data);
+      loginUser();
+      if (data) {
+         dispatch(setDataInLocalState(data));
+      }
+   }, [dispatch, data]);
+   return (
+      <motion.div
+         variants={container}
+         initial="hidden"
+         animate="show"
+         exit="exit"
+         transition={{ staggerChildren: 0.5 }}
+      >
+         {isLoading && <FullScreenLoader />}
+         <motion.div className="home__style" variants={item}>
+            <Banner headerArray={serviceData} />
 
-        <section className="section pb-0">
-          <AboutUs />
-          <DiscoverBooks variants={item} />
-          <ClientsTestimonials
-            variants={item}
-            clientsTestimonialsArray={clientsTestimonialsData}
-          ></ClientsTestimonials>
-        </section>
+            <section className="section pb-0">
+               <AboutUs />
+               <DiscoverBooks variants={item} />
+               <ClientsTestimonials
+                  variants={item}
+                  clientsTestimonialsArray={clientsTestimonialsData}
+               ></ClientsTestimonials>
+            </section>
 
-        <Service variants={item} serviceArray={serviceData}></Service>
-        {/* <Pricing/> */}
+            <Service variants={item} serviceArray={serviceData}></Service>
+            {/* <Pricing/> */}
 
-        <WallOfFames
-          variants={item}
-          wallOfFamesArray={wallOfFamesData}
-        ></WallOfFames>
+            <WallOfFames
+               variants={item}
+               wallOfFamesArray={wallOfFamesData}
+            ></WallOfFames>
+         </motion.div>
       </motion.div>
-    </motion.div>
-  );
+   );
 }
