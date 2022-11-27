@@ -268,6 +268,7 @@ const deleteUser = async (req, res) => {
   res.json({ message: "User Deleted Successfuly" });
 };
 
+//user logout*************************************
 const logoutUser = async (req, res) => {
   const reqCookie = req.cookies["refreshTokenVal"];
 
@@ -308,15 +309,7 @@ const logoutUser = async (req, res) => {
   res.status(204).send("You Loged Out All Tokens");
 };
 
-const logout = async (req, res) => {
-  if (request.session.userId) {
-    delete request.session.userId;
-    response.json({ result: "SUCCESS" });
-  } else {
-    response.json({ result: "ERROR", message: "User Is Not Logged In." });
-  }
-};
-// ---------------------------------get all users
+//get all users***********************************
 const getUsersData = async (req, res) => {
   try {
     const users = await User.find({});
@@ -328,7 +321,7 @@ const getUsersData = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
-// ---------------------------------get data of user
+//get data of user*********************************
 const getUserByID = async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.params.id });
