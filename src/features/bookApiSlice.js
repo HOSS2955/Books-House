@@ -1,4 +1,3 @@
-import { build } from "@reduxjs/toolkit/dist/query/core/buildMiddleware/cacheLifecycle";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { booksActions } from "../store/client/reducers/bookSlice";
 
@@ -58,7 +57,7 @@ export const bookApiSlice = createApi({
             }
          },
       }),
-      getBook: build.query({
+      getBook: builder.query({
          query: ({ _id }) => {
             return {
                url: `getBook/${_id}`,
@@ -73,7 +72,7 @@ export const bookApiSlice = createApi({
             }
          },
       }),
-      updateBook: build.mutation({
+      updateBook: builder.mutation({
          query: ({ id, formValue }) => {
             return {
                url: `updatebook/${id}`,
@@ -82,6 +81,30 @@ export const bookApiSlice = createApi({
             };
          },
       }),
+      // addComment: builder.mutation({
+      //    query:({value, id})=>{
+      //       return{
+      //          url:`${id}/commentBook`,
+      //          method:"POST",
+      //          body:value,
+      //          credentials: "include"
+      //       }
+      //    },
+      //    transformResponse: (result) => result,
+      //    async onQueryStarted(args, { dispatch, queryFulfilled }) {
+      //       try {
+      //          const { data } = await queryFulfilled;
+      //          console.log("comment", data);
+      //          // dispatch(setDataInLocalState(data));
+      //          console.log("done added comment to state" , data);
+      //       } catch (error) {
+      //          console.log(
+      //             "Error Inside onQueryStarted RTK QUERY FROM bookSlice : ",
+      //             error
+      //          );
+      //       }
+      //    },
+      // })
    }),
 });
 
@@ -91,4 +114,5 @@ export const {
    useAddBookMutation,
    useDeleteBookMutation,
    useUpdateBookMutation,
+   useAddCommentMutation,
 } = bookApiSlice;

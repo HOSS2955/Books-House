@@ -109,77 +109,79 @@ const NavBar = ({ showModal }) => {
   // };
   // // }
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: -180 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        ease: "easeInOut",
-        duration: 1,
-        delay: 0.2,
-      }}
-      className="fixed-top"
-      ref={headerRef}
-    >
-      {/* Large screen */}
-      <header
-        className={
-          color ? "header-bg header large__screen" : "header large__screen"
-        }
+   return (
+      <motion.div
+         initial={{ opacity: 0, y: -180 }}
+         animate={{ opacity: 1, y: 0 }}
+         transition={{
+            ease: "easeInOut",
+            duration: 1,
+            delay: 0.2,
+         }}
+         className="fixed-top"
+         ref={headerRef}
       >
-        <div className="container">
-          <div className="row">
-            <div className="nav__wrapper">
-              <div className="logo">
-                <img src={logo2} alt="logo" />
-                <div>
-                  <Link to="/">
-                    <h1 className="mb-0">Books House</h1>
-                  </Link>
-                </div>
-              </div>
-              <div className="navigation">
-                <ul className="menu">
-                  {nav__links.map((item, index) => (
-                    <li className="nav__item" key={index}>
-                      <NavLink
-                        to={item.path}
-                        className={(navClass) =>
-                          navClass.isActive ? "text-warning bold" : ""
-                        }
-                      >
-                        {item.display}
-                      </NavLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              {user ? (
-                <div className="nav__icons">
-                  <span onClick={showModal} className="fav__icon">
-                    <FiHeart />
-                  </span>
-                  <span className="cart__icon" onClick={clickCart}>
-                    <BsBag />
-                    {cartTotalQuantity === 0 ? (
-                      false
-                    ) : (
-                      <span className="__badge">{cartTotalQuantity}</span>
-                    )}
-                  </span>
-                  <span>
-                    <Dropdown>
-                      <Dropdown.Toggle
-                        variant="transparent"
-                        id="dropdown-basic"
-                        className="dropDown__Toggle"
-                      >
-                        <motion.img
-                          whileTap={{ scale: 1.2 }}
-                          src={userIcon}
-                          alt="user icon"
-                        />
-                      </Dropdown.Toggle>
+         {/* Large screen */}
+         <header
+            className={
+               color ? "header-bg header large__screen" : "header large__screen"
+            }
+         >
+            <div className="container">
+               <div className="row">
+                  <div className="nav__wrapper">
+                     <div className="logo">
+                        <img src={logo2} alt="logo" />
+                        <div>
+                           <Link to="/">
+                              <h1 className="mb-0">Books House</h1>
+                           </Link>
+                        </div>
+                     </div>
+                     <div className="navigation">
+                        <ul className="menu">
+                           {nav__links.map((item, index) => (
+                              <li className="nav__item" key={index}>
+                                 <NavLink
+                                    to={item.path}
+                                    className ={(navClass) =>
+                                      navClass.isActive ? "text-warning bold" : ""
+                                    }
+                                 >
+                                    {item.display}
+                                 </NavLink>
+                              </li>
+                           ))}
+                        </ul>
+                     </div>
+                     {user ? (
+                        <div className="nav__icons">
+                           <span onClick={showModal} className="fav__icon">
+                              <FiHeart />
+                           </span>
+                           <span className="cart__icon" onClick={clickCart}>
+                              <BsBag />
+                              {cartTotalQuantity === 0 ? (
+                                 false
+                              ) : (
+                                 <span className="__badge">
+                                    {cartTotalQuantity}
+                                 </span>
+                              )}
+                           </span>
+                           <span>
+                              <Dropdown>
+                                 <Dropdown.Toggle
+                                    variant="transparent"
+                                    id="dropdown-basic"
+                                    className="dropDown__Toggle"
+                                 >
+                                    <motion.img
+                                       whileTap={{ scale: 1.2 }}
+                                       src={userIcon}
+                                       alt="user icon"
+                                    />
+                                 </Dropdown.Toggle>
 
                       {role === "admin" ? (
                         <Dropdown.Menu className="dropDown__user">

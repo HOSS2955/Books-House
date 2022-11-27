@@ -62,14 +62,14 @@ export default function ClientsTestmonialsSwiper({clientsTestimonialsArray}) {
                 ></path>
               </svg> 
               </div>
-          <SwiperData className="100%"
+          <SwiperData className="100% mt-5"
             feedTitle={item.title}
             feedPosition={item.desc}
             imgSrc={item.img}
           >
               <p>{item.paragraph}</p>
           </SwiperData>
-          <div className="custom-shape-divider-bottom-1668531089">
+          <div className="custom-shape-divider-bottom-1668531089 w-100">
               <svg
                 data-name="Layer 1"
                 xmlns="http://www.w3.org/2000/svg"

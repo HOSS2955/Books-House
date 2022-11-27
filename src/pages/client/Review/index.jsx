@@ -3,8 +3,8 @@ import BreadCrumb from "../../../components/client/ui/Breadcrump/BreadCrumb";
 import AsideBooks from "./AsideBooks";
 import BookReview from "./BookReview";
 import { useDispatch, useSelector } from "react-redux";
-import { getBookReviews } from "../../../store/client/reducers/bookReviewSlice";
 import Pagination from "../../../components/client/ui/Pagination/Pagination";
+import { useGetBookReviewsQuery } from "../../../features/bookReviewApiSlice";
 
 export default function Reviews() {
    const dispatch = useDispatch();
@@ -25,9 +25,10 @@ export default function Reviews() {
       });
       setItems(newItem);
    };
+   const {ReviewData , isError , isLoading} = useGetBookReviewsQuery()
    useEffect(() => {
-      dispatch(getBookReviews());
-   }, []);
+      dispatch(ReviewData);
+   }, [dispatch , ReviewData]);
    useEffect(() => {
       setItems(data);
    }, [data]);
