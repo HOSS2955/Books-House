@@ -5,18 +5,18 @@ const initialState = {
    bookReviews: [],
    dataEditBookReview: {},
 };
-export const getBookReviews = createAsyncThunk(
-   "/bookreview/getall",
-   async (_, thunckAPI) => {
-      const { rejectWithValue } = thunckAPI;
-      try {
-         const response = await axios.get("/bookreview/getall");
-         return response.data;
-      } catch (error) {
-         return rejectWithValue(error.message);
-      }
-   }
-);
+// export const getBookReviews = createAsyncThunk(
+//    "/bookreview/getall",
+//    async (_, thunckAPI) => {
+//       const { rejectWithValue } = thunckAPI;
+//       try {
+//          const response = await axios.get("/bookreview/getall");
+//          return response.data;
+//       } catch (error) {
+//          return rejectWithValue(error.message);
+//       }
+//    }
+// );
 
 export const addBookReview = createAsyncThunk(
    "books/addBook",
@@ -76,14 +76,20 @@ const bookReviewSlice = createSlice({
          console.log(action.payload);
          state.dataEditBookReview = action.payload;
       },
+      getDataBookReview: (state, action) => {
+         state.bookReviews = action.payload;
+      },
+      setFilteredBookReview: (state, action) => {
+         state.bookReviews = action.payload;
+      },
    },
    extraReducers: {
-      [getBookReviews.fulfilled]: (state, action) => {
-         state.bookReviews = action.payload;
-      },
-      [deleteBookReview.fulfilled]: (state, action) => {
-         state.bookReviews = action.payload;
-      },
+      // [getBookReviews.fulfilled]: (state, action) => {
+      //    state.bookReviews = action.payload;
+      // },
+      // [deleteBookReview.fulfilled]: (state, action) => {
+      //    state.bookReviews = action.payload;
+      // },
    },
 });
 

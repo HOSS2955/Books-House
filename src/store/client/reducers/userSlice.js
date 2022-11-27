@@ -1,6 +1,7 @@
-import { createSlice
-   // , PayloadAction
- } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  // , PayloadAction
+} from "@reduxjs/toolkit";
 // import { useGetUserMutation } from "../../../features/authApiSlice";
 
 const initialState = {
