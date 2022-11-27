@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { authApi } from "../services/authApi";
 import {
-   logoutInState,
-   setUserInState,
+  logoutInState,
+  setUserInState,
 } from "../store/client/reducers/userSlice";
 import customFetchBase from "../components/CustomFetchBase";
 export const authApiSlice = createApi({
@@ -91,6 +91,7 @@ export const authApiSlice = createApi({
           }
         } catch (error) {
           console.log(error);
+          logoutInState();
           window.href.location = "/auth/login";
         }
       },

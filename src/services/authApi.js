@@ -11,8 +11,6 @@ const baseQuery = fetchBaseQuery({
   baseUrl: `/user/`,
 
   prepareHeaders: (headers, { getState }) => {
-    console.log("headers", headers);
-
     const token = getState().userState?.token;
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);
@@ -23,11 +21,6 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
-  console.log(
-    "Error occured in calling baseQuery",
-    result?.error?.originalStatus
-  );
-
   if (
     result?.error?.originalStatus === 401 ||
     result?.error?.data === "No token founded"
