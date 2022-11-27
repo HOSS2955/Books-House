@@ -160,10 +160,53 @@ const forgetPassword = async (req, res) => {
   }
 };
 
+//logout Admin ***********************
+
+const logoutAdmin = async (req, res) => {
+  const reqCookie = req.cookies["refreshTokenVal"];
+
+  if (!reqCookie) return res.status(204);
+
+  const refreshToken = reqCookie;
+
+  // If refresher token exist in database
+  const foundUser = await User.findOne({ refreshToken }).exec();
+  if (!foundUser) {
+    res.clearCookie("refreshTokenVal", {
+      httpOnly: true,
+      secure: true,
+
+      sameSite: "None",
+    });
+    res.clearCookie("logged_in", {
+      httpOnly: false,
+      secure: true,
+      sameSite: "None",
+    });
+    return res.status(204);
+  }
+
+  // Delete refresher in database
+  foundUser.refreshToken = [];
+  const result = await foundUser.save();
+  res.clearCookie("logged_in", {
+    httpOnly: false,
+    secure: true,
+    sameSite: "None",
+  });
+  res.clearCookie("refreshTokenVal", {
+    httpOnly: true,
+    sameSite: "None",
+    secure: true,
+  });
+  res.status(204).send("You Loged Out All Tokens");
+};
+
 module.exports = {
   confirmEmail,
   refreshEmail,
   login,
   sendCode,
   forgetPassword,
+  logoutAdmin
 };
