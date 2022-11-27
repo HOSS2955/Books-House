@@ -4,9 +4,7 @@ import {
   fetchBaseQuery,
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query";
-import {
-  setUserInState,
-} from "../store/client/reducers/userSlice";
+import { setUserInState } from "../store/client/reducers/userSlice";
 import { Mutex } from "async-mutex";
 
 const mutex = new Mutex();
@@ -16,10 +14,7 @@ const baseQuery = fetchBaseQuery({
   credentials: "include",
 
   prepareHeaders: (headers, { getState }) => {
-    console.log("headers", headers);
-
     const token = getState().userState?.token;
-    console.log("BEARER", token);
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);
     }
@@ -27,7 +22,7 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-const customFetchBase = async (args, api, extraOptions) => {
+const customAdminFetch = async (args, api, extraOptions) => {
   // wait until the mutex is available without locking it
   await mutex.waitForUnlock();
   let result = await baseQuery(args, api, extraOptions);
@@ -69,4 +64,4 @@ const customFetchBase = async (args, api, extraOptions) => {
   return result;
 };
 
-export default customFetchBase;
+export default customAdminFetch;
