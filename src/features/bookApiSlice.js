@@ -81,30 +81,30 @@ export const bookApiSlice = createApi({
             };
          },
       }),
-      // addComment: builder.mutation({
-      //    query:({value, id})=>{
-      //       return{
-      //          url:`${id}/commentBook`,
-      //          method:"POST",
-      //          body:value,
-      //          credentials: "include"
-      //       }
-      //    },
-      //    transformResponse: (result) => result,
-      //    async onQueryStarted(args, { dispatch, queryFulfilled }) {
-      //       try {
-      //          const { data } = await queryFulfilled;
-      //          console.log("comment", data);
-      //          // dispatch(setDataInLocalState(data));
-      //          console.log("done added comment to state" , data);
-      //       } catch (error) {
-      //          console.log(
-      //             "Error Inside onQueryStarted RTK QUERY FROM bookSlice : ",
-      //             error
-      //          );
-      //       }
-      //    },
-      // })
+      addComment: builder.mutation({
+         query:({value, id})=>{
+            return{
+               url:`${id}/commentBook`,
+               method:"POST",
+               body:value,
+               credentials: "include"
+            }
+         },
+         transformResponse: (result) => result,
+         async onQueryStarted(args, { dispatch, queryFulfilled }) {
+            try {
+               const { data } = await queryFulfilled;
+               console.log("comment", data);
+               // dispatch(setDataInLocalState(data));
+               console.log("done added comment to state" , data);
+            } catch (error) {
+               console.log(
+                  "Error Inside onQueryStarted RTK QUERY FROM bookSlice : ",
+                  error
+               );
+            }
+         },
+      })
    }),
 });
 
