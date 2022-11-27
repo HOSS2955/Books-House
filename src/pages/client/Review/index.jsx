@@ -76,7 +76,7 @@ export default function Reviews() {
           </button>
           <button
             className="btn btn-outline-dark mt-2"
-            onClick={() => filterItem("Short Story Collections")}
+            onClick={() => filterItem("Sci-Fi & Fantasy")}
           >
             Short Story Collections
           </button>
@@ -88,13 +88,13 @@ export default function Reviews() {
           </button>
           <button
             className="btn btn-outline-dark mt-2"
-            onClick={() => filterItem("Middle Grade & Young Adult")}
+            onClick={() => filterItem("Mystery, Thriller, & Suspense")}
           >
             Non-Fiction
           </button>
           <button
             className="btn btn-outline-dark  mt-2"
-            onClick={() => filterItem("Middle Grade & Young Adult")}
+            onClick={() => filterItem("Poetry")}
           >
             Poetry
           </button>
