@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { bookReviewActions } from "../store/client/reducers/bookReviewSlice";
-const { getDataBookReview, setFilteredBookReview } = bookReviewActions;
+const { getDataBookReview, addNewBookReview, setFilteredBookReview } =
+   bookReviewActions;
 
 export const bookReviewApiSlice = createApi({
    baseQuery: fetchBaseQuery({ baseUrl: "/bookreview/" }),
@@ -16,7 +17,7 @@ export const bookReviewApiSlice = createApi({
             };
          },
          transformResponse: (result) => result,
-         async onQueryStarted({ dispatch, queryFulfilled }) {
+         async onQueryStarted(args, { dispatch, queryFulfilled }) {
             try {
                const { data } = await queryFulfilled;
                dispatch(getDataBookReview(data));
@@ -36,9 +37,11 @@ export const bookReviewApiSlice = createApi({
                credentials: "include",
             };
          },
+         providesTags: [{ title: "REVIEWS", id: "REVIEWS_LIST" }],
          async onQueryStarted(bookReview, { dispatch, getState }) {
             try {
                const state = getState();
+
                const filterArr = state.bookReviews.bookReviews.filter(
                   (ele) => ele._id !== bookReview._id
                );
@@ -48,7 +51,7 @@ export const bookReviewApiSlice = createApi({
             }
          },
       }),
-      // add in proxy after edit route in backend
+
       addBookReview: builder.mutation({
          query(comingData) {
             return {
@@ -57,6 +60,15 @@ export const bookReviewApiSlice = createApi({
                body: comingData,
                credentials: "include",
             };
+         },
+         providesTags: [{ title: "REVIEWS", id: "REVIEWS_LIST" }],
+         async onQueryStarted(comingData, { dispatch, queryFulfilled }) {
+            try {
+               const { data } = await queryFulfilled;
+               dispatch(addNewBookReview(data));
+            } catch (error) {
+               console.log(error);
+            }
          },
       }),
 
@@ -68,6 +80,21 @@ export const bookReviewApiSlice = createApi({
                body: formValue,
                credentials: "include",
             };
+         },
+         providesTags: [{ title: "REVIEWS", id: "REVIEWS_LIST" }],
+         async onQueryStarted(args, { getState, dispatch, queryFulfilled }) {
+            try {
+               const state = getState();
+               const { data } = await queryFulfilled;
+               console.log(data);
+               const updatedlist = state.bookReviews.bookReviews.map((ele) =>
+                  ele._id === data._id ? data : ele
+               );
+               console.log("updated list", updatedlist);
+               dispatch(getDataBookReview(updatedlist));
+            } catch (error) {
+               console.log(error);
+            }
          },
       }),
    }),

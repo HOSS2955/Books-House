@@ -7,8 +7,12 @@ import { useNavigate } from "react-router-dom";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useEffect } from "react";
 import { bookReviewActions } from "../../../store/client/reducers/bookReviewSlice";
-import { useDeleteBookReviewMutation,useGetBookReviewsQuery } from "../../../features/bookReviewApiSlice";
-
+import { bookReviewApiSlice } from "../../../features/bookReviewApiSlice";
+import FullScreenLoader from "../../../components/FullScreenLoader";
+import {
+   useDeleteBookReviewMutation,
+   useGetBookReviewsQuery,
+} from "../../../features/bookReviewApiSlice";
 
 export default function Reviews() {
    const dispatch = useDispatch();
@@ -16,16 +20,40 @@ export default function Reviews() {
    const { bookReviews } = useSelector((state) => state.bookReviews);
    const [pageSize, setPageSize] = useState(10);
 
-   const { setdataEditBookReview } = bookReviewActions;
-   const [ deleteBookReview , {isError : deleteError , isLoading : deleteLoading} ] = useDeleteBookReviewMutation();
+   const { setdataEditBookReview, getDataBookReview } = bookReviewActions;
+
+   const { isLoading, isFetching } =
+      bookReviewApiSlice.endpoints.getBookReviews.useQuery(null, {
+         refetchOnMountOrArgChange: true,
+         skip: false,
+      });
+   const bookRev = bookReviewApiSlice.endpoints.getBookReviews.useQueryState(
+      null,
+      {
+         selectFromResult: ({ data }) => data,
+      }
+   );
+   console.log("new data every fetch", bookRev);
+   // if (bookRev) {
+   //    console.log("book reviews", bookRev);
+   // }
+   const { data, isSuccess, isError } = useGetBookReviewsQuery();
+   // let myData = "";
+   const [
+      deleteBookReview,
+      { isError: deleteError, isLoading: deleteLoading },
+   ] = useDeleteBookReviewMutation();
 
    const theme = useTheme();
    const colors = tokens(theme.palette.mode);
 
-   const {data , isError , isLoading} = useGetBookReviewsQuery()
    useEffect(() => {
-      dispatch(data);
-   }, [dispatch , data]);
+      if (data) {
+         dispatch(getDataBookReview(data));
+      }
+   }, [dispatch, data]);
+
+   console.log(bookReviews);
 
    const columns = [
       { field: "_id", hide: true },
@@ -97,7 +125,8 @@ export default function Reviews() {
                   (book) => book._id === thisRow._id
                );
                if (e.target.innerText === "DELETE") {
-                  dispatch(deleteBookReview(thisRow));
+                  deleteBookReview(thisRow);
+                  // dispatch(deleteBookReview(thisRow));
                }
                if (e.target.innerText === "EDIT") {
                   dispatch(setdataEditBookReview(filteredBookReview[0]));
@@ -202,7 +231,7 @@ export default function Reviews() {
             <DataGrid
                rows={bookReviews} //add reviews array
                columns={columns}
-               loading={!bookReviews.length}
+               loading={isLoading}
                components={{
                   Toolbar: GridToolbar,
                }}
