@@ -93,7 +93,6 @@ function App() {
           <Route path="auth" element={<AuthRoutes />}>
             <Route path="forgetpass" element={<SendCodeToEmail />} />
             <Route path="password" element={<VerifyPass />} />
-            
             <Route path="register" element={<RegisterPage />} />
             <Route path="login" element={<Login2 />} />
           </Route>
