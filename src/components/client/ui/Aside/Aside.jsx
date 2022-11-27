@@ -6,7 +6,7 @@ import "./aside.css";
 
 export default function Aside() {
    const categoriesHandler = (e) => {
-      console.log(e.target.name);
+      // console.log(e.target.name);
    };
 
    return (

@@ -32,7 +32,7 @@ const userSchema = yup.object().shape({
 export default function Form() {
    const isNonMobile = useMediaQuery("(min-width:600px)");
    const handleFormSubmit = (values) => {
-      console.log(values);
+      // console.log(values);
    };
    return (
       <Box m="20px">

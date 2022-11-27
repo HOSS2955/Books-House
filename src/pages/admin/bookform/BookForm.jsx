@@ -11,6 +11,7 @@ import { addBook, updateBook } from "../../../store/client/reducers/bookSlice";
 import { useEffect } from "react";
 import { tokens } from "../../../theme";
 import { useTheme } from "@mui/material";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 const initialValues = {
    title: "",
@@ -62,14 +63,12 @@ export default function BookForm() {
    // SUBMIT
    const handleFormSubmit = (book) => {
       if (id) {
-         console.log(formValue, "edit");
          dispatch(updateBook({ id, formValue }));
       } else {
          setFormValue({
             ...book,
             imageSource: image,
          });
-         console.log(formValue);
          dispatch(addBook(formValue));
       }
       navigate("/admin/books");
@@ -77,7 +76,6 @@ export default function BookForm() {
 
    const operationHandler = (e) => {
       const { name, value } = e.target;
-      console.log(name, value);
       setFormValue((pervState) => ({
          ...pervState,
          [name]: value,
@@ -140,6 +138,9 @@ export default function BookForm() {
                         type="text"
                         label="Title"
                         onBlur={handleBlur}
+                        color="grey"
+                        defaultValue={id ? dataEditBook.title : ""}
+                        InputLabelProps={{ className: "text-field" }}
                         onChange={handleChange}
                         value={values.title}
                         placeholder={id ? dataEditBook.title : ""}
@@ -154,6 +155,7 @@ export default function BookForm() {
                         variant="filled"
                         type="text"
                         label="Price"
+                        color="grey"
                         onBlur={handleBlur}
                         onChange={handleChange}
                         value={values.price}
@@ -169,6 +171,7 @@ export default function BookForm() {
                         variant="filled"
                         type="text"
                         label="Author"
+                        color="grey"
                         onBlur={handleBlur}
                         placeholder={id ? dataEditBook.author : ""}
                         onChange={handleChange}
@@ -184,6 +187,7 @@ export default function BookForm() {
                         variant="filled"
                         type="text"
                         label="Category"
+                        color="grey"
                         placeholder={id ? dataEditBook.category : ""}
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -199,6 +203,7 @@ export default function BookForm() {
                         variant="filled"
                         type="text"
                         label="Type"
+                        color="grey"
                         placeholder={id ? dataEditBook.type : ""}
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -211,9 +216,13 @@ export default function BookForm() {
                      {/* DECRIPTOIN */}
                      <TextField
                         fullWidth
+                        multiline
+                        rows={5}
+                        maxRows={10}
                         variant="filled"
                         type="text"
                         label="Description"
+                        color="grey"
                         placeholder={id ? dataEditBook.bookDesc : ""}
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -223,20 +232,6 @@ export default function BookForm() {
                         helperText={touched.bookDesc && errors.bookDesc}
                         sx={{ gridColumn: "span 4" }}
                      />
-
-                     {/* <TextField
-                        fullWidth
-                        variant="filled"
-                        type="text"
-                        label="Image Source"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.imageSrc}
-                        name="imageSrc"
-                        error={!!touched.imageSrc && !!errors.imageSrc}
-                        helperText={touched.imageSrc && errors.imageSrc}
-                        sx={{ gridColumn: "span 4" }}
-                     /> */}
                   </Box>
                   <Box display="flex" justifyContent="end" mt="20px">
                      <Button
@@ -258,15 +253,35 @@ export default function BookForm() {
                display: "flex",
             }}
          >
-            <Typography sx={{ color: colors.grey[200], mr: 2 }}>
+            {/* <Typography sx={{ color: colors.grey[200], mr: 2 }}>
                Image
-            </Typography>
-            <input
-               type="file"
-               onChange={(e) => {
-                  updateImagePath(e);
-               }}
-            ></input>
+            </Typography> */}
+            <label htmlFor="upload-photo">
+               <input
+                  onChange={(e) => {
+                     updateImagePath(e);
+                  }}
+                  style={{ display: "none" }}
+                  id="upload-photo"
+                  name="upload-photo"
+                  type="file"
+               />
+
+               <Button
+                  variant="contained"
+                  component="span"
+                  sx={{
+                     color: "#ffffff",
+                     backgroundColor: colors.blueAccent[600],
+                     "&:hover": {
+                        backgroundColor: colors.blueAccent[500],
+                        opacity: [0.9, 0.8, 0.7],
+                     },
+                  }}
+               >
+                  Choose Image
+               </Button>
+            </label>
             <Button
                disabled={image ? false : true}
                variant="contained"
@@ -275,14 +290,24 @@ export default function BookForm() {
                sx={{
                   backgroundColor: colors.greenAccent[600],
                   ml: 3,
+                  "&:hover": {
+                     backgroundColor: colors.greenAccent[700],
+                     opacity: [0.9, 0.8, 0.7],
+                  },
                }}
             >
                Upload
             </Button>
+            {url && (
+               // <p className="fs-5 ms-3 text-success">
+               //    Uploaded Successfully
+               // </p>
+               <div className="fs-5 ms-3  text-success">
+                  Uploaded
+                  <CheckCircleIcon className="fs-5 ms-1  text-success" />
+               </div>
+            )}
          </Box>
-         <div className="d-flex">
-            {url && <p className="fs-5 text-success">Uploaded Successfully</p>}
-         </div>
       </Box>
    );
 }

@@ -117,7 +117,6 @@ export default function Aside() {
             className={"mb-2 text-lead fw-lighter  activeAside"}
             onClick={(e) => {
                categoriesHandler(e);
-               setIsActive(true);
             }}
             name={name}
          >

@@ -1,23 +1,21 @@
 import React from "react";
-import { Navigation, Pagination, A11y , FreeMode , Autoplay } from "swiper";
+import { Navigation, Pagination, A11y, FreeMode, Autoplay } from "swiper";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperData from "./SwiperData";
-import "swiper/css/effect-fade"
-import 'swiper'
+import "swiper/css/effect-fade";
+import "swiper";
 import "swiper/css/bundle";
 
 
 export default function ClientsTestmonialsSwiper({clientsTestimonialsArray}) {
-
-  console.log(clientsTestimonialsArray)
   
   // const feedbacksList = "s";
   return (
     <div>
       <Swiper
-        // install Swiper modules
-        modules={[Navigation, Pagination, A11y , FreeMode , Autoplay ]}
+         // install Swiper modules
+         modules={[Navigation, Pagination, A11y , FreeMode , Autoplay ]}
         spaceBetween={100}
         centeredSlides={true}
         loop={true}
@@ -30,40 +28,27 @@ export default function ClientsTestmonialsSwiper({clientsTestimonialsArray}) {
         navigation
         freeMode
         a11y
-        breakpoints= {{
+        breakpoints={{
           // when window width is >= 200px
-          200:{
-            slidesPerView: 1
+          200: {
+            slidesPerView: 1,
           },
           // when window width is >= 900px
           900: {
             slidesPerView: 2,
-            spaceBetween: 40
-          }
-        }
-      }
+            spaceBetween: 40,
+          },
+        }}
       >
-
-{/* <Mapping Clients testmonials/> */}
+        {/* <Mapping Clients testmonials/> */}
 
 {clientsTestimonialsArray.map((item , index)=>
-<div key={index}>
-<div className="custom-shape-divider-top-1668530886">
-        <svg
-                data-name="Layer 1"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 1200 120"
-                preserveAspectRatio="none"
+
+
+              <SwiperSlide 
+              key={index}
+              className={` swiper__card h-auto ${index%2===0? "testimonial__primary" : "testimonial__warning"}`}
               >
-                <path
-                  d="M602.45,3.86h0S572.9,116.24,281.94,120H923C632,116.24,602.45,3.86,602.45,3.86Z"
-                  className="shape-fill"
-                ></path>
-              </svg> 
-              </div>
-
-
-              <SwiperSlide className={` swiper__card h-auto ${index%2===0? "testimonial__primary" : "testimonial__warning"}`}>
           <div className="custom-shape-divider-top-1668530886">
         <svg
                 data-name="Layer 1"
@@ -98,7 +83,6 @@ export default function ClientsTestmonialsSwiper({clientsTestimonialsArray}) {
               </svg>
             </div> 
         </SwiperSlide>
-            </div>
         )}
         
       </Swiper>

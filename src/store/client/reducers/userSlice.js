@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
-  user: null,
-  token: null,
-  role: null,
+   user: "amin",
+   token: "admin",
+   role: "admin",
 };
 
 export const userSlice = createSlice({

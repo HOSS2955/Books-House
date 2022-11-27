@@ -52,7 +52,7 @@ export default function WishlistSideBar({ hideModal }) {
             </a>
           </div>
           {wishlistItems?.map((item, index) => (
-            <WishlistItem hideModal={hideModal} data={item} />
+            <WishlistItem hideModal={hideModal} data={item} key={index}/>
           ))}
         </div>
         <div>

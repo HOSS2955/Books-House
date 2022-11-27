@@ -27,7 +27,6 @@ export default function CheckoutForm({ packages, confetti }) {
   // const handleChange = (e) => {
   //   const { value, name } = e.target;
   //   setCredentials({ ...credentials, [name]: value });
-  //   console.log(credentials);
   // };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,7 +40,6 @@ export default function CheckoutForm({ packages, confetti }) {
 
     axios.post("/data", [{ packages }, { authorData }]).then(async (result) => {
       var data = await result.data;
-      console.log(data);
     });
 
     const { error, paymentIntent } = await stripe.confirmPayment({

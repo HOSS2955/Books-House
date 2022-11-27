@@ -4,7 +4,8 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import "../../../assets/css/NavBar.css";
 
 import { motion } from "framer-motion";
-import { FiHeart } from "react-icons/fi";
+import { FiHeart, FiLogIn, FiLogOut } from "react-icons/fi";
+
 import { BsBag } from "react-icons/bs";
 import { BiUserCircle } from "react-icons/bi";
 import Container from "react-bootstrap/Container";
@@ -18,6 +19,14 @@ import { logoutInState } from "../../../store/client/reducers/userSlice";
 import { toast } from "react-toastify";
 import { useLogoutUserMutation } from "../../../features/authApiSlice";
 import Cookies from "js-cookie";
+import logo2 from "../../../assets/images/logo2.png";
+import userIcon from "../../../assets/images/user-icon.png";
+import {
+  MdOutlineAccountCircle,
+  MdOutlineAdminPanelSettings,
+  MdOutlinePassword,
+  MdSwitchAccount,
+} from "react-icons/md";
 const nav__links = [
   {
     path: "",
@@ -57,8 +66,6 @@ const NavBar = ({ showModal }) => {
     }
 
     if (isError) {
-      console.log(error);
-
       toast.error(error?.data, {
         position: "top-right",
       });
@@ -78,7 +85,6 @@ const NavBar = ({ showModal }) => {
   };
   // Check if the user is Authorized
   const user = useSelector((state) => state.userState.user);
-  // console.log("IS THERE IS A COOKIE ", Cookies.get("logged_in"));
   const role = useSelector((state) => state.userState.role);
   // // change nav color when scrolling
   const [color, setColor] = useState(false);
@@ -103,108 +109,141 @@ const NavBar = ({ showModal }) => {
   // };
   // // }
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: -180 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        ease: "easeInOut",
-        duration: 1,
-        delay: 0.2,
-      }}
-      className="fixed-top"
-      ref={headerRef}
-    >
-      {/* Large screen */}
-      <header
-        className={
-          color ? "header-bg header large__screen" : "header large__screen"
-        }
+   return (
+      <motion.div
+         initial={{ opacity: 0, y: -180 }}
+         animate={{ opacity: 1, y: 0 }}
+         transition={{
+            ease: "easeInOut",
+            duration: 1,
+            delay: 0.2,
+         }}
+         className="fixed-top"
+         ref={headerRef}
       >
-        <div className="container">
-          <div className="row">
-            <div className="nav__wrapper">
-              <div className="logo">
-                <img src="./images/logo2.png" alt="logo" />
-                <div>
-                  <Link to="/">
-                    <h1 className="mb-0">Books House</h1>
-                  </Link>
-                </div>
-              </div>
-              <div className="navigation">
-                <ul className="menu">
-                  {nav__links.map((item, index) => (
-                    <li className="nav__item" key={index}>
-                      <NavLink
-                        to={item.path}
-                        className={(navClass) =>
-                          !navClass.isActive ? "nav__notActive" : "nav__active"
-                        }
-                      >
-                        {item.display}
-                      </NavLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              {user ? (
-                <div className="nav__icons">
-                  <span onClick={showModal} className="fav__icon">
-                    <FiHeart />
-                  </span>
-                  <span className="cart__icon" onClick={clickCart}>
-                    <BsBag />
-                    {cartTotalQuantity === 0 ? (
-                      false
-                    ) : (
-                      <span className="__badge"> {cartTotalQuantity}</span>
-                    )}
-                  </span>
-                  <span>
-                    <Dropdown>
-                      <Dropdown.Toggle
-                        variant="transparent"
-                        id="dropdown-basic"
-                        className="dropDown__Toggle"
-                      >
-                        <motion.img
-                          whileTap={{ scale: 1.2 }}
-                          src="./images/user-icon.png"
-                          alt="user icon"
-                        />
-                      </Dropdown.Toggle>
+         {/* Large screen */}
+         <header
+            className={
+               color ? "header-bg header large__screen" : "header large__screen"
+            }
+         >
+            <div className="container">
+               <div className="row">
+                  <div className="nav__wrapper">
+                     <div className="logo">
+                        <img src={logo2} alt="logo" />
+                        <div>
+                           <Link to="/">
+                              <h1 className="mb-0">Books House</h1>
+                           </Link>
+                        </div>
+                     </div>
+                     <div className="navigation">
+                        <ul className="menu">
+                           {nav__links.map((item, index) => (
+                              <li className="nav__item" key={index}>
+                                 <NavLink
+                                    to={item.path}
+                                    className ={(navClass) =>
+                                      navClass.isActive ? "text-warning bold" : ""
+                                    }
+                                 >
+                                    {item.display}
+                                 </NavLink>
+                              </li>
+                           ))}
+                        </ul>
+                     </div>
+                     {user ? (
+                        <div className="nav__icons">
+                           <span onClick={showModal} className="fav__icon">
+                              <FiHeart />
+                           </span>
+                           <span className="cart__icon" onClick={clickCart}>
+                              <BsBag />
+                              {cartTotalQuantity === 0 ? (
+                                 false
+                              ) : (
+                                 <span className="__badge">
+                                    {cartTotalQuantity}
+                                 </span>
+                              )}
+                           </span>
+                           <span>
+                              <Dropdown>
+                                 <Dropdown.Toggle
+                                    variant="transparent"
+                                    id="dropdown-basic"
+                                    className="dropDown__Toggle"
+                                 >
+                                    <motion.img
+                                       whileTap={{ scale: 1.2 }}
+                                       src={userIcon}
+                                       alt="user icon"
+                                    />
+                                 </Dropdown.Toggle>
 
                       {role === "admin" ? (
-                        <Dropdown.Menu>
+                        <Dropdown.Menu className="dropDown__user">
                           <Link to="/admin">
-                            <Dropdown.Item href="#/action-1">
+                            <Dropdown.Item
+                              href="#/action-1"
+                              className="dropDown__item"
+                            >
+                              <span>
+                                <MdOutlineAdminPanelSettings size={28} />
+                                {"  "}
+                              </span>
                               Dash board
                             </Dropdown.Item>
                           </Link>
                           <Link to="/password">
-                            <Dropdown.Item href="#/action-2">
+                            <Dropdown.Item
+                              href="#/action-2"
+                              className="dropDown__item"
+                            >
+                              <span>
+                                <MdOutlinePassword size={28} />
+                                {"  "}
+                              </span>
                               Change password
                             </Dropdown.Item>
                           </Link>
                           <Dropdown.Item
                             href="#/action-3"
                             onClick={logoutHandler}
+                            className="dropDown__item"
                           >
+                            <span>
+                              <FiLogOut size={28} />
+                              {"  "}
+                            </span>
                             Log out
                           </Dropdown.Item>
                         </Dropdown.Menu>
                       ) : (
-                        <Dropdown.Menu>
+                        <Dropdown.Menu className="dropDown__user">
                           <Link to="/mainprofile">
-                            <Dropdown.Item href="#/action-1">
+                            <Dropdown.Item
+                              href="#/action-1"
+                              className="dropDown__item"
+                            >
+                              <span>
+                                <MdSwitchAccount size={28} />
+                                {"  "}
+                              </span>
                               Profile
                             </Dropdown.Item>
                           </Link>
                           <Dropdown.Item
                             href="#/action-2"
                             onClick={logoutHandler}
+                            className="dropDown__item"
                           >
+                            <span>
+                              <FiLogOut size={28} />
+                              {"  "}
+                            </span>
                             Log out
                           </Dropdown.Item>
                         </Dropdown.Menu>
@@ -218,12 +257,30 @@ const NavBar = ({ showModal }) => {
                     <BiUserCircle />
                   </Dropdown.Toggle>
 
-                  <Dropdown.Menu>
+                  <Dropdown.Menu className="dropDown__user" align="end">
                     <Link to="/auth/login">
-                      <Dropdown.Item href="#/action-1">Log-in</Dropdown.Item>
+                      <Dropdown.Item
+                        href="#/action-1"
+                        className="dropDown__item"
+                      >
+                        <span>
+                          <FiLogIn size={28} />
+                          {"  "}
+                        </span>
+                        Log-in
+                      </Dropdown.Item>
                     </Link>
                     <Link to="/auth/register">
-                      <Dropdown.Item href="#/action-2">Sign-up</Dropdown.Item>
+                      <Dropdown.Item
+                        href="#/action-2"
+                        className="dropDown__item"
+                      >
+                        <span>
+                          <MdOutlineAccountCircle size={28} />
+                          {"  "}
+                        </span>
+                        Sign-up
+                      </Dropdown.Item>
                     </Link>
                   </Dropdown.Menu>
                 </Dropdown>
@@ -237,7 +294,7 @@ const NavBar = ({ showModal }) => {
       <Navbar bg="light" expand="xl" className="small__screen">
         <Container fluid className="pb-3 pt-3">
           <div className="logo">
-            <img src="./images/logo2.png" alt="logo" />
+            <img src={logo2} alt="logo" />
             <div>
               <h1 className="mb-0">Books House</h1>
             </div>
@@ -265,40 +322,54 @@ const NavBar = ({ showModal }) => {
                     >
                       <motion.img
                         whileTap={{ scale: 1.2 }}
-                        src="./images/user-icon.png"
+                        src={userIcon}
                         alt="user icon"
                       />
                     </Dropdown.Toggle>
 
                     {role === "admin" ? (
-                      <Dropdown.Menu>
+                      <Dropdown.Menu className="dropDown__user">
                         <Link to="/admin">
-                          <Dropdown.Item href="#/action-1">
+                          <Dropdown.Item
+                            href="#/action-1"
+                            className="dropDown__item"
+                          >
                             Dash board
                           </Dropdown.Item>
                         </Link>
                         <Link to="/password">
-                          <Dropdown.Item href="#/action-2">
+                          <Dropdown.Item
+                            href="#/action-2"
+                            className="dropDown__item"
+                          >
                             Change password
                           </Dropdown.Item>
                         </Link>
                         <Link to="/">
-                          <Dropdown.Item href="#/action-3">
+                          <Dropdown.Item
+                            href="#/action-3"
+                            className="dropDown__item"
+                          >
                             Log out
                           </Dropdown.Item>
                         </Link>
                       </Dropdown.Menu>
                     ) : (
-                      <Dropdown.Menu>
+                      <Dropdown.Menu className="dropDown__user">
                         <Link to="/mainprofile">
-                          <Dropdown.Item href="#/action-1">
+                          <Dropdown.Item
+                            href="#/action-1"
+                            className="dropDown__item"
+                          >
                             Profile
                           </Dropdown.Item>
                         </Link>
                         <Dropdown.Item
                           href="#/action-2"
                           onClick={logoutHandler}
+                          className="dropDown__item"
                         >
+                          <FiLogOut />
                           Log out
                         </Dropdown.Item>
                       </Dropdown.Menu>
@@ -310,7 +381,7 @@ const NavBar = ({ showModal }) => {
 
             <Navbar.Toggle
               aria-controls="offcanvasNavbar-expand-lg"
-              openButton
+              // openButton
             />
 
             <Navbar.Offcanvas
@@ -321,16 +392,12 @@ const NavBar = ({ showModal }) => {
             >
               <Offcanvas.Header closeButton></Offcanvas.Header>
               <Offcanvas.Body>
-                <Nav
-                  className="justify-content-end flex-grow-1 pe-3"
-                  closeButton
-                >
+                <Nav className="justify-content-end flex-grow-1 pe-3">
                   {nav__links.map((item, i) => (
-                    <>
-                      <li className="nav__item mt-4" key={i} closeButton>
+                    <div key={i}>
+                      <li className="nav__item mt-4">
                         <NavLink
                           to={item.path}
-                          closeButton
                           className={(navClass) =>
                             navClass.isActive ? "nav__active" : ""
                           }
@@ -338,7 +405,7 @@ const NavBar = ({ showModal }) => {
                           {item.display}
                         </NavLink>
                       </li>
-                    </>
+                    </div>
                   ))}
                   {/* {!checkAuth && (
                       <Dropdown className="mt-4">
@@ -346,14 +413,14 @@ const NavBar = ({ showModal }) => {
                           <BiUserCircle />
                         </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
+                        <Dropdown.Menu className="dropDown__user">
                           <Link to="/auth/login">
-                            <Dropdown.Item href="#/action-1">
+                            <Dropdown.Item href="#/action-1"  className="dropDown__item">
                               Log-in
                             </Dropdown.Item>
                           </Link>
                           <Link to="/auth/register">
-                            <Dropdown.Item href="#/action-2">
+                            <Dropdown.Item href="#/action-2" className="dropDown__item">
                               Sign-up
                             </Dropdown.Item>
                           </Link>
@@ -366,14 +433,20 @@ const NavBar = ({ showModal }) => {
                         <BiUserCircle />
                       </Dropdown.Toggle>
 
-                      <Dropdown.Menu>
+                      <Dropdown.Menu className="dropDown__user">
                         <Link to="/auth/login">
-                          <Dropdown.Item href="#/action-1">
+                          <Dropdown.Item
+                            href="#/action-1"
+                            className="dropDown__item"
+                          >
                             Log-in
                           </Dropdown.Item>
                         </Link>
                         <Link to="/auth/register">
-                          <Dropdown.Item href="#/action-2">
+                          <Dropdown.Item
+                            href="#/action-2"
+                            className="dropDown__item"
+                          >
                             Sign-up
                           </Dropdown.Item>
                         </Link>

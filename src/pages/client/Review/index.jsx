@@ -3,8 +3,8 @@ import BreadCrumb from "../../../components/client/ui/Breadcrump/BreadCrumb";
 import AsideBooks from "./AsideBooks";
 import BookReview from "./BookReview";
 import { useDispatch, useSelector } from "react-redux";
-import { getBookReviews } from "../../../store/client/reducers/bookReviewSlice";
 import Pagination from "../../../components/client/ui/Pagination/Pagination";
+import { useGetBookReviewsQuery } from "../../../features/bookReviewApiSlice";
 
 export default function Reviews() {
    const dispatch = useDispatch();
@@ -13,7 +13,7 @@ export default function Reviews() {
    const data = bookReviews;
    const [items, setItems] = useState([]);
    const [currentPage, setCurrentPage] = useState(1);
-   const [itemsPerPage, setItemsPerPage] = useState(2);
+   const [itemsPerPage, setItemsPerPage] = useState(3);
 
    const lastItemIndex = currentPage * itemsPerPage;
    const firstItemIndex = lastItemIndex - itemsPerPage;
@@ -25,16 +25,17 @@ export default function Reviews() {
       });
       setItems(newItem);
    };
+   const {ReviewData , isError , isLoading} = useGetBookReviewsQuery()
    useEffect(() => {
-      dispatch(getBookReviews());
-   }, []);
+      dispatch(ReviewData);
+   }, [dispatch , ReviewData]);
    useEffect(() => {
       setItems(data);
    }, [data]);
 
    return (
-      <div className="">
-         <BreadCrumb title="Reviews" breadCrumb="Reviews" />
+      <div className="starting__page">
+         {/* <BreadCrumb title="Reviews" breadCrumb="Reviews" /> */}
          <div className="container ">
             {/* BUTTONS */}
             <div className="px-0 mt-5 col-12 d-flex justify-content-between flex-wrap btn-group">

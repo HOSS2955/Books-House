@@ -32,7 +32,7 @@ function Admin() {
                <main className="content">
                   <Topbar />
                   <Routes>
-                     <Route path="/" element={<AuthorsHouse />} />
+                     <Route path="/" element={<UsersStore />} />
                      {/* <Route path="/admin" element={<AuthorsHouse />} /> */}
                      <Route path="/authorshouse" element={<AuthorsHouse />} />
                      <Route path="/bookshouse" element={<BooksHouse />} />

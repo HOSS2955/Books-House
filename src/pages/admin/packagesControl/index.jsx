@@ -47,8 +47,7 @@ export default function PackagesControl() {
       if (packageId.packageDesc[0].length < 2) {
          packageId.packageDesc = packageId.packageDesc.split(",");
       }
-      console.log(packageId);
-      // updatePackageData(packageId)
+      updatePackageData(packageId);
    };
 
    const operationHandler = (e) => {
@@ -57,6 +56,7 @@ export default function PackagesControl() {
          [e.target.name]: e.target.value,
       });
    };
+
    //SELECETOR LOGIC
    const [selectorValue, setSelectorValue] = React.useState("");
    const handleChange = (event) => {
@@ -123,8 +123,10 @@ export default function PackagesControl() {
                         variant="filled"
                         type="text"
                         label="Package Name"
+                        color="grey"
                         onBlur={handleBlur}
                         onChange={handleChange}
+                        placeholder={packageId?.packageName}
                         value={values.packageName}
                         name="packageName"
                         error={!!touched.packageName && !!errors.packageName}
@@ -136,8 +138,10 @@ export default function PackagesControl() {
                         variant="filled"
                         type="text"
                         label="Package Price"
+                        color="grey"
                         onBlur={handleBlur}
                         onChange={handleChange}
+                        placeholder={packageId?.packagePrice}
                         value={values.packagePrice}
                         name="packagePrice"
                         error={!!touched.packagePrice && !!errors.packagePrice}
@@ -151,7 +155,9 @@ export default function PackagesControl() {
                         variant="filled"
                         type="text"
                         label="Package Description"
+                        color="grey"
                         onBlur={handleBlur}
+                        placeholder={packageId?.packageDesc}
                         onChange={handleChange}
                         value={values.packageDesc}
                         name="packageDesc"

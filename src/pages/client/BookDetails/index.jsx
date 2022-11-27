@@ -43,15 +43,13 @@ export default function BookDetails() {
       setWishlistIcon(false);
     }
   };
-
-  console.log(id);
   const handleAddToCart = (book) => {
     dispatch(addToCart(book));
   };
 
    return (
-      <div>
-         <BreadCrumb title={book?.title} breadCrumb={book?.title} />
+      <div className="starting__page">
+         {/* <BreadCrumb title={book?.title} breadCrumb={book?.title} /> */}
          <div className="my-5 container">
             <div className="row">
                <div className="col-6 row">
@@ -119,8 +117,8 @@ export default function BookDetails() {
                {/* COMMENTS */}
                <div className="col-12 row mt-5">
                   <div className="col-2"></div>
-                  <div className="col-10">
-                  {book?.comments ? (
+                  <div className="col-10 shadow p-5">
+                  {book?.comments.length>0 ? (
                      // <div className="col-12  d-flex justify-content-center align-items-center p-3">
                         <CommentSection book={book} />
                      // </div>

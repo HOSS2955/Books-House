@@ -8,18 +8,27 @@ const PayButton = ({ cartItems }) => {
   //     delete object["BookDesc"];
   //   });
   const data = cartItems.map(
-    ({ bookDesc, author, type, category, updatedAt, ourChoise, ...rest }) => {
+    ({
+      bookDesc,
+      author,
+      type,
+      category,
+      updatedAt,
+      ourChoise,
+      comments,
+      ...rest
+    }) => {
       return rest;
     }
   );
 
-  console.log(data);
+  // console.log(data);
   const handleCheckout = () => {
     axios
       .post("/create-checkout-session", { data })
       .then((response) => {
         if (response.data.url) {
-          console.log(response);
+          // console.log(response);
           window.location.href = response.data.url;
         }
       })

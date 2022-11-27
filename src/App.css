@@ -1,5 +1,5 @@
 /* google fonts */
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@500&display=swap");
 
 :root {
    --primary: rgb(241, 241, 241);
@@ -15,7 +15,7 @@
 }
 
 body {
-   font-family: 'Cairo', sans-serif;
+   font-family: "Cairo", sans-serif;
    letter-spacing: 1.35px;
    word-spacing: 2px;
 }
@@ -42,19 +42,21 @@ a:hover {
 p {
    color: var(--small-text-color);
    font-size: 15px;
- }
- .section {
+}
+.section {
    padding-top: 6rem;
    padding-bottom: 6rem;
- }
- ul {
+}
+ul {
    padding: 0;
    margin: 0;
- }
-li{
+}
+li {
    list-style-type: none;
 }
-
+.starting__page{
+   margin-top:122px;
+}
 
 
 

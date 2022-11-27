@@ -11,10 +11,7 @@ const packageSlice = createSlice({
    initialState,
    reducers: {
       setDataInLocalState: (state, action) => {
-         console.log(" package Reducer", action.payload);
          state.packageData = action.payload;
-
-         console.log("package From Reducer", action.payload);
       },
    },
 });

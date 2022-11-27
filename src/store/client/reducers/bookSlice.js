@@ -4,7 +4,7 @@ import axios from "axios";
 const initialState = {
    books: [],
    bookDetails: null,
-   bookComments:[],
+   bookComments: [],
    bookCart: [],
    isLoadind: false,
    editBook: false,
@@ -42,47 +42,17 @@ export const addBook = createAsyncThunk(
 );
 
 
-// export const commentBook = createAsyncThunk(
-//    "book/comment",
-//    async(value , id, thunckAPI) => {
-//       const { rejectWithValue } = thunckAPI;
-//       try{
-//          const { data } = await axios.post(`/book/${id}/commentBook`, { value });
-//       console.log("Data from reducer" , data)
-//       return data.comments;
-
-//       } catch (error) {
-//          return rejectWithValue(error.message);
-//       }
-//    }
-// )
-
-
-// export const addComment = createAsyncThunk(
-//    "books/addComment",
-//    async (book, thunckAPI) => {
-//       const { rejectWithValue } = thunckAPI;
-//       try {
-//          const res = await axios.patch(`/books/${id}/commentBook`, book._id);
-//          return res.data;
-//       } catch (error) {
-//          return rejectWithValue(error.message);
-//       }
-//    }
-// );
 
 export const deleteBook = createAsyncThunk(
    "books/deleteBook",
    async (book, thunckAPI) => {
       const { rejectWithValue, getState } = thunckAPI;
       const state = getState();
-      console.log(book);
       try {
          await axios.delete(`/book/remove/${book._id}`, book._id);
          const filterArr = state.books.books.filter(
             (ele) => ele._id !== book._id
          );
-         console.log(filterArr);
          return filterArr;
       } catch (error) {
          rejectWithValue(error.message);
@@ -106,7 +76,6 @@ export const updateBook = createAsyncThunk(
    "books/updateBook",
    async ({ id, formValue }, thunckAPI) => {
       const { rejectWithValue } = thunckAPI;
-      console.log(formValue);
       try {
          const res = await axios.put(`/book/updateBook/${id}`, formValue);
          return res.data;
@@ -143,17 +112,26 @@ const booksSlice = createSlice({
             state.minPriceFilter = 0;
          }
       },
+      getDataBook: (state, action) => {
+         state.books = action.payload;
+      },
+      setFilteredBook: (state, action) => {
+         state.books = action.payload;
+      },
+      getBookDetails: (state, action) => {
+         state.bookDetails = action.payload;
+      },
    },
    extraReducers: {
-      [getBooks.fulfilled]: (state, action) => {
-         state.books = action.payload;
-      },
-      [deleteBook.fulfilled]: (state, action) => {
-         state.books = action.payload;
-      },
-      [getBook.fulfilled]: (state , action)=>{
-         state.bookDetails = action.payload
-      },
+      // [getBooks.fulfilled]: (state, action) => {
+      //    state.books = action.payload;
+      // },
+      // [deleteBook.fulfilled]: (state, action) => {
+      //    state.books = action.payload;
+      // },
+      // [getBook.fulfilled]: (state, action) => {
+      //    state.bookDetails = action.payload;
+      // },
       // [commentBook.fulfilled]:(state , action)=>{
       //    state.bookDetails = action.payload
       // }

@@ -10,10 +10,10 @@ export default function SwiperData({
    return (
       <div className="feed1 m-3 p-4 col d-flex">
          <div className="myImg col-2 d-flex justify-content-center p-1">
-            <img src={imgSrc} alt="profile" />
+            <img src={imgSrc} alt="profile" className="mb-5" />
          </div>
          <div className="myFeed col-10">
-            <p className="">{children}</p>
+            <div className="mb-5">{children}</div>
             <h5 className="fw-bold">{feedTitle}</h5>
             <p>{feedPosition}</p>
          </div>

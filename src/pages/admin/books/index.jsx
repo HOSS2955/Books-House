@@ -96,6 +96,8 @@ export default function Books() {
          headerName: "Actions",
          headerAlign: "center",
          flex: 1.8,
+         sortable: false,
+         filterable: false,
          renderCell: (params) => {
             const actionHandler = (e) => {
                e.stopPropagation();

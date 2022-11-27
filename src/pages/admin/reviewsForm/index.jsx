@@ -11,9 +11,13 @@ import { useEffect } from "react";
 import { tokens } from "../../../theme";
 import { useTheme } from "@mui/material";
 import {
-   addBookReview,
-   updateBookReview,
-} from "../../../store/client/reducers/bookReviewSlice";
+   useAddBookReviewMutation,
+   useUpdateBookReviewMutation,
+} from "../../../features/bookReviewApiSlice";
+// import {
+//    addBookReview,
+//    updateBookReview,
+// } from "../../../store/client/reducers/bookReviewSlice";
 
 const initialValues = {
    title: "",
@@ -36,6 +40,12 @@ export default function ReviewsForm() {
    const colors = tokens(theme.palette.mode);
    const dispatch = useDispatch();
    const navigate = useNavigate();
+
+   const [addBookReview, { isLoading: addLoading, isSuccess }] =
+      useAddBookReviewMutation();
+
+   const [updateBookReview, { isLoading: updateLoading }] =
+      useUpdateBookReviewMutation();
 
    const [formValue, setFormValue] = useState({
       title: "",
@@ -63,21 +73,23 @@ export default function ReviewsForm() {
    // SUBMIT
    const handleFormSubmit = (book) => {
       if (id) {
-         dispatch(updateBookReview({ id, formValue }));
+         updateBookReview({ id, formValue });
+
+         // dispatch(updateBookReview({ id, formValue }));
       } else {
          setFormValue({
             ...book,
             imageSource: image,
          });
-         console.log(formValue);
-         dispatch(addBookReview(formValue));
+         addBookReview(formValue);
+         isSuccess ? navigate("/admin/reviews") : navigate("/home");
+         // dispatch(addBookReview(formValue));
       }
       navigate("/admin/reviews");
    };
 
    const operationHandler = (e) => {
       const { name, value } = e.target;
-      console.log(name, value);
       setFormValue((pervState) => ({
          ...pervState,
          [name]: value,
@@ -139,6 +151,7 @@ export default function ReviewsForm() {
                         variant="filled"
                         type="text"
                         label="Title"
+                        color="grey"
                         onBlur={handleBlur}
                         onChange={handleChange}
                         value={values.title}
@@ -154,6 +167,7 @@ export default function ReviewsForm() {
                         variant="filled"
                         type="text"
                         label="Reviewer"
+                        color="grey"
                         onBlur={handleBlur}
                         onChange={handleChange}
                         value={values.reviewer}
@@ -169,6 +183,7 @@ export default function ReviewsForm() {
                         variant="filled"
                         type="text"
                         label="Publisher"
+                        color="grey"
                         onBlur={handleBlur}
                         placeholder={id ? dataEditBookReview.publisher : ""}
                         onChange={handleChange}
@@ -184,6 +199,7 @@ export default function ReviewsForm() {
                         variant="filled"
                         type="text"
                         label="Category"
+                        color="grey"
                         placeholder={id ? dataEditBookReview.category : ""}
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -202,6 +218,7 @@ export default function ReviewsForm() {
                         variant="filled"
                         type="text"
                         label="Description"
+                        color="grey"
                         placeholder={id ? dataEditBookReview.desc : ""}
                         onBlur={handleBlur}
                         onChange={handleChange}
@@ -235,12 +252,39 @@ export default function ReviewsForm() {
             <Typography sx={{ color: colors.grey[200], mr: 2 }}>
                Image
             </Typography>
-            <input
+            <label htmlFor="upload-photo">
+               <input
+                  onChange={(e) => {
+                     updateImagePath(e);
+                  }}
+                  style={{ display: "none" }}
+                  id="upload-photo"
+                  name="upload-photo"
+                  type="file"
+               />
+
+               <Button
+                  variant="contained"
+                  component="span"
+                  sx={{
+                     color: "#ffffff",
+                     backgroundColor: colors.blueAccent[400],
+                     "&:hover": {
+                        backgroundColor: colors.blueAccent[500],
+                        opacity: [0.9, 0.8, 0.7],
+                     },
+                  }}
+               >
+                  Choose Image
+               </Button>
+            </label>
+
+            {/* <input
                type="file"
                onChange={(e) => {
                   updateImagePath(e);
                }}
-            ></input>
+            ></input> */}
             <Button
                disabled={image ? false : true}
                variant="contained"
