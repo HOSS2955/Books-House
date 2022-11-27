@@ -41,10 +41,8 @@ router.patch("/user/updateProfile", auth, updateProfile);
 router.patch("/user/updateProfile", auth, updateProfile);
 router.delete("/user/deleteUser", auth, deleteUser);
 // get users data
-router.get("/user/getallusers", auth, getUsersData);
+router.get("/user/getallusers", getUsersData);
 router.get("/user/getuser/:id", getUserByID);
-
-//** تجارب */
 router.delete("/user/logoutMe", auth, logoutUser);
 router.post("/user/authLogin", authController.handleLogin);
 

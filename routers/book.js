@@ -18,6 +18,6 @@ router.get("/book/:id", getbookByID);
 router.delete("/book/remove/:id", deleteBook);
 router.delete("/book/removeAll", deleteAllBook);
 router.put("/book/updateBook/:id", updateBook);
-router.post("/book/:id/commentBook", commentBook); 
+router.post("/book/:id/commentBook", commentBook);
 
 module.exports = router;

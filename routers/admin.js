@@ -4,7 +4,8 @@ const {
   login,
   sendCode,
   forgetPassword,
-  logoutAdmin
+  logoutAdmin,
+  adminProfile
 } = require("../controller/admin.controller");
 
 const { validation } = require("../middelware/validation");
@@ -15,17 +16,15 @@ const {
 } = require("../validation/adminValidation");
 const auth = require("../middelware/auth");
 
-router.post("/admin/login",validation(loginValidation), login);
-router.post("/admin/sendCode", auth,validation(sendCodeValidation), sendCode);
+router.post("/admin/login", validation(loginValidation), login);
+router.post("/admin/sendCode", auth, validation(sendCodeValidation), sendCode);
 router.post(
   "/admin/forgetPassword",
   validation(forgetPasswordValidation),
   auth,
   forgetPassword
 );
-
-router.post("/admin/logout", auth,logoutAdmin);
-
-//8925
+router.get('/admin/profile',auth,adminProfile)
+router.delete("/admin/logout", auth,logoutAdmin);
 
 module.exports = router;
