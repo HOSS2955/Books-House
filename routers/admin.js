@@ -24,7 +24,7 @@ router.post(
   forgetPassword
 );
 
-router.post("/admin/logout", auth,logoutAdmin);
+router.delete("/admin/logout", auth,logoutAdmin);
 
 //8925
 
