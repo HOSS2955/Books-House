@@ -131,7 +131,7 @@ const sendCode = async (req, res) => {
     await User.findByIdAndUpdate({ _id: user._id }, { code });
     sendEmail(email, message);
 
-    res.status(200).json({ message: "Done! Check Your Email", code });
+    res.status(200).json({ message: "Valid Email check your Inbox", code });
   }
 };
 
@@ -155,7 +155,7 @@ const forgetPassword = async (req, res) => {
         { _id: user._id },
         { password: hashPassword, code: " " }
       );
-      res.json({ message: "done" });
+      res.json({ message: "Password Changed Successfuly" });
     }
   }
 };
