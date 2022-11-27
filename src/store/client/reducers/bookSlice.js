@@ -112,17 +112,26 @@ const booksSlice = createSlice({
             state.minPriceFilter = 0;
          }
       },
-   },
-   extraReducers: {
-      [getBooks.fulfilled]: (state, action) => {
+      getDataBook: (state, action) => {
          state.books = action.payload;
       },
-      [deleteBook.fulfilled]: (state, action) => {
+      setFilteredBook: (state, action) => {
          state.books = action.payload;
       },
-      [getBook.fulfilled]: (state, action) => {
+      getBookDetails: (state, action) => {
          state.bookDetails = action.payload;
       },
+   },
+   extraReducers: {
+      // [getBooks.fulfilled]: (state, action) => {
+      //    state.books = action.payload;
+      // },
+      // [deleteBook.fulfilled]: (state, action) => {
+      //    state.books = action.payload;
+      // },
+      // [getBook.fulfilled]: (state, action) => {
+      //    state.bookDetails = action.payload;
+      // },
       // [commentBook.fulfilled]:(state , action)=>{
       //    state.bookDetails = action.payload
       // }
