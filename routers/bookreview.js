@@ -1,15 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const {
-  addBookReview,
-  getBookReviewById,
-  getAllBookRewiew,
-  deleteBookReview,
-  updateBookReview,
+   addBookReview,
+   getBookReviewById,
+   getAllBookRewiew,
+   deleteBookReview,
+   updateBookReview,
 } = require("../controller/bookreview.controller");
 // const auth = require('../middelware/auth')
 
-router.post("/newbookreview", addBookReview); // add book review
+router.post("/bookreview/newbookreview", addBookReview); // add book review
 
 router.get("/bookreview/getall", getAllBookRewiew); // get all books review
 
