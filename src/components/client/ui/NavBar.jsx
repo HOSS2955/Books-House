@@ -4,7 +4,8 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import "../../../assets/css/NavBar.css";
 
 import { motion } from "framer-motion";
-import { FiHeart } from "react-icons/fi";
+import { FiHeart, FiLogIn, FiLogOut } from "react-icons/fi";
+
 import { BsBag } from "react-icons/bs";
 import { BiUserCircle } from "react-icons/bi";
 import Container from "react-bootstrap/Container";
@@ -19,7 +20,13 @@ import { toast } from "react-toastify";
 import { useLogoutUserMutation } from "../../../features/authApiSlice";
 import Cookies from "js-cookie";
 import logo2 from "../../../assets/images/logo2.png";
-import userIcon from "../../../assets/images/user-icon.png"
+import userIcon from "../../../assets/images/user-icon.png";
+import {
+  MdOutlineAccountCircle,
+  MdOutlineAdminPanelSettings,
+  MdOutlinePassword,
+  MdSwitchAccount,
+} from "react-icons/md";
 const nav__links = [
   {
     path: "",
@@ -125,7 +132,6 @@ const NavBar = ({ showModal }) => {
                   <div className="nav__wrapper">
                      <div className="logo">
                         <img src={logo2} alt="logo" />
-                        <p>Hello Mirna</p>
                         <div>
                            <Link to="/">
                               <h1 className="mb-0">Books House</h1>
@@ -180,12 +186,26 @@ const NavBar = ({ showModal }) => {
                       {role === "admin" ? (
                         <Dropdown.Menu className="dropDown__user">
                           <Link to="/admin">
-                            <Dropdown.Item href="#/action-1"  className="dropDown__item">
+                            <Dropdown.Item
+                              href="#/action-1"
+                              className="dropDown__item"
+                            >
+                              <span>
+                                <MdOutlineAdminPanelSettings size={28} />
+                                {"  "}
+                              </span>
                               Dash board
                             </Dropdown.Item>
                           </Link>
                           <Link to="/password">
-                            <Dropdown.Item href="#/action-2" className="dropDown__item">
+                            <Dropdown.Item
+                              href="#/action-2"
+                              className="dropDown__item"
+                            >
+                              <span>
+                                <MdOutlinePassword size={28} />
+                                {"  "}
+                              </span>
                               Change password
                             </Dropdown.Item>
                           </Link>
@@ -194,13 +214,24 @@ const NavBar = ({ showModal }) => {
                             onClick={logoutHandler}
                             className="dropDown__item"
                           >
+                            <span>
+                              <FiLogOut size={28} />
+                              {"  "}
+                            </span>
                             Log out
                           </Dropdown.Item>
                         </Dropdown.Menu>
                       ) : (
                         <Dropdown.Menu className="dropDown__user">
                           <Link to="/mainprofile">
-                            <Dropdown.Item href="#/action-1" className="dropDown__item">
+                            <Dropdown.Item
+                              href="#/action-1"
+                              className="dropDown__item"
+                            >
+                              <span>
+                                <MdSwitchAccount size={28} />
+                                {"  "}
+                              </span>
                               Profile
                             </Dropdown.Item>
                           </Link>
@@ -209,6 +240,10 @@ const NavBar = ({ showModal }) => {
                             onClick={logoutHandler}
                             className="dropDown__item"
                           >
+                            <span>
+                              <FiLogOut size={28} />
+                              {"  "}
+                            </span>
                             Log out
                           </Dropdown.Item>
                         </Dropdown.Menu>
@@ -222,12 +257,30 @@ const NavBar = ({ showModal }) => {
                     <BiUserCircle />
                   </Dropdown.Toggle>
 
-                  <Dropdown.Menu className="dropDown__user"  align="end">
+                  <Dropdown.Menu className="dropDown__user" align="end">
                     <Link to="/auth/login">
-                      <Dropdown.Item href="#/action-1" className="dropDown__item">Log-in</Dropdown.Item>
+                      <Dropdown.Item
+                        href="#/action-1"
+                        className="dropDown__item"
+                      >
+                        <span>
+                          <FiLogIn size={28} />
+                          {"  "}
+                        </span>
+                        Log-in
+                      </Dropdown.Item>
                     </Link>
                     <Link to="/auth/register">
-                      <Dropdown.Item href="#/action-2" className="dropDown__item">Sign-up</Dropdown.Item>
+                      <Dropdown.Item
+                        href="#/action-2"
+                        className="dropDown__item"
+                      >
+                        <span>
+                          <MdOutlineAccountCircle size={28} />
+                          {"  "}
+                        </span>
+                        Sign-up
+                      </Dropdown.Item>
                     </Link>
                   </Dropdown.Menu>
                 </Dropdown>
@@ -277,17 +330,26 @@ const NavBar = ({ showModal }) => {
                     {role === "admin" ? (
                       <Dropdown.Menu className="dropDown__user">
                         <Link to="/admin">
-                          <Dropdown.Item href="#/action-1"  className="dropDown__item">
+                          <Dropdown.Item
+                            href="#/action-1"
+                            className="dropDown__item"
+                          >
                             Dash board
                           </Dropdown.Item>
                         </Link>
                         <Link to="/password">
-                          <Dropdown.Item href="#/action-2"  className="dropDown__item">
+                          <Dropdown.Item
+                            href="#/action-2"
+                            className="dropDown__item"
+                          >
                             Change password
                           </Dropdown.Item>
                         </Link>
                         <Link to="/">
-                          <Dropdown.Item href="#/action-3"  className="dropDown__item">
+                          <Dropdown.Item
+                            href="#/action-3"
+                            className="dropDown__item"
+                          >
                             Log out
                           </Dropdown.Item>
                         </Link>
@@ -295,7 +357,10 @@ const NavBar = ({ showModal }) => {
                     ) : (
                       <Dropdown.Menu className="dropDown__user">
                         <Link to="/mainprofile">
-                          <Dropdown.Item href="#/action-1"  className="dropDown__item">
+                          <Dropdown.Item
+                            href="#/action-1"
+                            className="dropDown__item"
+                          >
                             Profile
                           </Dropdown.Item>
                         </Link>
@@ -304,6 +369,7 @@ const NavBar = ({ showModal }) => {
                           onClick={logoutHandler}
                           className="dropDown__item"
                         >
+                          <FiLogOut />
                           Log out
                         </Dropdown.Item>
                       </Dropdown.Menu>
@@ -326,18 +392,16 @@ const NavBar = ({ showModal }) => {
             >
               <Offcanvas.Header closeButton></Offcanvas.Header>
               <Offcanvas.Body>
-                <Nav
-                  className="justify-content-end flex-grow-1 pe-3"
-                >
+                <Nav className="justify-content-end flex-grow-1 pe-3">
                   {nav__links.map((item, i) => (
-                    <div  key={i}>
+                    <div key={i}>
                       <li className="nav__item mt-4">
                         <NavLink
                           to={item.path}
                           className={(navClass) =>
                             navClass.isActive ? "nav__active" : ""
                           }
-                         >
+                        >
                           {item.display}
                         </NavLink>
                       </li>
@@ -371,12 +435,18 @@ const NavBar = ({ showModal }) => {
 
                       <Dropdown.Menu className="dropDown__user">
                         <Link to="/auth/login">
-                          <Dropdown.Item href="#/action-1" className="dropDown__item">
+                          <Dropdown.Item
+                            href="#/action-1"
+                            className="dropDown__item"
+                          >
                             Log-in
                           </Dropdown.Item>
                         </Link>
                         <Link to="/auth/register">
-                          <Dropdown.Item href="#/action-2" className="dropDown__item">
+                          <Dropdown.Item
+                            href="#/action-2"
+                            className="dropDown__item"
+                          >
                             Sign-up
                           </Dropdown.Item>
                         </Link>

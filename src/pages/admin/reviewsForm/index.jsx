@@ -11,9 +11,13 @@ import { useEffect } from "react";
 import { tokens } from "../../../theme";
 import { useTheme } from "@mui/material";
 import {
-   addBookReview,
-   updateBookReview,
-} from "../../../store/client/reducers/bookReviewSlice";
+   useAddBookReviewMutation,
+   useUpdateBookReviewMutation,
+} from "../../../features/bookReviewApiSlice";
+// import {
+//    addBookReview,
+//    updateBookReview,
+// } from "../../../store/client/reducers/bookReviewSlice";
 
 const initialValues = {
    title: "",
@@ -36,6 +40,12 @@ export default function ReviewsForm() {
    const colors = tokens(theme.palette.mode);
    const dispatch = useDispatch();
    const navigate = useNavigate();
+
+   const [addBookReview, { isLoading: addLoading, isSuccess }] =
+      useAddBookReviewMutation();
+
+   const [updateBookReview, { isLoading: updateLoading }] =
+      useUpdateBookReviewMutation();
 
    const [formValue, setFormValue] = useState({
       title: "",
@@ -63,13 +73,17 @@ export default function ReviewsForm() {
    // SUBMIT
    const handleFormSubmit = (book) => {
       if (id) {
-         dispatch(updateBookReview({ id, formValue }));
+         updateBookReview({ id, formValue });
+
+         // dispatch(updateBookReview({ id, formValue }));
       } else {
          setFormValue({
             ...book,
             imageSource: image,
          });
-         dispatch(addBookReview(formValue));
+         addBookReview(formValue);
+         isSuccess ? navigate("/admin/reviews") : navigate("/home");
+         // dispatch(addBookReview(formValue));
       }
       navigate("/admin/reviews");
    };

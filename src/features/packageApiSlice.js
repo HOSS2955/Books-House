@@ -42,5 +42,4 @@ export const packageApi = createApi({
    }),
 });
 
-export const { useGetPackageDataQuery, useUpdatePackageDataMutation } =
-   packageApi;
+export const { useGetPackageDataQuery, useUpdatePackageDataMutation } = packageApi;

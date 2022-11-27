@@ -17,10 +17,11 @@ import {
   removeFromCart,
 } from "../../../store/client/reducers/cartSlice";
 import "../../../assets/css/Cart.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NoProducts from "../ui/NoProducts/NoProducts";
 
 export default function Cart() {
+  const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
 
   const dispatch = useDispatch();
@@ -40,6 +41,9 @@ export default function Cart() {
   };
   const handleClearCart = () => {
     dispatch(clearCart());
+  };
+  const bookDetails = (id) => {
+    navigate(`/bookdetails/${id}`);
   };
   return (
     <div className="h-100 h-custom mt-5">
@@ -69,6 +73,7 @@ export default function Cart() {
                                       src={cartItem.imageSource}
                                       className="img-fluid rounded-3 p-0"
                                       alt={cartItem.title}
+                                      onClick={() => bookDetails(cartItem._id)}
                                     />
                                   </div>
                                   <div className="col-md-3 ">

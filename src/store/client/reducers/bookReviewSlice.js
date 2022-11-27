@@ -77,10 +77,15 @@ const bookReviewSlice = createSlice({
          state.dataEditBookReview = action.payload;
       },
       getDataBookReview: (state, action) => {
+         console.log("data From reducer", action.payload);
          state.bookReviews = action.payload;
       },
       setFilteredBookReview: (state, action) => {
+         console.log("deleted book From reducer", action.payload);
          state.bookReviews = action.payload;
+      },
+      addNewBookReview: (state, action) => {
+         state.bookReviews.push(action.payload);
       },
    },
    extraReducers: {
