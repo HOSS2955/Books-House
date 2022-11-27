@@ -6,11 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useEffect } from "react";
-import {
-   deleteBookReview,
-   getBookReviews,
-} from "../../../store/client/reducers/bookReviewSlice";
 import { bookReviewActions } from "../../../store/client/reducers/bookReviewSlice";
+import { useDeleteBookReviewMutation,useGetBookReviewsQuery } from "../../../features/bookReviewApiSlice";
+
 
 export default function Reviews() {
    const dispatch = useDispatch();
@@ -19,13 +17,15 @@ export default function Reviews() {
    const [pageSize, setPageSize] = useState(10);
 
    const { setdataEditBookReview } = bookReviewActions;
+   const [ deleteBookReview , {isError : deleteError , isLoading : deleteLoading} ] = useDeleteBookReviewMutation();
 
    const theme = useTheme();
    const colors = tokens(theme.palette.mode);
 
+   const {data , isError , isLoading} = useGetBookReviewsQuery()
    useEffect(() => {
-      dispatch(getBookReviews());
-   }, []);
+      dispatch(data);
+   }, [dispatch , data]);
 
    const columns = [
       { field: "_id", hide: true },

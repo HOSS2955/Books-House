@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { useGetHomepageDataQuery } from "../../features/apiSlice";
 
 const initialState = {
   wallOfFamesData: [],

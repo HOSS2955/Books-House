@@ -20,6 +20,7 @@ import { stripeOrdersReducer } from "./reducers/stripeOrdersSlice";
 import { profilePackageReducer } from "./reducers/profilePaymet";
 import { userDataReducer } from "./reducers/userDataSlice";
 import { wishlistReducer } from "./reducers/wishlistSlice";
+import { bookReviewApiSlice } from "../../features/bookReviewApiSlice";
 export const clientStore = configureStore({
   reducer: {
     books: booksReducer,
@@ -36,6 +37,7 @@ export const clientStore = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
     [adminAuthApi.reducerPath]: adminAuthApi.reducer,
+    [bookReviewApiSlice.reducerPath]:bookReviewApiSlice.reducer,
     // adminState: adminReducer,
     userState: userReducer,
     //  auth: authReducer,
@@ -51,7 +53,8 @@ export const clientStore = configureStore({
       packageApi.middleware,
       authApi.middleware,
       adminAuthApi.middleware,
-      userApi.middleware
+      userApi.middleware,
+      bookReviewApiSlice.middleware
       // authApi.middleware
     ),
 });
