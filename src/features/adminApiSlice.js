@@ -1,9 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import customFetchBase from "../components/CustomFetchBaseAdmin";
-import { setUserInState, logoutInState } from "../store/client/reducers/userSlice";
+import customAdminFetch from "../components/CustomFetchBaseAdmin";
+import {
+  setUserInState,
+  logoutInState,
+} from "../store/client/reducers/userSlice";
 export const adminApiSlice = createApi({
-  reducerPath: "adminApiSlice",
-  baseQuery: customFetchBase,
+  reducerPath: "adminApi",
+  baseQuery: customAdminFetch,
   endpoints: (builder) => ({
     loginAdmin: builder.mutation({
       query: (credentials) => {
@@ -25,7 +28,7 @@ export const adminApiSlice = createApi({
         }
       },
     }),
-    forgetPassword: builder.mutation({
+    forgetPasswordAdmin: builder.mutation({
       query(data) {
         return {
           url: "forgetPassword",
@@ -35,7 +38,7 @@ export const adminApiSlice = createApi({
         };
       },
     }),
-    sendCode: builder.mutation({
+    sendCodeAdmin: builder.mutation({
       query(credientials) {
         return {
           url: "sendCode",
@@ -44,13 +47,53 @@ export const adminApiSlice = createApi({
         };
       },
     }),
+    verifyAdmin: builder.query({
+      query() {
+        return {
+          url: "verify",
+          method: "GET",
+          credientials: "include",
+        };
+      },
+      transformResponse: (result) => result,
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setUserInState(data));
+        } catch (error) {
+          console.log(error);
+          window.href.location = "/@admin";
+        }
+      },
+    }),
     logoutAdmin: builder.mutation({
       query() {
         return {
           url: "logout",
+          method: "DELETE",
           credentials: "include",
         };
+      },
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          if (data) {
+            logoutInState();
+            window.href.location = "/home";
+          }
+        } catch (error) {
+          console.log(error);
+          logoutInState();
+          window.href.location = "/auth/login";
+        }
       },
     }),
   }),
 });
+export const {
+  useLoginAdminMutation,
+  useLogoutAdminMutation,
+  useVerifyAdminQuery,
+  useForgetPasswordAdminMutation,
+  useSendCodeAdminMutation,
+} = adminApiSlice;

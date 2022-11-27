@@ -28,7 +28,7 @@ import UnauthorizePage from "./pages/client/Unauthorized/UnauthorizedPage";
 // import AlreadyUser from "./components/AlreadyUser";
 import Completion from "./components/client/ui/Completion/Completion";
 // import LoginAdmin from "./pages/client/authPages/login/LoginAdmin";
-import LoginAdmin from "./pages/client/authPages/LoginAdmin/loggyadmin";
+import LoginAdmin from "./pages/admin/AuthPages/LoginAdmin/AdminLogin";
 
 import Login2 from "./pages/client/authPages/login/log";
 import RegisterPage from "./pages/client/authPages/register/regist";
@@ -66,7 +66,6 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/bookdetails/:id" element={<BookDetails />} />
-            <Route path="/@admin" element={<LoginAdmin />} />
             <Route path="/about" element={<About />} />
             <Route path="/service" element={<Service />} />
             <Route path="/contactus" element={<Contactus />} />
@@ -81,7 +80,8 @@ function App() {
             <Route path="/cart2" element={<Cart />} />
           </Route>
 
-          {/* Protected Routes */}
+          <Route path="/@admin" element={<LoginAdmin />} />
+
           <Route path="/user/confirmEmail" element={<EmailVerificationPage />}>
             <Route
               path=":verificationCode"
