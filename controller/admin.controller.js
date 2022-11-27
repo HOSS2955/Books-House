@@ -7,7 +7,6 @@ require("dotenv").config();
 
 //-------------------------------------login
 
-
 /////////////////////////////////////////////
 
 const login = async (req, res) => {
@@ -19,37 +18,38 @@ const login = async (req, res) => {
     res.status(404).json({ message: "Invalid Email Account" });
   } else {
     const match = await bcrypt.compare(password, user.password);
-    if(!match){
-      res.status(500).send("Not Match !")
-    }else{
+    if (!match) {
+      res.status(500).send("Not Match !");
+    } else {
+      const refreshToken = jwt.sign(
+        { _id: user._id },
+        process.env.REFRESH_TOKEN_SECRET,
+        { expiresIn: "12h" }
+      );
+      const token = jwt.sign(
+        { _id: user._id, isLogged: true },
+        process.env.logingtoken,
+        { expiresIn: "1h" }
+      );
 
-      const refreshToken = jwt.sign({ _id: user._id }, process.env.REFRESH_TOKEN_SECRET,{ expiresIn: "12h" });
-        const token = jwt.sign(
-          { _id: user._id, isLogged: true },
-          process.env.logingtoken,
-          { expiresIn: "1h" }
-        );
-                
-        (async ()=>{
-          user.refreshToken=[refreshToken]
-          await user.save()
-        })()
+      (async () => {
+        user.refreshToken = [refreshToken];
+        await user.save();
+      })();
 
-        res.cookie("refreshTokenVal", refreshToken, {
+      res.cookie("refreshTokenVal", refreshToken, {
         httpOnly: true,
         sameSite: "None",
         maxAge: 24 * 60 * 60 * 1000,
-          });
+      });
 
-
-          res.status(200).json({
-            message: "Login suceess",
-            token,
-            user,
-            allowedRole: "admin",
-          });
+      res.status(200).json({
+        message: "Login suceess",
+        token,
+        user,
+        allowedRole: "admin",
+      });
     }
-    
   }
 };
 
@@ -79,7 +79,7 @@ const confirmEmail = async (req, res) => {
       }
     }
   } catch (e) {
-    res.status(500).json({ message: "Confirmation Failed"});
+    res.status(500).json({ message: "Confirmation Failed" });
   }
 };
 
@@ -122,7 +122,7 @@ const sendCode = async (req, res) => {
     res.status(404).json({ message: "In-valid Email" });
   } else {
     const code = Math.floor(Math.random() * (9999 - 1000 + 1) + 100000);
-    const title=`<h3>Security code</h3>`
+    const title = `<h3>Security code</h3>`;
     const message = `${title}</br>Please use the following security code for Your account </br>
                      Security code: <b>${code}</b></br>
                      </br></br>
@@ -208,5 +208,5 @@ module.exports = {
   login,
   sendCode,
   forgetPassword,
-  logoutAdmin
+  logoutAdmin,
 };
