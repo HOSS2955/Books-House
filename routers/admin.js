@@ -5,6 +5,7 @@ const {
   sendCode,
   forgetPassword,
   logoutAdmin,
+  adminProfile
 } = require("../controller/admin.controller");
 
 const { validation } = require("../middelware/validation");
@@ -23,9 +24,7 @@ router.post(
   auth,
   forgetPassword
 );
-
-router.post("/admin/logout", auth, logoutAdmin);
-
-//8925
+router.get('/admin/profile',auth,adminProfile)
+router.delete("/admin/logout", auth,logoutAdmin);
 
 module.exports = router;

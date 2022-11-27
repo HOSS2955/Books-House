@@ -202,6 +202,10 @@ const logoutAdmin = async (req, res) => {
   res.status(204).send("You Loged Out All Tokens");
 };
 
+//check admin tonken by get admin data
+const adminProfile = async (req, res) => {
+  res.status(200).send({ m:'success', allowedRole: "admin" });
+};
 module.exports = {
   confirmEmail,
   refreshEmail,
@@ -209,4 +213,5 @@ module.exports = {
   sendCode,
   forgetPassword,
   logoutAdmin,
+  adminProfile
 };

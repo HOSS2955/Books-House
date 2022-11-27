@@ -15,7 +15,9 @@ const adminSchema = new mongoose.Schema({
    },
    code:{
     type:String
-   }
+   },
+   refreshToken: [String],
+
 });
 
 
