@@ -1,19 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const {
-   signUp,
-   login,
-   sendCode,
-   forgetPassword,
-   confirmEmail,
-   addProfileAvatar,
-   updateProfile,
-   refreshEmail,
-   deleteUser,
-   logoutUser,
-   userProfile,
-   getUsersData,
-   getUserByID,
+  signUp,
+  login,
+  sendCode,
+  forgetPassword,
+  confirmEmail,
+  addProfileAvatar,
+  updateProfile,
+  refreshEmail,
+  deleteUser,
+  logoutUser,
+  userProfile,
+  getUsersData,
+  getUserByID,
 } = require("../controller/user.controller");
 //
 const auth = require("../middelware/auth2");
@@ -32,10 +32,10 @@ router.post("/user/forgetPassword", forgetPassword);
 router.get("/user/profile", auth, userProfile);
 // router.get("/user/confirmEmail/:token", confirmEmail);
 router.post(
-   "/profile/avatar",
-   auth,
-   uploads.single("avatar"),
-   addProfileAvatar
+  "/profile/avatar",
+  auth,
+  uploads.single("avatar"),
+  addProfileAvatar
 );
 router.patch("/user/updateProfile", auth, updateProfile);
 router.patch("/user/updateProfile",auth, updateProfile);
