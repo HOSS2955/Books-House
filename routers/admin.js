@@ -13,7 +13,7 @@ const {
   forgetPasswordValidation,
   sendCodeValidation,
 } = require("../validation/adminValidation");
-const auth = require('../middelware/auth')
+const auth = require("../middelware/auth");
 
 router.post("/admin/login",validation(loginValidation), login);
 router.post("/admin/sendCode", auth,validation(sendCodeValidation), sendCode);

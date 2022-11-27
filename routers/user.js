@@ -17,7 +17,7 @@ const {
 } = require("../controller/user.controller");
 //
 const auth = require("../middelware/auth2");
-const auth2 = require('../middelware/auth')
+const auth2 = require("../middelware/auth");
 const uploads = require("../services/multer.services");
 
 const authController = require("../controller/auth.controller");
@@ -38,11 +38,11 @@ router.post(
   addProfileAvatar
 );
 router.patch("/user/updateProfile", auth, updateProfile);
-router.patch("/user/updateProfile",auth, updateProfile);
+router.patch("/user/updateProfile", auth, updateProfile);
 router.delete("/user/deleteUser", auth, deleteUser);
 // get users data
-router.get("/user/getallusers", auth,getUsersData);
-// router.get("/user/getuser/:id", auth2,getUserByID);
+router.get("/user/getallusers", auth, getUsersData);
+router.get("/user/getuser/:id", getUserByID);
 
 //** تجارب */
 router.delete("/user/logoutMe", auth, logoutUser);
