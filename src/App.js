@@ -94,7 +94,6 @@ function App() {
                <Route element={<AlreadyUser />}>
                   <Route path="auth" element={<AuthRoutes />}>
                      <Route path="password" element={<VerifyPass />} />
-                     //////////////////////تعديلات////////////////////////
                      <Route path="register" element={<RegisterPage />} />
                      <Route path="login" element={<Login2 />} />
                   </Route>

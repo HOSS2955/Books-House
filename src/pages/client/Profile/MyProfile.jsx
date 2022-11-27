@@ -8,11 +8,11 @@ import "./Profile.css";
 
 export default function MyProfile() {
   const dispatch = useDispatch();
-  const id = "637e38955858355b7c857cc4";
   useEffect(() => {
     dispatch(getUser(id));
   }, []);
 
+  const userState = useSelector((state) => state.userState);
   const { user } = useSelector((state) => state.userData);
   const [userData, setUserData] = useState({
     name: "",
@@ -20,6 +20,7 @@ export default function MyProfile() {
     phone: "",
   });
   const { email } = user;
+  const id = userState.user._id;
   const inputHandler = (e) => {
     // console.log(e.target.name, ":", e.target.value);
     setUserData({ ...user, [e.target.name]: e.target.value });
@@ -40,23 +41,7 @@ export default function MyProfile() {
           </h5>
         )}
         <div className="row ">
-          <div className="col-xl-4 col-md-4 col-sm-12">
-            <div className="card mb-4 mb-xl-0 ">
-              <div className="card-header">Profile Picture</div>
-              <div className="card-body text-center">
-                <img
-                  className="img-fluid img-account-profile rounded-circle mb-2 pt-4 "
-                  src="http://bootdey.com/img/Content/avatar/avatar1.png"
-                  alt=""
-                />
-                <button className="btn btn-primary" type="button">
-                  Change Avatar
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="col-md-8">
+          <div className="col-md-12">
             <div className="card mb-4">
               <div className="card-header">Account Details</div>
               <div className="card-body">
@@ -161,7 +146,7 @@ export default function MyProfile() {
                               </div> */}
                   </div>
 
-                  <button type="submit" className="btn btn-primary">
+                  <button type="submit" className="btn btn-warning">
                     Save changes
                   </button>
                 </form>

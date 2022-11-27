@@ -5,8 +5,10 @@ import OrderCard from "./OrderCard";
 
 export default function MyOrder() {
   const dispatch = useDispatch();
-  const email = "hoss2955@gmail.com";
   const { profileOrder } = useSelector((state) => state.ProfilePayment);
+  const { user } = useSelector((state) => state.userState);
+  const email = user.email;
+
   useEffect(() => {
     dispatch(getprofileOrder({ email }));
   }, []);

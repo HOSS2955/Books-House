@@ -5,10 +5,10 @@ import BreadCrumb from "../../../components/client/ui/Breadcrump/BreadCrumb";
 import Aside from "../../../components/client/Aside/Aside";
 export default function BooksShop() {
   return (
-    <div className="mb-5">
+    <div className="mb-5 starting__page">
       <div className="  mx-auto">
         <div>
-          <BreadCrumb title="product" breadCrumb="shop" />
+          {/* <BreadCrumb title="product" breadCrumb="shop" /> */}
         </div>
       </div>
       <div className="container">

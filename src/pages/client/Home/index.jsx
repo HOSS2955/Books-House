@@ -19,10 +19,8 @@ export default function Home() {
     (state) => state.homepage
   );
   useEffect(() => {
-    console.log(data);
     if (data) {
       dispatch(setDataInLocalState(data));
-      // console.log("hello" , data);
     }
   }, [dispatch, data]);
   return (

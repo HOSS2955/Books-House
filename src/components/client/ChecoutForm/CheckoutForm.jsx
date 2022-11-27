@@ -27,7 +27,6 @@ export default function CheckoutForm({ packages, confetti }) {
   // const handleChange = (e) => {
   //   const { value, name } = e.target;
   //   setCredentials({ ...credentials, [name]: value });
-  //   console.log(credentials);
   // };
   const handleSubmit = async (e) => {
     e.preventDefault();
