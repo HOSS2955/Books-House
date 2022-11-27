@@ -5,33 +5,38 @@ import {
   updateUser,
 } from "../../../store/client/reducers/userDataSlice";
 import "./Profile.css";
+import { useForm } from "react-hook-form";
+import { Button, Form, Row, Col } from "react-bootstrap";
 
 export default function MyProfile() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getUser(id));
-  }, []);
-
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const userState = useSelector((state) => state.userState);
   const { user } = useSelector((state) => state.userData);
-  const [userData, setUserData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-  });
+  // const [userData, setUserData] = useState({
+  //   name: "",
+  //   email: "",
+  //   phone: "",
+  // });
   const { email } = user;
   const id = userState.user._id;
-  const inputHandler = (e) => {
-    // console.log(e.target.name, ":", e.target.value);
-    setUserData({ ...user, [e.target.name]: e.target.value });
+  const dispatch = useDispatch();
+  // const inputHandler = (e) => {
+  //   // console.log(e.target.name, ":", e.target.value);
+  //   setUserData({ ...user, [e.target.name]: e.target.value });
+  // };
+
+  const onSubmit = (data) => {
+    console.log(data);
+    // dispatch(updateUser({ email, data }));
   };
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    console.log(userData);
-    dispatch(updateUser({ email, userData }));
-  };
-
+  useEffect(() => {
+    dispatch(getUser(id));
+  }, [dispatch]);
   return (
     <div className="profile">
       <div className="container-xl   rounded">
@@ -45,27 +50,46 @@ export default function MyProfile() {
             <div className="card mb-4">
               <div className="card-header">Account Details</div>
               <div className="card-body">
-                <form onSubmit={submitHandler}>
+                <Form onSubmit={handleSubmit(onSubmit)}>
                   <div className="mb-3">
-                    <label className="small mb-1" for="inputUsername">
+                    <Form.Label className="small mb-1" for="inputUsername">
                       Username
-                    </label>
-                    <input
+                    </Form.Label>
+                    <Form.Control
                       className="form-control"
                       id="name"
                       type="text"
                       name="name"
-                      onChange={inputHandler}
+                      {...register("name", {
+                        required: "User Name is required",
+                        minLength: {
+                          value: 3,
+                          message: "User Name need to be more than 3",
+                        },
+                        maxLength: {
+                          value: 20,
+                          message: "User Name need to be less than 20",
+                        },
+                        pattern: {
+                          value: /[A-Za-z]/,
+                          message: "User Name must be Alpa",
+                        },
+                      })}
                       placeholder={user.name ? user?.name : ""}
                     />
+                    {errors.name && (
+                      <Form.Label className="text-danger">
+                        {errors.name?.message}
+                      </Form.Label>
+                    )}
                   </div>
 
                   {/* <div className="row gx-3 mb-3"> */}
                   {/* <div className="col-md-6">
-                      <label className="small mb-1" for="inputFirstName">
+                      <Form.Label  className="small mb-1" for="inputFirstName">
                         First name
-                      </label>
-                      <input
+                      </Form.Label >
+                      <Form.Control
                         className="form-control"
                         id="inputFirstName"
                         type="text"
@@ -74,10 +98,10 @@ export default function MyProfile() {
                     </div>
 
                     <div className="col-md-6">
-                      <label className="small mb-1" for="inputLastName">
+                      <Form.Label  className="small mb-1" for="inputLastName">
                         Last name
-                      </label>
-                      <input
+                      </Form.Label >
+                      <Form.Control
                         className="form-control"
                         id="inputLastName"
                         type="text"
@@ -87,10 +111,10 @@ export default function MyProfile() {
                   {/* </div> */}
 
                   {/* <div className="col-md-12">
-                              <label className="small mb-1" for="inputLocation">
+                              <Form.Label  className="small mb-1" for="inputLocation">
                                  Location
-                              </label>
-                              <input
+                              </Form.Label >
+                              <Form.Control
                                  className="form-control"
                                  id="inputLocation"
                                  type="text"
@@ -99,44 +123,76 @@ export default function MyProfile() {
                            </div> */}
 
                   <div className="mb-3">
-                    <label className="small mb-1" for="inputEmailAddress">
+                    <Form.Label className="small mb-1" for="inputEmailAddress">
                       Email Address
-                    </label>
-                    <input
+                    </Form.Label>
+                    <Form.Control
                       className="form-control"
                       id="inputEmailAddress"
-                      onChange={inputHandler}
                       type="email"
                       name="email"
+                      {...register("email", {
+                        required: "Email is required",
+                        pattern: {
+                          value:
+                            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                          message: "Please enter a valid email",
+                        },
+                      })}
                       //  value={user.email}
                       placeholder={user.email ? user?.email : ""}
                     />
+                    {errors.email && (
+                      <Form.Label className="text-danger">
+                        {errors.email?.message}
+                      </Form.Label>
+                    )}
                   </div>
 
                   <div className="row gx-3 mb-3">
                     <div className="col-md-6">
-                      <label className="small mb-1" for="inputPhone">
+                      <Form.Label className="small mb-1" for="inputPhone">
                         Phone number
-                      </label>
-                      <input
+                      </Form.Label>
+                      <Form.Control
                         className="form-control"
                         id="inputPhone"
                         type="tel"
                         name="phone"
-                        onChange={inputHandler}
+                        {...register("phone", {
+                          required: "Phone Number is required",
+                          minLength: {
+                            value: 8,
+                            message: "Phone Number Must be more than 8",
+                          },
+                          maxLength: {
+                            value: 20,
+                            message: "Phone Number Must be more than 20",
+                          },
+                          pattern: {
+                            value:
+                              /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s./0-9]*$/,
+                            message: "Please enter a valid Phone number",
+                          },
+                        })}
                         // value={user.phone}
                         placeholder={user.phone ? user?.phone : ""}
                       />
+                      {errors.phone && (
+                        <Form.Label className="text-danger">
+                          {errors.phone?.message}
+                        </Form.Label>
+                      )}
                     </div>
 
                     {/* <div className="col-md-6">
-                                 <label
+                                 <Form.Label 
                                     className="small mb-1"
                                     for="inputBirthday"
                                  >
                                     Birthday
-                                 </label>
-                                 <input
+                                 </Form.Label >
+                                 <Form.Control
                                     className="form-control"
                                     id="inputBirthday"
                                     type="text"
@@ -146,10 +202,10 @@ export default function MyProfile() {
                               </div> */}
                   </div>
 
-                  <button type="submit" className="btn btn-warning">
+                  <Button type="submit" className="btn btn-warning">
                     Save changes
-                  </button>
-                </form>
+                  </Button>
+                </Form>
               </div>
             </div>
           </div>

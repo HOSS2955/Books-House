@@ -8,9 +8,9 @@ export default function ProfileImg() {
         src="http://bootdey.com/img/Content/avatar/avatar1.png"
         alt=""
       />
-      <button className="btn btn-warning" type="button">
+      {/* <button className="btn btn-warning" type="button">
         Change Avatar
-      </button>
+      </button> */}
     </div>
   );
 }
