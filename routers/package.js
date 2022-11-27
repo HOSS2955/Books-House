@@ -7,15 +7,15 @@ const {
    getPackageByID,
    updatePackageById,
 } = require("../controller/package.controller");
-// const auth = require('../middelware/auth')
+const auth = require('../middelware/auth')
 
-router.post("/newpackage", addPackageData);
+router.post("/newpackage", auth,addPackageData);
 // router.get('/package/getall',auth,getAllPackages)
 router.get("/package/getall", getAllPackages);
 // router.get('/package/:id',auth,getPackageByID)
 router.get("/package/:id", getPackageByID);
 
 // router.delete('/package/removeAll',auth,deleteAllPackages)
-router.delete("/package/removeAll", deleteAllPackages);
+router.delete("/package/removeAll",auth, deleteAllPackages);
 
 module.exports = router;

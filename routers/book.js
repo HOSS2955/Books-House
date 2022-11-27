@@ -12,12 +12,12 @@ const {
 const uploadImage = require("../services/multer.services");
 const auth = require("../middelware/auth");
 
-router.post("/book/addnewbook", addBookData);
+router.post("/book/addnewbook",auth, addBookData);
 router.get("/book/getall", getAllBook);
 router.get("/book/:id", getbookByID);
-router.delete("/book/remove/:id", deleteBook);
-router.delete("/book/removeAll", deleteAllBook);
-router.put("/book/updateBook/:id", updateBook);
+router.delete("/book/remove/:id",auth, deleteBook);
+router.delete("/book/removeAll", auth,deleteAllBook);
+router.put("/book/updateBook/:id", auth,updateBook);
 router.post("/book/:id/commentBook" , commentBook);
 
 
