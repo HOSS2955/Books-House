@@ -25,8 +25,6 @@ export default function BookDetails() {
   const { id } = useParams();
   const [book] = books.filter((item) => item._id === id);
 
-   const user = useSelector((state) => state.userState.user);
-   const role = useSelector((state) => state.userState.role);
    const token = useSelector((state) => state.userState.token);
 
   useEffect(() => {
@@ -46,7 +44,6 @@ export default function BookDetails() {
   const handleAddToCart = (book) => {
     dispatch(addToCart(book));
   };
-
    return (
       <div className="starting__page">
          {/* <BreadCrumb title={book?.title} breadCrumb={book?.title} /> */}
@@ -61,14 +58,14 @@ export default function BookDetails() {
                         alt=""
                      />
                      <div className="d-flex flex-column justify-content-center align-items-center">
-                        <a
+                     {token && <a
                            className="my-4 d-inline "
                            onClick={addToWishlist}
                            href
                         >
                            {wishlistIcon ? <AiFillHeart /> : <AiOutlineHeart />}{" "}
                            Add to wishlist
-                        </a>
+                        </a>}
                         <div>
                            <span className="d-block">
                               <AiOutlineCheckCircle /> Shop the Holiday Gift
@@ -97,12 +94,12 @@ export default function BookDetails() {
                      <p>Description : {book?.bookDesc}</p>
                   </div>
                   <div className=" my-3">
-                     <button
+                     {token && <button
                         className="btn btn-dark rounded-5 col-6 mb-3 text-uppercase"
                         onClick={() => handleAddToCart(book)}
                      >
                         add to cart
-                     </button>
+                     </button>}
                      <div className="mt-3 border-bottom mb-5">
                         <span className="px-2  fs-6 ">
                            <BsTruck />
@@ -118,15 +115,9 @@ export default function BookDetails() {
                <div className="col-12 row mt-5">
                   <div className="col-2"></div>
                   <div className="col-10 shadow p-5">
-                  {book?.comments.length>0 ? (
-                     // <div className="col-12  d-flex justify-content-center align-items-center p-3">
+                     {/* // <div className="col-12  d-flex justify-content-center align-items-center p-3"> */}
                         <CommentSection book={book} />
-                     // </div>
-                  ) : (
-                     <div className="col-10 bg-light  d-flex justify-content-center align-items-center p-3">
-                        <p className="fs-4">No Comments</p>
-                     </div>
-                  )}
+                     {/* // </div> */}
                   </div>
                </div>
             </div>

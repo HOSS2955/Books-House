@@ -10,10 +10,8 @@ import { packageApi } from "../../features/packageApiSlice";
 import { packageReducer } from "./reducers/packageSlice";
 // import { checkAuthReducer } from "./reducers/checkAuth";
 import userReducer from "./reducers/userSlice";
-import adminReducer from "./reducers/adminSlice";
 import { userApi } from "../../services/userApi";
-import { authApi } from "../../services/authApi";
-import { adminAuthApi } from "../../services/adminAuthApi";
+import { authApiSlice } from "../../features/authApiSlice";
 import { bookReviewReducer } from "./reducers/bookReviewSlice";
 import { stripePackagesReducer } from "./reducers/stripePackagesSlice";
 import { stripeOrdersReducer } from "./reducers/stripeOrdersSlice";
@@ -22,42 +20,42 @@ import { userDataReducer } from "./reducers/userDataSlice";
 import { wishlistReducer } from "./reducers/wishlistSlice";
 import { bookApiSlice } from "../../features/bookApiSlice";
 import { bookReviewApiSlice } from "../../features/bookReviewApiSlice";
+import { tempEmailReducer } from "./reducers/tempEmail";
+import { adminApiSlice } from "../../features/adminApiSlice";
 export const clientStore = configureStore({
-   reducer: {
-      books: booksReducer,
-      cart: cartReducer,
-      res: resReducer,
-      author: authorReducer,
-      homepage: homepageReducer,
-      // checkAuth: checkAuthReducer,
-      stripePackages: stripePackagesReducer,
-      stripeOrders: stripeOrdersReducer,
-      [homepageApi.reducerPath]: homepageApi.reducer,
-      package: packageReducer,
-      [packageApi.reducerPath]: packageApi.reducer,
-      [authApi.reducerPath]: authApi.reducer,
-      [userApi.reducerPath]: userApi.reducer,
-      [adminAuthApi.reducerPath]: adminAuthApi.reducer,
-      [bookApiSlice.reducerPath]: bookApiSlice.reducer,
-      [bookReviewApiSlice.reducerPath]: bookReviewApiSlice.reducer,
-      // adminState: adminReducer,
-      userState: userReducer,
-      //  auth: authReducer,
-      //  [authApi.reducerPath]: authApi.reducer,
-      bookReviews: bookReviewReducer,
-      userData: userDataReducer,
-      ProfilePayment: profilePackageReducer,
-      WishList: wishlistReducer,
-   },
-   middleware: (gDM) =>
-      gDM().concat(
-         homepageApi.middleware,
-         packageApi.middleware,
-         authApi.middleware,
-         adminAuthApi.middleware,
-         userApi.middleware,
-         bookApiSlice.middleware,
-         bookReviewApiSlice.middleware
-         // authApi.middleware
-      ),
+  reducer: {
+    books: booksReducer,
+    cart: cartReducer,
+    res: resReducer,
+    author: authorReducer,
+    homepage: homepageReducer,
+    // checkAuth: checkAuthReducer,
+    stripePackages: stripePackagesReducer,
+    stripeOrders: stripeOrdersReducer,
+    temporaryEmail: tempEmailReducer,
+    [homepageApi.reducerPath]: homepageApi.reducer,
+    package: packageReducer,
+    [packageApi.reducerPath]: packageApi.reducer,
+    [authApiSlice.reducerPath]: authApiSlice.reducer,
+    [userApi.reducerPath]: userApi.reducer,
+    [bookApiSlice.reducerPath]: bookApiSlice.reducer,
+    [bookReviewApiSlice.reducerPath]: bookReviewApiSlice.reducer,
+    [adminApiSlice.reducerPath]: adminApiSlice.reducer,
+    userState: userReducer,
+    bookReviews: bookReviewReducer,
+    userData: userDataReducer,
+    ProfilePayment: profilePackageReducer,
+    WishList: wishlistReducer,
+  },
+  middleware: (gDM) =>
+    gDM().concat(
+      homepageApi.middleware,
+      adminApiSlice.middleware,
+      packageApi.middleware,
+      authApiSlice.middleware,
+      userApi.middleware,
+      bookApiSlice.middleware,
+      bookReviewApiSlice.middleware
+      // authApi.middleware
+    ),
 });

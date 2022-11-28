@@ -94,6 +94,7 @@ export default function BookList() {
                         : item.title.toLowerCase().includes(search);
                   })
                   .filter((item) => {
+                     console.log(bookStoreCategory, "==", item.category);
                      return bookStoreCategory === "all"
                         ? item
                         : item.category === bookStoreCategory;

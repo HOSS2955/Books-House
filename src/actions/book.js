@@ -1,8 +1,9 @@
 import axios from "axios";
+import { AiOutlineConsoleSql } from "react-icons/ai";
 
 // const API = axios.baseUrl()
 
-const comment = (value, id) => axios.post(`/book/${id}/commentBook`, { value });
+const comment = (value, id) => axios.post(`/book/${id}/commentBook`, { value } );
 
 export const commentBook = (value, id) => async (dispatch) => {
   try {
@@ -13,3 +14,4 @@ export const commentBook = (value, id) => async (dispatch) => {
     return data.comments;
   } catch (error) {}
 };
+

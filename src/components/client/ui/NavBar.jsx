@@ -84,8 +84,8 @@ const NavBar = ({ showModal }) => {
     navigate("/cart");
   };
   // Check if the user is Authorized
-  const user = useSelector((state) => state.userState.user);
   const role = useSelector((state) => state.userState.role);
+  const token = useSelector((state) => state.userState.token);
   // // change nav color when scrolling
   const [color, setColor] = useState(false);
   const changeColor = () => {
@@ -109,82 +109,80 @@ const NavBar = ({ showModal }) => {
   // };
   // // }
 
-   return (
-      <motion.div
-         initial={{ opacity: 0, y: -180 }}
-         animate={{ opacity: 1, y: 0 }}
-         transition={{
-            ease: "easeInOut",
-            duration: 1,
-            delay: 0.2,
-         }}
-         className="fixed-top"
-         ref={headerRef}
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -180 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        ease: "easeInOut",
+        duration: 1,
+        delay: 0.2,
+      }}
+      className="fixed-top"
+      ref={headerRef}
+    >
+      {/* Large screen */}
+      <header
+        className={
+          color ? "header-bg header large__screen" : "header large__screen"
+        }
       >
-         {/* Large screen */}
-         <header
-            className={
-               color ? "header-bg header large__screen" : "header large__screen"
-            }
-         >
-            <div className="container">
-               <div className="row">
-                  <div className="nav__wrapper">
-                     <div className="logo">
-                        <img src={logo2} alt="logo" />
-                        <div>
-                           <Link to="/">
-                              <h1 className="mb-0">Books House</h1>
-                           </Link>
-                        </div>
-                     </div>
-                     <div className="navigation">
-                        <ul className="menu">
-                           {nav__links.map((item, index) => (
-                              <li className="nav__item" key={index}>
-                                 <NavLink
-                                    to={item.path}
-                                    className ={(navClass) =>
-                                      navClass.isActive ? "text-warning bold" : ""
-                                    }
-                                 >
-                                    {item.display}
-                                 </NavLink>
-                              </li>
-                           ))}
-                        </ul>
-                     </div>
-                     {user ? (
-                        <div className="nav__icons">
-                           <span onClick={showModal} className="fav__icon">
-                              <FiHeart />
-                           </span>
-                           <span className="cart__icon" onClick={clickCart}>
-                              <BsBag />
-                              {cartTotalQuantity === 0 ? (
-                                 false
-                              ) : (
-                                 <span className="__badge">
-                                    {cartTotalQuantity}
-                                 </span>
-                              )}
-                           </span>
-                           <span>
-                              <Dropdown>
-                                 <Dropdown.Toggle
-                                    variant="transparent"
-                                    id="dropdown-basic"
-                                    className="dropDown__Toggle"
-                                 >
-                                    <motion.img
-                                       whileTap={{ scale: 1.2 }}
-                                       src={userIcon}
-                                       alt="user icon"
-                                    />
-                                 </Dropdown.Toggle>
+        <div className="container">
+          <div className="row">
+            <div className="nav__wrapper">
+              <div className="logo">
+                <img src={logo2} alt="logo" />
+                <div>
+                  <Link to="/">
+                    <h1 className="mb-0">Books House</h1>
+                  </Link>
+                </div>
+              </div>
+              <div className="navigation">
+                <ul className="menu">
+                  {nav__links.map((item, index) => (
+                    <li className="nav__item" key={index}>
+                      <NavLink
+                        to={item.path}
+                        className={(navClass) =>
+                          navClass.isActive ? "text-warning bold" : ""
+                        }
+                      >
+                        {item.display}
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              {token ? (
+                <div className="nav__icons">
+                  <span onClick={showModal} className="fav__icon">
+                    <FiHeart />
+                  </span>
+                  <span className="cart__icon" onClick={clickCart}>
+                    <BsBag />
+                    {cartTotalQuantity === 0 ? (
+                      false
+                    ) : (
+                      <span className="__badge">{cartTotalQuantity}</span>
+                    )}
+                  </span>
+                  <span>
+                    <Dropdown>
+                      <Dropdown.Toggle
+                        variant="transparent"
+                        id="dropdown-basic"
+                        className="dropDown__Toggle"
+                      >
+                        <motion.img
+                          whileTap={{ scale: 1.2 }}
+                          src={userIcon}
+                          alt="user icon"
+                        />
+                      </Dropdown.Toggle>
 
-                      {role === "admin" ? (
-                        <Dropdown.Menu className="dropDown__user">
+                      
+                        {/* <Dropdown.Menu className="dropDown__user">
                           <Link to="/admin">
                             <Dropdown.Item
                               href="#/action-1"
@@ -216,12 +214,11 @@ const NavBar = ({ showModal }) => {
                           >
                             <span>
                               <FiLogOut size={28} />
-                              {"  "}
                             </span>
                             Log out
                           </Dropdown.Item>
-                        </Dropdown.Menu>
-                      ) : (
+                        </Dropdown.Menu> */}
+                      
                         <Dropdown.Menu className="dropDown__user">
                           <Link to="/mainprofile">
                             <Dropdown.Item
@@ -247,7 +244,7 @@ const NavBar = ({ showModal }) => {
                             Log out
                           </Dropdown.Item>
                         </Dropdown.Menu>
-                      )}
+                      
                     </Dropdown>
                   </span>
                 </div>
@@ -300,7 +297,7 @@ const NavBar = ({ showModal }) => {
             </div>
           </div>
           <div className="w-50 d-flex align-items-baseline justify-content-end">
-            {user && (
+            {token && (
               <div className="nav__icons">
                 <span onClick={showModal} className="fav__icon">
                   <FiHeart />
@@ -327,8 +324,8 @@ const NavBar = ({ showModal }) => {
                       />
                     </Dropdown.Toggle>
 
-                    {role === "admin" ? (
-                      <Dropdown.Menu className="dropDown__user">
+                    
+                      {/* <Dropdown.Menu className="dropDown__user">
                         <Link to="/admin">
                           <Dropdown.Item
                             href="#/action-1"
@@ -353,8 +350,8 @@ const NavBar = ({ showModal }) => {
                             Log out
                           </Dropdown.Item>
                         </Link>
-                      </Dropdown.Menu>
-                    ) : (
+                      </Dropdown.Menu> */}
+                   
                       <Dropdown.Menu className="dropDown__user">
                         <Link to="/mainprofile">
                           <Dropdown.Item
@@ -373,7 +370,7 @@ const NavBar = ({ showModal }) => {
                           Log out
                         </Dropdown.Item>
                       </Dropdown.Menu>
-                    )}
+                    
                   </Dropdown>
                 </span>
               </div>
@@ -427,7 +424,7 @@ const NavBar = ({ showModal }) => {
                         </Dropdown.Menu>
                       </Dropdown>
                     )} */}
-                  {!user && (
+                  {!token && (
                     <Dropdown className="mt-4">
                       <Dropdown.Toggle variant="warning" id="dropdown-basic">
                         <BiUserCircle />

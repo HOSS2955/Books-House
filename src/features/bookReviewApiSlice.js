@@ -21,7 +21,7 @@ export const bookReviewApiSlice = createApi({
          async onQueryStarted(args, { dispatch, queryFulfilled }) {
             try {
                const { data } = await queryFulfilled;
-               dispatch(getDataBookReview(data));
+               // dispatch(DataBookReview(data));
             } catch (error) {
                console.log(error);
             }

@@ -23,7 +23,7 @@ import { useDispatch } from "react-redux";
 import { logoutInState } from "../../../store/client/reducers/userSlice";
 import { toast } from "react-toastify";
 import { BiLogOut } from "react-icons/bi";
-import { useLogoutAdminMutation } from "../../../services/adminAuthApi";
+import { useLogoutAdminMutation } from "../../../features/adminApiSlice";
 import { RiLockPasswordLine } from "react-icons/ri";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -59,6 +59,7 @@ export default function Sidebar() {
   //     useLogoutUserMutation();
   const [logoutAdmin, { isLoading, isError, isSuccess, error }] =
     useLogoutAdminMutation();
+
   useEffect(() => {
     if (isSuccess) {
       dispatch(logoutInState());

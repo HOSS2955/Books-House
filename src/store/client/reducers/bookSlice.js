@@ -41,8 +41,6 @@ export const addBook = createAsyncThunk(
    }
 );
 
-
-
 export const deleteBook = createAsyncThunk(
    "books/deleteBook",
    async (book, thunckAPI) => {
@@ -123,18 +121,18 @@ const booksSlice = createSlice({
       },
    },
    extraReducers: {
-      // [getBooks.fulfilled]: (state, action) => {
-      //    state.books = action.payload;
-      // },
-      // [deleteBook.fulfilled]: (state, action) => {
-      //    state.books = action.payload;
-      // },
-      // [getBook.fulfilled]: (state, action) => {
+      [getBooks.fulfilled]: (state, action) => {
+         state.books = action.payload;
+      },
+      [deleteBook.fulfilled]: (state, action) => {
+         state.books = action.payload;
+      },
+      [getBook.fulfilled]: (state, action) => {
+         state.bookDetails = action.payload;
+      },
+      // [commentBook.fulfilled]: (state, action) => {
       //    state.bookDetails = action.payload;
       // },
-      // [commentBook.fulfilled]:(state , action)=>{
-      //    state.bookDetails = action.payload
-      // }
    },
 });
 

@@ -42,8 +42,6 @@ const item = {
 };
 
 export default function ItemCard({ book }) {
-   const user = useSelector((state) => state.userState.user);
-   const role = useSelector((state) => state.userState.role);
    const token = useSelector((state) => state.userState.token);
 
    const navigate = useNavigate();
@@ -91,7 +89,7 @@ export default function ItemCard({ book }) {
       >
         <img src={book.imageSource} alt="" className="col-12" />
 
-            {showbtns && user && token && role && (
+            {showbtns && token && (
                <motion.div
                   variants={container}
                   initial="hidden"

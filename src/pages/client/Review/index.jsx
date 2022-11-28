@@ -8,25 +8,25 @@ import { useGetBookReviewsQuery } from "../../../features/bookReviewApiSlice";
 import { bookReviewActions } from "../../../store/client/reducers/bookReviewSlice";
 
 export default function Reviews() {
-   // const data = bookReviews;
-   const [items, setItems] = useState([]);
-   const [currentPage, setCurrentPage] = useState(1);
-   const [itemsPerPage, setItemsPerPage] = useState(3);
-   const { data, isError, isLoading } = useGetBookReviewsQuery();
-   const dispatch = useDispatch();
-   const {getDataBookReview} = bookReviewActions;
-   const {bookReviews} = useSelector((state)=>state.bookReviews)
-   console.log(bookReviews)
-   useEffect(()=>{
-      if(data){
-         dispatch(getDataBookReview(data))
-         console.log("data from index" ,data)
-      }
-   },[dispatch , data])
+  // const data = bookReviews;
+  const [items, setItems] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(4);
+  const { data, isError, isLoading } = useGetBookReviewsQuery();
+  const dispatch = useDispatch();
+  const { getDataBookReview } = bookReviewActions;
+  const { bookReviews } = useSelector((state) => state.bookReviews);
+  console.log(bookReviews);
+  useEffect(() => {
+    if (data) {
+      dispatch(getDataBookReview(data));
+      console.log("data from index", data);
+    }
+  }, [dispatch, data]);
 
-   const lastItemIndex = currentPage * itemsPerPage;
-   const firstItemIndex = lastItemIndex - itemsPerPage;
-   const currentItems = items.slice(firstItemIndex, lastItemIndex);
+  const lastItemIndex = currentPage * itemsPerPage;
+  const firstItemIndex = lastItemIndex - itemsPerPage;
+  const currentItems = items.slice(firstItemIndex, lastItemIndex);
 
    const filterItem = async (curcat) => {
       const newItem = await bookReviews.filter((item) => {
@@ -137,7 +137,7 @@ export default function Reviews() {
                   </div>
                </div>
             </div>
-         </div>
-      </div>
-   );
+          </div>
+        </div>
+  );
 }

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "./review.css";
 
 export default function BookReview({ data }) {
-  console.log(data)
+  // console.log(data)
   const navigate = useNavigate();
 
   const toBookDetail = () => {
@@ -13,8 +13,8 @@ export default function BookReview({ data }) {
   };
 
   return (
-    <div className=" mx-4 border-top border-dark h-25 pb-5">
-      <div className="mt-2 row">
+    <div className=" pb-4 mx-4 border-top border-dark">
+      <div className="pt-2 row">
         {/* Date */}
         <div className="col-lg-2 col-sm-12 mt-4 d-flex flex-column ">
           <p className="text-uppercase ">novamber 15, 2022</p>
@@ -39,10 +39,10 @@ export default function BookReview({ data }) {
           </p>
         </div>
         {/* Img */}
-        <div className="col-lg-4 col-sm-12">
-          <div className=" h-75 w-100 ">
+        <div className="col-lg-4 col-sm-12 ">
+          <div className=" ">
             <img
-              className="h-100 w-100 "
+              className="h-75 w-100 Review-title"
               onClick={() => {
                 toBookDetail();
               }}

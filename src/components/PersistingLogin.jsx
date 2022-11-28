@@ -1,13 +1,14 @@
 // import React from "react";
 // import { authApiSlice } from "../features/authApiSlice";
 // import { useState, useEffect } from "react";
+// import { Outlet, useLocation } from "react-router-dom";
 // import { selectCurrentUser } from "../store/client/reducers/userSlice";
 // import { useSelector } from "react-redux";
 // import { useGetUserQuery } from "../features/authApiSlice";
 // import FullScreenLoader from "./FullScreenLoader";
 // import { useCookies } from "react-cookie";
-// import { Navigate, Outlet, useLocation } from "react-router-dom";
-// function RequireAuth({ allowedRoles }) {
+
+// function PersistingLogin({ allowedRoles }) {
 //   //   const user = useSelector(selectCurrentUser);
 //   const [cookies] = useCookies(["logged_in"]);
 //   const location = useLocation();
@@ -39,4 +40,4 @@
 //   );
 // }
 
-// export default RequireAuth;
+// export default PersistingLogin;

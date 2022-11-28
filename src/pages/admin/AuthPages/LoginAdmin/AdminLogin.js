@@ -12,14 +12,14 @@ import validator from "validator";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoadingButton as _LoadingButton } from "@mui/lab";
-import { MdEmail } from "react-icons/md";
+
 import { useDispatch } from "react-redux";
 import ProtectedComponent from "../../../../features/ProtectedComponent";
-import { useLoginUserMutation } from "../../../../features/authApiSlice";
+import { useLoginAdminMutation } from "../../../../features/adminApiSlice";
 import { toast } from "react-toastify";
-import "./Login.css";
+import "../Login.css";
 
-export default function Login2() {
+export default function LoginAdmin() {
   const LoadingButton = styled(_LoadingButton)`
     padding: 0.6rem 0;
     background-color: #212529;
@@ -32,7 +32,6 @@ export default function Login2() {
       transform: translateY(-1px);
     }
   `;
-
   const loginSchema = object({
     email: string()
       .min(1, "Email address is required")
@@ -56,21 +55,17 @@ export default function Login2() {
       )
       .min(1, "Password is required")
       .min(8, "Password must be more than 8 characters")
+
       .max(32, "Password must be less than 32 characters"),
   });
 
   const methods = useForm({
-    reValidateMode: "onSubmit",
     resolver: zodResolver(loginSchema),
   });
-
-  const [loginUser, { isLoading, isError, error, isSuccess }] =
-    useLoginUserMutation();
-
+  const [loginAdmin, { isLoading, isSuccess, isError, error }] =
+    useLoginAdminMutation();
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const from = location.state?.from.pathname || "/mainprofile";
   const {
     reset,
     handleSubmit,
@@ -80,13 +75,11 @@ export default function Login2() {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success("Welcome back again 😍");
-      navigate(from);
+      toast.success("Weclome Back Admin.");
+      navigate("/admin");
     }
     if (isError) {
-      console.log(error.data);
-
-      toast.error(error.data, {
+      toast.error(error.message, {
         position: "top-right",
       });
     }
@@ -101,19 +94,14 @@ export default function Login2() {
   }, [isSubmitSuccessful]);
 
   const onSubmitHandler = (values) => {
-    // ? Executing the loginUser Mutation
     console.log(values);
-    loginUser(values);
+    loginAdmin(values);
   };
-
-  // const signupHandler = () => {
-  //   navigate("/auth/signup");
-  // };
   return (
     <div className="main mt-5">
       <div className="centeredElement mt-5 shadow-lg bg-body">
         <div className="auth">
-          <h5 className="my-5">Login to Bookshouse</h5>
+          <h5 className="my-5">Admin Login</h5>
           {/* if the user clicked outside the input the status of the error message will appear */}
           <FormProvider {...methods}>
             <Form onSubmit={handleSubmit(onSubmitHandler)}>
@@ -121,8 +109,8 @@ export default function Login2() {
                 {/* <Form.Label>Email</Form.Label> */}
                 <InputGroup className="userInput ">
                   {/* user icon */}
-                  <InputGroup.Text id="basic-addon2">
-                    <MdEmail />
+                  <InputGroup.Text id="basic-addon1">
+                    <FaUserAlt />
                   </InputGroup.Text>
                   <Form.Control
                     {...register("email")}
@@ -139,18 +127,14 @@ export default function Login2() {
                 )}
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
                 <InputGroup className="userInput mb-2">
                   <InputGroup.Text id="basic-addon2">
                     <FaLock />
                   </InputGroup.Text>
                   <Form.Control
                     type="password"
-                    {...register("password", {
-                      required: "Password is required!",
-                    })}
-                    // {...register("password", {
-                    //   required: "Contraseña es obligatoria",
-                    // })}
+                    {...register("password", {})}
                     name="password"
                     aria-label="Password Input"
                     placeholder="Password"
@@ -164,7 +148,7 @@ export default function Login2() {
               </Form.Group>
               <LoadingButton
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 3, mb: 5 }}
                 fullWidth
                 disableElevation
                 type="submit"
@@ -174,25 +158,6 @@ export default function Login2() {
               </LoadingButton>
             </Form>
           </FormProvider>
-          <div className="divider acc mb-3">
-            <Link to="/auth/forgetpass">
-              <a>
-                <span className="text-primary">Forgot your password?</span>
-              </a>
-            </Link>
-          </div>
-          <div className="divider acc ">
-            <hr className="hrLeft text-small" />
-            <Link to="/auth/register">
-              <a>Don`t have an account?</a>
-            </Link>
-            <hr className="hrRight" />
-          </div>
-          <Link to="/auth/register">
-            <button className="btn btn-outline-dark mt-4 mb-4 fw-semibold text-small signUp ">
-              Sign Up
-            </button>
-          </Link>
         </div>
       </div>
     </div>

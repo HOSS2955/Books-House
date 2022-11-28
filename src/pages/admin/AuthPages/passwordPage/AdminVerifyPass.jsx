@@ -35,7 +35,7 @@ const LoadingButton = styled(_LoadingButton)`
   }
 `;
 
-export default function VerifyPass() {
+export default function VerifyAdminPass() {
   //The state of the error message
   const [isDisabled, setIsDisabled] = useState(true);
   const navigate = useNavigate();
@@ -103,7 +103,7 @@ export default function VerifyPass() {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Password Changed Successfully.");
-      navigate("/auth/login");
+      navigate("/@admin");
     }
     if (isError) {
       console.log(error.data);
