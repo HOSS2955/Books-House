@@ -18,7 +18,7 @@ export default function Reviews() {
    const dispatch = useDispatch();
    const navigate = useNavigate();
    const { bookReviews } = useSelector((state) => state.bookReviews);
-   const [pageSize, setPageSize] = useState(10);
+   const [pageSize, setPageSize] = useState(25);
 
    const { setdataEditBookReview, getDataBookReview } = bookReviewActions;
 
@@ -51,9 +51,7 @@ export default function Reviews() {
       if (data) {
          dispatch(getDataBookReview(data));
       }
-   }, [dispatch, data]);
-
-   console.log(bookReviews);
+   }, [dispatch]);
 
    const columns = [
       { field: "_id", hide: true },
@@ -231,12 +229,12 @@ export default function Reviews() {
             <DataGrid
                rows={bookReviews} //add reviews array
                columns={columns}
-               loading={isLoading}
+               loading={!bookReviews?.length}
                components={{
                   Toolbar: GridToolbar,
                }}
                getRowId={(row) => row._id}
-               rowsPerPageOptions={[10, 15, 20]}
+               rowsPerPageOptions={[25, 50, 100]}
                pageSize={pageSize}
                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
             />

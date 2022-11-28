@@ -25,7 +25,7 @@ export const packageApi = createApi({
                const { data } = await queryFulfilled;
                dispatch(setDataInLocalState(data));
             } catch (error) {
-               return error
+               return error;
             }
          },
       }),
@@ -42,4 +42,5 @@ export const packageApi = createApi({
    }),
 });
 
-export const { useGetPackageDataQuery, useUpdatePackageDataMutation } = packageApi;
+export const { useGetPackageDataQuery, useUpdatePackageDataMutation } =
+   packageApi;
