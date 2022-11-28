@@ -23,7 +23,7 @@ const wishlistSlice = createSlice({
           ...state.wishlistItems[existingIndex],
           wishQuantity: state.wishlistItems[existingIndex].wishQuantity + 1,
         };
-        toast.info("Product added to WishList", {
+        toast.success("Product added to WishList", {
           position: "bottom-right",
         });
       } else {
@@ -49,7 +49,7 @@ const wishlistSlice = createSlice({
 
           state.wishlistItems = nextwishlistItems;
 
-          toast.error("Product removed from Wish List", {
+          toast.success("Product removed from Wish List", {
             position: "bottom-right",
           });
         }
@@ -66,7 +66,7 @@ const wishlistSlice = createSlice({
         "wishlistItems",
         JSON.stringify(state.wishlistItems)
       );
-      toast.error("Wish List Cleard", { position: "bottom-right" });
+      toast.success("Wish List Cleard", { position: "bottom-right" });
     },
   },
 });

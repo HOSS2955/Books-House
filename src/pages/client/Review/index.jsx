@@ -8,41 +8,38 @@ import { useGetBookReviewsQuery } from "../../../features/bookReviewApiSlice";
 import { bookReviewActions } from "../../../store/client/reducers/bookReviewSlice";
 
 export default function Reviews() {
-   // const data = bookReviews;
-   const [items, setItems] = useState([]);
-   const [currentPage, setCurrentPage] = useState(1);
-   const [itemsPerPage, setItemsPerPage] = useState(4);
-   const { data, isError, isLoading } = useGetBookReviewsQuery();
-   const dispatch = useDispatch();
-   const { getDataBookReview } = bookReviewActions;
-   const { bookReviews } = useSelector((state) => state.bookReviews);
-   console.log(bookReviews);
-   useEffect(() => {
-      if (data) {
-         dispatch(getDataBookReview(data));
-         console.log("data from index", data);
-      }
-   }, [dispatch, data]);
+  // const data = bookReviews;
+  const [items, setItems] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(4);
+  const { data, isError, isLoading } = useGetBookReviewsQuery();
+  const dispatch = useDispatch();
+  const { getDataBookReview } = bookReviewActions;
+  const { bookReviews } = useSelector((state) => state.bookReviews);
+  console.log(bookReviews);
+  useEffect(() => {
+    if (data) {
+      dispatch(getDataBookReview(data));
+      console.log("data from index", data);
+    }
+  }, [dispatch, data]);
 
-   const lastItemIndex = currentPage * itemsPerPage;
-   const firstItemIndex = lastItemIndex - itemsPerPage;
-   const currentItems = items.slice(firstItemIndex, lastItemIndex);
+  const lastItemIndex = currentPage * itemsPerPage;
+  const firstItemIndex = lastItemIndex - itemsPerPage;
+  const currentItems = items.slice(firstItemIndex, lastItemIndex);
 
    const filterItem = async (curcat) => {
       const newItem = await bookReviews.filter((item) => {
-         return item.category === curcat;
+         return item?.category === curcat;
       });
       setItems(newItem);
    };
-   // const {ReviewData , isError , isLoading} = useGetBookReviewsQuery()
-   // useEffect(() => {
-   //    dispatch(ReviewData);
-   // }, [dispatch , ReviewData]);
    useEffect(() => {
-      if (data) {
-         setItems(data);
-      }
-   }, [data]);
+      if(bookReviews){
+      setItems(bookReviews);}
+   }, [bookReviews]);
+   
+
 
    return (
       <div className="starting__page">
@@ -52,7 +49,7 @@ export default function Reviews() {
             <div className="px-0 mt-5 col-12 d-flex justify-content-between flex-wrap btn-group">
                <button
                   className="mx-0  btn btn-outline-dark mt-2 "
-                  onClick={() => setItems(data)}
+                  onClick={() => setItems(bookReviews)}
                >
                   All
                </button>
@@ -108,7 +105,7 @@ export default function Reviews() {
                         <BookReview key={index} data={item} />
                      ))}
                   <Pagination
-                     totalItems={items.length}
+                     totalItems={items?.length}
                      itemsPerPage={itemsPerPage}
                      setCurrentPage={setCurrentPage}
                      currentPage={currentPage}
@@ -140,7 +137,7 @@ export default function Reviews() {
                   </div>
                </div>
             </div>
-         </div>
-      </div>
-   );
+          </div>
+        </div>
+  );
 }
