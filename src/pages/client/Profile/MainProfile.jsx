@@ -20,6 +20,9 @@ export default function MainProfile() {
   const dispatch = useDispatch();
   const [logoutUser, { isLoading, isError, isSuccess, error }] =
     useLogoutUserMutation();
+  const forgetPassword = () => {
+    navigate("/auth/send");
+  };
   useEffect(() => {
     if (isSuccess) {
       dispatch(logoutInState());
@@ -75,7 +78,7 @@ export default function MainProfile() {
                   </button>
                   <button
                     className="btn btn-outline-warning text-dark  rounded my-2"
-                    onClick={() => {}}
+                    onClick={forgetPassword}
                   >
                     Forget Your Password
                   </button>

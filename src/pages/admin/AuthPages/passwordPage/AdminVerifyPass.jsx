@@ -94,7 +94,7 @@ export default function VerifyAdminPass() {
   const email = useSelector((state) => state.temporaryEmail);
   const [forgetPassword, { isLoading, isError, error, isSuccess }] =
     useForgetPasswordMutation();
-
+  
   const deletePasswords = (e) => {
     setOtp([...otp.map((v) => "")]);
     reset();

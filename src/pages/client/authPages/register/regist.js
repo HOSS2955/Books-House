@@ -101,7 +101,7 @@ const RegisterPage = () => {
       toast.success("User registered successfully");
       reset();
 
-      navigate("/user/confirmEmail");
+      navigate("/auth/login");
     }
 
     if (isError) {
@@ -116,7 +116,6 @@ const RegisterPage = () => {
 
   const onSubmitHandler = (values) => {
     // ? Executing the RegisterUser Mutation
-    console.log(values);
     registerUser(values);
   };
 

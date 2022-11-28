@@ -22,7 +22,7 @@ export default function MyProfile() {
   //   phone: "",
   // });
   const { email } = user;
-  const id = userState.user._id;
+  const id = userState?.user?._id;
   const dispatch = useDispatch();
   // const inputHandler = (e) => {
   //   // console.log(e.target.name, ":", e.target.value);
@@ -40,7 +40,7 @@ export default function MyProfile() {
   return (
     <div className="profile">
       <div className="container-xl   rounded">
-        {!user.confirmed && (
+        {!user?.confirmed && (
           <h5 className="text-center text-danger text-capitalize">
             please confirm your email
           </h5>
@@ -75,11 +75,11 @@ export default function MyProfile() {
                           message: "User Name must be Alpa",
                         },
                       })}
-                      placeholder={user.name ? user?.name : ""}
+                      placeholder={user?.name ? user?.name : ""}
                     />
                     {errors.name && (
                       <Form.Label className="text-danger">
-                        {errors.name?.message}
+                        {errors?.name?.message}
                       </Form.Label>
                     )}
                   </div>

@@ -19,6 +19,7 @@ import ReceiptIcon from "@mui/icons-material/Receipt";
 import PaymentIcon from "@mui/icons-material/Payment";
 import { Link, useNavigate } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
+
 import { useDispatch } from "react-redux";
 import { logoutInState } from "../../../store/client/reducers/userSlice";
 import { toast } from "react-toastify";
@@ -75,7 +76,8 @@ export default function Sidebar() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
   const logoutHandler = () => {
-    logoutAdmin();
+    // logoutAdmin();
+    console.log("logout");
   };
   const passwordHandler = () => {
     navigate("/auth/adminpassword");
@@ -276,19 +278,20 @@ export default function Sidebar() {
                 title="Calendar"
                 to="/admin/calendar"
                 icon={<CalendarTodayOutlinedIcon />}
+                onClick={logoutHandler}
                 selected={selected}
                 setSelected={setSelected}
               />
               <Item
                 title="Change Password"
-                onClick={passwordHandler}
+                to="/auth/newpassword"
                 icon={<RiLockPasswordLine size={27} />}
                 selected={selected}
                 setSelected={setSelected}
               />
               <Item
                 title="Log out"
-                onClick={logoutHandler}
+                to="/admin/logout"
                 icon={<BiLogOut size={27} />}
                 selected={selected}
                 setSelected={setSelected}
