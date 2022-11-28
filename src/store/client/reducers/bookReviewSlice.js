@@ -69,33 +69,38 @@ export const updateBookReview = createAsyncThunk(
 );
 
 const bookReviewSlice = createSlice({
-   name: "bookReviews",
-   initialState,
-   reducers: {
-      setdataEditBookReview: (state, action) => {
-         console.log(action.payload);
-         state.dataEditBookReview = action.payload;
-      },
-      getDataBookReview: (state, action) => {
-         console.log("data From reducer", action.payload);
-         state.bookReviews = action.payload;
-      },
-      setFilteredBookReview: (state, action) => {
-         console.log("deleted book From reducer", action.payload);
-         state.bookReviews = action.payload;
-      },
-      addNewBookReview: (state, action) => {
-         state.bookReviews.push(action.payload);
-      },
-   },
-   extraReducers: {
-      // [getBookReviews.fulfilled]: (state, action) => {
-      //    state.bookReviews = action.payload;
-      // },
-      // [deleteBookReview.fulfilled]: (state, action) => {
-      //    state.bookReviews = action.payload;
-      // },
-   },
+  name: "bookReviews",
+  initialState,
+  reducers: {
+    setdataEditBookReview: (state, action) => {
+      console.log(action.payload);
+      state.dataEditBookReview = action.payload;
+    },
+    getDataBookReview: (state, action) => {
+      console.log("data From reducer", action.payload);
+      state.bookReviews = action.payload;
+    },
+
+    setFilteredBookReview: (state, action) => {
+      console.log("deleted book From reducer", action.payload);
+      state.bookReviews = action.payload;
+    },
+    addNewBookReview: (state, action) => {
+      state.bookReviews.push(action.payload);
+    },
+   //  getReviewById: (state , action)=>{
+   //    state.review=action.payload;
+   //    console.log("review by id " , action.payload)
+   //  }
+  },
+  extraReducers: {
+    // [getBookReviews.fulfilled]: (state, action) => {
+    //    state.bookReviews = action.payload;
+    // },
+    // [deleteBookReview.fulfilled]: (state, action) => {
+    //    state.bookReviews = action.payload;
+    // },
+  },
 });
 
 export const bookReviewReducer = bookReviewSlice.reducer;

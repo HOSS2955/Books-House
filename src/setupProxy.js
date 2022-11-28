@@ -101,6 +101,13 @@ module.exports = function (app) {
       })
    );
    app.use(
+      "/bookreview/:id",
+      createProxyMiddleware({
+         target: "http://localhost:3001",
+         changeOrigin: true,
+      })
+   );
+   app.use(
       "/user/confirmEmail/:verificationCode",
       createProxyMiddleware({
          target: "http://localhost:3001",

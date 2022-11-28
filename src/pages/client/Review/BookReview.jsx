@@ -8,7 +8,7 @@ export default function BookReview({ data }) {
    const navigate = useNavigate();
 
    const toBookDetail = () => {
-      navigate(`/reviewdetails/${data._id}`);
+      navigate(`/reviewdetails/${data?._id}`);
    };
 
    return (
