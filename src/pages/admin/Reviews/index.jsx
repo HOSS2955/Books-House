@@ -144,26 +144,38 @@ export default function Reviews() {
                         mr: "5px",
                      }}
                      onClick={actionHandler}
+                     className="btn"
                   >
-                     <Typography color={colors.grey[100]}>Delete</Typography>
+                     <Typography>Delete</Typography>
                   </Button>
                   <Button
-                     sx={{
+                      sx={{
                         mx: "5px",
+                        background: colors.warning[100],
+                        "&:hover": {
+                           background: colors.warning[100],
+                           opacity: [0.9, 0.8, 0.7],
+                         },
+                         "&:focus-visible": {
+                           background: colors.warning[100],
+                           opacity: [0.9, 0.8, 0.7],
+                         },
                      }}
-                     variant="contained"
-                     color="success"
+                     // variant="contained"
+                     // color="info"
                      onClick={actionHandler}
+                     className="btn"
                   >
-                     <Typography color={colors.grey[100]}>Edit</Typography>
+                     <Typography>Edit</Typography>
                   </Button>
                   <Button
                      sx={{
                         ml: "5px",
                      }}
                      variant="contained"
-                     color="inherit"
+                     color="success"
                      onClick={actionHandler}
+                     className="btn"
                   >
                      <Typography color={colors.grey[900]}>View</Typography>
                   </Button>
@@ -178,21 +190,24 @@ export default function Reviews() {
    };
    return (
       <Box m="20px">
-         <Button
+         <button
             onClick={addNewReview}
-            variant="contained"
+            // variant="outlined"
+            // color="warning"
+            className="btn btn-outline-primary"
             sx={{
-               m: "20px",
-               color: colors.primary[900],
-               backgroundColor: colors.blueAccent[400],
+               // m: "20px",
+               // color: colors.warning[100],
+               // backgroundColor: colors.warning[100],
                "&:hover": {
-                  backgroundColor: colors.blueAccent[500],
+                  // color:"default",
+                  // backgroundColor: colors.warning[100],
                   opacity: [0.9, 0.8, 0.7],
                },
             }}
          >
             Add New Review
-         </Button>
+         </button>
          <Box
             m="40px 0 0 0"
             height="85vh"
@@ -208,7 +223,7 @@ export default function Reviews() {
                },
                "& .img-column--cell": {},
                "& .MuiDataGrid-columnHeader": {
-                  backgroundColor: colors.blueAccent[700],
+                  backgroundColor: colors.grey[350],
                   borderBottom: "none",
                },
                "& .MuiDataGrid-virtualScroller": {
@@ -216,7 +231,7 @@ export default function Reviews() {
                },
                "& .MuiDataGrid-footerContainer": {
                   borderTop: "none",
-                  backgroundColor: colors.blueAccent[700],
+                  backgroundColor: colors.grey[350],
                },
                "& .MuiCheckbox-root": {
                   color: `${colors.greenAccent[200]} !important`,

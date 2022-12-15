@@ -42,7 +42,7 @@ const Footer = () => {
                         alt="logo"
                      />
                      <div>
-                        <h5 className="text-light mt-2">BooksHouse</h5>
+                        <h5 className="text-light mt-2">Book Storm</h5>
                      </div>
                   </div>
                   <p className="footer__text mt-3 pe-3 col-10 text-white-50">
@@ -124,7 +124,7 @@ const Footer = () => {
                               <i className="ri-mail-line"></i>
                            </span>
                            <p className="text-white-50">
-                              <MdEmail className="fs-5" /> bookshouse@gmail.com
+                              <MdEmail className="fs-5" /> BookStorm@gmail.com
                            </p>
                         </ListGroupItem>
                         <ListGroupItem className="ps-0 border-0  gap-2  bg-transparent">

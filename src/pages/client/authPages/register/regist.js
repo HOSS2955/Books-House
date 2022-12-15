@@ -123,7 +123,7 @@ const RegisterPage = () => {
     <div className="main mt-5">
       <div className="centeredElement mt-5 shadow-lg bg-body">
         <div className="auth">
-          <h5 className="my-5">Welcome to Bookshouse</h5>
+          <h5 className="my-5">Welcome to BookStorm</h5>
           {/* if the user clicked outside the input the status of the error message will appear */}
           <FormProvider {...methods}>
             <Form onSubmit={handleSubmit(onSubmitHandler)}>

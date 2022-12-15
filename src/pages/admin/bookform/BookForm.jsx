@@ -244,9 +244,14 @@ export default function BookForm() {
               />
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-              <Button type="submit" color="secondary" variant="contained">
+              <button type="submit"className="btn btn-outline-primary"
+            sx={{
+               "&:hover": {
+                  opacity: [0.9, 0.8, 0.7],
+               },
+            }}>
                 {id ? "Edit User" : "Add New Book"}
-              </Button>
+              </button>
             </Box>
           </form>
         )}
@@ -273,20 +278,21 @@ export default function BookForm() {
             type="file"
           />
 
-          <Button
+          <Box
             variant="contained"
             component="span"
+            className="btn btn-warning"
             sx={{
-              color: "#ffffff",
-              backgroundColor: colors.blueAccent[600],
+              // color: "#ffffff",
+              // backgroundColor: colors.blueAccent[600],
               "&:hover": {
-                backgroundColor: colors.blueAccent[500],
+                // backgroundColor: colors.blueAccent[500],
                 opacity: [0.9, 0.8, 0.7],
               },
             }}
           >
             Choose Image
-          </Button>
+          </Box>
         </label>
         <LoadingButton
           variant="contained"
@@ -297,7 +303,7 @@ export default function BookForm() {
             backgroundColor: colors.greenAccent[600],
             ml: 3,
             "&:hover": {
-              backgroundColor: colors.greenAccent[700],
+              backgroundColor: colors.greenAccent[600],
               opacity: [0.9, 0.8, 0.7],
             },
           }}

@@ -40,7 +40,7 @@ export default function Topbar() {
       <Box display="flex">
         <IconButton>
           <IconButton onClick={colorMode.toggleColorMode} />
-          {theme.palette.mode === "dark" ? (
+          {theme.palette.mode === "light" ? (
             <DarkModeOutlinedIcon />
           ) : (
             <LightModeOutlinedIcon />

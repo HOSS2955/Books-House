@@ -214,7 +214,7 @@ const LoginAdmin = () => {
             </LoadingButton>
 
             <Typography align="center" sx={{ fontSize: "0.9rem", my: "1rem" }}>
-              Don`t have a Bookshouse account? <br />
+              Don`t have a BookStorm account? <br />
               <LinkItem>
                 <Link to="/auth/register"> Sign Up Here</Link>{" "}
               </LinkItem>

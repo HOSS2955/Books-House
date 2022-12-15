@@ -127,26 +127,38 @@ export default function Books() {
                         mr: "5px",
                      }}
                      onClick={actionHandler}
+                     className="btn"
                   >
-                     <Typography color={colors.grey[100]}>Delete</Typography>
+                     <Typography>Delete</Typography>
                   </Button>
                   <Button
                      sx={{
                         mx: "5px",
+                        background: colors.warning[100],
+                        "&:hover": {
+                           background: colors.warning[100],
+                           opacity: [0.9, 0.8, 0.7],
+                         },
+                         "&:focus-visible": {
+                           background: colors.warning[100],
+                           opacity: [0.9, 0.8, 0.7],
+                         },
                      }}
-                     variant="contained"
-                     color="success"
+                     // variant="contained"
+                     // color="info"
                      onClick={actionHandler}
+                     className="btn"
                   >
-                     <Typography color={colors.grey[100]}>Edit</Typography>
+                     <Typography>Edit</Typography>
                   </Button>
                   <Button
                      sx={{
                         ml: "5px",
                      }}
                      variant="contained"
-                     color="inherit"
+                     color="success"
                      onClick={actionHandler}
+                     className="btn"
                   >
                      <Typography color={colors.grey[900]}>View</Typography>
                   </Button>
@@ -161,21 +173,22 @@ export default function Books() {
    };
    return (
       <Box m="20px">
-         <Button
+         <button
             onClick={addNewBook}
-            variant="contained"
+            // variant="contained"
+            className="btn btn-outline-primary"
             sx={{
-               m: "20px",
-               color: colors.primary[900],
-               backgroundColor: colors.blueAccent[400],
+               // m: "20px",
+               // color: colors.primary[900],
+               // backgroundColor: colors.blueAccent[400],
                "&:hover": {
-                  backgroundColor: colors.blueAccent[500],
+                  // backgroundColor: colors.blueAccent[500],
                   opacity: [0.9, 0.8, 0.7],
                },
             }}
          >
             Add New Book
-         </Button>
+         </button>
          <Box
             m="40px 0 0 0"
             height="85vh"
@@ -191,7 +204,7 @@ export default function Books() {
                },
                "& .img-column--cell": {},
                "& .MuiDataGrid-columnHeader": {
-                  backgroundColor: colors.blueAccent[700],
+                  backgroundColor: colors.grey[350],
                   borderBottom: "none",
                },
                "& .MuiDataGrid-virtualScroller": {
@@ -199,7 +212,7 @@ export default function Books() {
                },
                "& .MuiDataGrid-footerContainer": {
                   borderTop: "none",
-                  backgroundColor: colors.blueAccent[700],
+                  backgroundColor: colors.grey[350],
                },
                "& .MuiCheckbox-root": {
                   color: `${colors.greenAccent[200]} !important`,

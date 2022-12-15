@@ -60,6 +60,7 @@ export default function UsersStore() {
       renderCell: ({ row: { confirmed } }) => {
         return (
           <Box
+          // <button
             width="60%"
             m="0 auto"
             p="5px"
@@ -68,12 +69,19 @@ export default function UsersStore() {
             backgroundColor={
               confirmed ? colors.greenAccent[600] : colors.redAccent[500]
             }
-            borderRadius="4px"
+            borderRadius="30px"
+            // className="btn"
           >
-            <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
+            <Typography  
+            variant="contained"
+             color={colors.white[100]}
+              sx={{ ml: "5px" }}
+              >
               {confirmed ? <CheckIcon /> : <ClearIcon />}
             </Typography>
-          </Box>
+            
+            {/* </button> */}
+            </Box>
         );
       },
     },
@@ -96,7 +104,7 @@ export default function UsersStore() {
             color: colors.greenAccent[300],
           },
           "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: colors.grey[350],
             borderBottom: "none",
           },
           "& .MuiDataGrid-virtualScroller": {
@@ -104,7 +112,7 @@ export default function UsersStore() {
           },
           "& .MuiDataGrid-footerContainer": {
             borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: colors.grey[350],
           },
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,

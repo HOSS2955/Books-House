@@ -134,7 +134,7 @@ const NavBar = ({ showModal }) => {
                 <img src={logo2} alt="logo" />
                 <div>
                   <Link to="/">
-                    <h1 className="mb-0">Books House</h1>
+                    <h1 className="mb-0">Book Storm</h1>
                   </Link>
                 </div>
               </div>
@@ -293,7 +293,7 @@ const NavBar = ({ showModal }) => {
           <div className="logo">
             <img src={logo2} alt="logo" />
             <div>
-              <h1 className="mb-0">Books House</h1>
+              <h1 className="mb-0">Book Storm</h1>
             </div>
           </div>
           <div className="w-50 d-flex align-items-baseline justify-content-end">

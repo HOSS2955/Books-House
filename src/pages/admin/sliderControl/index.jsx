@@ -104,6 +104,10 @@ const SliderControl = () => {
                   onClick={uploadImage}
                   sx={{
                      backgroundColor: colors.greenAccent[600],
+                     "&:hover": {
+                        // backgroundColor: colors.greenAccent[700],
+                        opacity: [0.9, 0.8, 0.7],
+                     },
                   }}
                >
                   Upload

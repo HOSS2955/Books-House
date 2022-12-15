@@ -9,7 +9,7 @@ const AboutUs = () => {
         </div>
         <div className="col-9 col-sm-12">
           <p className="text-muted">
-            BooksHouse employs world-class Digital professionals with cutting
+          BookStorm employs world-class Digital professionals with cutting
             edge knowledge and experience . Our wide experience in the digital
             space makes us the best choice for your company needs and our focus
             on highly specialized areas allows us to deliver superior
@@ -21,9 +21,9 @@ const AboutUs = () => {
       </div>
       <h5 className="fw-bold mb-4">ABOUT US</h5>
             <p className="text-muted">
-              Established in 2016, BooksHouse is a leading digital services
+              Established in 2016, BookStorm is a leading digital services
               company with specializations in Artificial Intelligence, Cyber
-              Security, Data Science, IoT and Software Engineering. BooksHouse
+              Security, Data Science, IoT and Software Engineering. BookStorm
               works with large companies including financial, media, healthcare
               and governmental organizations.
             </p>

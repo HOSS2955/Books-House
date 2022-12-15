@@ -236,13 +236,14 @@ export default function ReviewsForm() {
                      />
                   </Box>
                   <Box display="flex" justifyContent="end" mt="20px">
-                     <Button
+                     <button
                         type="submit"
-                        color="secondary"
-                        variant="contained"
+                        // color="secondary"
+                        // variant="contained"
+                        className="btn btn-outline-primary"
                      >
                         {id ? "Edit " : "Add Review"}
-                     </Button>
+                     </button>
                   </Box>
                </form>
             )}
@@ -269,20 +270,21 @@ export default function ReviewsForm() {
                   type="file"
                />
 
-               <Button
+               <Box
                   variant="contained"
                   component="span"
+                  className="btn btn-warning"
                   sx={{
-                     color: "#ffffff",
-                     backgroundColor: colors.blueAccent[400],
+                     // color: "#ffffff",
+                     // backgroundColor: colors.blueAccent[400],
                      "&:hover": {
-                        backgroundColor: colors.blueAccent[500],
+                        // backgroundColor: colors.blueAccent[500],
                         opacity: [0.9, 0.8, 0.7],
                      },
                   }}
                >
                   Choose Image
-               </Button>
+               </Box>
             </label>
 
             <LoadingButton
@@ -294,7 +296,7 @@ export default function ReviewsForm() {
                   backgroundColor: colors.greenAccent[600],
                   ml: 3,
                   "&:hover": {
-                     backgroundColor: colors.greenAccent[700],
+                     backgroundColor: colors.greenAccent[600],
                      opacity: [0.9, 0.8, 0.7],
                   },
                }}

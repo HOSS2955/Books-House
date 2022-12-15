@@ -46,7 +46,9 @@
    background-color: rgba(13, 110, 253, 0.6);
    color: white;
 }
-
+.banner__header{
+   font-size: 5.5rem;
+}
 .buy__btn {
    border: none;
    outline: none;
@@ -54,10 +56,11 @@
    border-radius: 5px;
    font-size: 1rem;
    margin-top: 40px;
-   top: 73%;
-   left: 42%;
+   /* top: 73%;
+   left: 42%; */
    font-weight: 600;
    margin: 0px 0px 3px 5px;
+   /* width:25%; */
 }
 .buy__btn a:hover {
    color: black;

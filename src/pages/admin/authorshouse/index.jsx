@@ -68,7 +68,7 @@ export default function AuthorsHouse() {
                   color: colors.greenAccent[300],
                },
                "& .MuiDataGrid-columnHeader": {
-                  backgroundColor: colors.blueAccent[700],
+                  backgroundColor: colors.grey[350],
                   borderBottom: "none",
                },
                "& .MuiDataGrid-virtualScroller": {
@@ -76,7 +76,7 @@ export default function AuthorsHouse() {
                },
                "& .MuiDataGrid-footerContainer": {
                   borderTop: "none",
-                  backgroundColor: colors.blueAccent[700],
+                  backgroundColor: colors.grey[350],
                },
                "& .MuiCheckbox-root": {
                   color: `${colors.greenAccent[200]} !important`,

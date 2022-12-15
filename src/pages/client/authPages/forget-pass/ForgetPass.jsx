@@ -75,7 +75,7 @@ export default function FargotPass() {
       <div className="main">
         <div className="centeredElement">
           <div className="auth">
-            <h5 className="my-5">Log in to Bookshouse</h5>
+            <h5 className="my-5">Log in to BookStorm</h5>
 
             <div className="mb-5">
               {/* if the user clicked outside the input the status of the error message will appear */}

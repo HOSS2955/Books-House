@@ -58,29 +58,29 @@ const HeaderSwiper = ({ headerArray }) => {
       >
         
         <SwiperSlide className="h-100 d-flex align-items-center justify-content-center mt-5 flex-column">
-          <h1 className="m-5 fw-bold">BooksHouse</h1>
+          <h1 className="banner__header m-5 fw-bold">Book Storm</h1>
           <h5 className="m-5 fw-bold">Get you book reviewed</h5>
         </SwiperSlide>
-        <SwiperSlide style={{padding:"0px 20%"}}>
-          <h1 className="fw-bold pb-3 text-center">BooksHouse</h1>
-  <p className="pb-5 fs-5"><b>Bookshouse</b> is definitely the best place to help you start filling your shelves with all the books you love!
-In <b>Bookshouse</b>, we believe in the power of a single book which is why we have made the process of navigating through thousands of books as easy as a scroll of a finger!
-( <b>Bookshouse</b> provides thousands of books worldwide at the scroll of your finger! )</p>
-</SwiperSlide>
+        {/* <SwiperSlide style={{padding:"0px 20%"}}>
+          <h1 className="fw-bold pb-3 text-center">BookStorm</h1>
+  <p className="pb-5 fs-5"><b>BookStorm</b> is definitely the best place to help you start filling your shelves with all the books you love!
+In <b>BookStorm</b>, we believe in the power of a single book which is why we have made the process of navigating through thousands of books as easy as a scroll of a finger!
+( <b>BookStorm</b> provides thousands of books worldwide at the scroll of your finger! )</p>
+</SwiperSlide> */}
         {/* <Mapping header data/> */}
         {headerArray.map((item, index) => {
           return (
             <SwiperSlide className="bg-transparent" key={index}  style={{padding:"0px 20%"}}>
-              <div className="hero__content">
+              <div className="hero__content d-flex flex-column align-items-center">
                 <h2 className="hero__subtitle mb-5 fw-bold">Our Services</h2>
-                <h4 className="pb-5">{item.title}</h4>
-                <p className="pb-5">{item.desc}</p>
+                <h4 className="pb-5 fw-bold">{item.title}</h4>
+                <p className="pb-5 fw-bold text-dark">{item.desc}</p>
 
                 <motion.button
                   whileHover={{ scale: 1.05 }}
-                  className="buy__btn mb-5 btn btn-warning"
+                  className="buy__btn mb-5 btn btn-dark"
                 >
-                  <Link to={item.path}>{item.btn}</Link>
+                  <Link to={item.path} className="text-light">{item.btn}</Link>
                 </motion.button>
               </div>
             </SwiperSlide>

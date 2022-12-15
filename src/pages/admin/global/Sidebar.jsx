@@ -38,6 +38,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
             color: colors.grey[100],
             listStyle: "none",
          }}
+
          onClick={() => {
             return setSelected(title), navigate(to);
          }}
@@ -97,10 +98,13 @@ export default function Sidebar() {
                   padding: "5px 35px 5px 20px !important",
                },
                "& .pro-inner-item:hover": {
-                  color: "#868dfb !important",
+                  color: "#FFC107 !important",
                },
                "& .pro-menu-item.active": {
-                  color: "#6870fa !important",
+                  color: "#FFC107 !important",
+               },
+               "& .pro-inner-item:focus": {
+                  color: "#FFC107 !important",
                },
                "& .pro-sidebar.collapsed": {
                   "min-width": "100px",

@@ -168,9 +168,18 @@ export default function PackagesControl() {
                   </Box>
                   <Box display="flex" justifyContent="end" mt="20px">
                      <Button
+                     sx={{
+                        mx: "5px",
+                        background: colors.warning[100],
+                        "&:hover": {
+                           // backgroundColor: colors.blueAccent[500],
+                           opacity: [0.9, 0.8, 0.7],
+                         },
+                     }}
                         type="submit"
-                        color="secondary"
-                        variant="contained"
+                        // color="secondary"
+                        // variant="contained"
+                        className="btn"
                      >
                         EDIT
                      </Button>

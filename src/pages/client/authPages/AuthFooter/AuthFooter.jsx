@@ -6,7 +6,7 @@ export default function AuthFooter() {
     <div>
       <footer className="auth__footer m-3 d-flex align-items-center justify-content-center">
         <p className="text-dark text-small">
-          &copy; 2015 - 2022 Bookshouse Global inc Privact Policy
+          &copy; 2015 - 2022 BookStorm Global inc Privact Policy
         </p>
       </footer>
     </div>

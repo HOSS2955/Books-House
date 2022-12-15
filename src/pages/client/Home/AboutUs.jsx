@@ -62,14 +62,14 @@ const AboutUs = () => {
                   Who We Are ?
                </motion.h5>
                <motion.p className="text-muted" variants={item}>
-                  Bookshouse realizes the importance of ink and paper which is
+               BookStorm realizes the importance of ink and paper which is
                   why we aim at freeing them. We know that self-publishing can
                   be risky and that publishing houses don’t always prefer the
-                  risk, either. That’s why, in Bookshouse, our mission is to
+                  risk, either. That’s why, in BookStorm, our mission is to
                   help every author get a chance at recognition, not only by
                   displaying the book in our store but also by providing
                   detailed and honest reviews of the book to encourage readers
-                  to put their trust in lesser-known books. Bookshouse also
+                  to put their trust in lesser-known books. BookStorm also
                   helps you get hold of the books you love at the touch of a
                   screen and find your next favorite book among thousands of
                   books worldwide.
