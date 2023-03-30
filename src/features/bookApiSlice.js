@@ -6,7 +6,7 @@ const { getDataBook, setFilteredBook, getBookDetails } = booksActions;
 export const bookApiSlice = createApi({
    reducerPath: "booksApiSlice",
    baseQuery: fetchBaseQuery({ baseUrl: "/book/" }),
-   tagTypes: [{ title: "BOOKS", id: "BOOKS_LIST" }],
+   tagTypes: [{ title: "BOOKS"}],
    endpoints: (builder) => ({
       getBooks: builder.query({
          query: () => {

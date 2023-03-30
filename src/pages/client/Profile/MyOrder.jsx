@@ -12,7 +12,7 @@ export default function MyOrder() {
 
   useEffect(() => {
     dispatch(getprofileOrder({ email }));
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>

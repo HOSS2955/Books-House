@@ -108,7 +108,8 @@ export const authApiSlice = createApi({
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          dispatch(setUserInState(data));
+          console.log("Data Recieved ", data);
+          // dispatch(setUserInState(data));
         } catch (error) {
           console.log(error);
           window.href.location = "/auth/login";

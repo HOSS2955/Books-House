@@ -12,6 +12,8 @@ function AuthMiddleware() {
   // const [getUser, { data, isSuccess, isLoading, isError }] =
   //   useGetUserMutation();
 
+  const { } = authApiSlice.endpoints.getUser.initiate();
+
   const { isLoading, isFetching } = authApiSlice.endpoints.getUser.useQuery(
     null,
     {
@@ -19,7 +21,6 @@ function AuthMiddleware() {
     }
   );
   const loading = isLoading || isFetching;
-
 
   return <>{loading ? <FullScreenLoader /> : <Outlet />}</>;
 }

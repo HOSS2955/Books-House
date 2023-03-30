@@ -29,7 +29,6 @@ import UnauthorizePage from "./pages/client/Unauthorized/UnauthorizedPage";
 import Completion from "./components/client/ui/Completion/Completion";
 // import LoginAdmin from "./pages/client/authPages/login/LoginAdmin";
 import LoginAdmin from "./pages/admin/AuthPages/LoginAdmin/AdminLogin";
-
 import Login2 from "./pages/client/authPages/login/log";
 import RegisterPage from "./pages/client/authPages/register/regist";
 import ErrorNotFound from "./pages/client/errorNotFound";

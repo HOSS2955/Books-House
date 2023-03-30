@@ -1,141 +1,101 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { bookReviewActions } from "../store/client/reducers/bookReviewSlice";
 const {
-   getDataBookReview,
-   addNewBookReview,
-   setFilteredBookReview,
-   getReviewById,
+  getDataBookReview,
+  addNewBookReview,
+  setFilteredBookReview,
+  getReviewById,
 } = bookReviewActions;
 
+// const initialState = postsAdapter.getInitialState();
+
 export const bookReviewApiSlice = createApi({
-   baseQuery: fetchBaseQuery({ baseUrl: "/bookreview/" }),
-   reducerPath: "reviewsApiSlice",
-   tagTypes: [{ title: "REVIEWS", id: "REVIEWS_LIST" }],
+  baseQuery: fetchBaseQuery({ baseUrl: "/bookreview/" }),
+  reducerPath: "reviewsApiSlice",
+  tagTypes: ["REVIEWS"],
 
-   endpoints: (builder) => ({
-      getBookReviews: builder.query({
-         query() {
-            return {
-               url: "getall",
-               credentials: "include",
-            };
-         },
-         providesTags: [{ title: "REVIEWS", id: "REVIEWS_LIST" }],
-         transformResponse: (result) => result,
-         async onQueryStarted(args, { dispatch, queryFulfilled }) {
-            try {
-               const { data } = await queryFulfilled;
-               dispatch(getDataBookReview(data));
-            } catch (error) {
-               console.log(error);
+  endpoints: (builder) => ({
+    getBookReviews: builder.query({
+      query: () => "getall",
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ _id }) => ({ type: "REVIEWS", id: _id })),
+              { type: "REVIEWS", id: "REVIEWS_LIST" },
+            ]
+          : [{ type: "REVIEWS", id: "REVIEWS_LIST" }],
+
+      async onQueryStarted(args, { dispatch, queryFulfilled, getCacheEntry }) {
+        if (getCacheEntry().status === "fullfiled") {
+          const cacheeee = getCacheEntry();
+          console.log(cacheeee);
+        }
+      },
+    }),
+
+    getBookReviewById: builder.query({
+      query: (id) => `${id}`,
+      providesTags: (result, error, id) => [{ type: "REVIEWS", id: id }],
+    }),
+
+    deleteBookReview: builder.mutation({
+      query(bookReview) {
+        const { _id } = bookReview;
+        console.log("ID INSIDE API ,", _id);
+        return {
+          url: `remove/${_id}`,
+          method: "DELETE",
+          // body: _id,
+          // credentials: "include",
+        };
+      },
+      invalidatesTags: (result, error, args) => [
+        { type: "REVIEWS", id: args?._id },
+      ],
+    }),
+
+    addBookReview: builder.mutation({
+      query: (comingData) => ({
+        url: "newbookreview",
+        method: "POST",
+        body: comingData,
+        credentials: "include",
+      }),
+      invalidatesTags: [{ type: "REVIEWS", id: "REVIEWS_LIST" }],
+    }),
+
+    updateBookReview: builder.mutation({
+      query: ({ id, formValue }) => ({
+        url: `updateBookReview/${id}`,
+        method: "PUT",
+        body: formValue,
+        credentials: "include",
+      }),
+      async onQueryStarted({ id, formValue }, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          bookReviewApiSlice.util.updateQueryData(
+            "getBookReviewById",
+            id,
+            (draft) => {
+              Object.assign(draft, formValue);
             }
-         },
-      }),
-
-      getBookReviewById: builder.query({
-         query: (id) => `${id}`,
-         providesTags: (result, error, id) => [{ title: "REVIEWS", id: id }],
-      }),
-
-      // getBookReviewById: builder.query({
-      //    query(id) => `${id}` {
-      //       console.log("id from rtk" , id)
-      //       return {
-      //          url: `${id}`,
-      //          method: "GET",
-      //          credentials: "include",
-      //       };
-      //    },
-      //    invalidatesTags: [{ title: "REVIEWS", id: "REVIEWS_LIST" }],
-      //    async onQueryStarted(args, { queryFulfilled }) {
-      //       try {
-
-      //          const { data } = await queryFulfilled;
-
-      //          console.log("review" , data);
-      //       } catch (error) {
-      //          console.log(error);
-      //       }
-      //    },
-      // }),
-
-      deleteBookReview: builder.mutation({
-         query(bookReview) {
-            const { _id } = bookReview;
-            return {
-               url: `remove/${_id}`,
-               method: "DELETE",
-               body: _id,
-               credentials: "include",
-            };
-         },
-         invalidatesTags: [{ title: "REVIEWS", id: "REVIEWS_LIST" }],
-         async onQueryStarted(bookReview, { dispatch, getState }) {
-            try {
-               const state = getState();
-
-               const filterArr = state.bookReviews.bookReviews.filter(
-                  (ele) => ele._id !== bookReview._id
-               );
-               dispatch(setFilteredBookReview(filterArr));
-            } catch (error) {
-               console.log(error);
-            }
-         },
-      }),
-
-      addBookReview: builder.mutation({
-         query(comingData) {
-            return {
-               url: "newbookreview",
-               method: "POST",
-               body: comingData,
-               credentials: "include",
-            };
-         },
-         invalidatesTags: [{ title: "REVIEWS", id: "REVIEWS_LIST" }],
-         async onQueryStarted(comingData, { dispatch, queryFulfilled }) {
-            try {
-               const { data } = await queryFulfilled;
-               dispatch(addNewBookReview(data));
-            } catch (error) {
-               console.log(error);
-            }
-         },
-      }),
-
-      updateBookReview: builder.mutation({
-         query({ id, formValue }) {
-            return {
-               url: `updateBookReview/${id}`,
-               method: "PUT",
-               body: formValue,
-               credentials: "include",
-            };
-         },
-         invalidatesTags: [{ title: "REVIEWS", id: "REVIEWS_LIST" }],
-         async onQueryStarted(args, { getState, dispatch, queryFulfilled }) {
-            try {
-               const state = getState();
-               const { data } = await queryFulfilled;
-               console.log(data);
-               const updatedlist = state.bookReviews.bookReviews.map((ele) =>
-                  ele._id === data._id ? data : ele
-               );
-               console.log("updated list", updatedlist);
-               dispatch(getDataBookReview(updatedlist));
-            } catch (error) {
-               console.log(error);
-            }
-         },
-      }),
-   }),
+          )
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
+      invalidatesTags: (result, error, { id }) => [{ type: "REVIEWS", id }],
+    }),
+  }),
 });
 
 export const {
-   useGetBookReviewsQuery,
-   useAddBookReviewMutation,
-   useDeleteBookReviewMutation,
-   useUpdateBookReviewMutation,
-   useGetBookReviewByIdQuery,
+  useGetBookReviewsQuery,
+  useAddBookReviewMutation,
+  useDeleteBookReviewMutation,
+  useUpdateBookReviewMutation,
+  useGetBookReviewByIdQuery,
 } = bookReviewApiSlice;

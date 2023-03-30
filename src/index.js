@@ -16,26 +16,30 @@ import Admin from "./Admin";
 import RequireUser from "./components/RequireAuth";
 import RequireAuth from "./components/RequireAuth";
 import ScrollToTop from "./components/ScrollToTop";
+import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
+import { bookReviewApiSlice } from "./features/bookReviewApiSlice";
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById("root"));
+// clientStore.dispatch(bookReviewApiSlice.endpoints.getBookReviews.initiate());
+// clientStore.dispatch(bookReviewApiSlice.endpoints.getBookReviews.initiate(null, {}));
 root.render(
-   <React.StrictMode>
-      {/* <Provider store={adminStore}> */}
-      <Provider store={clientStore}>
-         <BrowserRouter>
-            <QueryClientProvider client={queryClient}>
-               <ScrollToTop />
-               <Routes>
-                  <Route path="/*" element={<App />} />
-                  {/* <Route element={<RequireAuth allowedRoles={["admin"]} />}> */}
-                  <Route path="/admin/*" element={<Admin />} />
-                  {/* </Route> */}
-               </Routes>
-            </QueryClientProvider>
-         </BrowserRouter>
-      </Provider>
-      {/* </Provider> */}
-   </React.StrictMode>
+  <React.StrictMode>
+    {/* <Provider store={adminStore}> */}
+    <Provider store={clientStore}>
+      <BrowserRouter>
+        <QueryClientProvider client={queryClient}>
+          <ScrollToTop />
+          <Routes>
+            <Route path="/*" element={<App />} />
+            {/* <Route element={<RequireAuth allowedRoles={["admin"]} />}> */}
+            <Route path="/admin/*" element={<Admin />} />
+            {/* </Route> */}
+          </Routes>
+        </QueryClientProvider>
+      </BrowserRouter>
+    </Provider>
+    {/* </Provider> */}
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

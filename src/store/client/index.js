@@ -22,6 +22,7 @@ import { bookApiSlice } from "../../features/bookApiSlice";
 import { bookReviewApiSlice } from "../../features/bookReviewApiSlice";
 import { tempEmailReducer } from "./reducers/tempEmail";
 import { adminApiSlice } from "../../features/adminApiSlice";
+import { setupListeners } from "@reduxjs/toolkit/dist/query";
 export const clientStore = configureStore({
   reducer: {
     books: booksReducer,
@@ -48,14 +49,16 @@ export const clientStore = configureStore({
     WishList: wishlistReducer,
   },
   middleware: (gDM) =>
-    gDM().concat(
+    gDM().concat([
       homepageApi.middleware,
       adminApiSlice.middleware,
       packageApi.middleware,
       authApiSlice.middleware,
       userApi.middleware,
       bookApiSlice.middleware,
-      bookReviewApiSlice.middleware
+      bookReviewApiSlice.middleware,
       // authApi.middleware
-    ),
+    ]),
+  devTools: true,
 });
+setupListeners(clientStore.dispatch);
